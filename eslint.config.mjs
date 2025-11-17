@@ -15,6 +15,8 @@ export default tseslint.config(
     ignores: [
       '**/dist/**',
       'eslint.config.mjs',
+      'workspaces/shared/src/generated/types.generated.ts',
+      'workspaces/shared/src/generated/validation.ts',
     ],
   },
   {

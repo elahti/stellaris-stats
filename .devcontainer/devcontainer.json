@@ -9,6 +9,7 @@
     "vscode": {
       "extensions": [
         "Anthropic.claude-code",
+        "apollographql.vscode-apollo",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "GitHub.copilot-chat",
@@ -62,7 +63,9 @@
     }
   },
   "dockerComposeFile": "docker-compose.yml",
-  "forwardPorts": [],
+  "forwardPorts": [
+    4000
+  ],
   "name": "Stellaris Stats Dev Container",
   "postCreateCommand": ". .devcontainer/post-create-command.sh",
   "service": "devcontainer",

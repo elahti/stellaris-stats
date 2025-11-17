@@ -30,6 +30,14 @@ npm run gamestateToJson:run -- -g <gamestateId>
 
 The script expects gamestate data to be located at `/stellaris-data/<gamestateId>/ironman.sav`.
 
+#### GraphQL Code Generation
+
+Generate TypeScript types from GraphQL schema:
+
+```bash
+npm run graphql:codegen
+```
+
 ### Linting & Formatting
 
 ```bash
@@ -54,4 +62,4 @@ Each workspace has its own tsconfig.json that extends the root config (`tsconfig
 - Use the mcp**ide**getDiagnostics tool to verify that the code you have edited, works
 - When adding dependencies to package.json, always use exact version, without caret (^)
 - When having the option of using async and sync version of a library, prefer async version
-- When making edits that modify how programs are run from the command line, remember to update CLAUDE.md accordingly
+- When updating package.json scripts or making other edits to files that modify how programs are run from the command line, remember to update CLAUDE.md accordingly

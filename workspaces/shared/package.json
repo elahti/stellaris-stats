@@ -1,0 +1,40 @@
+{
+  "dependencies": {
+    "graphql": "16.12.0",
+    "graphql-scalars": "1.25.0",
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "@eddeee888/gcg-typescript-resolver-files": "0.14.0",
+    "@graphql-codegen/cli": "6.0.2",
+    "graphql-codegen-typescript-validation-schema": "0.18.1"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/node/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./resolvers": {
+      "import": "./dist/node/generated/resolvers.js",
+      "types": "./dist/types/generated/resolvers.d.ts"
+    },
+    "./typeDefs": {
+      "import": "./dist/node/generated/typeDefs.js",
+      "types": "./dist/types/generated/typeDefs.d.ts"
+    },
+    "./validation": {
+      "import": "./dist/node/generated/validation.js",
+      "types": "./dist/types/generated/validation.d.ts"
+    }
+  },
+  "name": "@stellaris-stats/shared",
+  "private": true,
+  "scripts": {
+    "build": "npm run graphql:codegen && npm run build:node && npm run build:types",
+    "build:node": "tsc -p tsconfig.node.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "graphql:codegen": "graphql-codegen --config codegen.yml && prettier -w src/generated"
+  },
+  "type": "module",
+  "version": "1.0.0"
+}

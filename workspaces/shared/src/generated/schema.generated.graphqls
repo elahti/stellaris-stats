@@ -1,0 +1,83 @@
+type Budget {
+  armies: BudgetEntry!
+  countryBase: BudgetEntry!
+  countryPowerProjection: BudgetEntry!
+  leaderCommanders: BudgetEntry!
+  leaderOfficials: BudgetEntry!
+  leaderScientists: BudgetEntry!
+  orbitalMiningDeposits: BudgetEntry!
+  orbitalResearchDeposits: BudgetEntry!
+  planetArtisans: BudgetEntry!
+  planetBiologists: BudgetEntry!
+  planetBuildings: BudgetEntry!
+  planetBuildingsStrongholds: BudgetEntry!
+  planetBureaucrats: BudgetEntry!
+  planetDistrictsCities: BudgetEntry!
+  planetDistrictsFarming: BudgetEntry!
+  planetDistrictsGenerator: BudgetEntry!
+  planetDistrictsMining: BudgetEntry!
+  planetDoctors: BudgetEntry!
+  planetEngineers: BudgetEntry!
+  planetFarmers: BudgetEntry!
+  planetJobs: BudgetEntry!
+  planetMetallurgists: BudgetEntry!
+  planetMiners: BudgetEntry!
+  planetPhysicists: BudgetEntry!
+  planetPoliticians: BudgetEntry!
+  planetPops: BudgetEntry!
+  planetResourceDeficit: BudgetEntry!
+  planetTechnician: BudgetEntry!
+  planetTraders: BudgetEntry!
+  popCategoryRulers: BudgetEntry!
+  popCategorySpecialists: BudgetEntry!
+  popCategoryWorkers: BudgetEntry!
+  popFactions: BudgetEntry!
+  shipComponents: BudgetEntry!
+  ships: BudgetEntry!
+  starbaseBuildings: BudgetEntry!
+  starbaseModules: BudgetEntry!
+  starbases: BudgetEntry!
+  stationGatherers: BudgetEntry!
+  stationResearchers: BudgetEntry!
+  tradePolicy: BudgetEntry!
+}
+
+type BudgetEntry {
+  alloys: Float!
+  consumerGoods: Float!
+  energy: Float!
+  engineeringResearch: Float!
+  food: Float!
+  influence: Float!
+  minerals: Float!
+  physicsResearch: Float!
+  societyResearch: Float!
+  trade: Float!
+  unity: Float!
+}
+
+scalar Date
+
+type Gamestate {
+  budget: Budget!
+  date: Date!
+  gamestateId: Int!
+  planets: [Planet!]!
+}
+
+type Planet {
+  planetId: String!
+  planetName: String!
+  profits: Budget!
+}
+
+type Query {
+  saves: [Save!]!
+}
+
+type Save {
+  filename: String!
+  gamestates: [Gamestate!]!
+  name: String!
+  saveId: Int!
+}

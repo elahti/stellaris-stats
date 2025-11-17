@@ -10,6 +10,8 @@ for DIR in \
   $HOME/.local \
   $WORKSPACE/gamestate-json-data \
   $WORKSPACE/node_modules \
-  $WORKSPACES/scripts/node_modules; do
+  $WORKSPACES/graphql-server/node_modules \
+  $WORKSPACES/scripts/node_modules \
+  $WORKSPACES/shared/node_modules; do
   sudo chown -R vscode:vscode $DIR
 done
