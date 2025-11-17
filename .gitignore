@@ -1,0 +1,6 @@
+/.devcontainer/.env.db
+/.claude/settings.local.json
+/*.code-workspace
+/**/.env.*.keys
+/**/dist/
+/**/node_modules/

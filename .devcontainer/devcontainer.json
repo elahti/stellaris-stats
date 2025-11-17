@@ -1,0 +1,70 @@
+{
+  "containerEnv": {
+    "GIT_EDITOR": "vim",
+    "PAGER": "less -F -X",
+    "UV_LINK_MODE": "copy",
+    "VISUAL": "vim"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Anthropic.claude-code",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "GitHub.copilot-chat",
+        "GitHub.copilot"
+      ],
+      "settings": {
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "claudeCode.initialPermissionMode": "default",
+        "claudeCode.respectGitIgnore": true,
+        "claudeCode.useTerminal": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "always",
+          "source.sort.json": "always"
+        },
+        "editor.foldingMaximumRegions": 65000,
+        "editor.fontFamily": "FiraCode Nerd Font Mono",
+        "editor.fontLigatures": true,
+        "editor.fontSize": 12,
+        "editor.formatOnSave": true,
+        "editor.largeFileOptimizations": false,
+        "editor.tabSize": 2,
+        "eslint.enable": true,
+        "eslint.useFlatConfig": true,
+        "github.copilot.chat.agent.autoFix": true,
+        "github.copilot.chat.agent.currentEditorContext.enabled": true,
+        "github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": true,
+        "github.copilot.chat.languageContext.fix.typescript.enabled": false,
+        "github.copilot.chat.languageContext.inline.typescript.enabled": false,
+        "github.copilot.chat.languageContext.typescript.enabled": false,
+        "prettier.arrowParens": "always",
+        "prettier.bracketSameLine": false,
+        "prettier.bracketSpacing": true,
+        "prettier.configPath": "/workspace/.prettierrc.json",
+        "prettier.enable": true,
+        "prettier.experimentalTernaries": true,
+        "prettier.jsxSingleQuote": true,
+        "prettier.printWidth": 80,
+        "prettier.quoteProps": "consistent",
+        "prettier.requireConfig": true,
+        "prettier.semi": false,
+        "prettier.singleQuote": true,
+        "prettier.tabWidth": 2,
+        "prettier.trailingComma": "all",
+        "prettier.useTabs": false,
+        "remote.autoForwardPorts": false,
+        "terminal.integrated.fontLigatures.enabled": true,
+        "workbench.editorLargeFileConfirmation": 200
+      }
+    }
+  },
+  "dockerComposeFile": "docker-compose.yml",
+  "forwardPorts": [],
+  "name": "Stellaris Stats Dev Container",
+  "postCreateCommand": ". .devcontainer/post-create-command.sh",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace"
+}

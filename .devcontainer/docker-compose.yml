@@ -1,0 +1,47 @@
+services:
+  devcontainer:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      target: devcontainer
+    command: sleep infinity
+    container_name: stellaris-stats_devcontainer
+    networks:
+      - stellaris-stats-network
+    volumes:
+      - ..:/workspace
+      - '${STELLARIS_STATS_SAVE_PATH}:/stellaris-data:ro'
+      - claude-data:/home/vscode/.claude
+      - node-modules-main:/workspace/node_modules
+      - node-modules-parser:/workspace/workspaces/parser/node_modules
+      - user-cache:/home/vscode/.cache
+      - user-local:/home/vscode/.local
+
+  db:
+    image: postgres:17
+    container_name: stellaris-stats_db
+    env_file:
+      - .env.db
+    networks:
+      - stellaris-stats-network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+networks:
+  stellaris-stats-network:
+    driver: bridge
+    name: stellaris-stats-network
+
+volumes:
+  claude-data:
+    name: stellaris-stats_claude-data
+  db-data:
+    name: stellaris-stats_db-data
+  node-modules-main:
+    name: stellaris-stats_node-modules-main
+  node-modules-parser:
+    name: stellaris-stats_node-modules-parser
+  user-cache:
+    name: stellaris-stats_user-cache
+  user-local:
+    name: stellaris-stats_user-local
