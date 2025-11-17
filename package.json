@@ -12,9 +12,10 @@
     "typescript-eslint": "8.46.4"
   },
   "scripts": {
-    "db:connect": "dotenvx run -f .env.db -fk .env.db.keys --strict -- sh -c 'PGPASSWORD=\"$STELLARIS_STATS_DB_PASSWORD\" psql -h \"$STELLARIS_STATS_DB_HOST\" -p \"$STELLARIS_STATS_DB_PORT\" -U \"$STELLARIS_STATS_DB_USER\" \"$STELLARIS_STATS_DB_NAME\"'"
+    "db:connect": "dotenvx run -f .env.db -fk .env.db.keys --strict -- sh -c 'PGPASSWORD=\"$STELLARIS_STATS_DB_PASSWORD\" psql -h \"$STELLARIS_STATS_DB_HOST\" -p \"$STELLARIS_STATS_DB_PORT\" -U \"$STELLARIS_STATS_DB_USER\" \"$STELLARIS_STATS_DB_NAME\"'",
+    "gamestateToJson:run": "npm run -w @stellaris-stats/scripts gamestateToJson:run --"
   },
   "workspaces": [
-    "workspaces/parser"
+    "workspaces/scripts"
   ]
 }

@@ -8,7 +8,8 @@ for DIR in \
   $HOME/.cache \
   $HOME/.claude \
   $HOME/.local \
+  $WORKSPACE/gamestate-json-data \
   $WORKSPACE/node_modules \
-  $WORKSPACES/parser/node_modules; do
+  $WORKSPACES/scripts/node_modules; do
   sudo chown -R vscode:vscode $DIR
 done

@@ -1,6 +1,7 @@
-/.devcontainer/.env.db
 /.claude/settings.local.json
+/.devcontainer/.env.db
 /*.code-workspace
 /**/.env.*.keys
 /**/dist/
 /**/node_modules/
+/gamestate-json-data/
