@@ -6,7 +6,7 @@
   },
   "name": "@stellaris-stats/graphql-server",
   "scripts": {
-    "graphql-server:run": "dotenvx run -f ../../.env.graphql-server -fk ../../.env.graphql-server.keys --strict -- npx tsx watch src/main.ts"
+    "graphql-server:run": "npx tsx watch src/main.ts"
   },
   "type": "module",
   "version": "1.0.0"
