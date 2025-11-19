@@ -1,7 +1,6 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
-import { resolvers } from '@stellaris-stats/shared/resolvers'
-import { typeDefs } from '@stellaris-stats/shared/typeDefs'
+import { resolvers, typeDefs } from '@stellaris-stats/shared/graphql'
 import { graphQLServerConfig } from './graphqlServerConfig.js'
 
 const runStatsApi = async () => {
