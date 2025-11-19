@@ -6,10 +6,18 @@
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-n": "17.23.1",
     "eslint-plugin-prettier": "5.5.4",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.6",
     "prettier": "3.6.2",
     "tsx": "4.20.6",
     "typescript": "5.9.3",
     "typescript-eslint": "8.46.4"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint"
+    ]
   },
   "scripts": {
     "build": "npm run -w @stellaris-stats/shared build",
@@ -17,7 +25,8 @@
     "gamestateToJson:run": "npm run -w @stellaris-stats/scripts gamestateToJson:run --",
     "graphql-server:run": "npm run -w @stellaris-stats/graphql-server graphql-server:run",
     "graphql:codegen": "npm run -w @stellaris-stats/shared graphql:codegen",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "husky"
   },
   "workspaces": [
     "workspaces/graphql-server",
