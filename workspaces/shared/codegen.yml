@@ -1,6 +1,6 @@
 schema: ../../graphql/schema.graphql
 generates:
-  ./src/generated/:
+  ./src/graphql/generated/:
     preset: '@eddeee888/gcg-typescript-resolver-files'
     presetConfig:
       mode: merged
@@ -8,7 +8,9 @@ generates:
       resolverMainFile: resolvers.ts
       typeDefsFileMode: merged
       typeDefsFilePath: typeDefs.ts
-  # ./src/generated/validation.ts:
+      typesPluginsConfig:
+        contextType: '../graphqlServerContext.js#GraphQLServerContext'
+  # ./src/graphql/generated/validation.ts:
   #   plugins:
   #     - typescript
   #     - typescript-validation-schema
@@ -17,4 +19,3 @@ generates:
   #       Date: string
   #     schema: zod
   #     strictScalars: true
-

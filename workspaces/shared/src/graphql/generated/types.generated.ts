@@ -3,6 +3,7 @@ import {
   GraphQLScalarType,
   GraphQLScalarTypeConfig,
 } from 'graphql'
+import { GraphQLServerContext } from '../graphqlServerContext.js'
 export type Maybe<T> = T | null | undefined
 export type InputMaybe<T> = T | null | undefined
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -269,7 +270,7 @@ export type ResolversParentTypes = {
 }
 
 export type BudgetResolvers<
-  ContextType = any,
+  ContextType = GraphQLServerContext,
   ParentType extends
     ResolversParentTypes['Budget'] = ResolversParentTypes['Budget'],
 > = {
@@ -449,7 +450,7 @@ export type BudgetResolvers<
 }
 
 export type BudgetEntryResolvers<
-  ContextType = any,
+  ContextType = GraphQLServerContext,
   ParentType extends
     ResolversParentTypes['BudgetEntry'] = ResolversParentTypes['BudgetEntry'],
 > = {
@@ -476,7 +477,7 @@ export interface DateScalarConfig
 }
 
 export type GamestateResolvers<
-  ContextType = any,
+  ContextType = GraphQLServerContext,
   ParentType extends
     ResolversParentTypes['Gamestate'] = ResolversParentTypes['Gamestate'],
 > = {
@@ -487,7 +488,7 @@ export type GamestateResolvers<
 }
 
 export type PlanetResolvers<
-  ContextType = any,
+  ContextType = GraphQLServerContext,
   ParentType extends
     ResolversParentTypes['Planet'] = ResolversParentTypes['Planet'],
 > = {
@@ -497,7 +498,7 @@ export type PlanetResolvers<
 }
 
 export type QueryResolvers<
-  ContextType = any,
+  ContextType = GraphQLServerContext,
   ParentType extends
     ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
@@ -505,7 +506,7 @@ export type QueryResolvers<
 }
 
 export type SaveResolvers<
-  ContextType = any,
+  ContextType = GraphQLServerContext,
   ParentType extends
     ResolversParentTypes['Save'] = ResolversParentTypes['Save'],
 > = {
@@ -519,7 +520,7 @@ export type SaveResolvers<
   saveId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
 }
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = GraphQLServerContext> = {
   Budget?: BudgetResolvers<ContextType>
   BudgetEntry?: BudgetEntryResolvers<ContextType>
   Date?: GraphQLScalarType

@@ -15,8 +15,8 @@ export default tseslint.config(
     ignores: [
       '**/dist/**',
       'eslint.config.mjs',
-      'workspaces/shared/src/generated/types.generated.ts',
-      'workspaces/shared/src/generated/validation.ts',
+      'workspaces/shared/src/graphql/generated/types.generated.ts',
+      'workspaces/shared/src/graphql/generated/validation.ts',
     ],
   },
   {
@@ -46,6 +46,18 @@ export default tseslint.config(
         'error',
         {
           allowModules: ['@modelcontextprotocol/sdk'],
+        },
+      ],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
         },
       ],
     },

@@ -12,9 +12,13 @@
     "graphql-codegen-typescript-validation-schema": "0.18.1"
   },
   "exports": {
+    "./db": {
+      "import": "./dist/node/db.js",
+      "types": "./dist/types/db.d.ts"
+    },
     "./graphql": {
-      "import": "./dist/node/generated/index.js",
-      "types": "./dist/types/generated/index.d.ts"
+      "import": "./dist/node/graphql/index.js",
+      "types": "./dist/types/graphql/index.d.ts"
     }
   },
   "name": "@stellaris-stats/shared",
@@ -23,7 +27,7 @@
     "build": "npm run graphql:codegen && npm run build:node && npm run build:types",
     "build:node": "tsc -p tsconfig.node.json",
     "build:types": "tsc -p tsconfig.types.json",
-    "graphql:codegen": "graphql-codegen --config codegen.yml && prettier -w src/generated"
+    "graphql:codegen": "graphql-codegen --config codegen.yml && prettier -w src/graphql/generated"
   },
   "type": "module",
   "version": "1.0.0"
