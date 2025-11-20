@@ -10,7 +10,7 @@
   },
   "name": "@stellaris-stats/graphql-server",
   "scripts": {
-    "graphql-server:run": "npx tsx watch src/main.ts"
+    "graphql-server:run": "npx tsx watch src/graphqlServerMain.ts"
   },
   "type": "module",
   "version": "1.0.0"
