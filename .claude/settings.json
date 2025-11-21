@@ -1,6 +1,7 @@
 {
   "permissions": {
     "allow": [
+      "Bash(npm run graphql:codegen:*)",
       "mcp__ide__getDiagnostics"
     ],
     "ask": [],
