@@ -1,5 +1,5 @@
-import { Pool } from 'pg'
+import { PoolClient } from 'pg'
 
 export interface GraphQLServerContext {
-  pool: Pool
+  client: PoolClient
 }
