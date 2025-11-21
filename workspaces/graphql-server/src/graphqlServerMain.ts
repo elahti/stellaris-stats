@@ -1,9 +1,10 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
 import { DbConfig, getDbPool } from '@stellaris-stats/shared/db'
-import type { GraphQLServerContext } from '@stellaris-stats/shared/graphql'
-import { resolvers, typeDefs } from '@stellaris-stats/shared/graphql'
+import { resolvers } from './generated/resolvers.js'
+import { typeDefs } from './generated/typeDefs.js'
 import { GraphQLServerConfig } from './graphqlServerConfig.js'
+import { GraphQLServerContext } from './graphqlServerContext.js'
 
 const runGraphQLServer = async () => {
   const config = GraphQLServerConfig.extend(DbConfig.shape).parse(process.env)

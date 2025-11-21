@@ -1,15 +1,6 @@
 schema: ../../graphql/schema.graphql
 generates:
-  ./src/graphql/generated/:
-    preset: '@eddeee888/gcg-typescript-resolver-files'
-    presetConfig:
-      mode: merged
-      emitLegacyCommonJSImports: false
-      resolverMainFile: resolvers.ts
-      typeDefsFileMode: merged
-      typeDefsFilePath: typeDefs.ts
-      typesPluginsConfig:
-        contextType: '../graphqlServerContext.js#GraphQLServerContext'
+  # https://github.com/Code-Hex/graphql-codegen-typescript-validation-schema/issues/1251
   # ./src/graphql/generated/validation.ts:
   #   plugins:
   #     - typescript

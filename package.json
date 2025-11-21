@@ -20,11 +20,12 @@
     ]
   },
   "scripts": {
-    "build": "npm run -w @stellaris-stats/shared build",
+    "build": "npm run -w @stellaris-stats/shared build && npm run -w @stellaris-stats/graphql-server build",
     "db:connect": "dotenvx run -f .env.stellaris-stats --strict -- sh -c 'PGPASSWORD=\"$STELLARIS_STATS_DB_PASSWORD\" psql -h \"$STELLARIS_STATS_DB_HOST\" -p \"$STELLARIS_STATS_DB_PORT\" -U \"$STELLARIS_STATS_DB_USER\" \"$STELLARIS_STATS_DB_NAME\"'",
     "gamestateToJson:run": "npm run -w @stellaris-stats/scripts gamestateToJson:run --",
+    "graphql-server:codegen": "npm run -w @stellaris-stats/graphql-server graphql-server:codegen",
     "graphql-server:run": "dotenvx run -f .env.stellaris-stats --strict -- npm run -w @stellaris-stats/graphql-server graphql-server:run",
-    "graphql:codegen": "npm run -w @stellaris-stats/shared graphql:codegen",
+    "graphql-types:codegen": "npm run -w @stellaris-stats/shared graphql-types:codegen",
     "lint": "eslint .",
     "prepare": "husky"
   },
