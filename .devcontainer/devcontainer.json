@@ -13,7 +13,8 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "GitHub.copilot-chat",
-        "GitHub.copilot"
+        "GitHub.copilot",
+        "inferrinizzard.prettier-sql-vscode",
       ],
       "settings": {
         "[typescript]": {
@@ -41,6 +42,11 @@
         "github.copilot.chat.languageContext.fix.typescript.enabled": false,
         "github.copilot.chat.languageContext.inline.typescript.enabled": false,
         "github.copilot.chat.languageContext.typescript.enabled": false,
+        "Prettier-SQL.expressionWidth": 80,
+        "Prettier-SQL.ignoreTabSettings": true,
+        "Prettier-SQL.keywordCase": "upper",
+        "Prettier-SQL.SQLFlavourOverride": "postgresql",
+        "Prettier-SQL.tabSizeOverride": 2,
         "prettier.arrowParens": "always",
         "prettier.bracketSameLine": false,
         "prettier.bracketSpacing": true,
