@@ -14,7 +14,8 @@
         "esbenp.prettier-vscode",
         "GitHub.copilot-chat",
         "GitHub.copilot",
-        "inferrinizzard.prettier-sql-vscode"
+        "inferrinizzard.prettier-sql-vscode",
+        "ms-ossdata.vscode-pgsql"
       ],
       "settings": {
         "[typescript]": {
@@ -42,6 +43,7 @@
         "github.copilot.chat.languageContext.fix.typescript.enabled": false,
         "github.copilot.chat.languageContext.inline.typescript.enabled": false,
         "github.copilot.chat.languageContext.typescript.enabled": false,
+        "pgsql.copilot.enable": false,
         "Prettier-SQL.expressionWidth": 80,
         "Prettier-SQL.ignoreTabSettings": true,
         "Prettier-SQL.keywordCase": "upper",
