@@ -14,7 +14,7 @@
         "esbenp.prettier-vscode",
         "GitHub.copilot-chat",
         "GitHub.copilot",
-        "inferrinizzard.prettier-sql-vscode",
+        "inferrinizzard.prettier-sql-vscode"
       ],
       "settings": {
         "[typescript]": {
