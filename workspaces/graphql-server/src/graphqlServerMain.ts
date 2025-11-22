@@ -1,5 +1,6 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
+import { logger } from '@stellaris-stats/shared'
 import { DbConfig, getDbPool } from '@stellaris-stats/shared/db'
 import { resolvers } from './generated/resolvers.js'
 import { typeDefs } from './generated/typeDefs.js'
@@ -33,11 +34,11 @@ const runGraphQLServer = async () => {
     }),
   })
 
-  console.log(
+  logger.info(
     `GraphQL server started on port ${config.STELLARIS_STATS_GRAPHQL_SERVER_PORT}`,
   )
 }
 
 runGraphQLServer().catch((error: unknown) => {
-  console.error(error)
+  logger.error(error)
 })

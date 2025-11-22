@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@stellaris-stats/shared": "1.0.0",
     "commander": "14.0.2",
     "jomini": "0.9.1",
     "yauzl-promise": "4.0.0",

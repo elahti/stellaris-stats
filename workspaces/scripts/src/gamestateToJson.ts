@@ -1,3 +1,4 @@
+import { logger } from '@stellaris-stats/shared'
 import { Command } from 'commander'
 import { access, mkdir, readdir, unlink, writeFile } from 'fs/promises'
 import { Jomini } from 'jomini'
@@ -51,7 +52,7 @@ const main = async () => {
       .map((entry) => entry.name)
 
     directories.forEach((dir) => {
-      console.log(dir)
+      logger.info(dir)
     })
     return
   }
