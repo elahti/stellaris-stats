@@ -16,7 +16,7 @@ export default tseslint.config(
       '**/dist/**',
       'eslint.config.mjs',
       'workspaces/graphql-server/src/generated/types.generated.ts',
-      'workspaces/shared/src/graphql/generated/validation.ts',
+      'workspaces/shared/src/graphql/generated/types.ts',
     ],
   },
   {

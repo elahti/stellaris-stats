@@ -1,7 +1,7 @@
 schema: ../../graphql/schema.graphql
 generates:
   # https://github.com/Code-Hex/graphql-codegen-typescript-validation-schema/issues/1251
-  ./src/graphql/generated/validation.ts:
+  ./src/graphql/generated/types.ts:
     plugins:
       - typescript
       - typescript-validation-schema
