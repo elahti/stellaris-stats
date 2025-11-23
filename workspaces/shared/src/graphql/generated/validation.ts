@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -30,7 +30,6 @@ export type Scalars = {
 }
 
 export type Budget = {
-  __typename?: 'Budget'
   armies: BudgetEntry
   countryBase: BudgetEntry
   countryPowerProjection: BudgetEntry
@@ -75,7 +74,6 @@ export type Budget = {
 }
 
 export type BudgetEntry = {
-  __typename?: 'BudgetEntry'
   alloys: Scalars['Float']['output']
   consumerGoods: Scalars['Float']['output']
   energy: Scalars['Float']['output']
@@ -90,7 +88,6 @@ export type BudgetEntry = {
 }
 
 export type Gamestate = {
-  __typename?: 'Gamestate'
   budget: Budget
   date: Scalars['Date']['output']
   gamestateId: Scalars['Int']['output']
@@ -98,19 +95,16 @@ export type Gamestate = {
 }
 
 export type Planet = {
-  __typename?: 'Planet'
   planetId: Scalars['String']['output']
   planetName: Scalars['String']['output']
   profits: Budget
 }
 
 export type Query = {
-  __typename?: 'Query'
   saves: Array<Save>
 }
 
 export type Save = {
-  __typename?: 'Save'
   filename: Scalars['String']['output']
   gamestates: Array<Gamestate>
   name: Scalars['String']['output']
@@ -118,7 +112,7 @@ export type Save = {
 }
 
 type Properties<T> = Required<{
-  [K in keyof T]: z.ZodType<T[K], T[K]>
+  [K in keyof T]: z.ZodType<T[K]>
 }>
 
 type definedNonNullAny = {}
@@ -129,3 +123,96 @@ export const isDefinedNonNullAny = (v: any): v is definedNonNullAny =>
 export const definedNonNullAnySchema = z
   .any()
   .refine((v) => isDefinedNonNullAny(v))
+
+export function BudgetSchema(): z.ZodObject<Properties<Budget>> {
+  return z.object({
+    __typename: z.literal('Budget').optional(),
+    armies: z.lazy(() => BudgetEntrySchema()),
+    countryBase: z.lazy(() => BudgetEntrySchema()),
+    countryPowerProjection: z.lazy(() => BudgetEntrySchema()),
+    leaderCommanders: z.lazy(() => BudgetEntrySchema()),
+    leaderOfficials: z.lazy(() => BudgetEntrySchema()),
+    leaderScientists: z.lazy(() => BudgetEntrySchema()),
+    orbitalMiningDeposits: z.lazy(() => BudgetEntrySchema()),
+    orbitalResearchDeposits: z.lazy(() => BudgetEntrySchema()),
+    planetArtisans: z.lazy(() => BudgetEntrySchema()),
+    planetBiologists: z.lazy(() => BudgetEntrySchema()),
+    planetBuildings: z.lazy(() => BudgetEntrySchema()),
+    planetBuildingsStrongholds: z.lazy(() => BudgetEntrySchema()),
+    planetBureaucrats: z.lazy(() => BudgetEntrySchema()),
+    planetDistrictsCities: z.lazy(() => BudgetEntrySchema()),
+    planetDistrictsFarming: z.lazy(() => BudgetEntrySchema()),
+    planetDistrictsGenerator: z.lazy(() => BudgetEntrySchema()),
+    planetDistrictsMining: z.lazy(() => BudgetEntrySchema()),
+    planetDoctors: z.lazy(() => BudgetEntrySchema()),
+    planetEngineers: z.lazy(() => BudgetEntrySchema()),
+    planetFarmers: z.lazy(() => BudgetEntrySchema()),
+    planetJobs: z.lazy(() => BudgetEntrySchema()),
+    planetMetallurgists: z.lazy(() => BudgetEntrySchema()),
+    planetMiners: z.lazy(() => BudgetEntrySchema()),
+    planetPhysicists: z.lazy(() => BudgetEntrySchema()),
+    planetPoliticians: z.lazy(() => BudgetEntrySchema()),
+    planetPops: z.lazy(() => BudgetEntrySchema()),
+    planetResourceDeficit: z.lazy(() => BudgetEntrySchema()),
+    planetTechnician: z.lazy(() => BudgetEntrySchema()),
+    planetTraders: z.lazy(() => BudgetEntrySchema()),
+    popCategoryRulers: z.lazy(() => BudgetEntrySchema()),
+    popCategorySpecialists: z.lazy(() => BudgetEntrySchema()),
+    popCategoryWorkers: z.lazy(() => BudgetEntrySchema()),
+    popFactions: z.lazy(() => BudgetEntrySchema()),
+    shipComponents: z.lazy(() => BudgetEntrySchema()),
+    ships: z.lazy(() => BudgetEntrySchema()),
+    starbaseBuildings: z.lazy(() => BudgetEntrySchema()),
+    starbaseModules: z.lazy(() => BudgetEntrySchema()),
+    starbases: z.lazy(() => BudgetEntrySchema()),
+    stationGatherers: z.lazy(() => BudgetEntrySchema()),
+    stationResearchers: z.lazy(() => BudgetEntrySchema()),
+    tradePolicy: z.lazy(() => BudgetEntrySchema()),
+  })
+}
+
+export function BudgetEntrySchema(): z.ZodObject<Properties<BudgetEntry>> {
+  return z.object({
+    __typename: z.literal('BudgetEntry').optional(),
+    alloys: z.number(),
+    consumerGoods: z.number(),
+    energy: z.number(),
+    engineeringResearch: z.number(),
+    food: z.number(),
+    influence: z.number(),
+    minerals: z.number(),
+    physicsResearch: z.number(),
+    societyResearch: z.number(),
+    trade: z.number(),
+    unity: z.number(),
+  })
+}
+
+export function GamestateSchema(): z.ZodObject<Properties<Gamestate>> {
+  return z.object({
+    __typename: z.literal('Gamestate').optional(),
+    budget: z.lazy(() => BudgetSchema()),
+    date: z.string(),
+    gamestateId: z.number(),
+    planets: z.array(z.lazy(() => PlanetSchema())),
+  })
+}
+
+export function PlanetSchema(): z.ZodObject<Properties<Planet>> {
+  return z.object({
+    __typename: z.literal('Planet').optional(),
+    planetId: z.string(),
+    planetName: z.string(),
+    profits: z.lazy(() => BudgetSchema()),
+  })
+}
+
+export function SaveSchema(): z.ZodObject<Properties<Save>> {
+  return z.object({
+    __typename: z.literal('Save').optional(),
+    filename: z.string(),
+    gamestates: z.array(z.lazy(() => GamestateSchema())),
+    name: z.string(),
+    saveId: z.number(),
+  })
+}

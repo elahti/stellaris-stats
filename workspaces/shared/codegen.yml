@@ -1,12 +1,14 @@
 schema: ../../graphql/schema.graphql
 generates:
   # https://github.com/Code-Hex/graphql-codegen-typescript-validation-schema/issues/1251
-  # ./src/graphql/generated/validation.ts:
-  #   plugins:
-  #     - typescript
-  #     - typescript-validation-schema
-  #   config:
-  #     scalars:
-  #       Date: string
-  #     schema: zod
-  #     strictScalars: true
+  ./src/graphql/generated/validation.ts:
+    plugins:
+      - typescript
+      - typescript-validation-schema
+    config:
+      scalars:
+        Date: string
+      schema: zodv4
+      strictScalars: true
+      withObjectType: true
+      skipTypename: true
