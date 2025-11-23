@@ -4,11 +4,13 @@
       "Bash(npm info:*)",
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
+      "Bash(npm run graphql-server:codegen:*)",
       "Bash(npm run graphql-types:codegen:*)",
       "Bash(npm run graphql:codegen:*)",
       "Bash(npx graphql-codegen:*)",
       "Bash(npx tsc:*)",
       "mcp__ide__getDiagnostics",
+      "WebFetch(domain:github.com)",
       "WebSearch"
     ],
     "ask": [],
