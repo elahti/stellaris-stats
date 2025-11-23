@@ -1,9 +1,15 @@
 {
   "permissions": {
     "allow": [
+      "Bash(npm info:*)",
+      "Bash(npm install:*)",
       "Bash(npm run build:*)",
+      "Bash(npm run graphql-types:codegen:*)",
       "Bash(npm run graphql:codegen:*)",
-      "mcp__ide__getDiagnostics"
+      "Bash(npx graphql-codegen:*)",
+      "Bash(npx tsc:*)",
+      "mcp__ide__getDiagnostics",
+      "WebSearch"
     ],
     "ask": [],
     "deny": [
