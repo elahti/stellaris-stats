@@ -23,6 +23,10 @@
     "./migrations": {
       "import": "./dist/node/migrations.js",
       "types": "./dist/types/migrations.d.ts"
+    },
+    "./save": {
+      "import": "./dist/node/save.js",
+      "types": "./dist/types/save.d.ts"
     }
   },
   "name": "@stellaris-stats/shared",
