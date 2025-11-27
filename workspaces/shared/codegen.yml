@@ -7,7 +7,9 @@ generates:
       - typescript-validation-schema
     config:
       scalars:
-        Date: string
+        DateTimeISO: Date
+      scalarSchemas:
+        DateTimeISO: z.date()
       schema: zodv4
       strictScalars: true
       withObjectType: true

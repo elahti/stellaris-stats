@@ -56,11 +56,11 @@ type BudgetEntry {
   unity: Float!
 }
 
-scalar Date
+scalar DateTimeISO
 
 type Gamestate {
   budget: Budget!
-  date: Date!
+  date: DateTimeISO!
   gamestateId: Int!
   planets: [Planet!]!
 }

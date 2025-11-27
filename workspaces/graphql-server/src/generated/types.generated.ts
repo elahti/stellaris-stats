@@ -31,7 +31,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean }
   Int: { input: number; output: number }
   Float: { input: number; output: number }
-  Date: { input: Date | string; output: Date | string }
+  DateTimeISO: { input: Date | string; output: Date | string }
 }
 
 export type Budget = {
@@ -97,7 +97,7 @@ export type BudgetEntry = {
 export type Gamestate = {
   __typename?: 'Gamestate'
   budget: Budget
-  date: Scalars['Date']['output']
+  date: Scalars['DateTimeISO']['output']
   gamestateId: Scalars['Int']['output']
   planets: Array<Planet>
 }
@@ -244,7 +244,7 @@ export type ResolversTypes = {
   Budget: ResolverTypeWrapper<Budget>
   BudgetEntry: ResolverTypeWrapper<BudgetEntry>
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
-  Date: ResolverTypeWrapper<Scalars['Date']['output']>
+  DateTimeISO: ResolverTypeWrapper<Scalars['DateTimeISO']['output']>
   Gamestate: ResolverTypeWrapper<Gamestate>
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
   Planet: ResolverTypeWrapper<Planet>
@@ -259,7 +259,7 @@ export type ResolversParentTypes = {
   Budget: Budget
   BudgetEntry: BudgetEntry
   Float: Scalars['Float']['output']
-  Date: Scalars['Date']['output']
+  DateTimeISO: Scalars['DateTimeISO']['output']
   Gamestate: Gamestate
   Int: Scalars['Int']['output']
   Planet: Planet
@@ -471,9 +471,9 @@ export type BudgetEntryResolvers<
   unity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
 }
 
-export interface DateScalarConfig
-  extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
-  name: 'Date'
+export interface DateTimeISOScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['DateTimeISO'], any> {
+  name: 'DateTimeISO'
 }
 
 export type GamestateResolvers<
@@ -482,7 +482,7 @@ export type GamestateResolvers<
     ResolversParentTypes['Gamestate'] = ResolversParentTypes['Gamestate'],
 > = {
   budget?: Resolver<ResolversTypes['Budget'], ParentType, ContextType>
-  date?: Resolver<ResolversTypes['Date'], ParentType, ContextType>
+  date?: Resolver<ResolversTypes['DateTimeISO'], ParentType, ContextType>
   gamestateId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
   planets?: Resolver<Array<ResolversTypes['Planet']>, ParentType, ContextType>
 }
@@ -523,7 +523,7 @@ export type SaveResolvers<
 export type Resolvers<ContextType = GraphQLServerContext> = {
   Budget?: BudgetResolvers<ContextType>
   BudgetEntry?: BudgetEntryResolvers<ContextType>
-  Date?: GraphQLScalarType
+  DateTimeISO?: GraphQLScalarType
   Gamestate?: GamestateResolvers<ContextType>
   Planet?: PlanetResolvers<ContextType>
   Query?: QueryResolvers<ContextType>

@@ -26,7 +26,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean }
   Int: { input: number; output: number }
   Float: { input: number; output: number }
-  Date: { input: string; output: string }
+  DateTimeISO: { input: Date; output: Date }
 }
 
 export type Budget = {
@@ -89,7 +89,7 @@ export type BudgetEntry = {
 
 export type Gamestate = {
   budget: Budget
-  date: Scalars['Date']['output']
+  date: Scalars['DateTimeISO']['output']
   gamestateId: Scalars['Int']['output']
   planets: Array<Planet>
 }
@@ -192,7 +192,7 @@ export function GamestateSchema(): z.ZodObject<Properties<Gamestate>> {
   return z.object({
     __typename: z.literal('Gamestate').optional(),
     budget: z.lazy(() => BudgetSchema()),
-    date: z.string(),
+    date: z.date(),
     gamestateId: z.number(),
     planets: z.array(z.lazy(() => PlanetSchema())),
   })

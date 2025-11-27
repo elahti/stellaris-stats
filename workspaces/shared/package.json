@@ -16,9 +16,17 @@
       "import": "./dist/node/index.js",
       "types": "./dist/types/index.d.ts"
     },
+    "./budget": {
+      "import": "./dist/node/budget.js",
+      "types": "./dist/types/budget.d.ts"
+    },
     "./db": {
       "import": "./dist/node/db.js",
       "types": "./dist/types/db.d.ts"
+    },
+    "./gamestate": {
+      "import": "./dist/node/gamestate.js",
+      "types": "./dist/types/gamestate.d.ts"
     },
     "./migrations": {
       "import": "./dist/node/migrations.js",

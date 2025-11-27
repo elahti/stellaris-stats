@@ -14,7 +14,7 @@
   },
   "name": "@stellaris-stats/graphql-server",
   "scripts": {
-    "build": "npm run clean && npm run graphql-server:codegen && npm run build:node",
+    "build": "npm run clean && npm run build:node",
     "build:node": "tsc -p tsconfig.json",
     "clean": "rm -rf dist",
     "graphql-server:codegen": "graphql-codegen --config codegen.yml && prettier -w src/generated",

@@ -4,7 +4,7 @@ export const typeDefs = {
   definitions: [
     {
       kind: 'ScalarTypeDefinition',
-      name: { kind: 'Name', value: 'Date' },
+      name: { kind: 'Name', value: 'DateTimeISO' },
       directives: [],
     },
     {
@@ -735,7 +735,10 @@ export const typeDefs = {
           arguments: [],
           type: {
             kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Date' } },
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'DateTimeISO' },
+            },
           },
           directives: [],
         },
