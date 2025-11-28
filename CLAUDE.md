@@ -28,15 +28,6 @@ Generate GraphQL resolver types needed by GraphQL server to `/workspace/workspac
 npm run graphql-server:codegen
 ```
 
-### Build Code
-
-This command clean builds all code, but does not generate GraphQL types, Zod schemas or resolver types:
-
-```bash
-npm run build
-npm run -w @stellaris-stats/$specific_workspace build
-```
-
 ## TypeScript Configuration
 
 Each workspace has its own tsconfig.json that extends the root config (`tsconfig.node.json`).
