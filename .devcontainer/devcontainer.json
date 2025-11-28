@@ -19,6 +19,9 @@
         "ms-ossdata.vscode-pgsql"
       ],
       "settings": {
+        "[sql]": {
+          "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
+        },
         "[typescript]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
