@@ -58,16 +58,16 @@ type Budget {
   tradePolicy: BudgetEntry!
 }
 
-type Planet {
-  planetId: String!
-  planetName: String!
-  profits: Budget!
-}
+# type Planet {
+#   planetId: String!
+#   planetName: String!
+#   profits: Budget!
+# }
 
 type Gamestate {
   gamestateId: Int!
   date: DateTimeISO!
-  planets: [Planet!]!
+  # planets: [Planet!]!
   budget: Budget!
 }
 

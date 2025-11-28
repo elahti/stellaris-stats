@@ -668,53 +668,6 @@ export const typeDefs = {
     },
     {
       kind: 'ObjectTypeDefinition',
-      name: { kind: 'Name', value: 'Planet' },
-      interfaces: [],
-      directives: [],
-      fields: [
-        {
-          kind: 'FieldDefinition',
-          name: { kind: 'Name', value: 'planetId' },
-          arguments: [],
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
-          directives: [],
-        },
-        {
-          kind: 'FieldDefinition',
-          name: { kind: 'Name', value: 'planetName' },
-          arguments: [],
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
-          directives: [],
-        },
-        {
-          kind: 'FieldDefinition',
-          name: { kind: 'Name', value: 'profits' },
-          arguments: [],
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'Budget' },
-            },
-          },
-          directives: [],
-        },
-      ],
-    },
-    {
-      kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'Gamestate' },
       interfaces: [],
       directives: [],
@@ -738,25 +691,6 @@ export const typeDefs = {
             type: {
               kind: 'NamedType',
               name: { kind: 'Name', value: 'DateTimeISO' },
-            },
-          },
-          directives: [],
-        },
-        {
-          kind: 'FieldDefinition',
-          name: { kind: 'Name', value: 'planets' },
-          arguments: [],
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'ListType',
-              type: {
-                kind: 'NonNullType',
-                type: {
-                  kind: 'NamedType',
-                  name: { kind: 'Name', value: 'Planet' },
-                },
-              },
             },
           },
           directives: [],
