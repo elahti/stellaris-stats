@@ -40,7 +40,7 @@
   "name": "@stellaris-stats/shared",
   "private": true,
   "scripts": {
-    "build": "npm run clean && npm run build:node && npm run build:types",
+    "build": "npm run graphql-types:codegen && npm run clean && npm run build:node && npm run build:types",
     "build:node": "tsc -p tsconfig.node.json",
     "build:types": "tsc -p tsconfig.types.json",
     "clean": "rm -rf dist",
