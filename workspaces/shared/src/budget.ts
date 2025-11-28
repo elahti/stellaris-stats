@@ -1,4 +1,12 @@
-import { Budget, BudgetEntry } from './graphql/generated/types.js'
+import { PoolClient } from 'pg'
+import { z } from 'zod/v4'
+import { selectRowStrict } from './db.js'
+import {
+  Budget,
+  BudgetCategory,
+  BudgetEntry,
+  BudgetSchema,
+} from './graphql/generated/types.js'
 
 const emptyBudgetEntry: BudgetEntry = {
   alloys: 0,
@@ -14,7 +22,7 @@ const emptyBudgetEntry: BudgetEntry = {
   unity: 0,
 }
 
-export const emptyBudget: Budget = {
+const emptyBudgetCategory: BudgetCategory = {
   armies: emptyBudgetEntry,
   countryBase: emptyBudgetEntry,
   countryPowerProjection: emptyBudgetEntry,
@@ -56,4 +64,53 @@ export const emptyBudget: Budget = {
   stationGatherers: emptyBudgetEntry,
   stationResearchers: emptyBudgetEntry,
   tradePolicy: emptyBudgetEntry,
+}
+
+export const emptyBudget: Budget = {
+  income: emptyBudgetCategory,
+  expenses: emptyBudgetCategory,
+  balance: emptyBudgetCategory,
+}
+
+const getBudgetByGamestateIdQuery = `
+WITH
+  budget AS (
+    SELECT
+      g.date,
+      g.data -> 'country' -> (g.data -> 'player' -> 0 ->> 'country') -> 'budget' -> 'current_month' AS current_month
+    FROM
+      gamestate g
+    WHERE
+      g.gamestate_id = $1
+  )
+SELECT
+  JSONB_BUILD_OBJECT(
+    'income',
+    current_month -> 'income',
+    'expenses',
+    current_month -> 'expenses',
+    'balance',
+    current_month -> 'balance'
+  ) AS budget_data
+FROM
+  budget
+`
+
+const BudgetRow = z.object({
+  budgetData: BudgetSchema(),
+})
+
+type BudgetRow = z.infer<typeof BudgetRow>
+
+export const getBudgetByGamestateId = async (
+  client: PoolClient,
+  gamestateId: number,
+): Promise<Budget> => {
+  const budget = (
+    await selectRowStrict(
+      () => client.query(getBudgetByGamestateIdQuery, [gamestateId]),
+      BudgetRow,
+    )
+  ).budgetData
+  return budget
 }

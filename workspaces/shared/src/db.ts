@@ -67,3 +67,28 @@ export const selectRows = async <T>(
   schema: z.ZodType<T>,
 ): Promise<T[]> =>
   z.array(schema).parse((await query()).rows.map(convertKeysToCamelCase))
+
+const selectRow = async <T>(
+  query: () => Promise<QueryResult>,
+  codec: z.ZodType<T>,
+): Promise<T | undefined> => {
+  const rows = await selectRows(query, codec)
+  if (rows.length > 1) {
+    throw Error(`
+      Expected to get one or zero rows, but got multiple (${rows.length}) from DB, query result ${JSON.stringify(rows)}`)
+  }
+  return rows.length === 1 ? rows[0] : undefined
+}
+
+export const selectRowStrict = async <T>(
+  query: () => Promise<QueryResult>,
+  schema: z.ZodType<T>,
+): Promise<T> => {
+  const result = await selectRow(query, schema)
+  if (result === undefined) {
+    throw Error(
+      `Expected to get one row, but got none from DB, query result: ${JSON.stringify(result)}`,
+    )
+  }
+  return result
+}
