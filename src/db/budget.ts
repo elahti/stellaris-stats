@@ -1,12 +1,12 @@
 import { PoolClient } from 'pg'
 import { z } from 'zod/v4'
-import { selectRowStrict } from './db.js'
+import { selectRowStrict } from '../db.js'
 import {
   Budget,
   BudgetCategory,
   BudgetEntry,
   BudgetSchema,
-} from './graphql/generated/types.js'
+} from '../graphql/generated/validation.generated.js'
 
 const emptyBudgetEntry: BudgetEntry = {
   alloys: 0,

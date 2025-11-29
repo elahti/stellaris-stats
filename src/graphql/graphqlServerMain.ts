@@ -1,11 +1,8 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
-import { logger } from '@stellaris-stats/shared'
-import { DbConfig, getDbPool } from '@stellaris-stats/shared/db'
-import {
-  MigrationsConfig,
-  runUpMigrations,
-} from '@stellaris-stats/shared/migrations'
+import { DbConfig, getDbPool } from '../db.js'
+import { logger } from '../logger.js'
+import { MigrationsConfig, runUpMigrations } from '../migrations.js'
 import { resolvers } from './generated/resolvers.js'
 import { typeDefs } from './generated/typeDefs.js'
 import { GraphQLServerConfig } from './graphqlServerConfig.js'

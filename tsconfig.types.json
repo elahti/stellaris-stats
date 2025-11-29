@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
-    "sourceMap": false
-  },
-  "extends": "./tsconfig.common.json"
-}

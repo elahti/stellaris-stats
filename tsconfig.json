@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "declaration": false,
+    "declarationMap": false,
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": false,
     "forceConsistentCasingInFileNames": true,
@@ -10,20 +12,33 @@
     "lib": [
       "ESNext"
     ],
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUncheckedIndexedAccess": true,
+    "outDir": "dist",
     "removeComments": false,
     "resolveJsonModule": true,
+    "rootDir": "src",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "target": "esnext"
-  }
+    "target": "esnext",
+    "types": [
+      "node"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "*.tsbuildinfo"
+  ],
+  "include": [
+    "src/**/*"
+  ]
 }

@@ -1,13 +1,31 @@
 {
+  "dependencies": {
+    "@apollo/server": "5.1.0",
+    "commander": "14.0.2",
+    "graphql": "16.12.0",
+    "graphql-scalars": "1.25.0",
+    "jomini": "0.9.1",
+    "node-pg-migrate": "8.0.3",
+    "pg": "8.16.3",
+    "pino": "10.1.0",
+    "yauzl-promise": "4.0.0",
+    "zod": "4.1.12"
+  },
   "devDependencies": {
+    "@eddeee888/gcg-typescript-resolver-files": "0.14.0",
     "@eslint/js": "9.39.1",
+    "@graphql-codegen/cli": "6.0.2",
     "@types/node": "24.10.1",
+    "@types/pg": "8.15.6",
+    "@types/yauzl-promise": "4.0.1",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-n": "17.23.1",
     "eslint-plugin-prettier": "5.5.4",
+    "graphql-codegen-typescript-validation-schema": "0.18.1",
     "husky": "9.1.7",
     "lint-staged": "16.2.6",
+    "pino-pretty": "13.1.2",
     "prettier": "3.6.2",
     "tsx": "4.20.6",
     "typescript": "5.9.3",
@@ -20,20 +38,12 @@
     ]
   },
   "scripts": {
-    "build:all": "npm run -w @stellaris-stats/shared build && npm run -w @stellaris-stats/graphql-server build",
-    "build:graphql-server": "npm run -w @stellaris-stats/graphql-server build",
-    "build:shared": "npm run -w @stellaris-stats/shared build",
+    "build": "npm run graphql:codegen && tsc -p tsconfig.json",
     "db:connect": "dotenvx run -f .env.stellaris-stats --strict -- sh -c 'PGPASSWORD=\"$STELLARIS_STATS_DB_PASSWORD\" psql -h \"$STELLARIS_STATS_DB_HOST\" -p \"$STELLARIS_STATS_DB_PORT\" -U \"$STELLARIS_STATS_DB_USER\" \"$STELLARIS_STATS_DB_NAME\"'",
-    "gamestateToJson:run": "npm run -w @stellaris-stats/scripts gamestateToJson:run --",
-    "graphql-server:codegen": "npm run -w @stellaris-stats/graphql-server graphql-server:codegen",
-    "graphql-server:run": "dotenvx run -f .env.stellaris-stats --strict -- npm run -w @stellaris-stats/graphql-server graphql-server:run",
-    "graphql-types:codegen": "npm run -w @stellaris-stats/shared graphql-types:codegen",
+    "gamestateToJson:run": "tsx src/scripts/gamestateToJson.ts",
+    "graphql-server:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/graphql/graphqlServerMain.ts",
+    "graphql:codegen": "graphql-codegen --config codegen.yml && prettier -w src/graphql/generated",
     "lint": "eslint .",
     "prepare": "husky"
-  },
-  "workspaces": [
-    "workspaces/graphql-server",
-    "workspaces/scripts",
-    "workspaces/shared"
-  ]
+  }
 }

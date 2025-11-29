@@ -15,14 +15,14 @@ export default tseslint.config(
     ignores: [
       '**/dist/**',
       'eslint.config.mjs',
-      'workspaces/graphql-server/src/generated/types.generated.ts',
-      'workspaces/shared/src/graphql/generated/types.ts',
+      'src/graphql/generated/types.generated.ts',
+      'src/graphql/generated/validation.generated.ts',
     ],
   },
   {
     languageOptions: {
       parserOptions: {
-        project: ['workspaces/*/tsconfig*.json'],
+        project: ['tsconfig.json'],
         tsconfigRootDir: new URL('.', import.meta.url).pathname,
       },
       globals: {
@@ -40,12 +40,6 @@ export default tseslint.config(
         'error',
         {
           allowNumber: true,
-        },
-      ],
-      'n/no-missing-import': [
-        'error',
-        {
-          allowModules: ['@modelcontextprotocol/sdk'],
         },
       ],
       '@typescript-eslint/no-unused-vars': [

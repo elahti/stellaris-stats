@@ -1,6 +1,6 @@
 import { PoolClient } from 'pg'
-import { selectRows } from './db.js'
-import { Save, SaveSchema } from './graphql/generated/types.js'
+import { selectRows } from '../db.js'
+import { Save, SaveSchema } from '../graphql/generated/validation.generated.js'
 
 const getSavesQuery = `
 SELECT

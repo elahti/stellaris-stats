@@ -1,6 +1,9 @@
 import { PoolClient } from 'pg'
-import { selectRows } from './db.js'
-import { Gamestate, GamestateSchema } from './graphql/generated/types.js'
+import { selectRows } from '../db.js'
+import {
+  Gamestate,
+  GamestateSchema,
+} from '../graphql/generated/validation.generated.js'
 
 const getGamestatesQuery = `
 SELECT

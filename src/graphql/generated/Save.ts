@@ -1,5 +1,5 @@
-import { emptyBudget } from '@stellaris-stats/shared/budget'
-import { getGamestates } from '@stellaris-stats/shared/gamestate'
+import { emptyBudget } from '../../db/budget.js'
+import { getGamestates } from '../../db/gamestate.js'
 import type { SaveResolvers } from './types.generated.js'
 
 export const Save: SaveResolvers = {

@@ -4,33 +4,17 @@ This file provides instructions to Claude Code when working with code in this re
 
 ## Project Overview
 
-The project uses NPM workspaces. Main package.json is located at repository root: `/workspace/package.json`. There are following workspaces:
-
-- `/workspace/workspaces/scripts/`: Workspace containing utility scripts.
-- `/workspace/workspaces/graphql-server/`: Apollo GraphQL server.
-- `/workspace/workspaces/shared/`: Shared types, Zod schemas, database utilities, and migrations. This workspace is imported by other workspaces.
-
 ## Development Commands
 
-All of the development commands are run at the repository root at (`/workspace`) via the main `package.json`.
+All of the development commands are run at the repository root at (`/workspace`) via `package.json`.
 
 ### GraphQL Code Generation
 
-Generate TypeScript types and Zod schemas from GraphQL schema to `/workspace/workspaces/src/shared/graphql/generated`:
+Generate GraphQL resolver types, TypeScript types and Zod schemas from GraphQL schema to `src/graphql/generated`:
 
 ```bash
-npm run graphql-types:codegen
+npm run graphql:codegen
 ```
-
-Generate GraphQL resolver types needed by GraphQL server to `/workspace/workspaces/src/generated`:
-
-```bash
-npm run graphql-server:codegen
-```
-
-## TypeScript Configuration
-
-Each workspace has its own tsconfig.json that extends the root config (`tsconfig.node.json`).
 
 ## Development Guidelines
 

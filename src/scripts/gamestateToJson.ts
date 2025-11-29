@@ -1,4 +1,3 @@
-import { logger } from '@stellaris-stats/shared'
 import { Command } from 'commander'
 import { access, mkdir, readdir, unlink, writeFile } from 'fs/promises'
 import { Jomini } from 'jomini'
@@ -6,6 +5,7 @@ import { Writable } from 'stream'
 import { pipeline } from 'stream/promises'
 import { open } from 'yauzl-promise'
 import { z } from 'zod'
+import { logger } from '../logger.js'
 
 const getGamestateData = async (zipFilePath: string): Promise<Uint8Array> => {
   const zipFile = await open(zipFilePath)
