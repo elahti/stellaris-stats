@@ -71,6 +71,7 @@ type Gamestate {
 }
 
 type Query {
+  save(filename: String!): Save
   saves: [Save!]!
 }
 

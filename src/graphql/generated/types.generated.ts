@@ -24,6 +24,9 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
     }
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: NonNullable<T[P]>
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string }
@@ -110,7 +113,12 @@ export type Gamestate = {
 
 export type Query = {
   __typename?: 'Query'
+  save?: Maybe<Save>
   saves: Array<Save>
+}
+
+export type QuerysaveArgs = {
+  filename: Scalars['String']['input']
 }
 
 export type Save = {
@@ -248,8 +256,8 @@ export type ResolversTypes = {
   Gamestate: ResolverTypeWrapper<Gamestate>
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>
-  Save: ResolverTypeWrapper<Save>
   String: ResolverTypeWrapper<Scalars['String']['output']>
+  Save: ResolverTypeWrapper<Save>
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
 }
 
@@ -263,8 +271,8 @@ export type ResolversParentTypes = {
   Gamestate: Gamestate
   Int: Scalars['Int']['output']
   Query: Record<PropertyKey, never>
-  Save: Save
   String: Scalars['String']['output']
+  Save: Save
   Boolean: Scalars['Boolean']['output']
 }
 
@@ -544,6 +552,12 @@ export type QueryResolvers<
   ParentType extends
     ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
+  save?: Resolver<
+    Maybe<ResolversTypes['Save']>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerysaveArgs, 'filename'>
+  >
   saves?: Resolver<Array<ResolversTypes['Save']>, ParentType, ContextType>
 }
 

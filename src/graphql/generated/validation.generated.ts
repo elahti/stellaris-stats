@@ -100,7 +100,12 @@ export type Gamestate = {
 }
 
 export type Query = {
+  save?: Maybe<Save>
   saves: Array<Save>
+}
+
+export type QuerySaveArgs = {
+  filename: Scalars['String']['input']
 }
 
 export type Save = {

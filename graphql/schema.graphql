@@ -86,4 +86,5 @@ type Save {
 
 type Query {
   saves: [Save!]!
+  save(filename: String!): Save
 }
