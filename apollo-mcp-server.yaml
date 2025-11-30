@@ -1,0 +1,16 @@
+endpoint: http://devcontainer:4000
+transport:
+  port: 4001
+  type: streamable_http
+schema:
+  source: local
+  path: /data/schema.graphql
+overrides:
+  mutation_mode: all
+introspection:
+  execute:
+    enabled: true
+  introspect:
+    enabled: true
+  search:
+    enabled: true

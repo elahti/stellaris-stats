@@ -77,7 +77,10 @@
   },
   "dockerComposeFile": "docker-compose.yml",
   "forwardPorts": [
-    4000
+    4000, // GraphQL server
+    4001, // GraphQL MCP server
+    6274, // MCP inspector
+    6277 // MCP inspector
   ],
   "name": "Stellaris Stats Dev Container",
   "postCreateCommand": ". .devcontainer/post-create-command.sh",

@@ -7,7 +7,8 @@ services:
     command: sleep infinity
     container_name: stellaris-stats_devcontainer
     networks:
-      - stellaris-stats-network
+      - stellaris-stats-db-network
+      - stellaris-stats-mcp-network
     volumes:
       - ..:/workspace
       - '${STELLARIS_STATS_SAVE_PATH}:/stellaris-data:ro'
@@ -23,14 +24,42 @@ services:
     env_file:
       - .env.db
     networks:
-      - stellaris-stats-network
+      - stellaris-stats-db-network
     volumes:
       - db-data:/var/lib/postgresql/data
 
+  apollo-mcp-server:
+    image: ghcr.io/apollographql/apollo-mcp-server:v1.2.1
+    container_name: stellaris-stats_apollo-mcp-server
+    command: ['/apollo-mcp-server.yaml']
+    networks:
+      - stellaris-stats-mcp-network
+    ports:
+      - 4001:4001
+    volumes:
+      - ../graphql/schema.graphql:/data/schema.graphql:ro
+      - ../apollo-mcp-server.yaml:/apollo-mcp-server.yaml:ro
+
+  mcp-inspector:
+    container_name: stellaris-stats_mcp-inspector
+    environment:
+      - ALLOWED_ORIGINS=http://localhost:6274
+      - DANGEROUSLY_OMIT_AUTH=true
+      - HOST=0.0.0.0
+    image: ghcr.io/modelcontextprotocol/inspector:latest
+    networks:
+      - stellaris-stats-mcp-network
+    ports:
+      - 6274:6274
+      - 6277:6277
+
 networks:
-  stellaris-stats-network:
+  stellaris-stats-db-network:
     driver: bridge
-    name: stellaris-stats-network
+    name: stellaris-stats_db-network
+  stellaris-stats-mcp-network:
+    driver: bridge
+    name: stellaris-stats_mcp-network
 
 volumes:
   claude-data:
