@@ -13,7 +13,8 @@
       "Bash(node --version:*)",
       "Bash(npm --version:*)",
       "WebFetch(domain:github.com)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:the-guild.dev)"
     ],
     "ask": [],
     "deny": [
