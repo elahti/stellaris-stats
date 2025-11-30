@@ -8,7 +8,8 @@ services:
     container_name: stellaris-stats_devcontainer
     networks:
       - stellaris-stats-db-network
-      - stellaris-stats-mcp-network
+      - stellaris-stats-apollo-mcp-server-network
+      - stellaris-stats-mcp-run-python-network
     volumes:
       - ..:/workspace
       - '${STELLARIS_STATS_SAVE_PATH}:/stellaris-data:ro'
@@ -33,7 +34,7 @@ services:
     container_name: stellaris-stats_apollo-mcp-server
     command: ['/apollo-mcp-server.yaml']
     networks:
-      - stellaris-stats-mcp-network
+      - stellaris-stats-apollo-mcp-server-network
     ports:
       - 4001:4001
     volumes:
@@ -48,18 +49,32 @@ services:
       - HOST=0.0.0.0
     image: ghcr.io/modelcontextprotocol/inspector:latest
     networks:
-      - stellaris-stats-mcp-network
+      - stellaris-stats-apollo-mcp-server-network
     ports:
       - 6274:6274
       - 6277:6277
+
+  pydantic-mcp-run-python:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      target: pydantic-mcp-run-python
+    container_name: stellaris-stats_pydantic-mcp-run-python
+    networks:
+      - stellaris-stats-mcp-run-python-network
+    ports:
+      - 4002:4002
 
 networks:
   stellaris-stats-db-network:
     driver: bridge
     name: stellaris-stats_db-network
-  stellaris-stats-mcp-network:
+  stellaris-stats-apollo-mcp-server-network:
     driver: bridge
-    name: stellaris-stats_mcp-network
+    name: stellaris-stats_apollo-mcp-server-network
+  stellaris-stats-mcp-run-python-network:
+    driver: bridge
+    name: stellaris-stats_mcp-run-python-network
 
 volumes:
   claude-data:

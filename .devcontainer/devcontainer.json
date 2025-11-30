@@ -79,6 +79,7 @@
   "forwardPorts": [
     4000, // GraphQL server
     4001, // GraphQL MCP server
+    4002, // Pydantic MCP Python server
     6274, // MCP inspector
     6277 // MCP inspector
   ],

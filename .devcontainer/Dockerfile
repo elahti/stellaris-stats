@@ -38,3 +38,32 @@ COPY .devcontainer/.config/starship.toml $HOME/.config/starship.toml
 RUN curl -LsSf https://github.com/dotenvx/dotenvx/releases/download/v1.49.0/install.sh | sh -s -- --directory=/home/vscode/.local/bin
 
 COPY .devcontainer/.zshrc $HOME/.zshrc
+
+FROM python:3.13-slim-bookworm AS pydantic-mcp-run-python
+
+COPY --from=ghcr.io/astral-sh/uv:0.8.8 /uv /uvx /bin/
+COPY --from=docker.io/denoland/deno:bin-2.5.6 /deno /bin
+
+RUN apt update \
+  && apt install -y \
+    git \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
+RUN git clone --no-checkout https://github.com/pydantic/mcp-run-python.git /app \
+  && cd /app \
+  && git fetch --depth 1 origin ff3ebcff1b94fe103c8af560459da9308bee62f5 \
+  && git checkout ff3ebcff1b94fe103c8af560459da9308bee62f5
+
+WORKDIR /app
+
+RUN uv sync --frozen --compile-bytecode
+RUN uv run build/build.py
+
+WORKDIR /app/mcp_run_python/deno
+RUN deno cache src/main.ts
+
+WORKDIR /app
+
+ENTRYPOINT ["uv", "run", "mcp-run-python"]
+EXPOSE 4002
+CMD ["--port=4002", "--verbose", "--deps", "requests", "streamable-http"]
