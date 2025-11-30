@@ -47,3 +47,4 @@ Use there guidelines and rules whenever you're making changes to the codebase.
 
 - When adding dependencies to package.json, always use exact version, without caret (^).
 - Always use latest versions of dependencies where possible.
+- Prefer ternary operators over if/else statements.
