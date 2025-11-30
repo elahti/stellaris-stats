@@ -7,7 +7,7 @@ import { BudgetCategory } from './BudgetCategory.js'
 import { BudgetEntry } from './BudgetEntry.js'
 import { Gamestate } from './Gamestate.js'
 import { Save } from './Save.js'
-import { DateTimeISO } from './DateTimeISO.js'
+import { DateTimeISOResolver } from 'graphql-scalars'
 export const resolvers: Resolvers = {
   Query: { save: Query_save, saves: Query_saves },
 
@@ -16,5 +16,5 @@ export const resolvers: Resolvers = {
   BudgetEntry: BudgetEntry,
   Gamestate: Gamestate,
   Save: Save,
-  DateTimeISO: DateTimeISO,
+  DateTimeISO: DateTimeISOResolver,
 }

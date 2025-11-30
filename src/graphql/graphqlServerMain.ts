@@ -1,5 +1,9 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
+import {
+  resolvers as scalarResolvers,
+  typeDefs as scalarTypeDefs,
+} from 'graphql-scalars'
 import { DbConfig, getDbPool } from '../db.js'
 import { logger } from '../logger.js'
 import { MigrationsConfig, runUpMigrations } from '../migrations.js'
@@ -17,8 +21,11 @@ const runGraphQLServer = async () => {
   await runUpMigrations(config, pool)
 
   const server = new ApolloServer<GraphQLServerContext>({
-    typeDefs,
-    resolvers,
+    typeDefs: [...scalarTypeDefs, typeDefs],
+    resolvers: {
+      ...scalarResolvers,
+      ...resolvers,
+    },
     plugins: [
       {
         // eslint-disable-next-line @typescript-eslint/require-await
