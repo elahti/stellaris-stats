@@ -1,0 +1,96 @@
+[project]
+dependencies    = []
+name            = "agent"
+requires-python = ">=3.14"
+version         = "0.1.0"
+
+[build-system]
+build-backend = "uv_build"
+requires      = ["uv_build==0.9.13"]
+
+[dependency-groups]
+dev = ["pyright==1.1.407", "ruff==0.14.7"]
+
+[tool.ruff]
+line-length    = 88
+target-version = "py314"
+
+[tool.ruff.lint]
+ignore = [
+  "E501",
+] # Ignore line-too-long for strings
+select = [
+  "B",    # flake8-bugbear
+  "C4",   # flake8-comprehensions
+  "COM",  # flake8-commas (trailing commas)
+  "E",    # pycodestyle errors
+  "F",    # Pyflakes
+  "I",    # isort
+  "PERF", # perflint
+  "RUF",  # Ruff-specific rules
+  "SIM",  # flake8-simplify
+  "UP",   # pyupgrade
+  "W",    # pycodestyle warnings
+]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 88
+
+[tool.ruff.format]
+indent-style              = "space"
+line-ending               = "auto"
+preview                   = true
+quote-style               = "double"
+skip-magic-trailing-comma = false
+
+[tool.pyright]
+include                             = ["src"]
+pythonVersion                       = "3.13"
+reportAssertAlwaysTrue              = "error"
+reportCallInDefaultInitializer      = "error"
+reportConstantRedefinition          = "error"
+reportDeprecated                    = "error"
+reportDuplicateImport               = "error"
+reportImplicitOverride              = "error"
+reportImplicitStringConcatenation   = "error"
+reportImportCycles                  = "error"
+reportIncompleteStub                = "error"
+reportInconsistentConstructor       = "error"
+reportInvalidStringEscapeSequence   = "error"
+reportInvalidStubStatement          = "error"
+reportInvalidTypeVarUse             = "error"
+reportMatchNotExhaustive            = "error"
+reportMissingModuleSource           = "warning"
+reportMissingParameterType          = "error"
+reportMissingSuperCall              = "error"
+reportMissingTypeArgument           = "error"
+reportMissingTypeStubs              = "error"
+reportPrivateUsage                  = "error"
+reportPropertyTypeMismatch          = "error"
+reportSelfClsParameterName          = "error"
+reportShadowedImports               = "error"
+reportTypeCommentUsage              = "error"
+reportUninitializedInstanceVariable = "error"
+reportUnknownArgumentType           = "error"
+reportUnknownLambdaType             = "error"
+reportUnknownMemberType             = "error"
+reportUnknownParameterType          = "error"
+reportUnknownVariableType           = "error"
+reportUnnecessaryCast               = "error"
+reportUnnecessaryComparison         = "error"
+reportUnnecessaryContains           = "error"
+reportUnnecessaryIsInstance         = "error"
+reportUnnecessaryTypeIgnoreComment  = "error"
+reportUnreachable                   = "error"
+reportUnsupportedDunderAll          = "error"
+reportUntypedBaseClass              = "error"
+reportUntypedClassDecorator         = "error"
+reportUntypedFunctionDecorator      = "error"
+reportUntypedNamedTuple             = "error"
+reportUnusedClass                   = "error"
+reportUnusedExpression              = "error"
+reportUnusedFunction                = "error"
+reportUnusedImport                  = "error"
+reportUnusedVariable                = "error"
+reportWildcardImportFromLibrary     = "error"
+typeCheckingMode                    = "strict"

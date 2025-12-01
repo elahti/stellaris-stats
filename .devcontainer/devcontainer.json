@@ -10,15 +10,28 @@
       "extensions": [
         "Anthropic.claude-code",
         "apollographql.vscode-apollo",
+        "charliermarsh.ruff",
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
         "esbenp.prettier-vscode",
         "GitHub.copilot-chat",
         "GitHub.copilot",
         "inferrinizzard.prettier-sql-vscode",
-        "ms-ossdata.vscode-pgsql"
+        "ms-ossdata.vscode-pgsql",
+        "ms-python.debugpy",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.vscode-python-envs",
+        "tamasfe.even-better-toml"
       ],
       "settings": {
+        "[python]": {
+          "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports.ruff": "explicit"
+          },
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        },
         "[sql]": {
           "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
         },
@@ -41,6 +54,17 @@
         "editor.tabSize": 2,
         "eslint.enable": true,
         "eslint.useFlatConfig": true,
+        "evenBetterToml.completion.maxKeys": 5,
+        "evenBetterToml.formatter.alignComments": true,
+        "evenBetterToml.formatter.alignEntries": true,
+        "evenBetterToml.formatter.allowedBlankLines": 2,
+        "evenBetterToml.formatter.arrayAutoExpand": true,
+        "evenBetterToml.formatter.arrayTrailingComma": true,
+        "evenBetterToml.formatter.columnWidth": 50,
+        "evenBetterToml.formatter.reorderArrays": true,
+        "evenBetterToml.formatter.reorderInlineTables": true,
+        "evenBetterToml.formatter.reorderKeys": true,
+        "evenBetterToml.formatter.trailingNewline": true,
         "github.copilot.chat.agent.autoFix": true,
         "github.copilot.chat.agent.currentEditorContext.enabled": true,
         "github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": true,
@@ -69,7 +93,39 @@
         "prettier.tabWidth": 2,
         "prettier.trailingComma": "all",
         "prettier.useTabs": false,
+        "python.analysis.addHoverSummaries": true,
+        "python.analysis.autoFormatStrings": false,
+        "python.analysis.autoImportCompletions": true,
+        "python.analysis.autoIndent": true,
+        "python.analysis.autoSearchPaths": true,
+        "python.analysis.autoSplitStrings": true,
+        "python.analysis.diagnosticMode": "workspace",
+        "python.analysis.enablePytestSupport": true,
+        "python.analysis.enableTroubleshootMissingImports": true,
+        "python.analysis.extraPaths": [
+          "/workspace/agent/src"
+        ],
+        "python.analysis.generateWithTypeAnnotation": true,
+        "python.analysis.gotoDefinitionInStringLiteral": true,
+        "python.analysis.importFormat": "absolute",
+        "python.analysis.indexing": true,
+        "python.analysis.inlayHints.callArgumentNames": "partial",
+        "python.analysis.inlayHints.functionReturnTypes": true,
+        "python.analysis.inlayHints.pytestParameters": true,
+        "python.analysis.inlayHints.variableTypes": true,
+        "python.analysis.languageServerMode": "full",
+        "python.analysis.persistAllIndices": true,
+        "python.analysis.typeCheckingMode": "strict",
+        "python.analysis.typeEvaluation.strictDictionaryInference": true,
+        "python.analysis.typeEvaluation.strictListInference": true,
+        "python.analysis.typeEvaluation.strictParameterNoneValue": true,
+        "python.analysis.typeEvaluation.strictSetInference": true,
+        "python.defaultInterpreterPath": "/workspace/agent/.venv/bin/python3.14",
+        "python.pythonPath": "/workspace/agent/.venv/bin/python3.14",
+        "python.terminal.activateEnvironment": false,
+        "python.venvPath": "/workspace/agent/.venv",
         "remote.autoForwardPorts": false,
+        "ruff.configurationPreference": "filesystemFirst",
         "terminal.integrated.fontLigatures.enabled": true,
         "workbench.editorLargeFileConfirmation": 200
       }
