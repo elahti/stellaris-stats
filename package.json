@@ -12,7 +12,7 @@
     "zod": "4.1.12"
   },
   "devDependencies": {
-    "@eddeee888/gcg-typescript-resolver-files": "0.14.0",
+    "@eddeee888/gcg-typescript-resolver-files": "0.14.1",
     "@eslint/js": "9.39.1",
     "@graphql-codegen/cli": "6.0.2",
     "@types/node": "24.10.1",
