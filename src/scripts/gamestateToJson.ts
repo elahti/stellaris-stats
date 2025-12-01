@@ -1,80 +1,15 @@
-import { Command } from 'commander'
 import { access, mkdir, readdir, unlink, writeFile } from 'fs/promises'
 import { Jomini } from 'jomini'
-import { Writable } from 'stream'
-import { pipeline } from 'stream/promises'
-import { open } from 'yauzl-promise'
-import { z } from 'zod'
-import { logger } from '../logger.js'
-
-const getGamestateData = async (zipFilePath: string): Promise<Uint8Array> => {
-  const zipFile = await open(zipFilePath)
-
-  try {
-    for await (const entry of zipFile) {
-      if (entry.filename === 'gamestate') {
-        const readStream = await entry.openReadStream()
-        const chunks: Buffer[] = []
-
-        const writableStream = new Writable({
-          write(chunk: Buffer, _encoding, callback) {
-            chunks.push(chunk)
-            callback()
-          },
-        })
-
-        await pipeline(readStream, writableStream)
-
-        const buffer = Buffer.concat(chunks)
-        return new Uint8Array(buffer)
-      }
-    }
-
-    throw new Error('gamestate file not found in zip')
-  } finally {
-    await zipFile.close()
-  }
-}
+import { readGamestateData } from '../parser/gamestateReader.js'
+import { getParserOptions } from '../parser/parserOptions.js'
 
 const main = async () => {
-  const program = new Command()
-
-  program.option('-l, --list', 'List all gamestate IDs')
-  program.option('-g, --gamestateId <id>', 'Gamestate ID')
-  program.parse()
-
-  const options = program.opts()
-
-  if (options.list) {
-    const entries = await readdir('/stellaris-data', { withFileTypes: true })
-    const directories = entries
-      .filter((entry) => entry.isDirectory())
-      .map((entry) => entry.name)
-
-    directories.forEach((dir) => {
-      logger.info(dir)
-    })
+  const parserOptions = await getParserOptions()
+  if (parserOptions === undefined) {
     return
   }
-
-  if (!options.gamestateId) {
-    throw new Error('Either -l or -g option is required')
-  }
-
-  const gamestateId = z.string().parse(options.gamestateId)
-  const ironmanPath = `/stellaris-data/${gamestateId}/ironman.sav`
-
-  try {
-    await access(ironmanPath)
-  } catch {
-    throw new Error(
-      `Gamestate ID '${gamestateId}' does not exist: file not found at ${ironmanPath}`,
-    )
-  }
-
-  const gamestateData = await getGamestateData(ironmanPath)
-  const parsed = (await Jomini.initialize()).parseText(gamestateData)
-
+  const { gamestateId, ironmanPath } = parserOptions
+  const gamestateData = await readGamestateData(ironmanPath)
   const outputDir = `/workspace/gamestate-json-data/${gamestateId}`
 
   let directoryExists = false
@@ -96,6 +31,7 @@ const main = async () => {
     }
   }
 
+  const parsed = (await Jomini.initialize()).parseText(gamestateData)
   for (const [key, value] of Object.entries(parsed)) {
     const filePath = `${outputDir}/${key}.json`
     await writeFile(filePath, JSON.stringify(value, null, 2))
