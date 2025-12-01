@@ -18,7 +18,7 @@ npm run graphql:codegen
 
 ## Development Guidelines
 
-Use there guidelines and rules whenever you're making changes to the codebase.
+Use these guidelines and rules whenever you're making changes to the codebase.
 
 ### General Development Rules
 
