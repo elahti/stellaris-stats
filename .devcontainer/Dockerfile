@@ -41,7 +41,7 @@ COPY .devcontainer/.zshrc $HOME/.zshrc
 
 FROM python:3.13-slim-bookworm AS pydantic-mcp-run-python
 
-COPY --from=ghcr.io/astral-sh/uv:0.8.8 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.13 /uv /uvx /bin/
 COPY --from=docker.io/denoland/deno:bin-2.5.6 /deno /bin
 
 RUN apt update \
