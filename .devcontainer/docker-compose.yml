@@ -14,6 +14,7 @@ services:
       - ..:/workspace
       - '${STELLARIS_STATS_SAVE_PATH}:/stellaris-data:ro'
       - claude-data:/home/vscode/.claude
+      - db-dump-data:/workspace/db-dump-data
       - gamestate-json-data:/workspace/gamestate-json-data
       - node-modules:/workspace/node_modules
       - user-cache:/home/vscode/.cache
@@ -81,6 +82,8 @@ volumes:
     name: stellaris-stats_claude-data
   db-data:
     name: stellaris-stats_db-data
+  db-dump-data:
+    name: stellaris-stats_db-dump-data
   gamestate-json-data:
     name: stellaris-stats_gamestate-json-data
   node-modules:

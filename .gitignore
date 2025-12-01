@@ -4,4 +4,5 @@
 /*.code-workspace
 /**/dist/
 /**/node_modules/
+/db-dump-data
 /gamestate-json-data/
