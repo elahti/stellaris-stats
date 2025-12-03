@@ -37,6 +37,7 @@
       "eslint"
     ]
   },
+  "name": "stellaris-stats",
   "scripts": {
     "build": "npm run graphql:codegen && tsc -p tsconfig.json",
     "db:connect": "dotenvx run -f .env.stellaris-stats --strict -- sh -c 'PGPASSWORD=\"$STELLARIS_STATS_DB_PASSWORD\" psql -h \"$STELLARIS_STATS_DB_HOST\" -p \"$STELLARIS_STATS_DB_PORT\" -U \"$STELLARIS_STATS_DB_USER\" \"$STELLARIS_STATS_DB_NAME\"'",
