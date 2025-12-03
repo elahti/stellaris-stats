@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "python-executor": {
+      "type": "http",
+      "url": "http://pydantic-mcp-run-python:4002/mcp"
+    }
+  }
+}
