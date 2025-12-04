@@ -2,6 +2,7 @@
   "permissions": {
     "allow": [
       "Bash(cat:*)",
+      "Bash(jq:*)",
       "Bash(node --version:*)",
       "Bash(npm --version:*)",
       "Bash(npm info:*)",
@@ -11,6 +12,7 @@
       "Bash(npm run graphql:codegen:*)",
       "Bash(npx graphql-codegen:*)",
       "Bash(npx tsc:*)",
+      "Bash(psql:*)",
       "mcp__ide__getDiagnostics",
       "mcp__python_executor__*",
       "mcp__python-executor__run_python_code",
