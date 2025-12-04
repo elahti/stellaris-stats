@@ -97,6 +97,19 @@ export type Gamestate = {
   budget: Budget
   date: Scalars['DateTimeISO']['output']
   gamestateId: Scalars['Int']['output']
+  planets: Array<Planet>
+}
+
+export type Planet = {
+  planetId: Scalars['String']['output']
+  planetName: Scalars['String']['output']
+  profits: PlanetProduction
+}
+
+export type PlanetProduction = {
+  balance?: Maybe<BudgetEntry>
+  expenses?: Maybe<BudgetEntry>
+  income?: Maybe<BudgetEntry>
 }
 
 export type Query = {
@@ -209,6 +222,27 @@ export function GamestateSchema(): z.ZodObject<Properties<Gamestate>> {
     budget: z.lazy(() => BudgetSchema()),
     date: z.date(),
     gamestateId: z.number(),
+    planets: z.array(z.lazy(() => PlanetSchema())),
+  })
+}
+
+export function PlanetSchema(): z.ZodObject<Properties<Planet>> {
+  return z.object({
+    __typename: z.literal('Planet').optional(),
+    planetId: z.string(),
+    planetName: z.string(),
+    profits: z.lazy(() => PlanetProductionSchema()),
+  })
+}
+
+export function PlanetProductionSchema(): z.ZodObject<
+  Properties<PlanetProduction>
+> {
+  return z.object({
+    __typename: z.literal('PlanetProduction').optional(),
+    balance: z.lazy(() => BudgetEntrySchema().nullish()),
+    expenses: z.lazy(() => BudgetEntrySchema().nullish()),
+    income: z.lazy(() => BudgetEntrySchema().nullish()),
   })
 }
 

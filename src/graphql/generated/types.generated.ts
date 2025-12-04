@@ -109,6 +109,21 @@ export type Gamestate = {
   budget: Budget
   date: Scalars['DateTimeISO']['output']
   gamestateId: Scalars['Int']['output']
+  planets: Array<Planet>
+}
+
+export type Planet = {
+  __typename?: 'Planet'
+  planetId: Scalars['String']['output']
+  planetName: Scalars['String']['output']
+  profits: PlanetProduction
+}
+
+export type PlanetProduction = {
+  __typename?: 'PlanetProduction'
+  balance?: Maybe<BudgetEntry>
+  expenses?: Maybe<BudgetEntry>
+  income?: Maybe<BudgetEntry>
 }
 
 export type Query = {
@@ -255,8 +270,10 @@ export type ResolversTypes = {
   DateTimeISO: ResolverTypeWrapper<Scalars['DateTimeISO']['output']>
   Gamestate: ResolverTypeWrapper<Gamestate>
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
-  Query: ResolverTypeWrapper<Record<PropertyKey, never>>
+  Planet: ResolverTypeWrapper<Planet>
   String: ResolverTypeWrapper<Scalars['String']['output']>
+  PlanetProduction: ResolverTypeWrapper<PlanetProduction>
+  Query: ResolverTypeWrapper<Record<PropertyKey, never>>
   Save: ResolverTypeWrapper<Save>
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
 }
@@ -270,16 +287,18 @@ export type ResolversParentTypes = {
   DateTimeISO: Scalars['DateTimeISO']['output']
   Gamestate: Gamestate
   Int: Scalars['Int']['output']
-  Query: Record<PropertyKey, never>
+  Planet: Planet
   String: Scalars['String']['output']
+  PlanetProduction: PlanetProduction
+  Query: Record<PropertyKey, never>
   Save: Save
   Boolean: Scalars['Boolean']['output']
 }
 
 export type BudgetResolvers<
   ContextType = GraphQLServerContext,
-  ParentType extends
-    ResolversParentTypes['Budget'] = ResolversParentTypes['Budget'],
+  ParentType extends ResolversParentTypes['Budget'] =
+    ResolversParentTypes['Budget'],
 > = {
   balance?: Resolver<ResolversTypes['BudgetCategory'], ParentType, ContextType>
   expenses?: Resolver<ResolversTypes['BudgetCategory'], ParentType, ContextType>
@@ -288,8 +307,8 @@ export type BudgetResolvers<
 
 export type BudgetCategoryResolvers<
   ContextType = GraphQLServerContext,
-  ParentType extends
-    ResolversParentTypes['BudgetCategory'] = ResolversParentTypes['BudgetCategory'],
+  ParentType extends ResolversParentTypes['BudgetCategory'] =
+    ResolversParentTypes['BudgetCategory'],
 > = {
   armies?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
@@ -500,8 +519,8 @@ export type BudgetCategoryResolvers<
 
 export type BudgetEntryResolvers<
   ContextType = GraphQLServerContext,
-  ParentType extends
-    ResolversParentTypes['BudgetEntry'] = ResolversParentTypes['BudgetEntry'],
+  ParentType extends ResolversParentTypes['BudgetEntry'] =
+    ResolversParentTypes['BudgetEntry'],
 > = {
   alloys?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
   consumerGoods?: Resolver<
@@ -532,25 +551,64 @@ export type BudgetEntryResolvers<
   unity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
 }
 
-export interface DateTimeISOScalarConfig
-  extends GraphQLScalarTypeConfig<ResolversTypes['DateTimeISO'], any> {
+export interface DateTimeISOScalarConfig extends GraphQLScalarTypeConfig<
+  ResolversTypes['DateTimeISO'],
+  any
+> {
   name: 'DateTimeISO'
 }
 
 export type GamestateResolvers<
   ContextType = GraphQLServerContext,
-  ParentType extends
-    ResolversParentTypes['Gamestate'] = ResolversParentTypes['Gamestate'],
+  ParentType extends ResolversParentTypes['Gamestate'] =
+    ResolversParentTypes['Gamestate'],
 > = {
   budget?: Resolver<ResolversTypes['Budget'], ParentType, ContextType>
   date?: Resolver<ResolversTypes['DateTimeISO'], ParentType, ContextType>
   gamestateId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  planets?: Resolver<Array<ResolversTypes['Planet']>, ParentType, ContextType>
+}
+
+export type PlanetResolvers<
+  ContextType = GraphQLServerContext,
+  ParentType extends ResolversParentTypes['Planet'] =
+    ResolversParentTypes['Planet'],
+> = {
+  planetId?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  planetName?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  profits?: Resolver<
+    ResolversTypes['PlanetProduction'],
+    ParentType,
+    ContextType
+  >
+}
+
+export type PlanetProductionResolvers<
+  ContextType = GraphQLServerContext,
+  ParentType extends ResolversParentTypes['PlanetProduction'] =
+    ResolversParentTypes['PlanetProduction'],
+> = {
+  balance?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  expenses?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  income?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
 }
 
 export type QueryResolvers<
   ContextType = GraphQLServerContext,
-  ParentType extends
-    ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
+  ParentType extends ResolversParentTypes['Query'] =
+    ResolversParentTypes['Query'],
 > = {
   save?: Resolver<
     Maybe<ResolversTypes['Save']>,
@@ -563,8 +621,8 @@ export type QueryResolvers<
 
 export type SaveResolvers<
   ContextType = GraphQLServerContext,
-  ParentType extends
-    ResolversParentTypes['Save'] = ResolversParentTypes['Save'],
+  ParentType extends ResolversParentTypes['Save'] =
+    ResolversParentTypes['Save'],
 > = {
   filename?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   gamestates?: Resolver<
@@ -582,6 +640,8 @@ export type Resolvers<ContextType = GraphQLServerContext> = {
   BudgetEntry?: BudgetEntryResolvers<ContextType>
   DateTimeISO?: GraphQLScalarType
   Gamestate?: GamestateResolvers<ContextType>
+  Planet?: PlanetResolvers<ContextType>
+  PlanetProduction?: PlanetProductionResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
   Save?: SaveResolvers<ContextType>
 }

@@ -512,6 +512,91 @@ export const typeDefs = {
     },
     {
       kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'PlanetProduction' },
+      interfaces: [],
+      directives: [],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'income' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'expenses' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'balance' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+      ],
+    },
+    {
+      kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'Planet' },
+      interfaces: [],
+      directives: [],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetId' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetName' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'profits' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'PlanetProduction' },
+            },
+          },
+          directives: [],
+        },
+      ],
+    },
+    {
+      kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'Budget' },
       interfaces: [],
       directives: [],
@@ -582,6 +667,25 @@ export const typeDefs = {
             type: {
               kind: 'NamedType',
               name: { kind: 'Name', value: 'DateTimeISO' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planets' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'Planet' },
+                },
+              },
             },
           },
           directives: [],

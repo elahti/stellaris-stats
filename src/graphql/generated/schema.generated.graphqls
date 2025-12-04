@@ -68,6 +68,19 @@ type Gamestate {
   budget: Budget!
   date: DateTimeISO!
   gamestateId: Int!
+  planets: [Planet!]!
+}
+
+type Planet {
+  planetId: String!
+  planetName: String!
+  profits: PlanetProduction!
+}
+
+type PlanetProduction {
+  balance: BudgetEntry
+  expenses: BudgetEntry
+  income: BudgetEntry
 }
 
 type Query {

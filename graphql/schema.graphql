@@ -58,11 +58,17 @@ type BudgetCategory {
   tradePolicy: BudgetEntry
 }
 
-# type Planet {
-#   planetId: String!
-#   planetName: String!
-#   profits: Budget!
-# }
+type PlanetProduction {
+  income: BudgetEntry
+  expenses: BudgetEntry
+  balance: BudgetEntry
+}
+
+type Planet {
+  planetId: String!
+  planetName: String!
+  profits: PlanetProduction!
+}
 
 type Budget {
   income: BudgetCategory!
@@ -73,7 +79,7 @@ type Budget {
 type Gamestate {
   gamestateId: Int!
   date: DateTimeISO!
-  # planets: [Planet!]!
+  planets: [Planet!]!
   budget: Budget!
 }
 
