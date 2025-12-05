@@ -1,7 +1,7 @@
 ---
 name: stellaris-stats-game-data-analysis
 description: Analyzes Stellaris save data by creating and running python code using a MCP tool providing a sandboxed environment. The Python code retrieves data from Stellaris saves by accessing GraphQL API.
-allowed-tools: python-executor
+allowed-tools: run_python_code
 ---
 
 # Stellaris Game Data Analysis
@@ -25,7 +25,7 @@ Invoke this skill when the user asks about:
 Stellaris save data is available via a GraphQL API. You must first understand the GraphQL schema to know how the data is structured.
 
 - You must create one or more Python programs with the purpose of introspecting the GraphQL schema.
-- Use the `python-executor` MCP tool to create and run one or more Python programs.
+- Use the `run_python_code` MCP tool from `python-executor` MCP server to create and run one or more Python programs.
 - These Python programs are allowed to return complete introspection results to you.
 
 After you've gained understanding of the schema, you must start analyzing Stellaris save data as the user has requested.
