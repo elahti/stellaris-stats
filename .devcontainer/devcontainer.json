@@ -39,6 +39,7 @@
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
         "claudeCode.initialPermissionMode": "default",
+        "claudeCode.preferredLocation": "panel",
         "claudeCode.respectGitIgnore": true,
         "claudeCode.useTerminal": true,
         "editor.codeActionsOnSave": {
