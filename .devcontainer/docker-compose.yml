@@ -22,14 +22,14 @@ services:
       - user-cache:/home/vscode/.cache
 
   db:
-    image: postgres:17
+    image: postgres:18
     container_name: stellaris-stats_db
     env_file:
       - .env.db
     networks:
       - stellaris-stats-db-network
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql
 
   apollo-mcp-server:
     image: ghcr.io/apollographql/apollo-mcp-server:v1.2.1
