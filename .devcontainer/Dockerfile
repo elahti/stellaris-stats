@@ -30,7 +30,7 @@ RUN --mount=type=bind,source=.nvmrc,target=/root/.nvmrc \
 
 USER vscode
 
-RUN curl -fsSL https://claude.ai/install.sh | bash
+RUN mkdir -p /home/vscode/.local/bin
 
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 COPY .devcontainer/.config/starship.toml $HOME/.config/starship.toml
