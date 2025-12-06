@@ -1,3 +1,28 @@
+FROM ubuntu:26.04 AS ubuntu-base
+
+RUN apt update \
+  && apt install -y \
+    curl \
+    zsh \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
+
+SHELL ["/bin/zsh", "-c"]
+ENV SHELL=/bin/zsh
+
+FROM ubuntu-base AS starship
+
+RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes -v v1.24.1
+
+FROM ubuntu-base AS nvm
+
+ENV NVM_DIR=/usr/local/share/nvm
+RUN --mount=type=bind,source=.nvmrc,target=/root/.nvmrc \
+  mkdir -p $NVM_DIR \
+  && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash \
+  && source $NVM_DIR/nvm.sh \
+  && nvm install $(cat /root/.nvmrc)
+
 FROM mcr.microsoft.com/devcontainers/base:ubuntu AS devcontainer
 
 ENV HOME=/home/vscode
@@ -21,18 +46,13 @@ RUN apt update \
   && rm -rf /var/lib/apt/lists/*
 
 ENV NVM_DIR=/usr/local/share/nvm
-RUN --mount=type=bind,source=.nvmrc,target=/root/.nvmrc \
-  mkdir -p $NVM_DIR \
-  && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash \
-  && source $NVM_DIR/nvm.sh \
-  && nvm install $(cat /root/.nvmrc) \
-  && chown -R vscode:vscode $NVM_DIR
+COPY --from=nvm $NVM_DIR $NVM_DIR
 
 USER vscode
 
 RUN mkdir -p /home/vscode/.local/bin
 
-RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
+COPY --from=starship --chown=vscode:vscode /usr/local/bin/starship /usr/local/bin/starship
 COPY .devcontainer/.config/starship.toml $HOME/.config/starship.toml
 
 RUN curl -LsSf https://github.com/dotenvx/dotenvx/releases/download/v1.49.0/install.sh | sh -s -- --directory=/home/vscode/.local/bin
