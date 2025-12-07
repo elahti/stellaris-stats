@@ -7,6 +7,6 @@ export const Save: SaveResolvers = {
     (await getGamestates(context.client, parent.saveId)).map((gamestate) => ({
       ...gamestate,
       planets: [],
-      budget: emptyBudget,
+      budget: emptyBudget(),
     })),
 }
