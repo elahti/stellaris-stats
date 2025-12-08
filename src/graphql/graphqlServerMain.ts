@@ -4,21 +4,22 @@ import {
   resolvers as scalarResolvers,
   typeDefs as scalarTypeDefs,
 } from 'graphql-scalars'
+import { Logger } from 'pino'
 import { DbConfig, getDbPool } from '../db.js'
-import { logger } from '../logger.js'
+import { getLogger } from '../logger.js'
 import { MigrationsConfig, runUpMigrations } from '../migrations.js'
 import { resolvers } from './generated/resolvers.js'
 import { typeDefs } from './generated/typeDefs.js'
 import { GraphQLServerConfig } from './graphqlServerConfig.js'
 import { GraphQLServerContext } from './graphqlServerContext.js'
 
-const runGraphQLServer = async () => {
+const runGraphQLServer = async (logger: Logger) => {
   const config = GraphQLServerConfig.extend(DbConfig.shape)
     .extend(MigrationsConfig.shape)
     .parse(process.env)
   const pool = getDbPool(config)
 
-  await runUpMigrations(config, pool)
+  await runUpMigrations(config, pool, logger)
 
   const server = new ApolloServer<GraphQLServerContext>({
     typeDefs: [...scalarTypeDefs, typeDefs],
@@ -51,6 +52,7 @@ const runGraphQLServer = async () => {
   )
 }
 
-runGraphQLServer().catch((error: unknown) => {
+const logger = getLogger()
+runGraphQLServer(logger).catch((error: unknown) => {
   logger.error(error)
 })

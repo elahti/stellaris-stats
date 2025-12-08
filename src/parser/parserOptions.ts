@@ -1,9 +1,9 @@
 import { Command } from 'commander'
 import { access, readdir } from 'fs/promises'
+import { Logger } from 'pino'
 import { z } from 'zod/v4'
-import { logger } from '../logger.js'
 
-export const getParserOptions = async () => {
+export const getParserOptions = async (logger: Logger) => {
   const program = new Command()
 
   program.option('-l, --list', 'List all gamestate IDs')

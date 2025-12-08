@@ -1,10 +1,12 @@
 import { access, mkdir, readdir, unlink, writeFile } from 'fs/promises'
 import { Jomini } from 'jomini'
+import { getLogger } from '../logger.js'
 import { readGamestateData } from '../parser/gamestateReader.js'
 import { getParserOptions } from '../parser/parserOptions.js'
 
 const main = async () => {
-  const parserOptions = await getParserOptions()
+  const logger = getLogger()
+  const parserOptions = await getParserOptions(logger)
   if (parserOptions === undefined) {
     return
   }
