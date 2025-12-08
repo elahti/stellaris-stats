@@ -57,13 +57,13 @@ COPY .devcontainer/.config/starship.toml $HOME/.config/starship.toml
 
 RUN curl -LsSf https://github.com/dotenvx/dotenvx/releases/download/v1.49.0/install.sh | sh -s -- --directory=/home/vscode/.local/bin
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.15 /uv /uvx $HOME/.local/bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.16 /uv /uvx $HOME/.local/bin/
 
 COPY .devcontainer/.zshrc $HOME/.zshrc
 
 FROM python:3.14-slim-bookworm AS pydantic-mcp-run-python
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.15 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.16 /uv /uvx /bin/
 COPY --from=docker.io/denoland/deno:bin-2.5.6 /deno /bin
 
 RUN apt update \
