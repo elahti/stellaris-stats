@@ -9,7 +9,7 @@ build-backend = "uv_build"
 requires      = ["uv_build==0.9.15"]
 
 [dependency-groups]
-dev = ["pyright==1.1.407", "ruff==0.14.7"]
+dev = ["pyright==1.1.407", "ruff==0.14.8"]
 
 [tool.ruff]
 line-length    = 88
