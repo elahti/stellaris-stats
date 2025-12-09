@@ -10,8 +10,11 @@ services:
       - stellaris-stats-db-network
       - stellaris-stats-apollo-mcp-server-network
       - stellaris-stats-librechat-network
+      - stellaris-stats-librechat-metrics-network
+      - stellaris-stats-librechat-mongo-network
       - stellaris-stats-mcp-run-python-network
       - stellaris-stats-grafana-network
+      - stellaris-stats_prometheus-network
     volumes:
       - ..:/workspace
       - '${STELLARIS_STATS_SAVE_PATH}:/stellaris-data:ro'
@@ -76,6 +79,7 @@ services:
     image: grafana/grafana:12.4.0-19877932531
     networks:
       - stellaris-stats-grafana-network
+      - stellaris-stats_prometheus-network
     ports:
       - 4003:3000
     volumes:
@@ -90,6 +94,7 @@ services:
     networks:
       - stellaris-stats-apollo-mcp-server-network
       - stellaris-stats-librechat-network
+      - stellaris-stats-librechat-mongo-network
       - stellaris-stats-mcp-run-python-network
     ports:
       - 4004:3080
@@ -103,9 +108,30 @@ services:
     container_name: stellaris-stats_librechat-mongo
     image: mongo:8.2.2-noble
     networks:
-      - stellaris-stats-librechat-network
+      - stellaris-stats-librechat-mongo-network
     volumes:
       - librechat-mongo-data:/data/db
+
+  librechat-metrics:
+    container_name: stellaris-stats_librechat-metrics
+    env_file:
+      - .env.librechat-metrics
+    image: ghcr.io/virtuos/librechat_exporter:2.0.6
+    networks:
+      - stellaris-stats-librechat-metrics-network
+      - stellaris-stats-librechat-mongo-network
+
+  prometheus:
+    container_name: stellaris-stats_prometheus
+    image: prom/prometheus:v3.8.0
+    networks:
+      - stellaris-stats-librechat-metrics-network
+      - stellaris-stats_prometheus-network
+    ports:
+      - 4005:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
 
 networks:
   stellaris-stats-apollo-mcp-server-network:
@@ -117,9 +143,18 @@ networks:
   stellaris-stats-librechat-network:
     driver: bridge
     name: stellaris-stats_librechat-network
+  stellaris-stats-librechat-metrics-network:
+    driver: bridge
+    name: stellaris-stats_librechat-metrics-network
+  stellaris-stats-librechat-mongo-network:
+    driver: bridge
+    name: stellaris-stats_librechat-mongo-network
   stellaris-stats-mcp-run-python-network:
     driver: bridge
     name: stellaris-stats_mcp-run-python-network
+  stellaris-stats_prometheus-network:
+    driver: bridge
+    name: stellaris-stats_prometheus-network
   stellaris-stats-grafana-network:
     driver: bridge
     name: stellaris-stats_grafana-network
@@ -147,5 +182,7 @@ volumes:
     name: stellaris-stats_librechat-logs
   node-modules:
     name: stellaris-stats_node-modules
+  prometheus-data:
+    name: stellaris-stats_prometheus-data
   user-cache:
     name: stellaris-stats_user-cache
