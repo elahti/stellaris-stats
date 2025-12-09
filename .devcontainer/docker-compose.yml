@@ -9,6 +9,7 @@ services:
     networks:
       - stellaris-stats-db-network
       - stellaris-stats-apollo-mcp-server-network
+      - stellaris-stats-librechat-network
       - stellaris-stats-mcp-run-python-network
       - stellaris-stats-grafana-network
     volumes:
@@ -52,6 +53,7 @@ services:
     image: ghcr.io/modelcontextprotocol/inspector:latest
     networks:
       - stellaris-stats-apollo-mcp-server-network
+      - stellaris-stats-mcp-run-python-network
     ports:
       - 6274:6274
       - 6277:6277
@@ -79,13 +81,42 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
 
+  librechat:
+    container_name: stellaris-stats_librechat
+    env_file:
+      - .env.librechat
+      - .env.librechat.secrets
+    image: librechat/librechat:v0.8.1-rc2
+    networks:
+      - stellaris-stats-apollo-mcp-server-network
+      - stellaris-stats-librechat-network
+      - stellaris-stats-mcp-run-python-network
+    ports:
+      - 4004:3080
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml:ro
+      - librechat-image-data:/app/client/public/images
+      - librechat-upload-data:/app/uploads
+      - librechat-logs:/app/api/logs
+
+  librechat-mongo:
+    container_name: stellaris-stats_librechat-mongo
+    image: mongo:8.2.2-noble
+    networks:
+      - stellaris-stats-librechat-network
+    volumes:
+      - librechat-mongo-data:/data/db
+
 networks:
-  stellaris-stats-db-network:
-    driver: bridge
-    name: stellaris-stats_db-network
   stellaris-stats-apollo-mcp-server-network:
     driver: bridge
     name: stellaris-stats_apollo-mcp-server-network
+  stellaris-stats-db-network:
+    driver: bridge
+    name: stellaris-stats_db-network
+  stellaris-stats-librechat-network:
+    driver: bridge
+    name: stellaris-stats_librechat-network
   stellaris-stats-mcp-run-python-network:
     driver: bridge
     name: stellaris-stats_mcp-run-python-network
@@ -106,6 +137,14 @@ volumes:
     name: stellaris-stats_gamestate-json-data
   grafana-data:
     name: stellaris-stats_grafana-data
+  librechat-mongo-data:
+    name: stellaris-stats_librechat-mongo-data
+  librechat-image-data:
+    name: stellaris-stats_librechat-image-data
+  librechat-upload-data:
+    name: stellaris-stats_librechat-upload-data
+  librechat-logs:
+    name: stellaris-stats_librechat-logs
   node-modules:
     name: stellaris-stats_node-modules
   user-cache:

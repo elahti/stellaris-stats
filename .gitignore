@@ -2,6 +2,7 @@
 /.devcontainer/.env.db
 /.env.keys
 /*.code-workspace
+/**/.env.*.secrets
 /**/dist/
 /**/node_modules/
 /db-dump-data
