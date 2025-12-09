@@ -6,3 +6,9 @@ mcpServers:
     url: http://pydantic-mcp-run-python:4002/mcp
     serverInstructions: true
     timeout: 240000
+
+  stellaris-stats-graphql:
+    type: streamable-http
+    url: http://apollo-mcp-server:4001/mcp
+    serverInstructions: true
+    timeout: 240000
