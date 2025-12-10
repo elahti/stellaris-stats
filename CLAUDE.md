@@ -115,6 +115,11 @@ Use these guidelines and rules whenever you're making changes to the codebase.
 - Do not perform any extraneous fixes to the code that are unrelated to the task that you're completing.
 - Always use context7 when I need code generation, setup or configuration steps, or library/API documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get library docs without me having to explicitly ask.
 
+### Git & Commits
+
+- Prefer one-liner commit messages.
+- Do not add any "authored by" lines or similar attribution in commit messages.
+
 ### Quality Checks
 
 After making changes to the codebase, verify your code by running the appropriate commands from the Development Commands section:
