@@ -20,6 +20,42 @@ The repository is organized into the following main directories:
 - `db-dump-data/` - Database dump files
 - `gamestate-json-data/` - Game state data files
 
+## Libraries
+
+### TypeScript/Node.js Libraries
+
+#### Core Dependencies
+
+- **@apollo/server** (5.2.0) - GraphQL server implementation
+- **graphql** (16.12.0) - GraphQL implementation for JavaScript
+- **graphql-scalars** (1.25.0) - Additional GraphQL scalar types
+- **pg** (8.16.3) - PostgreSQL client for Node.js
+- **zod** (4.1.13) - TypeScript-first schema validation with static type inference
+- **jomini** (0.9.1) - Parser for Paradox Interactive game files (Clausewitz engine format)
+- **yauzl-promise** (4.0.0) - Promise-based ZIP file extraction
+- **pino** (10.1.0) - Fast JSON logger
+- **commander** (14.0.2) - Command-line interface builder
+- **node-pg-migrate** (8.0.3) - PostgreSQL database migration tool
+
+#### Development Dependencies
+
+- **@graphql-codegen/cli** (6.1.0) - GraphQL code generation CLI
+- **@eddeee888/gcg-typescript-resolver-files** (0.14.1) - GraphQL code generator plugin for TypeScript resolver files
+- **graphql-codegen-typescript-validation-schema** (0.18.1) - Generates Zod validation schemas from GraphQL schema
+- **typescript** (5.9.3) - TypeScript compiler
+- **tsx** (4.21.0) - TypeScript execute - runs TypeScript files directly
+- **eslint** (9.39.1) - JavaScript/TypeScript linter
+- **prettier** (3.7.4) - Code formatter
+- **husky** (9.1.7) - Git hooks management
+- **lint-staged** (16.2.7) - Run linters on staged git files
+
+### Python Libraries
+
+#### Development Dependencies
+
+- **pyright** (1.1.407) - Static type checker for Python
+- **ruff** (0.14.8) - Fast Python linter and code formatter
+
 ## Development Commands
 
 All commands are run from the repository root (`/workspace`).
@@ -98,6 +134,7 @@ After making changes to the codebase, verify your code by running the appropriat
 - When having the option of using async and sync version of a library, prefer async version.
 - Always use arrow function syntax instead of function keywords.
 - Prefer ternary operators over if/else statements.
+- Always use generated Zod schemas and TypeScript types from GraphQL code generation when working with GraphQL data structures.
 
 #### Dependencies
 
