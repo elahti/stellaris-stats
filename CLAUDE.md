@@ -117,8 +117,55 @@ Use these guidelines and rules whenever you're making changes to the codebase.
 
 ### Git & Commits
 
-- Prefer one-liner commit messages.
-- Do not add any "authored by" lines or similar attribution in commit messages.
+#### When to Commit
+
+- Only create commits when explicitly requested by the user.
+- If unclear whether to commit, ask the user first.
+
+#### Before Committing
+
+Before creating a commit, always:
+1. Run `git status` to see all untracked and modified files
+2. Run `git diff` to review unstaged changes
+3. Run `git diff --cached` to review staged changes (if any)
+4. Run `git log --oneline -5` to check recent commit message style
+
+#### Commit Message Style
+
+- Prefer concise, one-liner commit messages when possible
+- Use imperative mood (e.g., "Add feature" not "Added feature")
+- Keep the first line under 72 characters
+- For multi-line messages:
+  - First line is the summary
+  - Blank line
+  - Additional context as bullet points if needed
+- **Do not add any "authored by", "co-authored-by", or attribution lines**
+- **Do not add emoji or "generated with" signatures**
+
+#### Commit Safety
+
+- Never run destructive/irreversible git commands (force push, hard reset) unless explicitly requested
+- Never skip hooks (--no-verify, --no-gpg-sign) unless explicitly requested
+- Never amend commits from other developers - always check authorship first with `git log -1 --format='%an %ae'`
+- Never force push to main/master branches
+- Pre-commit hooks (husky, lint-staged) will run automatically - this is expected behavior
+
+#### Example Commit Workflow
+
+```bash
+# Review changes
+git status
+git diff
+
+# Stage relevant files
+git add file1.ts file2.ts
+
+# Create commit with clean message
+git commit -m "Add budget migration TypeScript conversion"
+
+# Verify commit
+git status
+```
 
 ### Quality Checks
 
