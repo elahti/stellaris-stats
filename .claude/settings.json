@@ -12,6 +12,7 @@
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
       "Bash(npm run build)",
+      "Bash(npm run db:validate-budget-schema:*)",
       "Bash(npm run graphql:codegen:*)",
       "Bash(npx graphql-codegen:*)",
       "Bash(npx prettier:*)",
