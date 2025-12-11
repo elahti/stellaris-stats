@@ -2,58 +2,101 @@ scalar DateTimeISO
 
 type BudgetEntry {
   alloys: Float
+  astralThreads: Float
   consumerGoods: Float
   energy: Float
   engineeringResearch: Float
+  exoticGases: Float
   food: Float
   influence: Float
   minerals: Float
+  minorArtifacts: Float
+  nanites: Float
   physicsResearch: Float
+  rareCrystals: Float
   societyResearch: Float
+  srDarkMatter: Float
+  srLivingMetal: Float
+  srZro: Float
   trade: Float
   unity: Float
+  volatileMotes: Float
 }
 
 type BudgetCategory {
   armies: BudgetEntry
+  colonies: BudgetEntry
+  commercialPacts: BudgetEntry
+  countryAgendas: BudgetEntry
   countryBase: BudgetEntry
+  countryCivics: BudgetEntry
+  countryDessanu: BudgetEntry
+  countryEthic: BudgetEntry
   countryPowerProjection: BudgetEntry
+  countryRuler: BudgetEntry
+  edicts: BudgetEntry
   leaderCommanders: BudgetEntry
   leaderOfficials: BudgetEntry
   leaderScientists: BudgetEntry
+  megastructures: BudgetEntry
+  megastructuresGrandArchive: BudgetEntry
+  megastructuresHabitat: BudgetEntry
+  megastructuresHyperRelay: BudgetEntry
+  migrationPacts: BudgetEntry
+  none: BudgetEntry
   orbitalMiningDeposits: BudgetEntry
   orbitalResearchDeposits: BudgetEntry
+  overlordSubsidy: BudgetEntry
   planetArtisans: BudgetEntry
   planetBiologists: BudgetEntry
   planetBuildings: BudgetEntry
+  planetBuildingsCloneVats: BudgetEntry
+  planetBuildingsHabCapital: BudgetEntry
+  planetBuildingsStormTech: BudgetEntry
   planetBuildingsStrongholds: BudgetEntry
   planetBureaucrats: BudgetEntry
+  planetCivilians: BudgetEntry
+  planetClerks: BudgetEntry
+  planetDeposits: BudgetEntry
+  planetDistricts: BudgetEntry
   planetDistrictsCities: BudgetEntry
   planetDistrictsFarming: BudgetEntry
   planetDistrictsGenerator: BudgetEntry
+  planetDistrictsHab: BudgetEntry
   planetDistrictsMining: BudgetEntry
   planetDoctors: BudgetEntry
+  planetEnergyThralls: BudgetEntry
   planetEngineers: BudgetEntry
+  planetEntertainers: BudgetEntry
   planetFarmers: BudgetEntry
   planetJobs: BudgetEntry
+  planetJobsProductive: BudgetEntry
+  planetMaintenanceDrones: BudgetEntry
   planetMetallurgists: BudgetEntry
   planetMiners: BudgetEntry
   planetPhysicists: BudgetEntry
   planetPoliticians: BudgetEntry
+  planetPopAssemblers: BudgetEntry
   planetPops: BudgetEntry
   planetResourceDeficit: BudgetEntry
+  planetSrMiners: BudgetEntry
   planetTechnician: BudgetEntry
   planetTraders: BudgetEntry
+  popCategoryCivilians: BudgetEntry
+  popCategoryDrones: BudgetEntry
   popCategoryRulers: BudgetEntry
   popCategorySpecialists: BudgetEntry
   popCategoryWorkers: BudgetEntry
   popFactions: BudgetEntry
   shipComponents: BudgetEntry
   ships: BudgetEntry
+  situations: BudgetEntry
   starbaseBuildings: BudgetEntry
   starbaseModules: BudgetEntry
   starbases: BudgetEntry
   stationGatherers: BudgetEntry
+  stationObserverMissions: BudgetEntry
+  stationObservers: BudgetEntry
   stationResearchers: BudgetEntry
   tradePolicy: BudgetEntry
 }

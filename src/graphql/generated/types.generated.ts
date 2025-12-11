@@ -47,44 +47,78 @@ export type Budget = {
 export type BudgetCategory = {
   __typename?: 'BudgetCategory'
   armies?: Maybe<BudgetEntry>
+  colonies?: Maybe<BudgetEntry>
+  commercialPacts?: Maybe<BudgetEntry>
+  countryAgendas?: Maybe<BudgetEntry>
   countryBase?: Maybe<BudgetEntry>
+  countryCivics?: Maybe<BudgetEntry>
+  countryDessanu?: Maybe<BudgetEntry>
+  countryEthic?: Maybe<BudgetEntry>
   countryPowerProjection?: Maybe<BudgetEntry>
+  countryRuler?: Maybe<BudgetEntry>
+  edicts?: Maybe<BudgetEntry>
   leaderCommanders?: Maybe<BudgetEntry>
   leaderOfficials?: Maybe<BudgetEntry>
   leaderScientists?: Maybe<BudgetEntry>
+  megastructures?: Maybe<BudgetEntry>
+  megastructuresGrandArchive?: Maybe<BudgetEntry>
+  megastructuresHabitat?: Maybe<BudgetEntry>
+  megastructuresHyperRelay?: Maybe<BudgetEntry>
+  migrationPacts?: Maybe<BudgetEntry>
+  none?: Maybe<BudgetEntry>
   orbitalMiningDeposits?: Maybe<BudgetEntry>
   orbitalResearchDeposits?: Maybe<BudgetEntry>
+  overlordSubsidy?: Maybe<BudgetEntry>
   planetArtisans?: Maybe<BudgetEntry>
   planetBiologists?: Maybe<BudgetEntry>
   planetBuildings?: Maybe<BudgetEntry>
+  planetBuildingsCloneVats?: Maybe<BudgetEntry>
+  planetBuildingsHabCapital?: Maybe<BudgetEntry>
+  planetBuildingsStormTech?: Maybe<BudgetEntry>
   planetBuildingsStrongholds?: Maybe<BudgetEntry>
   planetBureaucrats?: Maybe<BudgetEntry>
+  planetCivilians?: Maybe<BudgetEntry>
+  planetClerks?: Maybe<BudgetEntry>
+  planetDeposits?: Maybe<BudgetEntry>
+  planetDistricts?: Maybe<BudgetEntry>
   planetDistrictsCities?: Maybe<BudgetEntry>
   planetDistrictsFarming?: Maybe<BudgetEntry>
   planetDistrictsGenerator?: Maybe<BudgetEntry>
+  planetDistrictsHab?: Maybe<BudgetEntry>
   planetDistrictsMining?: Maybe<BudgetEntry>
   planetDoctors?: Maybe<BudgetEntry>
+  planetEnergyThralls?: Maybe<BudgetEntry>
   planetEngineers?: Maybe<BudgetEntry>
+  planetEntertainers?: Maybe<BudgetEntry>
   planetFarmers?: Maybe<BudgetEntry>
   planetJobs?: Maybe<BudgetEntry>
+  planetJobsProductive?: Maybe<BudgetEntry>
+  planetMaintenanceDrones?: Maybe<BudgetEntry>
   planetMetallurgists?: Maybe<BudgetEntry>
   planetMiners?: Maybe<BudgetEntry>
   planetPhysicists?: Maybe<BudgetEntry>
   planetPoliticians?: Maybe<BudgetEntry>
+  planetPopAssemblers?: Maybe<BudgetEntry>
   planetPops?: Maybe<BudgetEntry>
   planetResourceDeficit?: Maybe<BudgetEntry>
+  planetSrMiners?: Maybe<BudgetEntry>
   planetTechnician?: Maybe<BudgetEntry>
   planetTraders?: Maybe<BudgetEntry>
+  popCategoryCivilians?: Maybe<BudgetEntry>
+  popCategoryDrones?: Maybe<BudgetEntry>
   popCategoryRulers?: Maybe<BudgetEntry>
   popCategorySpecialists?: Maybe<BudgetEntry>
   popCategoryWorkers?: Maybe<BudgetEntry>
   popFactions?: Maybe<BudgetEntry>
   shipComponents?: Maybe<BudgetEntry>
   ships?: Maybe<BudgetEntry>
+  situations?: Maybe<BudgetEntry>
   starbaseBuildings?: Maybe<BudgetEntry>
   starbaseModules?: Maybe<BudgetEntry>
   starbases?: Maybe<BudgetEntry>
   stationGatherers?: Maybe<BudgetEntry>
+  stationObserverMissions?: Maybe<BudgetEntry>
+  stationObservers?: Maybe<BudgetEntry>
   stationResearchers?: Maybe<BudgetEntry>
   tradePolicy?: Maybe<BudgetEntry>
 }
@@ -92,16 +126,25 @@ export type BudgetCategory = {
 export type BudgetEntry = {
   __typename?: 'BudgetEntry'
   alloys?: Maybe<Scalars['Float']['output']>
+  astralThreads?: Maybe<Scalars['Float']['output']>
   consumerGoods?: Maybe<Scalars['Float']['output']>
   energy?: Maybe<Scalars['Float']['output']>
   engineeringResearch?: Maybe<Scalars['Float']['output']>
+  exoticGases?: Maybe<Scalars['Float']['output']>
   food?: Maybe<Scalars['Float']['output']>
   influence?: Maybe<Scalars['Float']['output']>
   minerals?: Maybe<Scalars['Float']['output']>
+  minorArtifacts?: Maybe<Scalars['Float']['output']>
+  nanites?: Maybe<Scalars['Float']['output']>
   physicsResearch?: Maybe<Scalars['Float']['output']>
+  rareCrystals?: Maybe<Scalars['Float']['output']>
   societyResearch?: Maybe<Scalars['Float']['output']>
+  srDarkMatter?: Maybe<Scalars['Float']['output']>
+  srLivingMetal?: Maybe<Scalars['Float']['output']>
+  srZro?: Maybe<Scalars['Float']['output']>
   trade?: Maybe<Scalars['Float']['output']>
   unity?: Maybe<Scalars['Float']['output']>
+  volatileMotes?: Maybe<Scalars['Float']['output']>
 }
 
 export type Gamestate = {
@@ -315,12 +358,52 @@ export type BudgetCategoryResolvers<
     ParentType,
     ContextType
   >
+  colonies?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  commercialPacts?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  countryAgendas?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
   countryBase?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
   >
+  countryCivics?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  countryDessanu?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  countryEthic?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
   countryPowerProjection?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  countryRuler?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  edicts?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
@@ -340,12 +423,43 @@ export type BudgetCategoryResolvers<
     ParentType,
     ContextType
   >
+  megastructures?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  megastructuresGrandArchive?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  megastructuresHabitat?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  megastructuresHyperRelay?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  migrationPacts?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  none?: Resolver<Maybe<ResolversTypes['BudgetEntry']>, ParentType, ContextType>
   orbitalMiningDeposits?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
   >
   orbitalResearchDeposits?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  overlordSubsidy?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
@@ -365,12 +479,47 @@ export type BudgetCategoryResolvers<
     ParentType,
     ContextType
   >
+  planetBuildingsCloneVats?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  planetBuildingsHabCapital?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  planetBuildingsStormTech?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
   planetBuildingsStrongholds?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
   >
   planetBureaucrats?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  planetCivilians?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  planetClerks?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  planetDeposits?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  planetDistricts?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
@@ -390,6 +539,11 @@ export type BudgetCategoryResolvers<
     ParentType,
     ContextType
   >
+  planetDistrictsHab?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
   planetDistrictsMining?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
@@ -400,7 +554,17 @@ export type BudgetCategoryResolvers<
     ParentType,
     ContextType
   >
+  planetEnergyThralls?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
   planetEngineers?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  planetEntertainers?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
@@ -411,6 +575,16 @@ export type BudgetCategoryResolvers<
     ContextType
   >
   planetJobs?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  planetJobsProductive?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  planetMaintenanceDrones?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
@@ -435,6 +609,11 @@ export type BudgetCategoryResolvers<
     ParentType,
     ContextType
   >
+  planetPopAssemblers?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
   planetPops?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
@@ -445,12 +624,27 @@ export type BudgetCategoryResolvers<
     ParentType,
     ContextType
   >
+  planetSrMiners?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
   planetTechnician?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
   >
   planetTraders?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  popCategoryCivilians?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  popCategoryDrones?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
@@ -485,6 +679,11 @@ export type BudgetCategoryResolvers<
     ParentType,
     ContextType
   >
+  situations?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
   starbaseBuildings?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
@@ -501,6 +700,16 @@ export type BudgetCategoryResolvers<
     ContextType
   >
   stationGatherers?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  stationObserverMissions?: Resolver<
+    Maybe<ResolversTypes['BudgetEntry']>,
+    ParentType,
+    ContextType
+  >
+  stationObservers?: Resolver<
     Maybe<ResolversTypes['BudgetEntry']>,
     ParentType,
     ContextType
@@ -523,6 +732,11 @@ export type BudgetEntryResolvers<
     ResolversParentTypes['BudgetEntry'],
 > = {
   alloys?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  astralThreads?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >
   consumerGoods?: Resolver<
     Maybe<ResolversTypes['Float']>,
     ParentType,
@@ -534,10 +748,26 @@ export type BudgetEntryResolvers<
     ParentType,
     ContextType
   >
+  exoticGases?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >
   food?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
   influence?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
   minerals?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  minorArtifacts?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >
+  nanites?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
   physicsResearch?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >
+  rareCrystals?: Resolver<
     Maybe<ResolversTypes['Float']>,
     ParentType,
     ContextType
@@ -547,8 +777,24 @@ export type BudgetEntryResolvers<
     ParentType,
     ContextType
   >
+  srDarkMatter?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >
+  srLivingMetal?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >
+  srZro?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
   trade?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
   unity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  volatileMotes?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >
 }
 
 export interface DateTimeISOScalarConfig extends GraphQLScalarTypeConfig<

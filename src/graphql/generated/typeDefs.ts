@@ -22,6 +22,13 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'astralThreads' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'consumerGoods' },
           arguments: [],
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
@@ -37,6 +44,13 @@ export const typeDefs = {
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'engineeringResearch' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'exoticGases' },
           arguments: [],
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
           directives: [],
@@ -64,6 +78,20 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'minorArtifacts' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'nanites' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'physicsResearch' },
           arguments: [],
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
@@ -71,7 +99,35 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'rareCrystals' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'societyResearch' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'srDarkMatter' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'srLivingMetal' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'srZro' },
           arguments: [],
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
           directives: [],
@@ -86,6 +142,13 @@ export const typeDefs = {
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'unity' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'volatileMotes' },
           arguments: [],
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
           directives: [],
@@ -110,6 +173,36 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'colonies' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'commercialPacts' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'countryAgendas' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'countryBase' },
           arguments: [],
           type: {
@@ -120,7 +213,57 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'countryCivics' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'countryDessanu' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'countryEthic' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'countryPowerProjection' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'countryRuler' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'edicts' },
           arguments: [],
           type: {
             kind: 'NamedType',
@@ -160,6 +303,66 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'megastructures' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'megastructuresGrandArchive' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'megastructuresHabitat' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'megastructuresHyperRelay' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'migrationPacts' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'none' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'orbitalMiningDeposits' },
           arguments: [],
           type: {
@@ -171,6 +374,16 @@ export const typeDefs = {
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'orbitalResearchDeposits' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'overlordSubsidy' },
           arguments: [],
           type: {
             kind: 'NamedType',
@@ -210,6 +423,36 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetBuildingsCloneVats' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetBuildingsHabCapital' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetBuildingsStormTech' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'planetBuildingsStrongholds' },
           arguments: [],
           type: {
@@ -221,6 +464,46 @@ export const typeDefs = {
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'planetBureaucrats' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetCivilians' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetClerks' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetDeposits' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetDistricts' },
           arguments: [],
           type: {
             kind: 'NamedType',
@@ -260,6 +543,16 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetDistrictsHab' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'planetDistrictsMining' },
           arguments: [],
           type: {
@@ -280,7 +573,27 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetEnergyThralls' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'planetEngineers' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetEntertainers' },
           arguments: [],
           type: {
             kind: 'NamedType',
@@ -301,6 +614,26 @@ export const typeDefs = {
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'planetJobs' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetJobsProductive' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetMaintenanceDrones' },
           arguments: [],
           type: {
             kind: 'NamedType',
@@ -350,6 +683,16 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetPopAssemblers' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'planetPops' },
           arguments: [],
           type: {
@@ -370,6 +713,16 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetSrMiners' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'planetTechnician' },
           arguments: [],
           type: {
@@ -381,6 +734,26 @@ export const typeDefs = {
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'planetTraders' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'popCategoryCivilians' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'popCategoryDrones' },
           arguments: [],
           type: {
             kind: 'NamedType',
@@ -450,6 +823,16 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'situations' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'starbaseBuildings' },
           arguments: [],
           type: {
@@ -481,6 +864,26 @@ export const typeDefs = {
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'stationGatherers' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'stationObserverMissions' },
+          arguments: [],
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'BudgetEntry' },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'stationObservers' },
           arguments: [],
           type: {
             kind: 'NamedType',

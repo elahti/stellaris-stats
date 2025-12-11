@@ -37,60 +37,103 @@ export type Budget = {
 
 export type BudgetCategory = {
   armies?: Maybe<BudgetEntry>
+  colonies?: Maybe<BudgetEntry>
+  commercialPacts?: Maybe<BudgetEntry>
+  countryAgendas?: Maybe<BudgetEntry>
   countryBase?: Maybe<BudgetEntry>
+  countryCivics?: Maybe<BudgetEntry>
+  countryDessanu?: Maybe<BudgetEntry>
+  countryEthic?: Maybe<BudgetEntry>
   countryPowerProjection?: Maybe<BudgetEntry>
+  countryRuler?: Maybe<BudgetEntry>
+  edicts?: Maybe<BudgetEntry>
   leaderCommanders?: Maybe<BudgetEntry>
   leaderOfficials?: Maybe<BudgetEntry>
   leaderScientists?: Maybe<BudgetEntry>
+  megastructures?: Maybe<BudgetEntry>
+  megastructuresGrandArchive?: Maybe<BudgetEntry>
+  megastructuresHabitat?: Maybe<BudgetEntry>
+  megastructuresHyperRelay?: Maybe<BudgetEntry>
+  migrationPacts?: Maybe<BudgetEntry>
+  none?: Maybe<BudgetEntry>
   orbitalMiningDeposits?: Maybe<BudgetEntry>
   orbitalResearchDeposits?: Maybe<BudgetEntry>
+  overlordSubsidy?: Maybe<BudgetEntry>
   planetArtisans?: Maybe<BudgetEntry>
   planetBiologists?: Maybe<BudgetEntry>
   planetBuildings?: Maybe<BudgetEntry>
+  planetBuildingsCloneVats?: Maybe<BudgetEntry>
+  planetBuildingsHabCapital?: Maybe<BudgetEntry>
+  planetBuildingsStormTech?: Maybe<BudgetEntry>
   planetBuildingsStrongholds?: Maybe<BudgetEntry>
   planetBureaucrats?: Maybe<BudgetEntry>
+  planetCivilians?: Maybe<BudgetEntry>
+  planetClerks?: Maybe<BudgetEntry>
+  planetDeposits?: Maybe<BudgetEntry>
+  planetDistricts?: Maybe<BudgetEntry>
   planetDistrictsCities?: Maybe<BudgetEntry>
   planetDistrictsFarming?: Maybe<BudgetEntry>
   planetDistrictsGenerator?: Maybe<BudgetEntry>
+  planetDistrictsHab?: Maybe<BudgetEntry>
   planetDistrictsMining?: Maybe<BudgetEntry>
   planetDoctors?: Maybe<BudgetEntry>
+  planetEnergyThralls?: Maybe<BudgetEntry>
   planetEngineers?: Maybe<BudgetEntry>
+  planetEntertainers?: Maybe<BudgetEntry>
   planetFarmers?: Maybe<BudgetEntry>
   planetJobs?: Maybe<BudgetEntry>
+  planetJobsProductive?: Maybe<BudgetEntry>
+  planetMaintenanceDrones?: Maybe<BudgetEntry>
   planetMetallurgists?: Maybe<BudgetEntry>
   planetMiners?: Maybe<BudgetEntry>
   planetPhysicists?: Maybe<BudgetEntry>
   planetPoliticians?: Maybe<BudgetEntry>
+  planetPopAssemblers?: Maybe<BudgetEntry>
   planetPops?: Maybe<BudgetEntry>
   planetResourceDeficit?: Maybe<BudgetEntry>
+  planetSrMiners?: Maybe<BudgetEntry>
   planetTechnician?: Maybe<BudgetEntry>
   planetTraders?: Maybe<BudgetEntry>
+  popCategoryCivilians?: Maybe<BudgetEntry>
+  popCategoryDrones?: Maybe<BudgetEntry>
   popCategoryRulers?: Maybe<BudgetEntry>
   popCategorySpecialists?: Maybe<BudgetEntry>
   popCategoryWorkers?: Maybe<BudgetEntry>
   popFactions?: Maybe<BudgetEntry>
   shipComponents?: Maybe<BudgetEntry>
   ships?: Maybe<BudgetEntry>
+  situations?: Maybe<BudgetEntry>
   starbaseBuildings?: Maybe<BudgetEntry>
   starbaseModules?: Maybe<BudgetEntry>
   starbases?: Maybe<BudgetEntry>
   stationGatherers?: Maybe<BudgetEntry>
+  stationObserverMissions?: Maybe<BudgetEntry>
+  stationObservers?: Maybe<BudgetEntry>
   stationResearchers?: Maybe<BudgetEntry>
   tradePolicy?: Maybe<BudgetEntry>
 }
 
 export type BudgetEntry = {
   alloys?: Maybe<Scalars['Float']['output']>
+  astralThreads?: Maybe<Scalars['Float']['output']>
   consumerGoods?: Maybe<Scalars['Float']['output']>
   energy?: Maybe<Scalars['Float']['output']>
   engineeringResearch?: Maybe<Scalars['Float']['output']>
+  exoticGases?: Maybe<Scalars['Float']['output']>
   food?: Maybe<Scalars['Float']['output']>
   influence?: Maybe<Scalars['Float']['output']>
   minerals?: Maybe<Scalars['Float']['output']>
+  minorArtifacts?: Maybe<Scalars['Float']['output']>
+  nanites?: Maybe<Scalars['Float']['output']>
   physicsResearch?: Maybe<Scalars['Float']['output']>
+  rareCrystals?: Maybe<Scalars['Float']['output']>
   societyResearch?: Maybe<Scalars['Float']['output']>
+  srDarkMatter?: Maybe<Scalars['Float']['output']>
+  srLivingMetal?: Maybe<Scalars['Float']['output']>
+  srZro?: Maybe<Scalars['Float']['output']>
   trade?: Maybe<Scalars['Float']['output']>
   unity?: Maybe<Scalars['Float']['output']>
+  volatileMotes?: Maybe<Scalars['Float']['output']>
 }
 
 export type Gamestate = {
@@ -156,44 +199,78 @@ export function BudgetCategorySchema(): z.ZodObject<
   return z.object({
     __typename: z.literal('BudgetCategory').optional(),
     armies: z.lazy(() => BudgetEntrySchema().nullish()),
+    colonies: z.lazy(() => BudgetEntrySchema().nullish()),
+    commercialPacts: z.lazy(() => BudgetEntrySchema().nullish()),
+    countryAgendas: z.lazy(() => BudgetEntrySchema().nullish()),
     countryBase: z.lazy(() => BudgetEntrySchema().nullish()),
+    countryCivics: z.lazy(() => BudgetEntrySchema().nullish()),
+    countryDessanu: z.lazy(() => BudgetEntrySchema().nullish()),
+    countryEthic: z.lazy(() => BudgetEntrySchema().nullish()),
     countryPowerProjection: z.lazy(() => BudgetEntrySchema().nullish()),
+    countryRuler: z.lazy(() => BudgetEntrySchema().nullish()),
+    edicts: z.lazy(() => BudgetEntrySchema().nullish()),
     leaderCommanders: z.lazy(() => BudgetEntrySchema().nullish()),
     leaderOfficials: z.lazy(() => BudgetEntrySchema().nullish()),
     leaderScientists: z.lazy(() => BudgetEntrySchema().nullish()),
+    megastructures: z.lazy(() => BudgetEntrySchema().nullish()),
+    megastructuresGrandArchive: z.lazy(() => BudgetEntrySchema().nullish()),
+    megastructuresHabitat: z.lazy(() => BudgetEntrySchema().nullish()),
+    megastructuresHyperRelay: z.lazy(() => BudgetEntrySchema().nullish()),
+    migrationPacts: z.lazy(() => BudgetEntrySchema().nullish()),
+    none: z.lazy(() => BudgetEntrySchema().nullish()),
     orbitalMiningDeposits: z.lazy(() => BudgetEntrySchema().nullish()),
     orbitalResearchDeposits: z.lazy(() => BudgetEntrySchema().nullish()),
+    overlordSubsidy: z.lazy(() => BudgetEntrySchema().nullish()),
     planetArtisans: z.lazy(() => BudgetEntrySchema().nullish()),
     planetBiologists: z.lazy(() => BudgetEntrySchema().nullish()),
     planetBuildings: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetBuildingsCloneVats: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetBuildingsHabCapital: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetBuildingsStormTech: z.lazy(() => BudgetEntrySchema().nullish()),
     planetBuildingsStrongholds: z.lazy(() => BudgetEntrySchema().nullish()),
     planetBureaucrats: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetCivilians: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetClerks: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetDeposits: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetDistricts: z.lazy(() => BudgetEntrySchema().nullish()),
     planetDistrictsCities: z.lazy(() => BudgetEntrySchema().nullish()),
     planetDistrictsFarming: z.lazy(() => BudgetEntrySchema().nullish()),
     planetDistrictsGenerator: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetDistrictsHab: z.lazy(() => BudgetEntrySchema().nullish()),
     planetDistrictsMining: z.lazy(() => BudgetEntrySchema().nullish()),
     planetDoctors: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetEnergyThralls: z.lazy(() => BudgetEntrySchema().nullish()),
     planetEngineers: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetEntertainers: z.lazy(() => BudgetEntrySchema().nullish()),
     planetFarmers: z.lazy(() => BudgetEntrySchema().nullish()),
     planetJobs: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetJobsProductive: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetMaintenanceDrones: z.lazy(() => BudgetEntrySchema().nullish()),
     planetMetallurgists: z.lazy(() => BudgetEntrySchema().nullish()),
     planetMiners: z.lazy(() => BudgetEntrySchema().nullish()),
     planetPhysicists: z.lazy(() => BudgetEntrySchema().nullish()),
     planetPoliticians: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetPopAssemblers: z.lazy(() => BudgetEntrySchema().nullish()),
     planetPops: z.lazy(() => BudgetEntrySchema().nullish()),
     planetResourceDeficit: z.lazy(() => BudgetEntrySchema().nullish()),
+    planetSrMiners: z.lazy(() => BudgetEntrySchema().nullish()),
     planetTechnician: z.lazy(() => BudgetEntrySchema().nullish()),
     planetTraders: z.lazy(() => BudgetEntrySchema().nullish()),
+    popCategoryCivilians: z.lazy(() => BudgetEntrySchema().nullish()),
+    popCategoryDrones: z.lazy(() => BudgetEntrySchema().nullish()),
     popCategoryRulers: z.lazy(() => BudgetEntrySchema().nullish()),
     popCategorySpecialists: z.lazy(() => BudgetEntrySchema().nullish()),
     popCategoryWorkers: z.lazy(() => BudgetEntrySchema().nullish()),
     popFactions: z.lazy(() => BudgetEntrySchema().nullish()),
     shipComponents: z.lazy(() => BudgetEntrySchema().nullish()),
     ships: z.lazy(() => BudgetEntrySchema().nullish()),
+    situations: z.lazy(() => BudgetEntrySchema().nullish()),
     starbaseBuildings: z.lazy(() => BudgetEntrySchema().nullish()),
     starbaseModules: z.lazy(() => BudgetEntrySchema().nullish()),
     starbases: z.lazy(() => BudgetEntrySchema().nullish()),
     stationGatherers: z.lazy(() => BudgetEntrySchema().nullish()),
+    stationObserverMissions: z.lazy(() => BudgetEntrySchema().nullish()),
+    stationObservers: z.lazy(() => BudgetEntrySchema().nullish()),
     stationResearchers: z.lazy(() => BudgetEntrySchema().nullish()),
     tradePolicy: z.lazy(() => BudgetEntrySchema().nullish()),
   })
@@ -203,16 +280,25 @@ export function BudgetEntrySchema(): z.ZodObject<Properties<BudgetEntry>> {
   return z.object({
     __typename: z.literal('BudgetEntry').optional(),
     alloys: z.number().nullish(),
+    astralThreads: z.number().nullish(),
     consumerGoods: z.number().nullish(),
     energy: z.number().nullish(),
     engineeringResearch: z.number().nullish(),
+    exoticGases: z.number().nullish(),
     food: z.number().nullish(),
     influence: z.number().nullish(),
     minerals: z.number().nullish(),
+    minorArtifacts: z.number().nullish(),
+    nanites: z.number().nullish(),
     physicsResearch: z.number().nullish(),
+    rareCrystals: z.number().nullish(),
     societyResearch: z.number().nullish(),
+    srDarkMatter: z.number().nullish(),
+    srLivingMetal: z.number().nullish(),
+    srZro: z.number().nullish(),
     trade: z.number().nullish(),
     unity: z.number().nullish(),
+    volatileMotes: z.number().nullish(),
   })
 }
 

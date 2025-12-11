@@ -108,6 +108,19 @@ Use these guidelines and rules whenever you're making changes to the codebase.
 
 ### General Principles
 
+#### GraphQL Schema and Grafana Dashboard Synchronization
+
+When modifying the GraphQL schema at `graphql/schema.graphql`, check if Grafana dashboards need corresponding updates:
+
+- Grafana dashboards are located in the `grafana/` directory
+- Dashboard JSON files contain hardcoded column definitions and GraphQL queries that mirror the schema structure
+- If you add, remove, or rename fields in the GraphQL schema's `BudgetCategory` or `BudgetEntry` types, the affected dashboards must be updated to maintain consistency
+- Each dashboard panel typically has:
+  - Column definitions (`columns` array) specifying which fields to display
+  - GraphQL query (`body_graphql_query`) that fetches the data
+- Both the column definitions and GraphQL queries must be kept in sync with the schema
+- After schema changes, review all dashboard files to identify which ones query the modified types
+
 - When editing code or other files, don't add comments.
 - When creating or updating code, do only edits that the user has asked you to do.
 - Ignore all errors that existed before you started editing code.
