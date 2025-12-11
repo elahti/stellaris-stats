@@ -14,6 +14,7 @@
       "Bash(npm run build)",
       "Bash(npm run graphql:codegen:*)",
       "Bash(npx graphql-codegen:*)",
+      "Bash(npx prettier:*)",
       "Bash(npx tsc:*)",
       "Bash(psql:*)",
       "mcp__context7__get-library-docs",
