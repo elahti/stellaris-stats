@@ -67,6 +67,7 @@ const runGraphQLServer = async (logger: Logger) => {
       return {
         client,
         loaders: createDataLoaders(client),
+        cache,
       }
     },
   })
