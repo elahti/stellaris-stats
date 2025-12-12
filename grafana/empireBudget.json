@@ -1,0 +1,779 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 0,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total Energy Income"
+            },
+            "properties": [
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last",
+            "max",
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.income.armies.energy",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.colonies.energy",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.commercialPacts.energy",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryAgendas.energy",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryBase.energy",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryCivics.energy",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryDessanu.energy",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryEthic.energy",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryPowerProjection.energy",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryRuler.energy",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.edicts.energy",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderCommanders.energy",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderOfficials.energy",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderScientists.energy",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructures.energy",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresGrandArchive.energy",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHabitat.energy",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHyperRelay.energy",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.migrationPacts.energy",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.none.energy",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalMiningDeposits.energy",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalResearchDeposits.energy",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.overlordSubsidy.energy",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetArtisans.energy",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBiologists.energy",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildings.energy",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsCloneVats.energy",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsHabCapital.energy",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStormTech.energy",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStrongholds.energy",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBureaucrats.energy",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetCivilians.energy",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetClerks.energy",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDeposits.energy",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistricts.energy",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsCities.energy",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsFarming.energy",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsGenerator.energy",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsHab.energy",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsMining.energy",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDoctors.energy",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEnergyThralls.energy",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEngineers.energy",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEntertainers.energy",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetFarmers.energy",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobs.energy",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobsProductive.energy",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMaintenanceDrones.energy",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMetallurgists.energy",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMiners.energy",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPhysicists.energy",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPoliticians.energy",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPopAssemblers.energy",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPops.energy",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetResourceDeficit.energy",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetSrMiners.energy",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTechnician.energy",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTraders.energy",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryCivilians.energy",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryDrones.energy",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryRulers.energy",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategorySpecialists.energy",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryWorkers.energy",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popFactions.energy",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.shipComponents.energy",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.ships.energy",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.situations.energy",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseBuildings.energy",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseModules.energy",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbases.energy",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationGatherers.energy",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObserverMissions.energy",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObservers.energy",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationResearchers.energy",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.tradePolicy.energy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query EnergyIncome($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        income {\n          armies {\n            energy\n          }\n          colonies {\n            energy\n          }\n          commercialPacts {\n            energy\n          }\n          countryAgendas {\n            energy\n          }\n          countryBase {\n            energy\n          }\n          countryCivics {\n            energy\n          }\n          countryDessanu {\n            energy\n          }\n          countryEthic {\n            energy\n          }\n          countryPowerProjection {\n            energy\n          }\n          countryRuler {\n            energy\n          }\n          edicts {\n            energy\n          }\n          leaderCommanders {\n            energy\n          }\n          leaderOfficials {\n            energy\n          }\n          leaderScientists {\n            energy\n          }\n          megastructures {\n            energy\n          }\n          megastructuresGrandArchive {\n            energy\n          }\n          megastructuresHabitat {\n            energy\n          }\n          megastructuresHyperRelay {\n            energy\n          }\n          migrationPacts {\n            energy\n          }\n          none {\n            energy\n          }\n          orbitalMiningDeposits {\n            energy\n          }\n          orbitalResearchDeposits {\n            energy\n          }\n          overlordSubsidy {\n            energy\n          }\n          planetArtisans {\n            energy\n          }\n          planetBiologists {\n            energy\n          }\n          planetBuildings {\n            energy\n          }\n          planetBuildingsCloneVats {\n            energy\n          }\n          planetBuildingsHabCapital {\n            energy\n          }\n          planetBuildingsStormTech {\n            energy\n          }\n          planetBuildingsStrongholds {\n            energy\n          }\n          planetBureaucrats {\n            energy\n          }\n          planetCivilians {\n            energy\n          }\n          planetClerks {\n            energy\n          }\n          planetDeposits {\n            energy\n          }\n          planetDistricts {\n            energy\n          }\n          planetDistrictsCities {\n            energy\n          }\n          planetDistrictsFarming {\n            energy\n          }\n          planetDistrictsGenerator {\n            energy\n          }\n          planetDistrictsHab {\n            energy\n          }\n          planetDistrictsMining {\n            energy\n          }\n          planetDoctors {\n            energy\n          }\n          planetEnergyThralls {\n            energy\n          }\n          planetEngineers {\n            energy\n          }\n          planetEntertainers {\n            energy\n          }\n          planetFarmers {\n            energy\n          }\n          planetJobs {\n            energy\n          }\n          planetJobsProductive {\n            energy\n          }\n          planetMaintenanceDrones {\n            energy\n          }\n          planetMetallurgists {\n            energy\n          }\n          planetMiners {\n            energy\n          }\n          planetPhysicists {\n            energy\n          }\n          planetPoliticians {\n            energy\n          }\n          planetPopAssemblers {\n            energy\n          }\n          planetPops {\n            energy\n          }\n          planetResourceDeficit {\n            energy\n          }\n          planetSrMiners {\n            energy\n          }\n          planetTechnician {\n            energy\n          }\n          planetTraders {\n            energy\n          }\n          popCategoryCivilians {\n            energy\n          }\n          popCategoryDrones {\n            energy\n          }\n          popCategoryRulers {\n            energy\n          }\n          popCategorySpecialists {\n            energy\n          }\n          popCategoryWorkers {\n            energy\n          }\n          popFactions {\n            energy\n          }\n          shipComponents {\n            energy\n          }\n          ships {\n            energy\n          }\n          situations {\n            energy\n          }\n          starbaseBuildings {\n            energy\n          }\n          starbaseModules {\n            energy\n          }\n          starbases {\n            energy\n          }\n          stationGatherers {\n            energy\n          }\n          stationObserverMissions {\n            energy\n          }\n          stationObservers {\n            energy\n          }\n          stationResearchers {\n            energy\n          }\n          tradePolicy {\n            energy\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Total Energy Income",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Total Energy Income",
+            "binary": {
+              "left": "Armies",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies",
+                "Colonies",
+                "Commercial Pacts",
+                "Country Agendas",
+                "Country Base",
+                "Country Civics",
+                "Country Dessanu",
+                "Country Ethic",
+                "Power Projection",
+                "Country Ruler",
+                "Edicts",
+                "Commander Leaders",
+                "Official Leaders",
+                "Scientist Leaders",
+                "Megastructures",
+                "Megastructures Grand Archive",
+                "Megastructures Habitat",
+                "Megastructures Hyper Relay",
+                "Migration Pacts",
+                "None",
+                "Orbital Mining Deposits",
+                "Orbital Research Deposits",
+                "Overlord Subsidy",
+                "Artisans",
+                "Biologists",
+                "Buildings",
+                "Buildings Clone Vats",
+                "Buildings Hab Capital",
+                "Buildings Storm Tech",
+                "Strongholds",
+                "Bureucrats",
+                "Civilians",
+                "Clerks",
+                "Deposits",
+                "Districts",
+                "City Districts",
+                "Farming Districts",
+                "Generator Districts",
+                "Hab Districts",
+                "Mining Districts",
+                "Doctors",
+                "Energy Thralls",
+                "Engineers",
+                "Entertainers",
+                "Farmers",
+                "Jobs",
+                "Jobs Productive",
+                "Maintenance Drones",
+                "Metallurgists",
+                "Miners",
+                "Physicists",
+                "Politicians",
+                "Pop Assemblers",
+                "Pops",
+                "Planet Resource Deficit",
+                "Strategic Resource Miners",
+                "Technicians",
+                "Traders",
+                "Civilian Pops",
+                "Drone Pops",
+                "Ruler Pops",
+                "Specialist Pops",
+                "Worker Pops",
+                "Factions",
+                "Ship Components",
+                "Ships",
+                "Situations",
+                "Starbase Buildings",
+                "Starbase Modules",
+                "Starbases",
+                "Station Gatherers",
+                "Station Observer Missions",
+                "Station Observers",
+                "Station Researchers",
+                "Trade Policy"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Armies": true,
+              "Artisans": true,
+              "Biologists": true,
+              "Buildings": true,
+              "Buildings Clone Vats": true,
+              "Buildings Hab Capital": true,
+              "Buildings Storm Tech": true,
+              "Bureucrats": true,
+              "City Districts": true,
+              "Civilian Pops": true,
+              "Civilians": true,
+              "Clerks": true,
+              "Colonies": true,
+              "Commander Leaders": true,
+              "Commercial Pacts": true,
+              "Country Agendas": true,
+              "Country Base": true,
+              "Country Civics": true,
+              "Country Dessanu": true,
+              "Country Ethic": true,
+              "Country Ruler": true,
+              "Deposits": true,
+              "Districts": true,
+              "Doctors": true,
+              "Drone Pops": true,
+              "Edicts": true,
+              "Energy Thralls": true,
+              "Engineers": true,
+              "Entertainers": true,
+              "Factions": true,
+              "Farmers": true,
+              "Farming Districts": true,
+              "Generator Districts": true,
+              "Hab Districts": true,
+              "Jobs": true,
+              "Jobs Productive": true,
+              "Maintenance Drones": true,
+              "Megastructures": true,
+              "Megastructures Grand Archive": true,
+              "Megastructures Habitat": true,
+              "Megastructures Hyper Relay": true,
+              "Metallurgists": true,
+              "Migration Pacts": true,
+              "Miners": true,
+              "Mining Districts": true,
+              "None": true,
+              "Official Leaders": true,
+              "Orbital Mining Deposits": true,
+              "Orbital Research Deposits": true,
+              "Overlord Subsidy": true,
+              "Physicists": true,
+              "Planet Resource Deficit": true,
+              "Politicians": true,
+              "Pop Assemblers": true,
+              "Pops": true,
+              "Power Projection": true,
+              "Ruler Pops": true,
+              "Scientist Leaders": true,
+              "Ship Components": true,
+              "Ships": true,
+              "Situations": true,
+              "Specialist Pops": true,
+              "Starbase Buildings": true,
+              "Starbase Modules": true,
+              "Starbases": true,
+              "Station Gatherers": true,
+              "Station Observer Missions": true,
+              "Station Observers": true,
+              "Station Researchers": true,
+              "Strategic Resource Miners": true,
+              "Strongholds": true,
+              "Technicians": true,
+              "Trade Policy": true,
+              "Traders": true,
+              "Worker Pops": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "preload": true,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "commonwealthofman_1251622081",
+          "value": "commonwealthofman_1251622081"
+        },
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "ef6cnm49brb40d"
+        },
+        "definition": "",
+        "label": "Save Filename",
+        "name": "saveFilename",
+        "options": [],
+        "query": {
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "data.saves",
+            "source": "url",
+            "type": "graphql",
+            "url": "",
+            "url_options": {
+              "body_content_type": "application/json",
+              "body_graphql_query": "query Filenames {\n  saves {\n    filename\n  }\n}\n",
+              "body_type": "graphql",
+              "data": "",
+              "method": "POST"
+            }
+          },
+          "query": "",
+          "queryType": "infinity"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2199-12-31T22:00:00.000Z",
+    "to": "2499-12-31T22:00:00.000Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Empire Budget",
+  "uid": "elsvtkf",
+  "version": 8
+}
