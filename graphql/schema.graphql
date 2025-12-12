@@ -123,20 +123,20 @@ type Planet {
   profits: PlanetProduction!
 }
 
-type Budget @cacheControl(maxAge: 3600) {
+type Budget @cacheControl {
   income: BudgetCategory!
   expenses: BudgetCategory!
   balance: BudgetCategory!
 }
 
-type Gamestate @cacheControl(maxAge: 3600) {
+type Gamestate @cacheControl {
   gamestateId: Int!
   date: DateTimeISO!
   planets: [Planet!]!
   budget: Budget!
 }
 
-type Save @cacheControl(maxAge: 300) {
+type Save {
   saveId: Int!
   filename: String!
   name: String!
@@ -144,6 +144,6 @@ type Save @cacheControl(maxAge: 300) {
 }
 
 type Query {
-  saves: [Save!]! @cacheControl(maxAge: 300, scope: PUBLIC)
-  save(filename: String!): Save @cacheControl(maxAge: 300, scope: PUBLIC)
+  saves: [Save!]!
+  save(filename: String!): Save
 }
