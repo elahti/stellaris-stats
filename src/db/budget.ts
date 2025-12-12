@@ -73,8 +73,9 @@ export const emptyBudget = (): Budget => ({
   balance: emptyBudgetCategory(),
 })
 
-const getBudgetByGamestateIdQuery = `
+const getBudgetBatchQuery = `
 SELECT
+  bc.gamestate_id,
   bc.category_type,
   bc.category_name,
   be.alloys,
@@ -92,31 +93,46 @@ FROM
   budget_category bc
   JOIN budget_entry be ON bc.budget_entry_id = be.budget_entry_id
 WHERE
-  bc.gamestate_id = $1
+  bc.gamestate_id = ANY($1)
+ORDER BY
+  bc.gamestate_id
 `
 
 const BudgetCategoryRow = BudgetEntrySchema().extend({
+  gamestateId: z.number(),
   categoryType: z.enum(['income', 'expenses', 'balance']),
   categoryName: z.string(),
 })
 
 type BudgetCategoryRow = z.infer<typeof BudgetCategoryRow>
 
-export const getBudgetByGamestateId = async (
+export const getBudgetBatch = async (
   client: PoolClient,
-  gamestateId: number,
-): Promise<Budget> => {
+  gamestateIds: readonly number[],
+): Promise<Map<number, Budget>> => {
   const rows = await selectRows(
-    () => client.query(getBudgetByGamestateIdQuery, [gamestateId]),
+    () => client.query(getBudgetBatchQuery, [gamestateIds]),
     BudgetCategoryRow,
   )
 
-  const budget = emptyBudget()
-  for (const row of rows) {
-    budget[row.categoryType][
-      toCamelCase(row.categoryName) as keyof BudgetCategory
-    ] = row
+  const result = new Map<number, Budget>()
+
+  for (const gamestateId of gamestateIds) {
+    result.set(gamestateId, emptyBudget())
   }
 
-  return BudgetSchema().parse(budget)
+  for (const row of rows) {
+    const budget = result.get(row.gamestateId)
+    if (budget) {
+      budget[row.categoryType][
+        toCamelCase(row.categoryName) as keyof BudgetCategory
+      ] = row
+    }
+  }
+
+  for (const [gamestateId, budget] of result.entries()) {
+    result.set(gamestateId, BudgetSchema().parse(budget))
+  }
+
+  return result
 }

@@ -1,6 +1,6 @@
 import DataLoader from 'dataloader'
 import { PoolClient } from 'pg'
-import { getGamestatesBatch } from '../../db/gamestatesBatch.js'
+import { getGamestatesBatch } from '../../db/gamestates.js'
 import { Gamestate } from '../generated/validation.generated.js'
 
 export const createGamestatesLoader = (client: PoolClient) =>

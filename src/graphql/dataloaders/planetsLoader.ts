@@ -1,6 +1,6 @@
 import DataLoader from 'dataloader'
 import { PoolClient } from 'pg'
-import { getPlanetsBatch } from '../../db/planetsBatch.js'
+import { getPlanetsBatch } from '../../db/planets.js'
 import { Planet } from '../generated/validation.generated.js'
 
 export const createPlanetsLoader = (client: PoolClient) =>

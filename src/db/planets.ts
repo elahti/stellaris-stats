@@ -1,13 +1,14 @@
 import { PoolClient } from 'pg'
 import { z } from 'zod/v4'
-import { selectRowStrict } from '../db.js'
+import { selectRows } from '../db.js'
 import {
   Planet,
   PlanetSchema,
 } from '../graphql/generated/validation.generated.js'
 
-const getPlanetsByGamestateIdQuery = `
+const getPlanetsBatchQuery = `
 SELECT
+  g.gamestate_id,
   JSONB_AGG(
     JSONB_BUILD_OBJECT(
       'planet_name',
@@ -42,22 +43,38 @@ FROM
       )
   ) AS planet_extract
 WHERE
-  g.gamestate_id = $1;
+  g.gamestate_id = ANY($1)
+GROUP BY
+  g.gamestate_id
+ORDER BY
+  g.gamestate_id
 `
 
-const PlanetRow = z.object({
+const PlanetBatchRow = z.object({
+  gamestateId: z.number(),
   planets: z.array(PlanetSchema()).nullable(),
 })
 
-type PlanetRow = z.infer<typeof PlanetRow>
+type PlanetBatchRow = z.infer<typeof PlanetBatchRow>
 
-export const getPlanetsByGamestateId = async (
+export const getPlanetsBatch = async (
   client: PoolClient,
-  gamestateId: number,
-): Promise<Planet[]> => {
-  const result = await selectRowStrict(
-    () => client.query(getPlanetsByGamestateIdQuery, [gamestateId]),
-    PlanetRow,
+  gamestateIds: readonly number[],
+): Promise<Map<number, Planet[]>> => {
+  const rows = await selectRows(
+    () => client.query(getPlanetsBatchQuery, [gamestateIds]),
+    PlanetBatchRow,
   )
-  return result.planets ?? []
+
+  const result = new Map<number, Planet[]>()
+
+  for (const gamestateId of gamestateIds) {
+    result.set(gamestateId, [])
+  }
+
+  for (const row of rows) {
+    result.set(row.gamestateId, row.planets ?? [])
+  }
+
+  return result
 }
