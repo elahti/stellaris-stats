@@ -1027,12 +1027,13 @@
       "type": "timeseries"
     }
   ],
-  "preload": false,
+  "preload": true,
   "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
       {
+        "allowCustomValue": false,
         "current": {
           "text": "commonwealthofman_1251622081",
           "value": "commonwealthofman_1251622081"
@@ -1082,5 +1083,5 @@
   "timezone": "browser",
   "title": "Energy Budget",
   "uid": "elqkp9g",
-  "version": 22
+  "version": 25
 }
