@@ -39,6 +39,7 @@ services:
   redis:
     image: redis:7.4-alpine
     container_name: stellaris-stats_redis
+    command: redis-server --appendonly yes --appendfsync everysec
     networks:
       - stellaris-stats-redis-network
     volumes:
