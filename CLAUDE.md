@@ -138,6 +138,7 @@ When modifying the GraphQL schema at `graphql/schema.graphql`, check if Grafana 
 #### Before Committing
 
 Before creating a commit, always:
+
 1. Run `git status` to see all untracked and modified files
 2. Run `git diff` to review unstaged changes
 3. Run `git diff --cached` to review staged changes (if any)
@@ -189,6 +190,8 @@ After making changes to the codebase, verify your code by running the appropriat
 - For Python changes: Run type checking, linting, and formatting commands as listed in the Python Commands section.
 
 ### TypeScript Guidelines
+
+- In addition to the guidelines in this chapter, you must always apply quality checks from the previous chapter (linting, formatting and building).
 
 #### Code Style
 
