@@ -1,3 +1,8 @@
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+) on FIELD_DEFINITION | INTERFACE | OBJECT
+
 type Budget {
   balance: BudgetCategory!
   expenses: BudgetCategory!
@@ -103,6 +108,11 @@ type BudgetEntry {
   trade: Float
   unity: Float
   volatileMotes: Float
+}
+
+enum CacheControlScope {
+  PRIVATE
+  PUBLIC
 }
 
 scalar DateTimeISO

@@ -24,6 +24,9 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
     }
+export type EnumResolverSignature<T, AllowedValues = any> = {
+  [key in keyof T]?: AllowedValues
+}
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
   [P in K]-?: NonNullable<T[P]>
 }
@@ -146,6 +149,8 @@ export type BudgetEntry = {
   unity?: Maybe<Scalars['Float']['output']>
   volatileMotes?: Maybe<Scalars['Float']['output']>
 }
+
+export type CacheControlScope = 'PRIVATE' | 'PUBLIC'
 
 export type Gamestate = {
   __typename?: 'Gamestate'
@@ -310,14 +315,15 @@ export type ResolversTypes = {
   BudgetCategory: ResolverTypeWrapper<BudgetCategory>
   BudgetEntry: ResolverTypeWrapper<BudgetEntry>
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
+  CacheControlScope: ResolverTypeWrapper<'PUBLIC' | 'PRIVATE'>
   DateTimeISO: ResolverTypeWrapper<Scalars['DateTimeISO']['output']>
   Gamestate: ResolverTypeWrapper<Gamestate>
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>
   Planet: ResolverTypeWrapper<Planet>
   String: ResolverTypeWrapper<Scalars['String']['output']>
   PlanetProduction: ResolverTypeWrapper<PlanetProduction>
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>
   Save: ResolverTypeWrapper<Save>
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
 }
 
@@ -329,14 +335,26 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output']
   DateTimeISO: Scalars['DateTimeISO']['output']
   Gamestate: Gamestate
-  Int: Scalars['Int']['output']
   Planet: Planet
   String: Scalars['String']['output']
   PlanetProduction: PlanetProduction
   Query: Record<PropertyKey, never>
   Save: Save
+  Int: Scalars['Int']['output']
   Boolean: Scalars['Boolean']['output']
 }
+
+export type cacheControlDirectiveArgs = {
+  maxAge?: Maybe<Scalars['Int']['input']>
+  scope?: Maybe<CacheControlScope>
+}
+
+export type cacheControlDirectiveResolver<
+  Result,
+  Parent,
+  ContextType = GraphQLServerContext,
+  Args = cacheControlDirectiveArgs,
+> = DirectiveResolverFn<Result, Parent, ContextType, Args>
 
 export type BudgetResolvers<
   ContextType = GraphQLServerContext,
@@ -797,6 +815,11 @@ export type BudgetEntryResolvers<
   >
 }
 
+export type CacheControlScopeResolvers = EnumResolverSignature<
+  { PRIVATE?: any; PUBLIC?: any },
+  ResolversTypes['CacheControlScope']
+>
+
 export interface DateTimeISOScalarConfig extends GraphQLScalarTypeConfig<
   ResolversTypes['DateTimeISO'],
   any
@@ -884,10 +907,15 @@ export type Resolvers<ContextType = GraphQLServerContext> = {
   Budget?: BudgetResolvers<ContextType>
   BudgetCategory?: BudgetCategoryResolvers<ContextType>
   BudgetEntry?: BudgetEntryResolvers<ContextType>
+  CacheControlScope?: CacheControlScopeResolvers
   DateTimeISO?: GraphQLScalarType
   Gamestate?: GamestateResolvers<ContextType>
   Planet?: PlanetResolvers<ContextType>
   PlanetProduction?: PlanetProductionResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
   Save?: SaveResolvers<ContextType>
+}
+
+export type DirectiveResolvers<ContextType = GraphQLServerContext> = {
+  cacheControl?: cacheControlDirectiveResolver<any, any, ContextType>
 }

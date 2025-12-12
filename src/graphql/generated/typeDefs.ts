@@ -3,9 +3,53 @@ export const typeDefs = {
   kind: 'Document',
   definitions: [
     {
+      kind: 'DirectiveDefinition',
+      name: { kind: 'Name', value: 'cacheControl' },
+      arguments: [
+        {
+          kind: 'InputValueDefinition',
+          name: { kind: 'Name', value: 'maxAge' },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          directives: [],
+        },
+        {
+          kind: 'InputValueDefinition',
+          name: { kind: 'Name', value: 'scope' },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'CacheControlScope' },
+          },
+          directives: [],
+        },
+      ],
+      repeatable: false,
+      locations: [
+        { kind: 'Name', value: 'FIELD_DEFINITION' },
+        { kind: 'Name', value: 'OBJECT' },
+        { kind: 'Name', value: 'INTERFACE' },
+      ],
+    },
+    {
       kind: 'ScalarTypeDefinition',
       name: { kind: 'Name', value: 'DateTimeISO' },
       directives: [],
+    },
+    {
+      kind: 'EnumTypeDefinition',
+      name: { kind: 'Name', value: 'CacheControlScope' },
+      directives: [],
+      values: [
+        {
+          kind: 'EnumValueDefinition',
+          name: { kind: 'Name', value: 'PUBLIC' },
+          directives: [],
+        },
+        {
+          kind: 'EnumValueDefinition',
+          name: { kind: 'Name', value: 'PRIVATE' },
+          directives: [],
+        },
+      ],
     },
     {
       kind: 'ObjectTypeDefinition',
@@ -1002,7 +1046,19 @@ export const typeDefs = {
       kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'Budget' },
       interfaces: [],
-      directives: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [
+            {
+              kind: 'Argument',
+              name: { kind: 'Name', value: 'maxAge' },
+              value: { kind: 'IntValue', value: '3600' },
+            },
+          ],
+        },
+      ],
       fields: [
         {
           kind: 'FieldDefinition',
@@ -1049,7 +1105,19 @@ export const typeDefs = {
       kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'Gamestate' },
       interfaces: [],
-      directives: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [
+            {
+              kind: 'Argument',
+              name: { kind: 'Name', value: 'maxAge' },
+              value: { kind: 'IntValue', value: '3600' },
+            },
+          ],
+        },
+      ],
       fields: [
         {
           kind: 'FieldDefinition',
@@ -1112,7 +1180,19 @@ export const typeDefs = {
       kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'Save' },
       interfaces: [],
-      directives: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [
+            {
+              kind: 'Argument',
+              name: { kind: 'Name', value: 'maxAge' },
+              value: { kind: 'IntValue', value: '300' },
+            },
+          ],
+        },
+      ],
       fields: [
         {
           kind: 'FieldDefinition',
@@ -1194,7 +1274,24 @@ export const typeDefs = {
               },
             },
           },
-          directives: [],
+          directives: [
+            {
+              kind: 'Directive',
+              name: { kind: 'Name', value: 'cacheControl' },
+              arguments: [
+                {
+                  kind: 'Argument',
+                  name: { kind: 'Name', value: 'maxAge' },
+                  value: { kind: 'IntValue', value: '300' },
+                },
+                {
+                  kind: 'Argument',
+                  name: { kind: 'Name', value: 'scope' },
+                  value: { kind: 'EnumValue', value: 'PUBLIC' },
+                },
+              ],
+            },
+          ],
         },
         {
           kind: 'FieldDefinition',
@@ -1214,7 +1311,24 @@ export const typeDefs = {
             },
           ],
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Save' } },
-          directives: [],
+          directives: [
+            {
+              kind: 'Directive',
+              name: { kind: 'Name', value: 'cacheControl' },
+              arguments: [
+                {
+                  kind: 'Argument',
+                  name: { kind: 'Name', value: 'maxAge' },
+                  value: { kind: 'IntValue', value: '300' },
+                },
+                {
+                  kind: 'Argument',
+                  name: { kind: 'Name', value: 'scope' },
+                  value: { kind: 'EnumValue', value: 'PUBLIC' },
+                },
+              ],
+            },
+          ],
         },
       ],
     },

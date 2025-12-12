@@ -136,6 +136,11 @@ export type BudgetEntry = {
   volatileMotes?: Maybe<Scalars['Float']['output']>
 }
 
+export enum CacheControlScope {
+  Private = 'PRIVATE',
+  Public = 'PUBLIC',
+}
+
 export type Gamestate = {
   budget: Budget
   date: Scalars['DateTimeISO']['output']
@@ -183,6 +188,8 @@ export const isDefinedNonNullAny = (v: any): v is definedNonNullAny =>
 export const definedNonNullAnySchema = z
   .any()
   .refine((v) => isDefinedNonNullAny(v))
+
+export const CacheControlScopeSchema = z.enum(CacheControlScope)
 
 export function BudgetSchema(): z.ZodObject<Properties<Budget>> {
   return z.object({
