@@ -15,6 +15,7 @@ services:
       - stellaris-stats-mcp-run-python-network
       - stellaris-stats-grafana-network
       - stellaris-stats_prometheus-network
+      - stellaris-stats-redis-network
     volumes:
       - ..:/workspace
       - '${STELLARIS_STATS_SAVE_PATH}:/stellaris-data:ro'
@@ -34,6 +35,16 @@ services:
       - stellaris-stats-db-network
     volumes:
       - db-data:/var/lib/postgresql
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: stellaris-stats_redis
+    networks:
+      - stellaris-stats-redis-network
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
 
   apollo-mcp-server:
     image: ghcr.io/apollographql/apollo-mcp-server:v1.2.1
@@ -158,6 +169,9 @@ networks:
   stellaris-stats-grafana-network:
     driver: bridge
     name: stellaris-stats_grafana-network
+  stellaris-stats-redis-network:
+    driver: bridge
+    name: stellaris-stats_redis-network
 
 volumes:
   claude-data:
@@ -184,5 +198,7 @@ volumes:
     name: stellaris-stats_node-modules
   prometheus-data:
     name: stellaris-stats_prometheus-data
+  redis-data:
+    name: stellaris-stats_redis-data
   user-cache:
     name: stellaris-stats_user-cache
