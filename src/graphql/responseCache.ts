@@ -1,6 +1,24 @@
 import type { Redis } from 'ioredis'
 import type { KeyValueCache } from '@apollo/utils.keyvaluecache'
 
+const containsNullValues = (value: string): boolean => {
+  try {
+    const parsed: unknown = JSON.parse(value)
+    if (
+      parsed
+      && typeof parsed === 'object'
+      && 'data' in parsed
+      && parsed.data
+      && typeof parsed.data === 'object'
+    ) {
+      return Object.values(parsed.data).some((v) => v === null)
+    }
+    return false
+  } catch {
+    return false
+  }
+}
+
 export class RedisCache implements KeyValueCache {
   private readonly client: Redis
   private readonly prefix: string
@@ -20,6 +38,10 @@ export class RedisCache implements KeyValueCache {
     value: string,
     options?: { ttl?: number | null },
   ): Promise<void> {
+    if (containsNullValues(value)) {
+      return
+    }
+
     const fullKey = this.prefix + key
 
     if (options?.ttl) {
