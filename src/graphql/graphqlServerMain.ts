@@ -27,48 +27,28 @@ const runGraphQLServer = async (logger: Logger) => {
   await runUpMigrations(config, pool, logger)
 
   const redisClient = createRedisClient(config)
-  const cache = redisClient ? new RedisCache(redisClient) : undefined
+  const cache = new RedisCache(redisClient)
 
-  if (redisClient) {
-    logger.info('Redis cache enabled')
-    redisClient.on('error', (error: unknown) => {
-      logger.error({ error }, 'Redis client error')
-    })
-  } else {
-    logger.info('Redis cache disabled')
-  }
+  logger.info('Redis cache enabled')
+  redisClient.on('error', (error: unknown) => {
+    logger.error({ error }, 'Redis client error')
+  })
 
-  const plugins =
-    cache ?
-      [
-        responseCachePlugin<GraphQLServerContext>({ cache }),
-        ApolloServerPluginCacheControl({ defaultMaxAge: 0 }),
-        {
-          // eslint-disable-next-line @typescript-eslint/require-await
-          requestDidStart: async () => ({
-            // eslint-disable-next-line @typescript-eslint/require-await
-            willSendResponse: async (
-              requestContext: GraphQLRequestContext<GraphQLServerContext>,
-            ) => {
-              requestContext.contextValue.client.release()
-            },
-          }),
+  const plugins = [
+    responseCachePlugin<GraphQLServerContext>({ cache }),
+    ApolloServerPluginCacheControl({ defaultMaxAge: 0 }),
+    {
+      // eslint-disable-next-line @typescript-eslint/require-await
+      requestDidStart: async () => ({
+        // eslint-disable-next-line @typescript-eslint/require-await
+        willSendResponse: async (
+          requestContext: GraphQLRequestContext<GraphQLServerContext>,
+        ) => {
+          requestContext.contextValue.client.release()
         },
-      ]
-    : [
-        ApolloServerPluginCacheControl({ defaultMaxAge: 0 }),
-        {
-          // eslint-disable-next-line @typescript-eslint/require-await
-          requestDidStart: async () => ({
-            // eslint-disable-next-line @typescript-eslint/require-await
-            willSendResponse: async (
-              requestContext: GraphQLRequestContext<GraphQLServerContext>,
-            ) => {
-              requestContext.contextValue.client.release()
-            },
-          }),
-        },
-      ]
+      }),
+    },
+  ]
 
   const server = new ApolloServer<GraphQLServerContext>({
     typeDefs: [...scalarTypeDefs, typeDefs],
@@ -98,10 +78,8 @@ const runGraphQLServer = async (logger: Logger) => {
   const shutdown = () => {
     logger.info('Shutting down GraphQL server')
     void (async () => {
-      if (redisClient) {
-        await redisClient.quit()
-        logger.info('Redis client closed')
-      }
+      await redisClient.quit()
+      logger.info('Redis client closed')
       await pool.end()
       logger.info('Database pool closed')
     })()
