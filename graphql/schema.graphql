@@ -10,7 +10,7 @@ enum CacheControlScope {
   PRIVATE
 }
 
-type BudgetEntry {
+type BudgetEntry @cacheControl {
   alloys: Float
   astralThreads: Float
   consumerGoods: Float
@@ -33,7 +33,7 @@ type BudgetEntry {
   volatileMotes: Float
 }
 
-type BudgetCategory {
+type BudgetCategory @cacheControl {
   armies: BudgetEntry
   colonies: BudgetEntry
   commercialPacts: BudgetEntry
@@ -111,13 +111,13 @@ type BudgetCategory {
   tradePolicy: BudgetEntry
 }
 
-type PlanetProduction {
+type PlanetProduction @cacheControl {
   income: BudgetEntry
   expenses: BudgetEntry
   balance: BudgetEntry
 }
 
-type Planet {
+type Planet @cacheControl {
   planetId: String!
   planetName: String!
   profits: PlanetProduction!

@@ -55,7 +55,13 @@ export const typeDefs = {
       kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'BudgetEntry' },
       interfaces: [],
-      directives: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [],
+        },
+      ],
       fields: [
         {
           kind: 'FieldDefinition',
@@ -203,7 +209,13 @@ export const typeDefs = {
       kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'BudgetCategory' },
       interfaces: [],
-      directives: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [],
+        },
+      ],
       fields: [
         {
           kind: 'FieldDefinition',
@@ -961,7 +973,13 @@ export const typeDefs = {
       kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'PlanetProduction' },
       interfaces: [],
-      directives: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [],
+        },
+      ],
       fields: [
         {
           kind: 'FieldDefinition',
@@ -999,7 +1017,13 @@ export const typeDefs = {
       kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'Planet' },
       interfaces: [],
-      directives: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [],
+        },
+      ],
       fields: [
         {
           kind: 'FieldDefinition',
