@@ -1,0 +1,1087 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.income.armies.trade",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.colonies.trade",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.commercialPacts.trade",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryAgendas.trade",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryBase.trade",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryCivics.trade",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryDessanu.trade",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryEthic.trade",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryPowerProjection.trade",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryRuler.trade",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.edicts.trade",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderCommanders.trade",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderOfficials.trade",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderScientists.trade",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructures.trade",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresGrandArchive.trade",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHabitat.trade",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHyperRelay.trade",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.migrationPacts.trade",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.none.trade",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalMiningDeposits.trade",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalResearchDeposits.trade",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.overlordSubsidy.trade",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetArtisans.trade",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBiologists.trade",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildings.trade",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsCloneVats.trade",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsHabCapital.trade",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStormTech.trade",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStrongholds.trade",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBureaucrats.trade",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetCivilians.trade",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetClerks.trade",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDeposits.trade",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistricts.trade",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsCities.trade",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsFarming.trade",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsGenerator.trade",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsHab.trade",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsMining.trade",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDoctors.trade",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEnergyThralls.trade",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEngineers.trade",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEntertainers.trade",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetFarmers.trade",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobs.trade",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobsProductive.trade",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMaintenanceDrones.trade",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMetallurgists.trade",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMiners.trade",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPhysicists.trade",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPoliticians.trade",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPopAssemblers.trade",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPops.trade",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetResourceDeficit.trade",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetSrMiners.trade",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTechnician.trade",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTraders.trade",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryCivilians.trade",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryDrones.trade",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryRulers.trade",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategorySpecialists.trade",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.situations.trade",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObserverMissions.trade",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObservers.trade",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query TradeIncome($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        income {\n          armies {\n            trade\n          }\n          colonies {\n            trade\n          }\n          commercialPacts {\n            trade\n          }\n          countryAgendas {\n            trade\n          }\n          countryBase {\n            trade\n          }\n          countryCivics {\n            trade\n          }\n          countryDessanu {\n            trade\n          }\n          countryEthic {\n            trade\n          }\n          countryPowerProjection {\n            trade\n          }\n          countryRuler {\n            trade\n          }\n          edicts {\n            trade\n          }\n          leaderCommanders {\n            trade\n          }\n          leaderOfficials {\n            trade\n          }\n          leaderScientists {\n            trade\n          }\n          megastructures {\n            trade\n          }\n          megastructuresGrandArchive {\n            trade\n          }\n          megastructuresHabitat {\n            trade\n          }\n          megastructuresHyperRelay {\n            trade\n          }\n          migrationPacts {\n            trade\n          }\n          none {\n            trade\n          }\n          orbitalMiningDeposits {\n            trade\n          }\n          orbitalResearchDeposits {\n            trade\n          }\n          overlordSubsidy {\n            trade\n          }\n          planetArtisans {\n            trade\n          }\n          planetBiologists {\n            trade\n          }\n          planetBuildings {\n            trade\n          }\n          planetBuildingsCloneVats {\n            trade\n          }\n          planetBuildingsHabCapital {\n            trade\n          }\n          planetBuildingsStormTech {\n            trade\n          }\n          planetBuildingsStrongholds {\n            trade\n          }\n          planetBureaucrats {\n            trade\n          }\n          planetCivilians {\n            trade\n          }\n          planetClerks {\n            trade\n          }\n          planetDeposits {\n            trade\n          }\n          planetDistricts {\n            trade\n          }\n          planetDistrictsCities {\n            trade\n          }\n          planetDistrictsFarming {\n            trade\n          }\n          planetDistrictsGenerator {\n            trade\n          }\n          planetDistrictsHab {\n            trade\n          }\n          planetDistrictsMining {\n            trade\n          }\n          planetDoctors {\n            trade\n          }\n          planetEnergyThralls {\n            trade\n          }\n          planetEngineers {\n            trade\n          }\n          planetEntertainers {\n            trade\n          }\n          planetFarmers {\n            trade\n          }\n          planetJobs {\n            trade\n          }\n          planetJobsProductive {\n            trade\n          }\n          planetMaintenanceDrones {\n            trade\n          }\n          planetMetallurgists {\n            trade\n          }\n          planetMiners {\n            trade\n          }\n          planetPhysicists {\n            trade\n          }\n          planetPoliticians {\n            trade\n          }\n          planetPopAssemblers {\n            trade\n          }\n          planetPops {\n            trade\n          }\n          planetResourceDeficit {\n            trade\n          }\n          planetSrMiners {\n            trade\n          }\n          planetTechnician {\n            trade\n          }\n          planetTraders {\n            trade\n          }\n          popCategoryCivilians {\n            trade\n          }\n          popCategoryDrones {\n            trade\n          }\n          popCategoryRulers {\n            trade\n          }\n          popCategorySpecialists {\n            trade\n          }\n          popCategoryWorkers {\n            trade\n          }\n          popFactions {\n            trade\n          }\n          shipComponents {\n            trade\n          }\n          ships {\n            trade\n          }\n          situations {\n            trade\n          }\n          starbaseBuildings {\n            trade\n          }\n          starbaseModules {\n            trade\n          }\n          starbases {\n            trade\n          }\n          stationGatherers {\n            trade\n          }\n          stationObserverMissions {\n            trade\n          }\n          stationObservers {\n            trade\n          }\n          stationResearchers {\n            trade\n          }\n          tradePolicy {\n            trade\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Trade Income",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.expenses.armies.trade",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.colonies.trade",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.commercialPacts.trade",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryAgendas.trade",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryBase.trade",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryCivics.trade",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryDessanu.trade",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryEthic.trade",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryPowerProjection.trade",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryRuler.trade",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.edicts.trade",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderCommanders.trade",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderOfficials.trade",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderScientists.trade",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructures.trade",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresGrandArchive.trade",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHabitat.trade",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHyperRelay.trade",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.migrationPacts.trade",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.none.trade",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalMiningDeposits.trade",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalResearchDeposits.trade",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.overlordSubsidy.trade",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetArtisans.trade",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBiologists.trade",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildings.trade",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsCloneVats.trade",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsHabCapital.trade",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStormTech.trade",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStrongholds.trade",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBureaucrats.trade",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetCivilians.trade",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetClerks.trade",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDeposits.trade",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistricts.trade",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsCities.trade",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsFarming.trade",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsGenerator.trade",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsHab.trade",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsMining.trade",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDoctors.trade",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEnergyThralls.trade",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEngineers.trade",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEntertainers.trade",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetFarmers.trade",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobs.trade",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobsProductive.trade",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMaintenanceDrones.trade",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMetallurgists.trade",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMiners.trade",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPhysicists.trade",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPoliticians.trade",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPopAssemblers.trade",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPops.trade",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetResourceDeficit.trade",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetSrMiners.trade",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTechnician.trade",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTraders.trade",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryCivilians.trade",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryDrones.trade",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryRulers.trade",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategorySpecialists.trade",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.situations.trade",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObserverMissions.trade",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObservers.trade",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query TradeExpenses($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        expenses {\n          armies {\n            trade\n          }\n          colonies {\n            trade\n          }\n          commercialPacts {\n            trade\n          }\n          countryAgendas {\n            trade\n          }\n          countryBase {\n            trade\n          }\n          countryCivics {\n            trade\n          }\n          countryDessanu {\n            trade\n          }\n          countryEthic {\n            trade\n          }\n          countryPowerProjection {\n            trade\n          }\n          countryRuler {\n            trade\n          }\n          edicts {\n            trade\n          }\n          leaderCommanders {\n            trade\n          }\n          leaderOfficials {\n            trade\n          }\n          leaderScientists {\n            trade\n          }\n          megastructures {\n            trade\n          }\n          megastructuresGrandArchive {\n            trade\n          }\n          megastructuresHabitat {\n            trade\n          }\n          megastructuresHyperRelay {\n            trade\n          }\n          migrationPacts {\n            trade\n          }\n          none {\n            trade\n          }\n          orbitalMiningDeposits {\n            trade\n          }\n          orbitalResearchDeposits {\n            trade\n          }\n          overlordSubsidy {\n            trade\n          }\n          planetArtisans {\n            trade\n          }\n          planetBiologists {\n            trade\n          }\n          planetBuildings {\n            trade\n          }\n          planetBuildingsCloneVats {\n            trade\n          }\n          planetBuildingsHabCapital {\n            trade\n          }\n          planetBuildingsStormTech {\n            trade\n          }\n          planetBuildingsStrongholds {\n            trade\n          }\n          planetBureaucrats {\n            trade\n          }\n          planetCivilians {\n            trade\n          }\n          planetClerks {\n            trade\n          }\n          planetDeposits {\n            trade\n          }\n          planetDistricts {\n            trade\n          }\n          planetDistrictsCities {\n            trade\n          }\n          planetDistrictsFarming {\n            trade\n          }\n          planetDistrictsGenerator {\n            trade\n          }\n          planetDistrictsHab {\n            trade\n          }\n          planetDistrictsMining {\n            trade\n          }\n          planetDoctors {\n            trade\n          }\n          planetEnergyThralls {\n            trade\n          }\n          planetEngineers {\n            trade\n          }\n          planetEntertainers {\n            trade\n          }\n          planetFarmers {\n            trade\n          }\n          planetJobs {\n            trade\n          }\n          planetJobsProductive {\n            trade\n          }\n          planetMaintenanceDrones {\n            trade\n          }\n          planetMetallurgists {\n            trade\n          }\n          planetMiners {\n            trade\n          }\n          planetPhysicists {\n            trade\n          }\n          planetPoliticians {\n            trade\n          }\n          planetPopAssemblers {\n            trade\n          }\n          planetPops {\n            trade\n          }\n          planetResourceDeficit {\n            trade\n          }\n          planetSrMiners {\n            trade\n          }\n          planetTechnician {\n            trade\n          }\n          planetTraders {\n            trade\n          }\n          popCategoryCivilians {\n            trade\n          }\n          popCategoryDrones {\n            trade\n          }\n          popCategoryRulers {\n            trade\n          }\n          popCategorySpecialists {\n            trade\n          }\n          popCategoryWorkers {\n            trade\n          }\n          popFactions {\n            trade\n          }\n          shipComponents {\n            trade\n          }\n          ships {\n            trade\n          }\n          situations {\n            trade\n          }\n          starbaseBuildings {\n            trade\n          }\n          starbaseModules {\n            trade\n          }\n          starbases {\n            trade\n          }\n          stationGatherers {\n            trade\n          }\n          stationObserverMissions {\n            trade\n          }\n          stationObservers {\n            trade\n          }\n          stationResearchers {\n            trade\n          }\n          tradePolicy {\n            trade\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Trade Expenses",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "preload": true,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "commonwealthofman_1251622081",
+          "value": "commonwealthofman_1251622081"
+        },
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "ef6cnm49brb40d"
+        },
+        "definition": "",
+        "description": "",
+        "label": "Save Filename",
+        "name": "saveFilename",
+        "options": [],
+        "query": {
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "data.saves",
+            "source": "url",
+            "type": "graphql",
+            "url": "",
+            "url_options": {
+              "body_content_type": "application/json",
+              "body_graphql_query": "query Filenames {\n  saves {\n    filename\n  }\n}\n",
+              "body_type": "graphql",
+              "data": "",
+              "method": "POST"
+            }
+          },
+          "query": "",
+          "queryType": "infinity"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2199-12-31T22:00:00.000Z",
+    "to": "2499-12-31T22:00:00.000Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Trade Budget",
+  "uid": "tradebudget",
+  "version": 1
+}
