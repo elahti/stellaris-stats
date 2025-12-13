@@ -7851,6 +7851,2942 @@
         }
       ],
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Influence Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#A64D79",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unity Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#56B4E9",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Physics Research Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3274A1",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Engineering Research Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2CC0C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Society Research Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#73BF69",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 40
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last",
+            "max",
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.balance.armies.influence",
+              "text": "Armies Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.unity",
+              "text": "Armies Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.physicsResearch",
+              "text": "Armies Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.engineeringResearch",
+              "text": "Armies Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.societyResearch",
+              "text": "Armies Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.influence",
+              "text": "Colonies Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.unity",
+              "text": "Colonies Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.physicsResearch",
+              "text": "Colonies Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.engineeringResearch",
+              "text": "Colonies Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.societyResearch",
+              "text": "Colonies Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.influence",
+              "text": "Commercial Pacts Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.unity",
+              "text": "Commercial Pacts Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.physicsResearch",
+              "text": "Commercial Pacts Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.engineeringResearch",
+              "text": "Commercial Pacts Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.societyResearch",
+              "text": "Commercial Pacts Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.influence",
+              "text": "Country Agendas Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.unity",
+              "text": "Country Agendas Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.physicsResearch",
+              "text": "Country Agendas Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.engineeringResearch",
+              "text": "Country Agendas Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.societyResearch",
+              "text": "Country Agendas Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.influence",
+              "text": "Country Base Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.unity",
+              "text": "Country Base Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.physicsResearch",
+              "text": "Country Base Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.engineeringResearch",
+              "text": "Country Base Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.societyResearch",
+              "text": "Country Base Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.influence",
+              "text": "Country Civics Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.unity",
+              "text": "Country Civics Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.physicsResearch",
+              "text": "Country Civics Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.engineeringResearch",
+              "text": "Country Civics Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.societyResearch",
+              "text": "Country Civics Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.influence",
+              "text": "Country Dessanu Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.unity",
+              "text": "Country Dessanu Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.physicsResearch",
+              "text": "Country Dessanu Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.engineeringResearch",
+              "text": "Country Dessanu Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.societyResearch",
+              "text": "Country Dessanu Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.influence",
+              "text": "Country Ethic Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.unity",
+              "text": "Country Ethic Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.physicsResearch",
+              "text": "Country Ethic Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.engineeringResearch",
+              "text": "Country Ethic Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.societyResearch",
+              "text": "Country Ethic Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.powerProjection.influence",
+              "text": "Power Projection Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.powerProjection.unity",
+              "text": "Power Projection Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.powerProjection.physicsResearch",
+              "text": "Power Projection Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.powerProjection.engineeringResearch",
+              "text": "Power Projection Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.powerProjection.societyResearch",
+              "text": "Power Projection Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.influence",
+              "text": "Country Ruler Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.unity",
+              "text": "Country Ruler Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.physicsResearch",
+              "text": "Country Ruler Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.engineeringResearch",
+              "text": "Country Ruler Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.societyResearch",
+              "text": "Country Ruler Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.influence",
+              "text": "Edicts Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.unity",
+              "text": "Edicts Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.physicsResearch",
+              "text": "Edicts Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.engineeringResearch",
+              "text": "Edicts Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.societyResearch",
+              "text": "Edicts Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commanderLeaders.influence",
+              "text": "Commander Leaders Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commanderLeaders.unity",
+              "text": "Commander Leaders Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commanderLeaders.physicsResearch",
+              "text": "Commander Leaders Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commanderLeaders.engineeringResearch",
+              "text": "Commander Leaders Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commanderLeaders.societyResearch",
+              "text": "Commander Leaders Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.officialLeaders.influence",
+              "text": "Official Leaders Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.officialLeaders.unity",
+              "text": "Official Leaders Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.officialLeaders.physicsResearch",
+              "text": "Official Leaders Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.officialLeaders.engineeringResearch",
+              "text": "Official Leaders Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.officialLeaders.societyResearch",
+              "text": "Official Leaders Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.scientistLeaders.influence",
+              "text": "Scientist Leaders Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.scientistLeaders.unity",
+              "text": "Scientist Leaders Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.scientistLeaders.physicsResearch",
+              "text": "Scientist Leaders Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.scientistLeaders.engineeringResearch",
+              "text": "Scientist Leaders Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.scientistLeaders.societyResearch",
+              "text": "Scientist Leaders Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.influence",
+              "text": "Megastructures Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.unity",
+              "text": "Megastructures Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.physicsResearch",
+              "text": "Megastructures Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.engineeringResearch",
+              "text": "Megastructures Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.societyResearch",
+              "text": "Megastructures Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.influence",
+              "text": "Megastructures Grand Archive Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.unity",
+              "text": "Megastructures Grand Archive Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.physicsResearch",
+              "text": "Megastructures Grand Archive Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.engineeringResearch",
+              "text": "Megastructures Grand Archive Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.societyResearch",
+              "text": "Megastructures Grand Archive Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.influence",
+              "text": "Megastructures Habitat Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.unity",
+              "text": "Megastructures Habitat Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.physicsResearch",
+              "text": "Megastructures Habitat Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.engineeringResearch",
+              "text": "Megastructures Habitat Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.societyResearch",
+              "text": "Megastructures Habitat Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.influence",
+              "text": "Megastructures Hyper Relay Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.unity",
+              "text": "Megastructures Hyper Relay Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.physicsResearch",
+              "text": "Megastructures Hyper Relay Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.engineeringResearch",
+              "text": "Megastructures Hyper Relay Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.societyResearch",
+              "text": "Megastructures Hyper Relay Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.influence",
+              "text": "Migration Pacts Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.unity",
+              "text": "Migration Pacts Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.physicsResearch",
+              "text": "Migration Pacts Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.engineeringResearch",
+              "text": "Migration Pacts Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.societyResearch",
+              "text": "Migration Pacts Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.influence",
+              "text": "None Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.unity",
+              "text": "None Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.physicsResearch",
+              "text": "None Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.engineeringResearch",
+              "text": "None Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.societyResearch",
+              "text": "None Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.influence",
+              "text": "Orbital Mining Deposits Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.unity",
+              "text": "Orbital Mining Deposits Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.physicsResearch",
+              "text": "Orbital Mining Deposits Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.engineeringResearch",
+              "text": "Orbital Mining Deposits Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.societyResearch",
+              "text": "Orbital Mining Deposits Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.influence",
+              "text": "Orbital Research Deposits Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.unity",
+              "text": "Orbital Research Deposits Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.physicsResearch",
+              "text": "Orbital Research Deposits Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.engineeringResearch",
+              "text": "Orbital Research Deposits Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.societyResearch",
+              "text": "Orbital Research Deposits Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.influence",
+              "text": "Overlord Subsidy Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.unity",
+              "text": "Overlord Subsidy Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.physicsResearch",
+              "text": "Overlord Subsidy Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.engineeringResearch",
+              "text": "Overlord Subsidy Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.societyResearch",
+              "text": "Overlord Subsidy Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.artisans.influence",
+              "text": "Artisans Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.artisans.unity",
+              "text": "Artisans Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.artisans.physicsResearch",
+              "text": "Artisans Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.artisans.engineeringResearch",
+              "text": "Artisans Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.artisans.societyResearch",
+              "text": "Artisans Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.biologists.influence",
+              "text": "Biologists Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.biologists.unity",
+              "text": "Biologists Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.biologists.physicsResearch",
+              "text": "Biologists Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.biologists.engineeringResearch",
+              "text": "Biologists Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.biologists.societyResearch",
+              "text": "Biologists Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildings.influence",
+              "text": "Buildings Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildings.unity",
+              "text": "Buildings Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildings.physicsResearch",
+              "text": "Buildings Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildings.engineeringResearch",
+              "text": "Buildings Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildings.societyResearch",
+              "text": "Buildings Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsCloneVats.influence",
+              "text": "Buildings Clone Vats Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsCloneVats.unity",
+              "text": "Buildings Clone Vats Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsCloneVats.physicsResearch",
+              "text": "Buildings Clone Vats Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsCloneVats.engineeringResearch",
+              "text": "Buildings Clone Vats Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsCloneVats.societyResearch",
+              "text": "Buildings Clone Vats Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsHabCapital.influence",
+              "text": "Buildings Hab Capital Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsHabCapital.unity",
+              "text": "Buildings Hab Capital Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsHabCapital.physicsResearch",
+              "text": "Buildings Hab Capital Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsHabCapital.engineeringResearch",
+              "text": "Buildings Hab Capital Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsHabCapital.societyResearch",
+              "text": "Buildings Hab Capital Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsStormTech.influence",
+              "text": "Buildings Storm Tech Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsStormTech.unity",
+              "text": "Buildings Storm Tech Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsStormTech.physicsResearch",
+              "text": "Buildings Storm Tech Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsStormTech.engineeringResearch",
+              "text": "Buildings Storm Tech Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.buildingsStormTech.societyResearch",
+              "text": "Buildings Storm Tech Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strongholds.influence",
+              "text": "Strongholds Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strongholds.unity",
+              "text": "Strongholds Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strongholds.physicsResearch",
+              "text": "Strongholds Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strongholds.engineeringResearch",
+              "text": "Strongholds Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strongholds.societyResearch",
+              "text": "Strongholds Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.bureucrats.influence",
+              "text": "Bureucrats Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.bureucrats.unity",
+              "text": "Bureucrats Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.bureucrats.physicsResearch",
+              "text": "Bureucrats Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.bureucrats.engineeringResearch",
+              "text": "Bureucrats Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.bureucrats.societyResearch",
+              "text": "Bureucrats Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilians.influence",
+              "text": "Civilians Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilians.unity",
+              "text": "Civilians Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilians.physicsResearch",
+              "text": "Civilians Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilians.engineeringResearch",
+              "text": "Civilians Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilians.societyResearch",
+              "text": "Civilians Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.clerks.influence",
+              "text": "Clerks Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.clerks.unity",
+              "text": "Clerks Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.clerks.physicsResearch",
+              "text": "Clerks Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.clerks.engineeringResearch",
+              "text": "Clerks Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.clerks.societyResearch",
+              "text": "Clerks Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.deposits.influence",
+              "text": "Deposits Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.deposits.unity",
+              "text": "Deposits Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.deposits.physicsResearch",
+              "text": "Deposits Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.deposits.engineeringResearch",
+              "text": "Deposits Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.deposits.societyResearch",
+              "text": "Deposits Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.districts.influence",
+              "text": "Districts Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.districts.unity",
+              "text": "Districts Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.districts.physicsResearch",
+              "text": "Districts Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.districts.engineeringResearch",
+              "text": "Districts Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.districts.societyResearch",
+              "text": "Districts Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.cityDistricts.influence",
+              "text": "City Districts Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.cityDistricts.unity",
+              "text": "City Districts Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.cityDistricts.physicsResearch",
+              "text": "City Districts Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.cityDistricts.engineeringResearch",
+              "text": "City Districts Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.cityDistricts.societyResearch",
+              "text": "City Districts Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmingDistricts.influence",
+              "text": "Farming Districts Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmingDistricts.unity",
+              "text": "Farming Districts Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmingDistricts.physicsResearch",
+              "text": "Farming Districts Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmingDistricts.engineeringResearch",
+              "text": "Farming Districts Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmingDistricts.societyResearch",
+              "text": "Farming Districts Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.generatorDistricts.influence",
+              "text": "Generator Districts Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.generatorDistricts.unity",
+              "text": "Generator Districts Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.generatorDistricts.physicsResearch",
+              "text": "Generator Districts Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.generatorDistricts.engineeringResearch",
+              "text": "Generator Districts Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.generatorDistricts.societyResearch",
+              "text": "Generator Districts Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.habDistricts.influence",
+              "text": "Hab Districts Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.habDistricts.unity",
+              "text": "Hab Districts Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.habDistricts.physicsResearch",
+              "text": "Hab Districts Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.habDistricts.engineeringResearch",
+              "text": "Hab Districts Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.habDistricts.societyResearch",
+              "text": "Hab Districts Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miningDistricts.influence",
+              "text": "Mining Districts Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miningDistricts.unity",
+              "text": "Mining Districts Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miningDistricts.physicsResearch",
+              "text": "Mining Districts Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miningDistricts.engineeringResearch",
+              "text": "Mining Districts Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miningDistricts.societyResearch",
+              "text": "Mining Districts Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.doctors.influence",
+              "text": "Doctors Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.doctors.unity",
+              "text": "Doctors Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.doctors.physicsResearch",
+              "text": "Doctors Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.doctors.engineeringResearch",
+              "text": "Doctors Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.doctors.societyResearch",
+              "text": "Doctors Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.energyThralls.influence",
+              "text": "Energy Thralls Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.energyThralls.unity",
+              "text": "Energy Thralls Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.energyThralls.physicsResearch",
+              "text": "Energy Thralls Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.energyThralls.engineeringResearch",
+              "text": "Energy Thralls Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.energyThralls.societyResearch",
+              "text": "Energy Thralls Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.engineers.influence",
+              "text": "Engineers Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.engineers.unity",
+              "text": "Engineers Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.engineers.physicsResearch",
+              "text": "Engineers Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.engineers.engineeringResearch",
+              "text": "Engineers Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.engineers.societyResearch",
+              "text": "Engineers Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.entertainers.influence",
+              "text": "Entertainers Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.entertainers.unity",
+              "text": "Entertainers Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.entertainers.physicsResearch",
+              "text": "Entertainers Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.entertainers.engineeringResearch",
+              "text": "Entertainers Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.entertainers.societyResearch",
+              "text": "Entertainers Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmers.influence",
+              "text": "Farmers Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmers.unity",
+              "text": "Farmers Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmers.physicsResearch",
+              "text": "Farmers Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmers.engineeringResearch",
+              "text": "Farmers Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.farmers.societyResearch",
+              "text": "Farmers Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobs.influence",
+              "text": "Jobs Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobs.unity",
+              "text": "Jobs Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobs.physicsResearch",
+              "text": "Jobs Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobs.engineeringResearch",
+              "text": "Jobs Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobs.societyResearch",
+              "text": "Jobs Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobsProductive.influence",
+              "text": "Jobs Productive Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobsProductive.unity",
+              "text": "Jobs Productive Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobsProductive.physicsResearch",
+              "text": "Jobs Productive Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobsProductive.engineeringResearch",
+              "text": "Jobs Productive Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.jobsProductive.societyResearch",
+              "text": "Jobs Productive Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.maintenanceDrones.influence",
+              "text": "Maintenance Drones Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.maintenanceDrones.unity",
+              "text": "Maintenance Drones Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.maintenanceDrones.physicsResearch",
+              "text": "Maintenance Drones Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.maintenanceDrones.engineeringResearch",
+              "text": "Maintenance Drones Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.maintenanceDrones.societyResearch",
+              "text": "Maintenance Drones Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.metallurgists.influence",
+              "text": "Metallurgists Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.metallurgists.unity",
+              "text": "Metallurgists Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.metallurgists.physicsResearch",
+              "text": "Metallurgists Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.metallurgists.engineeringResearch",
+              "text": "Metallurgists Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.metallurgists.societyResearch",
+              "text": "Metallurgists Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miners.influence",
+              "text": "Miners Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miners.unity",
+              "text": "Miners Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miners.physicsResearch",
+              "text": "Miners Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miners.engineeringResearch",
+              "text": "Miners Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.miners.societyResearch",
+              "text": "Miners Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.physicists.influence",
+              "text": "Physicists Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.physicists.unity",
+              "text": "Physicists Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.physicists.physicsResearch",
+              "text": "Physicists Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.physicists.engineeringResearch",
+              "text": "Physicists Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.physicists.societyResearch",
+              "text": "Physicists Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.politicians.influence",
+              "text": "Politicians Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.politicians.unity",
+              "text": "Politicians Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.politicians.physicsResearch",
+              "text": "Politicians Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.politicians.engineeringResearch",
+              "text": "Politicians Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.politicians.societyResearch",
+              "text": "Politicians Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popAssemblers.influence",
+              "text": "Pop Assemblers Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popAssemblers.unity",
+              "text": "Pop Assemblers Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popAssemblers.physicsResearch",
+              "text": "Pop Assemblers Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popAssemblers.engineeringResearch",
+              "text": "Pop Assemblers Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popAssemblers.societyResearch",
+              "text": "Pop Assemblers Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.pops.influence",
+              "text": "Pops Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.pops.unity",
+              "text": "Pops Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.pops.physicsResearch",
+              "text": "Pops Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.pops.engineeringResearch",
+              "text": "Pops Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.pops.societyResearch",
+              "text": "Pops Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.influence",
+              "text": "Planet Resource Deficit Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.unity",
+              "text": "Planet Resource Deficit Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.physicsResearch",
+              "text": "Planet Resource Deficit Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.engineeringResearch",
+              "text": "Planet Resource Deficit Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.societyResearch",
+              "text": "Planet Resource Deficit Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strategicResourceMiners.influence",
+              "text": "Strategic Resource Miners Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strategicResourceMiners.unity",
+              "text": "Strategic Resource Miners Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strategicResourceMiners.physicsResearch",
+              "text": "Strategic Resource Miners Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strategicResourceMiners.engineeringResearch",
+              "text": "Strategic Resource Miners Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.strategicResourceMiners.societyResearch",
+              "text": "Strategic Resource Miners Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.technicians.influence",
+              "text": "Technicians Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.technicians.unity",
+              "text": "Technicians Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.technicians.physicsResearch",
+              "text": "Technicians Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.technicians.engineeringResearch",
+              "text": "Technicians Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.technicians.societyResearch",
+              "text": "Technicians Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.traders.influence",
+              "text": "Traders Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.traders.unity",
+              "text": "Traders Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.traders.physicsResearch",
+              "text": "Traders Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.traders.engineeringResearch",
+              "text": "Traders Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.traders.societyResearch",
+              "text": "Traders Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilianPops.influence",
+              "text": "Civilian Pops Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilianPops.unity",
+              "text": "Civilian Pops Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilianPops.physicsResearch",
+              "text": "Civilian Pops Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilianPops.engineeringResearch",
+              "text": "Civilian Pops Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.civilianPops.societyResearch",
+              "text": "Civilian Pops Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.dronePops.influence",
+              "text": "Drone Pops Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.dronePops.unity",
+              "text": "Drone Pops Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.dronePops.physicsResearch",
+              "text": "Drone Pops Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.dronePops.engineeringResearch",
+              "text": "Drone Pops Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.dronePops.societyResearch",
+              "text": "Drone Pops Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.rulerPops.influence",
+              "text": "Ruler Pops Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.rulerPops.unity",
+              "text": "Ruler Pops Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.rulerPops.physicsResearch",
+              "text": "Ruler Pops Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.rulerPops.engineeringResearch",
+              "text": "Ruler Pops Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.rulerPops.societyResearch",
+              "text": "Ruler Pops Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.specialistPops.influence",
+              "text": "Specialist Pops Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.specialistPops.unity",
+              "text": "Specialist Pops Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.specialistPops.physicsResearch",
+              "text": "Specialist Pops Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.specialistPops.engineeringResearch",
+              "text": "Specialist Pops Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.specialistPops.societyResearch",
+              "text": "Specialist Pops Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.workerPops.influence",
+              "text": "Worker Pops Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.workerPops.unity",
+              "text": "Worker Pops Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.workerPops.physicsResearch",
+              "text": "Worker Pops Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.workerPops.engineeringResearch",
+              "text": "Worker Pops Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.workerPops.societyResearch",
+              "text": "Worker Pops Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.factions.influence",
+              "text": "Factions Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.factions.unity",
+              "text": "Factions Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.factions.physicsResearch",
+              "text": "Factions Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.factions.engineeringResearch",
+              "text": "Factions Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.factions.societyResearch",
+              "text": "Factions Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.influence",
+              "text": "Ship Components Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.unity",
+              "text": "Ship Components Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.physicsResearch",
+              "text": "Ship Components Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.engineeringResearch",
+              "text": "Ship Components Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.societyResearch",
+              "text": "Ship Components Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.influence",
+              "text": "Ships Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.unity",
+              "text": "Ships Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.physicsResearch",
+              "text": "Ships Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.engineeringResearch",
+              "text": "Ships Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.societyResearch",
+              "text": "Ships Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.influence",
+              "text": "Situations Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.unity",
+              "text": "Situations Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.physicsResearch",
+              "text": "Situations Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.engineeringResearch",
+              "text": "Situations Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.societyResearch",
+              "text": "Situations Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.influence",
+              "text": "Starbase Buildings Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.unity",
+              "text": "Starbase Buildings Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.physicsResearch",
+              "text": "Starbase Buildings Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.engineeringResearch",
+              "text": "Starbase Buildings Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.societyResearch",
+              "text": "Starbase Buildings Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.influence",
+              "text": "Starbase Modules Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.unity",
+              "text": "Starbase Modules Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.physicsResearch",
+              "text": "Starbase Modules Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.engineeringResearch",
+              "text": "Starbase Modules Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.societyResearch",
+              "text": "Starbase Modules Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.influence",
+              "text": "Starbases Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.unity",
+              "text": "Starbases Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.physicsResearch",
+              "text": "Starbases Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.engineeringResearch",
+              "text": "Starbases Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.societyResearch",
+              "text": "Starbases Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.influence",
+              "text": "Station Gatherers Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.unity",
+              "text": "Station Gatherers Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.physicsResearch",
+              "text": "Station Gatherers Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.engineeringResearch",
+              "text": "Station Gatherers Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.societyResearch",
+              "text": "Station Gatherers Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.influence",
+              "text": "Station Observer Missions Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.unity",
+              "text": "Station Observer Missions Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.physicsResearch",
+              "text": "Station Observer Missions Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.engineeringResearch",
+              "text": "Station Observer Missions Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.societyResearch",
+              "text": "Station Observer Missions Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.influence",
+              "text": "Station Observers Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.unity",
+              "text": "Station Observers Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.physicsResearch",
+              "text": "Station Observers Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.engineeringResearch",
+              "text": "Station Observers Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.societyResearch",
+              "text": "Station Observers Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.influence",
+              "text": "Station Researchers Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.unity",
+              "text": "Station Researchers Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.physicsResearch",
+              "text": "Station Researchers Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.engineeringResearch",
+              "text": "Station Researchers Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.societyResearch",
+              "text": "Station Researchers Society Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.influence",
+              "text": "Trade Policy Influence",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.unity",
+              "text": "Trade Policy Unity",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.physicsResearch",
+              "text": "Trade Policy Physics Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.engineeringResearch",
+              "text": "Trade Policy Engineering Research",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.societyResearch",
+              "text": "Trade Policy Society Research",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query AbstractResources($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        balance {\n          armies {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          colonies {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          commercialPacts {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          countryAgendas {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          countryBase {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          countryCivics {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          countryDessanu {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          countryEthic {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          powerProjection {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          countryRuler {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          edicts {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          commanderLeaders {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          officialLeaders {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          scientistLeaders {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          megastructures {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          megastructuresGrandArchive {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          megastructuresHabitat {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          megastructuresHyperRelay {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          migrationPacts {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          none {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          orbitalMiningDeposits {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          orbitalResearchDeposits {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          overlordSubsidy {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          artisans {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          biologists {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          buildings {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          buildingsCloneVats {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          buildingsHabCapital {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          buildingsStormTech {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          strongholds {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          bureucrats {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          civilians {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          clerks {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          deposits {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          districts {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          cityDistricts {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          farmingDistricts {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          generatorDistricts {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          habDistricts {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          miningDistricts {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          doctors {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          energyThralls {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          engineers {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          entertainers {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          farmers {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          jobs {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          jobsProductive {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          maintenanceDrones {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          metallurgists {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          miners {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          physicists {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          politicians {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          popAssemblers {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          pops {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          planetResourceDeficit {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          strategicResourceMiners {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          technicians {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          traders {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          civilianPops {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          dronePops {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          rulerPops {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          specialistPops {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          workerPops {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          factions {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          shipComponents {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          ships {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          situations {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          starbaseBuildings {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          starbaseModules {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          starbases {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          stationGatherers {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          stationObserverMissions {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          stationObservers {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          stationResearchers {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n          tradePolicy {\n            influence\n            unity\n            physicsResearch\n            engineeringResearch\n            societyResearch\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Abstract Resources",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Influence Balance",
+            "binary": {
+              "left": "Armies Influence",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Influence"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Influence",
+                "Colonies Influence",
+                "Commercial Pacts Influence",
+                "Country Agendas Influence",
+                "Country Base Influence",
+                "Country Civics Influence",
+                "Country Dessanu Influence",
+                "Country Ethic Influence",
+                "Power Projection Influence",
+                "Country Ruler Influence",
+                "Edicts Influence",
+                "Commander Leaders Influence",
+                "Official Leaders Influence",
+                "Scientist Leaders Influence",
+                "Megastructures Influence",
+                "Megastructures Grand Archive Influence",
+                "Megastructures Habitat Influence",
+                "Megastructures Hyper Relay Influence",
+                "Migration Pacts Influence",
+                "None Influence",
+                "Orbital Mining Deposits Influence",
+                "Orbital Research Deposits Influence",
+                "Overlord Subsidy Influence",
+                "Artisans Influence",
+                "Biologists Influence",
+                "Buildings Influence",
+                "Buildings Clone Vats Influence",
+                "Buildings Hab Capital Influence",
+                "Buildings Storm Tech Influence",
+                "Strongholds Influence",
+                "Bureucrats Influence",
+                "Civilians Influence",
+                "Clerks Influence",
+                "Deposits Influence",
+                "Districts Influence",
+                "City Districts Influence",
+                "Farming Districts Influence",
+                "Generator Districts Influence",
+                "Hab Districts Influence",
+                "Mining Districts Influence",
+                "Doctors Influence",
+                "Energy Thralls Influence",
+                "Engineers Influence",
+                "Entertainers Influence",
+                "Farmers Influence",
+                "Jobs Influence",
+                "Jobs Productive Influence",
+                "Maintenance Drones Influence",
+                "Metallurgists Influence",
+                "Miners Influence",
+                "Physicists Influence",
+                "Politicians Influence",
+                "Pop Assemblers Influence",
+                "Pops Influence",
+                "Planet Resource Deficit Influence",
+                "Strategic Resource Miners Influence",
+                "Technicians Influence",
+                "Traders Influence",
+                "Civilian Pops Influence",
+                "Drone Pops Influence",
+                "Ruler Pops Influence",
+                "Specialist Pops Influence",
+                "Worker Pops Influence",
+                "Factions Influence",
+                "Ship Components Influence",
+                "Ships Influence",
+                "Situations Influence",
+                "Starbase Buildings Influence",
+                "Starbase Modules Influence",
+                "Starbases Influence",
+                "Station Gatherers Influence",
+                "Station Observer Missions Influence",
+                "Station Observers Influence",
+                "Station Researchers Influence",
+                "Trade Policy Influence"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Unity Balance",
+            "binary": {
+              "left": "Armies Unity",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Unity"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Unity",
+                "Colonies Unity",
+                "Commercial Pacts Unity",
+                "Country Agendas Unity",
+                "Country Base Unity",
+                "Country Civics Unity",
+                "Country Dessanu Unity",
+                "Country Ethic Unity",
+                "Power Projection Unity",
+                "Country Ruler Unity",
+                "Edicts Unity",
+                "Commander Leaders Unity",
+                "Official Leaders Unity",
+                "Scientist Leaders Unity",
+                "Megastructures Unity",
+                "Megastructures Grand Archive Unity",
+                "Megastructures Habitat Unity",
+                "Megastructures Hyper Relay Unity",
+                "Migration Pacts Unity",
+                "None Unity",
+                "Orbital Mining Deposits Unity",
+                "Orbital Research Deposits Unity",
+                "Overlord Subsidy Unity",
+                "Artisans Unity",
+                "Biologists Unity",
+                "Buildings Unity",
+                "Buildings Clone Vats Unity",
+                "Buildings Hab Capital Unity",
+                "Buildings Storm Tech Unity",
+                "Strongholds Unity",
+                "Bureucrats Unity",
+                "Civilians Unity",
+                "Clerks Unity",
+                "Deposits Unity",
+                "Districts Unity",
+                "City Districts Unity",
+                "Farming Districts Unity",
+                "Generator Districts Unity",
+                "Hab Districts Unity",
+                "Mining Districts Unity",
+                "Doctors Unity",
+                "Energy Thralls Unity",
+                "Engineers Unity",
+                "Entertainers Unity",
+                "Farmers Unity",
+                "Jobs Unity",
+                "Jobs Productive Unity",
+                "Maintenance Drones Unity",
+                "Metallurgists Unity",
+                "Miners Unity",
+                "Physicists Unity",
+                "Politicians Unity",
+                "Pop Assemblers Unity",
+                "Pops Unity",
+                "Planet Resource Deficit Unity",
+                "Strategic Resource Miners Unity",
+                "Technicians Unity",
+                "Traders Unity",
+                "Civilian Pops Unity",
+                "Drone Pops Unity",
+                "Ruler Pops Unity",
+                "Specialist Pops Unity",
+                "Worker Pops Unity",
+                "Factions Unity",
+                "Ship Components Unity",
+                "Ships Unity",
+                "Situations Unity",
+                "Starbase Buildings Unity",
+                "Starbase Modules Unity",
+                "Starbases Unity",
+                "Station Gatherers Unity",
+                "Station Observer Missions Unity",
+                "Station Observers Unity",
+                "Station Researchers Unity",
+                "Trade Policy Unity"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Physics Research Balance",
+            "binary": {
+              "left": "Armies Physics Research",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Physics Research"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Physics Research",
+                "Colonies Physics Research",
+                "Commercial Pacts Physics Research",
+                "Country Agendas Physics Research",
+                "Country Base Physics Research",
+                "Country Civics Physics Research",
+                "Country Dessanu Physics Research",
+                "Country Ethic Physics Research",
+                "Power Projection Physics Research",
+                "Country Ruler Physics Research",
+                "Edicts Physics Research",
+                "Commander Leaders Physics Research",
+                "Official Leaders Physics Research",
+                "Scientist Leaders Physics Research",
+                "Megastructures Physics Research",
+                "Megastructures Grand Archive Physics Research",
+                "Megastructures Habitat Physics Research",
+                "Megastructures Hyper Relay Physics Research",
+                "Migration Pacts Physics Research",
+                "None Physics Research",
+                "Orbital Mining Deposits Physics Research",
+                "Orbital Research Deposits Physics Research",
+                "Overlord Subsidy Physics Research",
+                "Artisans Physics Research",
+                "Biologists Physics Research",
+                "Buildings Physics Research",
+                "Buildings Clone Vats Physics Research",
+                "Buildings Hab Capital Physics Research",
+                "Buildings Storm Tech Physics Research",
+                "Strongholds Physics Research",
+                "Bureucrats Physics Research",
+                "Civilians Physics Research",
+                "Clerks Physics Research",
+                "Deposits Physics Research",
+                "Districts Physics Research",
+                "City Districts Physics Research",
+                "Farming Districts Physics Research",
+                "Generator Districts Physics Research",
+                "Hab Districts Physics Research",
+                "Mining Districts Physics Research",
+                "Doctors Physics Research",
+                "Energy Thralls Physics Research",
+                "Engineers Physics Research",
+                "Entertainers Physics Research",
+                "Farmers Physics Research",
+                "Jobs Physics Research",
+                "Jobs Productive Physics Research",
+                "Maintenance Drones Physics Research",
+                "Metallurgists Physics Research",
+                "Miners Physics Research",
+                "Physicists Physics Research",
+                "Politicians Physics Research",
+                "Pop Assemblers Physics Research",
+                "Pops Physics Research",
+                "Planet Resource Deficit Physics Research",
+                "Strategic Resource Miners Physics Research",
+                "Technicians Physics Research",
+                "Traders Physics Research",
+                "Civilian Pops Physics Research",
+                "Drone Pops Physics Research",
+                "Ruler Pops Physics Research",
+                "Specialist Pops Physics Research",
+                "Worker Pops Physics Research",
+                "Factions Physics Research",
+                "Ship Components Physics Research",
+                "Ships Physics Research",
+                "Situations Physics Research",
+                "Starbase Buildings Physics Research",
+                "Starbase Modules Physics Research",
+                "Starbases Physics Research",
+                "Station Gatherers Physics Research",
+                "Station Observer Missions Physics Research",
+                "Station Observers Physics Research",
+                "Station Researchers Physics Research",
+                "Trade Policy Physics Research"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Engineering Research Balance",
+            "binary": {
+              "left": "Armies Engineering Research",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Engineering Research"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Engineering Research",
+                "Colonies Engineering Research",
+                "Commercial Pacts Engineering Research",
+                "Country Agendas Engineering Research",
+                "Country Base Engineering Research",
+                "Country Civics Engineering Research",
+                "Country Dessanu Engineering Research",
+                "Country Ethic Engineering Research",
+                "Power Projection Engineering Research",
+                "Country Ruler Engineering Research",
+                "Edicts Engineering Research",
+                "Commander Leaders Engineering Research",
+                "Official Leaders Engineering Research",
+                "Scientist Leaders Engineering Research",
+                "Megastructures Engineering Research",
+                "Megastructures Grand Archive Engineering Research",
+                "Megastructures Habitat Engineering Research",
+                "Megastructures Hyper Relay Engineering Research",
+                "Migration Pacts Engineering Research",
+                "None Engineering Research",
+                "Orbital Mining Deposits Engineering Research",
+                "Orbital Research Deposits Engineering Research",
+                "Overlord Subsidy Engineering Research",
+                "Artisans Engineering Research",
+                "Biologists Engineering Research",
+                "Buildings Engineering Research",
+                "Buildings Clone Vats Engineering Research",
+                "Buildings Hab Capital Engineering Research",
+                "Buildings Storm Tech Engineering Research",
+                "Strongholds Engineering Research",
+                "Bureucrats Engineering Research",
+                "Civilians Engineering Research",
+                "Clerks Engineering Research",
+                "Deposits Engineering Research",
+                "Districts Engineering Research",
+                "City Districts Engineering Research",
+                "Farming Districts Engineering Research",
+                "Generator Districts Engineering Research",
+                "Hab Districts Engineering Research",
+                "Mining Districts Engineering Research",
+                "Doctors Engineering Research",
+                "Energy Thralls Engineering Research",
+                "Engineers Engineering Research",
+                "Entertainers Engineering Research",
+                "Farmers Engineering Research",
+                "Jobs Engineering Research",
+                "Jobs Productive Engineering Research",
+                "Maintenance Drones Engineering Research",
+                "Metallurgists Engineering Research",
+                "Miners Engineering Research",
+                "Physicists Engineering Research",
+                "Politicians Engineering Research",
+                "Pop Assemblers Engineering Research",
+                "Pops Engineering Research",
+                "Planet Resource Deficit Engineering Research",
+                "Strategic Resource Miners Engineering Research",
+                "Technicians Engineering Research",
+                "Traders Engineering Research",
+                "Civilian Pops Engineering Research",
+                "Drone Pops Engineering Research",
+                "Ruler Pops Engineering Research",
+                "Specialist Pops Engineering Research",
+                "Worker Pops Engineering Research",
+                "Factions Engineering Research",
+                "Ship Components Engineering Research",
+                "Ships Engineering Research",
+                "Situations Engineering Research",
+                "Starbase Buildings Engineering Research",
+                "Starbase Modules Engineering Research",
+                "Starbases Engineering Research",
+                "Station Gatherers Engineering Research",
+                "Station Observer Missions Engineering Research",
+                "Station Observers Engineering Research",
+                "Station Researchers Engineering Research",
+                "Trade Policy Engineering Research"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Society Research Balance",
+            "binary": {
+              "left": "Armies Society Research",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Society Research"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Society Research",
+                "Colonies Society Research",
+                "Commercial Pacts Society Research",
+                "Country Agendas Society Research",
+                "Country Base Society Research",
+                "Country Civics Society Research",
+                "Country Dessanu Society Research",
+                "Country Ethic Society Research",
+                "Power Projection Society Research",
+                "Country Ruler Society Research",
+                "Edicts Society Research",
+                "Commander Leaders Society Research",
+                "Official Leaders Society Research",
+                "Scientist Leaders Society Research",
+                "Megastructures Society Research",
+                "Megastructures Grand Archive Society Research",
+                "Megastructures Habitat Society Research",
+                "Megastructures Hyper Relay Society Research",
+                "Migration Pacts Society Research",
+                "None Society Research",
+                "Orbital Mining Deposits Society Research",
+                "Orbital Research Deposits Society Research",
+                "Overlord Subsidy Society Research",
+                "Artisans Society Research",
+                "Biologists Society Research",
+                "Buildings Society Research",
+                "Buildings Clone Vats Society Research",
+                "Buildings Hab Capital Society Research",
+                "Buildings Storm Tech Society Research",
+                "Strongholds Society Research",
+                "Bureucrats Society Research",
+                "Civilians Society Research",
+                "Clerks Society Research",
+                "Deposits Society Research",
+                "Districts Society Research",
+                "City Districts Society Research",
+                "Farming Districts Society Research",
+                "Generator Districts Society Research",
+                "Hab Districts Society Research",
+                "Mining Districts Society Research",
+                "Doctors Society Research",
+                "Energy Thralls Society Research",
+                "Engineers Society Research",
+                "Entertainers Society Research",
+                "Farmers Society Research",
+                "Jobs Society Research",
+                "Jobs Productive Society Research",
+                "Maintenance Drones Society Research",
+                "Metallurgists Society Research",
+                "Miners Society Research",
+                "Physicists Society Research",
+                "Politicians Society Research",
+                "Pop Assemblers Society Research",
+                "Pops Society Research",
+                "Planet Resource Deficit Society Research",
+                "Strategic Resource Miners Society Research",
+                "Technicians Society Research",
+                "Traders Society Research",
+                "Civilian Pops Society Research",
+                "Drone Pops Society Research",
+                "Ruler Pops Society Research",
+                "Specialist Pops Society Research",
+                "Worker Pops Society Research",
+                "Factions Society Research",
+                "Ship Components Society Research",
+                "Ships Society Research",
+                "Situations Society Research",
+                "Starbase Buildings Society Research",
+                "Starbase Modules Society Research",
+                "Starbases Society Research",
+                "Station Gatherers Society Research",
+                "Station Observer Missions Society Research",
+                "Station Observers Society Research",
+                "Station Researchers Society Research",
+                "Trade Policy Society Research"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Armies Influence": true,
+              "Armies Unity": true,
+              "Armies Physics Research": true,
+              "Armies Engineering Research": true,
+              "Armies Society Research": true,
+              "Colonies Influence": true,
+              "Colonies Unity": true,
+              "Colonies Physics Research": true,
+              "Colonies Engineering Research": true,
+              "Colonies Society Research": true,
+              "Commercial Pacts Influence": true,
+              "Commercial Pacts Unity": true,
+              "Commercial Pacts Physics Research": true,
+              "Commercial Pacts Engineering Research": true,
+              "Commercial Pacts Society Research": true,
+              "Country Agendas Influence": true,
+              "Country Agendas Unity": true,
+              "Country Agendas Physics Research": true,
+              "Country Agendas Engineering Research": true,
+              "Country Agendas Society Research": true,
+              "Country Base Influence": true,
+              "Country Base Unity": true,
+              "Country Base Physics Research": true,
+              "Country Base Engineering Research": true,
+              "Country Base Society Research": true,
+              "Country Civics Influence": true,
+              "Country Civics Unity": true,
+              "Country Civics Physics Research": true,
+              "Country Civics Engineering Research": true,
+              "Country Civics Society Research": true,
+              "Country Dessanu Influence": true,
+              "Country Dessanu Unity": true,
+              "Country Dessanu Physics Research": true,
+              "Country Dessanu Engineering Research": true,
+              "Country Dessanu Society Research": true,
+              "Country Ethic Influence": true,
+              "Country Ethic Unity": true,
+              "Country Ethic Physics Research": true,
+              "Country Ethic Engineering Research": true,
+              "Country Ethic Society Research": true,
+              "Power Projection Influence": true,
+              "Power Projection Unity": true,
+              "Power Projection Physics Research": true,
+              "Power Projection Engineering Research": true,
+              "Power Projection Society Research": true,
+              "Country Ruler Influence": true,
+              "Country Ruler Unity": true,
+              "Country Ruler Physics Research": true,
+              "Country Ruler Engineering Research": true,
+              "Country Ruler Society Research": true,
+              "Edicts Influence": true,
+              "Edicts Unity": true,
+              "Edicts Physics Research": true,
+              "Edicts Engineering Research": true,
+              "Edicts Society Research": true,
+              "Commander Leaders Influence": true,
+              "Commander Leaders Unity": true,
+              "Commander Leaders Physics Research": true,
+              "Commander Leaders Engineering Research": true,
+              "Commander Leaders Society Research": true,
+              "Official Leaders Influence": true,
+              "Official Leaders Unity": true,
+              "Official Leaders Physics Research": true,
+              "Official Leaders Engineering Research": true,
+              "Official Leaders Society Research": true,
+              "Scientist Leaders Influence": true,
+              "Scientist Leaders Unity": true,
+              "Scientist Leaders Physics Research": true,
+              "Scientist Leaders Engineering Research": true,
+              "Scientist Leaders Society Research": true,
+              "Megastructures Influence": true,
+              "Megastructures Unity": true,
+              "Megastructures Physics Research": true,
+              "Megastructures Engineering Research": true,
+              "Megastructures Society Research": true,
+              "Megastructures Grand Archive Influence": true,
+              "Megastructures Grand Archive Unity": true,
+              "Megastructures Grand Archive Physics Research": true,
+              "Megastructures Grand Archive Engineering Research": true,
+              "Megastructures Grand Archive Society Research": true,
+              "Megastructures Habitat Influence": true,
+              "Megastructures Habitat Unity": true,
+              "Megastructures Habitat Physics Research": true,
+              "Megastructures Habitat Engineering Research": true,
+              "Megastructures Habitat Society Research": true,
+              "Megastructures Hyper Relay Influence": true,
+              "Megastructures Hyper Relay Unity": true,
+              "Megastructures Hyper Relay Physics Research": true,
+              "Megastructures Hyper Relay Engineering Research": true,
+              "Megastructures Hyper Relay Society Research": true,
+              "Migration Pacts Influence": true,
+              "Migration Pacts Unity": true,
+              "Migration Pacts Physics Research": true,
+              "Migration Pacts Engineering Research": true,
+              "Migration Pacts Society Research": true,
+              "None Influence": true,
+              "None Unity": true,
+              "None Physics Research": true,
+              "None Engineering Research": true,
+              "None Society Research": true,
+              "Orbital Mining Deposits Influence": true,
+              "Orbital Mining Deposits Unity": true,
+              "Orbital Mining Deposits Physics Research": true,
+              "Orbital Mining Deposits Engineering Research": true,
+              "Orbital Mining Deposits Society Research": true,
+              "Orbital Research Deposits Influence": true,
+              "Orbital Research Deposits Unity": true,
+              "Orbital Research Deposits Physics Research": true,
+              "Orbital Research Deposits Engineering Research": true,
+              "Orbital Research Deposits Society Research": true,
+              "Overlord Subsidy Influence": true,
+              "Overlord Subsidy Unity": true,
+              "Overlord Subsidy Physics Research": true,
+              "Overlord Subsidy Engineering Research": true,
+              "Overlord Subsidy Society Research": true,
+              "Artisans Influence": true,
+              "Artisans Unity": true,
+              "Artisans Physics Research": true,
+              "Artisans Engineering Research": true,
+              "Artisans Society Research": true,
+              "Biologists Influence": true,
+              "Biologists Unity": true,
+              "Biologists Physics Research": true,
+              "Biologists Engineering Research": true,
+              "Biologists Society Research": true,
+              "Buildings Influence": true,
+              "Buildings Unity": true,
+              "Buildings Physics Research": true,
+              "Buildings Engineering Research": true,
+              "Buildings Society Research": true,
+              "Buildings Clone Vats Influence": true,
+              "Buildings Clone Vats Unity": true,
+              "Buildings Clone Vats Physics Research": true,
+              "Buildings Clone Vats Engineering Research": true,
+              "Buildings Clone Vats Society Research": true,
+              "Buildings Hab Capital Influence": true,
+              "Buildings Hab Capital Unity": true,
+              "Buildings Hab Capital Physics Research": true,
+              "Buildings Hab Capital Engineering Research": true,
+              "Buildings Hab Capital Society Research": true,
+              "Buildings Storm Tech Influence": true,
+              "Buildings Storm Tech Unity": true,
+              "Buildings Storm Tech Physics Research": true,
+              "Buildings Storm Tech Engineering Research": true,
+              "Buildings Storm Tech Society Research": true,
+              "Strongholds Influence": true,
+              "Strongholds Unity": true,
+              "Strongholds Physics Research": true,
+              "Strongholds Engineering Research": true,
+              "Strongholds Society Research": true,
+              "Bureucrats Influence": true,
+              "Bureucrats Unity": true,
+              "Bureucrats Physics Research": true,
+              "Bureucrats Engineering Research": true,
+              "Bureucrats Society Research": true,
+              "Civilians Influence": true,
+              "Civilians Unity": true,
+              "Civilians Physics Research": true,
+              "Civilians Engineering Research": true,
+              "Civilians Society Research": true,
+              "Clerks Influence": true,
+              "Clerks Unity": true,
+              "Clerks Physics Research": true,
+              "Clerks Engineering Research": true,
+              "Clerks Society Research": true,
+              "Deposits Influence": true,
+              "Deposits Unity": true,
+              "Deposits Physics Research": true,
+              "Deposits Engineering Research": true,
+              "Deposits Society Research": true,
+              "Districts Influence": true,
+              "Districts Unity": true,
+              "Districts Physics Research": true,
+              "Districts Engineering Research": true,
+              "Districts Society Research": true,
+              "City Districts Influence": true,
+              "City Districts Unity": true,
+              "City Districts Physics Research": true,
+              "City Districts Engineering Research": true,
+              "City Districts Society Research": true,
+              "Farming Districts Influence": true,
+              "Farming Districts Unity": true,
+              "Farming Districts Physics Research": true,
+              "Farming Districts Engineering Research": true,
+              "Farming Districts Society Research": true,
+              "Generator Districts Influence": true,
+              "Generator Districts Unity": true,
+              "Generator Districts Physics Research": true,
+              "Generator Districts Engineering Research": true,
+              "Generator Districts Society Research": true,
+              "Hab Districts Influence": true,
+              "Hab Districts Unity": true,
+              "Hab Districts Physics Research": true,
+              "Hab Districts Engineering Research": true,
+              "Hab Districts Society Research": true,
+              "Mining Districts Influence": true,
+              "Mining Districts Unity": true,
+              "Mining Districts Physics Research": true,
+              "Mining Districts Engineering Research": true,
+              "Mining Districts Society Research": true,
+              "Doctors Influence": true,
+              "Doctors Unity": true,
+              "Doctors Physics Research": true,
+              "Doctors Engineering Research": true,
+              "Doctors Society Research": true,
+              "Energy Thralls Influence": true,
+              "Energy Thralls Unity": true,
+              "Energy Thralls Physics Research": true,
+              "Energy Thralls Engineering Research": true,
+              "Energy Thralls Society Research": true,
+              "Engineers Influence": true,
+              "Engineers Unity": true,
+              "Engineers Physics Research": true,
+              "Engineers Engineering Research": true,
+              "Engineers Society Research": true,
+              "Entertainers Influence": true,
+              "Entertainers Unity": true,
+              "Entertainers Physics Research": true,
+              "Entertainers Engineering Research": true,
+              "Entertainers Society Research": true,
+              "Farmers Influence": true,
+              "Farmers Unity": true,
+              "Farmers Physics Research": true,
+              "Farmers Engineering Research": true,
+              "Farmers Society Research": true,
+              "Jobs Influence": true,
+              "Jobs Unity": true,
+              "Jobs Physics Research": true,
+              "Jobs Engineering Research": true,
+              "Jobs Society Research": true,
+              "Jobs Productive Influence": true,
+              "Jobs Productive Unity": true,
+              "Jobs Productive Physics Research": true,
+              "Jobs Productive Engineering Research": true,
+              "Jobs Productive Society Research": true,
+              "Maintenance Drones Influence": true,
+              "Maintenance Drones Unity": true,
+              "Maintenance Drones Physics Research": true,
+              "Maintenance Drones Engineering Research": true,
+              "Maintenance Drones Society Research": true,
+              "Metallurgists Influence": true,
+              "Metallurgists Unity": true,
+              "Metallurgists Physics Research": true,
+              "Metallurgists Engineering Research": true,
+              "Metallurgists Society Research": true,
+              "Miners Influence": true,
+              "Miners Unity": true,
+              "Miners Physics Research": true,
+              "Miners Engineering Research": true,
+              "Miners Society Research": true,
+              "Physicists Influence": true,
+              "Physicists Unity": true,
+              "Physicists Physics Research": true,
+              "Physicists Engineering Research": true,
+              "Physicists Society Research": true,
+              "Politicians Influence": true,
+              "Politicians Unity": true,
+              "Politicians Physics Research": true,
+              "Politicians Engineering Research": true,
+              "Politicians Society Research": true,
+              "Pop Assemblers Influence": true,
+              "Pop Assemblers Unity": true,
+              "Pop Assemblers Physics Research": true,
+              "Pop Assemblers Engineering Research": true,
+              "Pop Assemblers Society Research": true,
+              "Pops Influence": true,
+              "Pops Unity": true,
+              "Pops Physics Research": true,
+              "Pops Engineering Research": true,
+              "Pops Society Research": true,
+              "Planet Resource Deficit Influence": true,
+              "Planet Resource Deficit Unity": true,
+              "Planet Resource Deficit Physics Research": true,
+              "Planet Resource Deficit Engineering Research": true,
+              "Planet Resource Deficit Society Research": true,
+              "Strategic Resource Miners Influence": true,
+              "Strategic Resource Miners Unity": true,
+              "Strategic Resource Miners Physics Research": true,
+              "Strategic Resource Miners Engineering Research": true,
+              "Strategic Resource Miners Society Research": true,
+              "Technicians Influence": true,
+              "Technicians Unity": true,
+              "Technicians Physics Research": true,
+              "Technicians Engineering Research": true,
+              "Technicians Society Research": true,
+              "Traders Influence": true,
+              "Traders Unity": true,
+              "Traders Physics Research": true,
+              "Traders Engineering Research": true,
+              "Traders Society Research": true,
+              "Civilian Pops Influence": true,
+              "Civilian Pops Unity": true,
+              "Civilian Pops Physics Research": true,
+              "Civilian Pops Engineering Research": true,
+              "Civilian Pops Society Research": true,
+              "Drone Pops Influence": true,
+              "Drone Pops Unity": true,
+              "Drone Pops Physics Research": true,
+              "Drone Pops Engineering Research": true,
+              "Drone Pops Society Research": true,
+              "Ruler Pops Influence": true,
+              "Ruler Pops Unity": true,
+              "Ruler Pops Physics Research": true,
+              "Ruler Pops Engineering Research": true,
+              "Ruler Pops Society Research": true,
+              "Specialist Pops Influence": true,
+              "Specialist Pops Unity": true,
+              "Specialist Pops Physics Research": true,
+              "Specialist Pops Engineering Research": true,
+              "Specialist Pops Society Research": true,
+              "Worker Pops Influence": true,
+              "Worker Pops Unity": true,
+              "Worker Pops Physics Research": true,
+              "Worker Pops Engineering Research": true,
+              "Worker Pops Society Research": true,
+              "Factions Influence": true,
+              "Factions Unity": true,
+              "Factions Physics Research": true,
+              "Factions Engineering Research": true,
+              "Factions Society Research": true,
+              "Ship Components Influence": true,
+              "Ship Components Unity": true,
+              "Ship Components Physics Research": true,
+              "Ship Components Engineering Research": true,
+              "Ship Components Society Research": true,
+              "Ships Influence": true,
+              "Ships Unity": true,
+              "Ships Physics Research": true,
+              "Ships Engineering Research": true,
+              "Ships Society Research": true,
+              "Situations Influence": true,
+              "Situations Unity": true,
+              "Situations Physics Research": true,
+              "Situations Engineering Research": true,
+              "Situations Society Research": true,
+              "Starbase Buildings Influence": true,
+              "Starbase Buildings Unity": true,
+              "Starbase Buildings Physics Research": true,
+              "Starbase Buildings Engineering Research": true,
+              "Starbase Buildings Society Research": true,
+              "Starbase Modules Influence": true,
+              "Starbase Modules Unity": true,
+              "Starbase Modules Physics Research": true,
+              "Starbase Modules Engineering Research": true,
+              "Starbase Modules Society Research": true,
+              "Starbases Influence": true,
+              "Starbases Unity": true,
+              "Starbases Physics Research": true,
+              "Starbases Engineering Research": true,
+              "Starbases Society Research": true,
+              "Station Gatherers Influence": true,
+              "Station Gatherers Unity": true,
+              "Station Gatherers Physics Research": true,
+              "Station Gatherers Engineering Research": true,
+              "Station Gatherers Society Research": true,
+              "Station Observer Missions Influence": true,
+              "Station Observer Missions Unity": true,
+              "Station Observer Missions Physics Research": true,
+              "Station Observer Missions Engineering Research": true,
+              "Station Observer Missions Society Research": true,
+              "Station Observers Influence": true,
+              "Station Observers Unity": true,
+              "Station Observers Physics Research": true,
+              "Station Observers Engineering Research": true,
+              "Station Observers Society Research": true,
+              "Station Researchers Influence": true,
+              "Station Researchers Unity": true,
+              "Station Researchers Physics Research": true,
+              "Station Researchers Engineering Research": true,
+              "Station Researchers Society Research": true,
+              "Trade Policy Influence": true,
+              "Trade Policy Unity": true,
+              "Trade Policy Physics Research": true,
+              "Trade Policy Engineering Research": true,
+              "Trade Policy Society Research": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "timeseries"
     }
   ],
   "preload": true,
