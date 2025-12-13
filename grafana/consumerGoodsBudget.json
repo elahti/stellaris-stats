@@ -1,0 +1,1087 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.income.armies.consumerGoods",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.colonies.consumerGoods",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.commercialPacts.consumerGoods",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryAgendas.consumerGoods",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryBase.consumerGoods",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryCivics.consumerGoods",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryDessanu.consumerGoods",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryEthic.consumerGoods",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryPowerProjection.consumerGoods",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryRuler.consumerGoods",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.edicts.consumerGoods",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderCommanders.consumerGoods",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderOfficials.consumerGoods",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderScientists.consumerGoods",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructures.consumerGoods",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresGrandArchive.consumerGoods",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHabitat.consumerGoods",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHyperRelay.consumerGoods",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.migrationPacts.consumerGoods",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.none.consumerGoods",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalMiningDeposits.consumerGoods",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalResearchDeposits.consumerGoods",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.overlordSubsidy.consumerGoods",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetArtisans.consumerGoods",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBiologists.consumerGoods",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildings.consumerGoods",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsCloneVats.consumerGoods",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsHabCapital.consumerGoods",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStormTech.consumerGoods",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStrongholds.consumerGoods",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBureaucrats.consumerGoods",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetCivilians.consumerGoods",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetClerks.consumerGoods",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDeposits.consumerGoods",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistricts.consumerGoods",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsCities.consumerGoods",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsFarming.consumerGoods",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsGenerator.consumerGoods",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsHab.consumerGoods",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsMining.consumerGoods",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDoctors.consumerGoods",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEnergyThralls.consumerGoods",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEngineers.consumerGoods",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEntertainers.consumerGoods",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetFarmers.consumerGoods",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobs.consumerGoods",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobsProductive.consumerGoods",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMaintenanceDrones.consumerGoods",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMetallurgists.consumerGoods",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMiners.consumerGoods",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPhysicists.consumerGoods",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPoliticians.consumerGoods",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPopAssemblers.consumerGoods",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPops.consumerGoods",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetResourceDeficit.consumerGoods",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetSrMiners.consumerGoods",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTechnician.consumerGoods",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTraders.consumerGoods",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryCivilians.consumerGoods",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryDrones.consumerGoods",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryRulers.consumerGoods",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategorySpecialists.consumerGoods",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.situations.consumerGoods",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObserverMissions.consumerGoods",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObservers.consumerGoods",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query ConsumerGoodsIncome($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        income {\n          armies {\n            consumerGoods\n          }\n          colonies {\n            consumerGoods\n          }\n          commercialPacts {\n            consumerGoods\n          }\n          countryAgendas {\n            consumerGoods\n          }\n          countryBase {\n            consumerGoods\n          }\n          countryCivics {\n            consumerGoods\n          }\n          countryDessanu {\n            consumerGoods\n          }\n          countryEthic {\n            consumerGoods\n          }\n          countryPowerProjection {\n            consumerGoods\n          }\n          countryRuler {\n            consumerGoods\n          }\n          edicts {\n            consumerGoods\n          }\n          leaderCommanders {\n            consumerGoods\n          }\n          leaderOfficials {\n            consumerGoods\n          }\n          leaderScientists {\n            consumerGoods\n          }\n          megastructures {\n            consumerGoods\n          }\n          megastructuresGrandArchive {\n            consumerGoods\n          }\n          megastructuresHabitat {\n            consumerGoods\n          }\n          megastructuresHyperRelay {\n            consumerGoods\n          }\n          migrationPacts {\n            consumerGoods\n          }\n          none {\n            consumerGoods\n          }\n          orbitalMiningDeposits {\n            consumerGoods\n          }\n          orbitalResearchDeposits {\n            consumerGoods\n          }\n          overlordSubsidy {\n            consumerGoods\n          }\n          planetArtisans {\n            consumerGoods\n          }\n          planetBiologists {\n            consumerGoods\n          }\n          planetBuildings {\n            consumerGoods\n          }\n          planetBuildingsCloneVats {\n            consumerGoods\n          }\n          planetBuildingsHabCapital {\n            consumerGoods\n          }\n          planetBuildingsStormTech {\n            consumerGoods\n          }\n          planetBuildingsStrongholds {\n            consumerGoods\n          }\n          planetBureaucrats {\n            consumerGoods\n          }\n          planetCivilians {\n            consumerGoods\n          }\n          planetClerks {\n            consumerGoods\n          }\n          planetDeposits {\n            consumerGoods\n          }\n          planetDistricts {\n            consumerGoods\n          }\n          planetDistrictsCities {\n            consumerGoods\n          }\n          planetDistrictsFarming {\n            consumerGoods\n          }\n          planetDistrictsGenerator {\n            consumerGoods\n          }\n          planetDistrictsHab {\n            consumerGoods\n          }\n          planetDistrictsMining {\n            consumerGoods\n          }\n          planetDoctors {\n            consumerGoods\n          }\n          planetEnergyThralls {\n            consumerGoods\n          }\n          planetEngineers {\n            consumerGoods\n          }\n          planetEntertainers {\n            consumerGoods\n          }\n          planetFarmers {\n            consumerGoods\n          }\n          planetJobs {\n            consumerGoods\n          }\n          planetJobsProductive {\n            consumerGoods\n          }\n          planetMaintenanceDrones {\n            consumerGoods\n          }\n          planetMetallurgists {\n            consumerGoods\n          }\n          planetMiners {\n            consumerGoods\n          }\n          planetPhysicists {\n            consumerGoods\n          }\n          planetPoliticians {\n            consumerGoods\n          }\n          planetPopAssemblers {\n            consumerGoods\n          }\n          planetPops {\n            consumerGoods\n          }\n          planetResourceDeficit {\n            consumerGoods\n          }\n          planetSrMiners {\n            consumerGoods\n          }\n          planetTechnician {\n            consumerGoods\n          }\n          planetTraders {\n            consumerGoods\n          }\n          popCategoryCivilians {\n            consumerGoods\n          }\n          popCategoryDrones {\n            consumerGoods\n          }\n          popCategoryRulers {\n            consumerGoods\n          }\n          popCategorySpecialists {\n            consumerGoods\n          }\n          popCategoryWorkers {\n            consumerGoods\n          }\n          popFactions {\n            consumerGoods\n          }\n          shipComponents {\n            consumerGoods\n          }\n          ships {\n            consumerGoods\n          }\n          situations {\n            consumerGoods\n          }\n          starbaseBuildings {\n            consumerGoods\n          }\n          starbaseModules {\n            consumerGoods\n          }\n          starbases {\n            consumerGoods\n          }\n          stationGatherers {\n            consumerGoods\n          }\n          stationObserverMissions {\n            consumerGoods\n          }\n          stationObservers {\n            consumerGoods\n          }\n          stationResearchers {\n            consumerGoods\n          }\n          tradePolicy {\n            consumerGoods\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Consumer Goods Income",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.expenses.armies.consumerGoods",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.colonies.consumerGoods",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.commercialPacts.consumerGoods",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryAgendas.consumerGoods",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryBase.consumerGoods",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryCivics.consumerGoods",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryDessanu.consumerGoods",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryEthic.consumerGoods",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryPowerProjection.consumerGoods",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryRuler.consumerGoods",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.edicts.consumerGoods",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderCommanders.consumerGoods",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderOfficials.consumerGoods",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderScientists.consumerGoods",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructures.consumerGoods",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresGrandArchive.consumerGoods",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHabitat.consumerGoods",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHyperRelay.consumerGoods",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.migrationPacts.consumerGoods",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.none.consumerGoods",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalMiningDeposits.consumerGoods",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalResearchDeposits.consumerGoods",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.overlordSubsidy.consumerGoods",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetArtisans.consumerGoods",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBiologists.consumerGoods",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildings.consumerGoods",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsCloneVats.consumerGoods",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsHabCapital.consumerGoods",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStormTech.consumerGoods",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStrongholds.consumerGoods",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBureaucrats.consumerGoods",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetCivilians.consumerGoods",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetClerks.consumerGoods",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDeposits.consumerGoods",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistricts.consumerGoods",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsCities.consumerGoods",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsFarming.consumerGoods",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsGenerator.consumerGoods",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsHab.consumerGoods",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsMining.consumerGoods",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDoctors.consumerGoods",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEnergyThralls.consumerGoods",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEngineers.consumerGoods",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEntertainers.consumerGoods",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetFarmers.consumerGoods",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobs.consumerGoods",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobsProductive.consumerGoods",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMaintenanceDrones.consumerGoods",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMetallurgists.consumerGoods",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMiners.consumerGoods",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPhysicists.consumerGoods",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPoliticians.consumerGoods",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPopAssemblers.consumerGoods",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPops.consumerGoods",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetResourceDeficit.consumerGoods",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetSrMiners.consumerGoods",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTechnician.consumerGoods",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTraders.consumerGoods",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryCivilians.consumerGoods",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryDrones.consumerGoods",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryRulers.consumerGoods",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategorySpecialists.consumerGoods",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.situations.consumerGoods",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObserverMissions.consumerGoods",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObservers.consumerGoods",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query ConsumerGoodsExpenses($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        expenses {\n          armies {\n            consumerGoods\n          }\n          colonies {\n            consumerGoods\n          }\n          commercialPacts {\n            consumerGoods\n          }\n          countryAgendas {\n            consumerGoods\n          }\n          countryBase {\n            consumerGoods\n          }\n          countryCivics {\n            consumerGoods\n          }\n          countryDessanu {\n            consumerGoods\n          }\n          countryEthic {\n            consumerGoods\n          }\n          countryPowerProjection {\n            consumerGoods\n          }\n          countryRuler {\n            consumerGoods\n          }\n          edicts {\n            consumerGoods\n          }\n          leaderCommanders {\n            consumerGoods\n          }\n          leaderOfficials {\n            consumerGoods\n          }\n          leaderScientists {\n            consumerGoods\n          }\n          megastructures {\n            consumerGoods\n          }\n          megastructuresGrandArchive {\n            consumerGoods\n          }\n          megastructuresHabitat {\n            consumerGoods\n          }\n          megastructuresHyperRelay {\n            consumerGoods\n          }\n          migrationPacts {\n            consumerGoods\n          }\n          none {\n            consumerGoods\n          }\n          orbitalMiningDeposits {\n            consumerGoods\n          }\n          orbitalResearchDeposits {\n            consumerGoods\n          }\n          overlordSubsidy {\n            consumerGoods\n          }\n          planetArtisans {\n            consumerGoods\n          }\n          planetBiologists {\n            consumerGoods\n          }\n          planetBuildings {\n            consumerGoods\n          }\n          planetBuildingsCloneVats {\n            consumerGoods\n          }\n          planetBuildingsHabCapital {\n            consumerGoods\n          }\n          planetBuildingsStormTech {\n            consumerGoods\n          }\n          planetBuildingsStrongholds {\n            consumerGoods\n          }\n          planetBureaucrats {\n            consumerGoods\n          }\n          planetCivilians {\n            consumerGoods\n          }\n          planetClerks {\n            consumerGoods\n          }\n          planetDeposits {\n            consumerGoods\n          }\n          planetDistricts {\n            consumerGoods\n          }\n          planetDistrictsCities {\n            consumerGoods\n          }\n          planetDistrictsFarming {\n            consumerGoods\n          }\n          planetDistrictsGenerator {\n            consumerGoods\n          }\n          planetDistrictsHab {\n            consumerGoods\n          }\n          planetDistrictsMining {\n            consumerGoods\n          }\n          planetDoctors {\n            consumerGoods\n          }\n          planetEnergyThralls {\n            consumerGoods\n          }\n          planetEngineers {\n            consumerGoods\n          }\n          planetEntertainers {\n            consumerGoods\n          }\n          planetFarmers {\n            consumerGoods\n          }\n          planetJobs {\n            consumerGoods\n          }\n          planetJobsProductive {\n            consumerGoods\n          }\n          planetMaintenanceDrones {\n            consumerGoods\n          }\n          planetMetallurgists {\n            consumerGoods\n          }\n          planetMiners {\n            consumerGoods\n          }\n          planetPhysicists {\n            consumerGoods\n          }\n          planetPoliticians {\n            consumerGoods\n          }\n          planetPopAssemblers {\n            consumerGoods\n          }\n          planetPops {\n            consumerGoods\n          }\n          planetResourceDeficit {\n            consumerGoods\n          }\n          planetSrMiners {\n            consumerGoods\n          }\n          planetTechnician {\n            consumerGoods\n          }\n          planetTraders {\n            consumerGoods\n          }\n          popCategoryCivilians {\n            consumerGoods\n          }\n          popCategoryDrones {\n            consumerGoods\n          }\n          popCategoryRulers {\n            consumerGoods\n          }\n          popCategorySpecialists {\n            consumerGoods\n          }\n          popCategoryWorkers {\n            consumerGoods\n          }\n          popFactions {\n            consumerGoods\n          }\n          shipComponents {\n            consumerGoods\n          }\n          ships {\n            consumerGoods\n          }\n          situations {\n            consumerGoods\n          }\n          starbaseBuildings {\n            consumerGoods\n          }\n          starbaseModules {\n            consumerGoods\n          }\n          starbases {\n            consumerGoods\n          }\n          stationGatherers {\n            consumerGoods\n          }\n          stationObserverMissions {\n            consumerGoods\n          }\n          stationObservers {\n            consumerGoods\n          }\n          stationResearchers {\n            consumerGoods\n          }\n          tradePolicy {\n            consumerGoods\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Consumer Goods Expenses",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "preload": true,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "commonwealthofman_1251622081",
+          "value": "commonwealthofman_1251622081"
+        },
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "ef6cnm49brb40d"
+        },
+        "definition": "",
+        "description": "",
+        "label": "Save Filename",
+        "name": "saveFilename",
+        "options": [],
+        "query": {
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "data.saves",
+            "source": "url",
+            "type": "graphql",
+            "url": "",
+            "url_options": {
+              "body_content_type": "application/json",
+              "body_graphql_query": "query Filenames {\n  saves {\n    filename\n  }\n}\n",
+              "body_type": "graphql",
+              "data": "",
+              "method": "POST"
+            }
+          },
+          "query": "",
+          "queryType": "infinity"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2199-12-31T22:00:00.000Z",
+    "to": "2499-12-31T22:00:00.000Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Consumer Goods Budget",
+  "uid": "consumergoodsbudget",
+  "version": 1
+}
