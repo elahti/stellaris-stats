@@ -38,6 +38,7 @@ RUN apt update \
   && apt upgrade -y \
   && apt install -y \
     curl \
+    file \
     postgresql-common \
     vim \
   && /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -v 18 \
