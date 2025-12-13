@@ -19,6 +19,7 @@ The repository is organized into the following main directories:
   - `src/` - Python source code
 - `migrations/` - Database migration files
 - `graphql/` - GraphQL schema definitions
+- `grafana/` - Grafana dashboard configurations
 - `dist/` - Compiled TypeScript output
 - `.devcontainer/` - Development container configuration
 - `db-dump-data/` - Database dump files
@@ -93,6 +94,44 @@ When modifying the GraphQL schema at `graphql/schema.graphql`, check if Grafana 
   - GraphQL query (`body_graphql_query`) that fetches the data
 - Both the column definitions and GraphQL queries must be kept in sync with the schema
 - After schema changes, review all dashboard files to identify which ones query the modified types
+
+#### Grafana Visualization Guidelines
+
+When creating new Grafana visualizations, follow these patterns established in existing dashboards:
+
+**Panel Configuration:**
+- Use `yesoreyeram-infinity-datasource` as the data source
+- Set panel type to `timeseries` for time-based data
+- Enable `liveNow: true` for real-time updates
+- Configure legend to show `last`, `max`, and `mean` values
+
+**Column Definitions:**
+- Define columns with JSON selectors matching the GraphQL response structure
+- Example: `selector: "budget.balance.armies.energy"`
+- Always include a `date` column as the first column for time series data
+
+**GraphQL Query Structure:**
+- Use `root_selector` to specify the data path (e.g., `data.save.gamestates`)
+- Include the `$saveFilename` variable in queries to support dashboard template variables
+- Structure the query to match the column selectors exactly
+
+**Data Transformations (Applied in Order):**
+1. **Convert Date Field**: Use `convertFieldType` transformation to convert the date field to time type
+2. **Calculate Aggregates**: Use `calculateField` with `mode: "reduceRow"` and `reducer: "sum"` to create aggregate metrics
+3. **Organize Fields**: Use `organize` transformation with `excludeByName` to hide individual detail columns and show only aggregates
+
+**Color Coding (Standard Resource Colors):**
+- Energy: `#F2CC0C` (Yellow)
+- Minerals: `#E02F44` (Red)
+- Food: `#73BF69` (Green)
+- Trade: `#8AB8FF` (Blue)
+
+Apply colors using field overrides with `matcher.id: "byName"` and `properties.id: "color"` with `mode: "fixed"`.
+
+**Template Variables:**
+- Include a `saveFilename` variable that queries available save files
+- Configure variable with `refresh: 1` for automatic updates
+- Use GraphQL query to populate variable options from the `saves` query
 
 #### Code Editing Principles
 
