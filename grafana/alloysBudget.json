@@ -1,0 +1,1087 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.income.armies.alloys",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.colonies.alloys",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.commercialPacts.alloys",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryAgendas.alloys",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryBase.alloys",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryCivics.alloys",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryDessanu.alloys",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryEthic.alloys",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryPowerProjection.alloys",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryRuler.alloys",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.edicts.alloys",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderCommanders.alloys",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderOfficials.alloys",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderScientists.alloys",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructures.alloys",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresGrandArchive.alloys",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHabitat.alloys",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHyperRelay.alloys",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.migrationPacts.alloys",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.none.alloys",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalMiningDeposits.alloys",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalResearchDeposits.alloys",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.overlordSubsidy.alloys",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetArtisans.alloys",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBiologists.alloys",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildings.alloys",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsCloneVats.alloys",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsHabCapital.alloys",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStormTech.alloys",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStrongholds.alloys",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBureaucrats.alloys",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetCivilians.alloys",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetClerks.alloys",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDeposits.alloys",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistricts.alloys",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsCities.alloys",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsFarming.alloys",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsGenerator.alloys",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsHab.alloys",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsMining.alloys",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDoctors.alloys",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEnergyThralls.alloys",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEngineers.alloys",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEntertainers.alloys",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetFarmers.alloys",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobs.alloys",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobsProductive.alloys",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMaintenanceDrones.alloys",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMetallurgists.alloys",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMiners.alloys",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPhysicists.alloys",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPoliticians.alloys",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPopAssemblers.alloys",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPops.alloys",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetResourceDeficit.alloys",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetSrMiners.alloys",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTechnician.alloys",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTraders.alloys",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryCivilians.alloys",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryDrones.alloys",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryRulers.alloys",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategorySpecialists.alloys",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.situations.alloys",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObserverMissions.alloys",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObservers.alloys",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query AlloysIncome($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        income {\n          armies {\n            alloys\n          }\n          colonies {\n            alloys\n          }\n          commercialPacts {\n            alloys\n          }\n          countryAgendas {\n            alloys\n          }\n          countryBase {\n            alloys\n          }\n          countryCivics {\n            alloys\n          }\n          countryDessanu {\n            alloys\n          }\n          countryEthic {\n            alloys\n          }\n          countryPowerProjection {\n            alloys\n          }\n          countryRuler {\n            alloys\n          }\n          edicts {\n            alloys\n          }\n          leaderCommanders {\n            alloys\n          }\n          leaderOfficials {\n            alloys\n          }\n          leaderScientists {\n            alloys\n          }\n          megastructures {\n            alloys\n          }\n          megastructuresGrandArchive {\n            alloys\n          }\n          megastructuresHabitat {\n            alloys\n          }\n          megastructuresHyperRelay {\n            alloys\n          }\n          migrationPacts {\n            alloys\n          }\n          none {\n            alloys\n          }\n          orbitalMiningDeposits {\n            alloys\n          }\n          orbitalResearchDeposits {\n            alloys\n          }\n          overlordSubsidy {\n            alloys\n          }\n          planetArtisans {\n            alloys\n          }\n          planetBiologists {\n            alloys\n          }\n          planetBuildings {\n            alloys\n          }\n          planetBuildingsCloneVats {\n            alloys\n          }\n          planetBuildingsHabCapital {\n            alloys\n          }\n          planetBuildingsStormTech {\n            alloys\n          }\n          planetBuildingsStrongholds {\n            alloys\n          }\n          planetBureaucrats {\n            alloys\n          }\n          planetCivilians {\n            alloys\n          }\n          planetClerks {\n            alloys\n          }\n          planetDeposits {\n            alloys\n          }\n          planetDistricts {\n            alloys\n          }\n          planetDistrictsCities {\n            alloys\n          }\n          planetDistrictsFarming {\n            alloys\n          }\n          planetDistrictsGenerator {\n            alloys\n          }\n          planetDistrictsHab {\n            alloys\n          }\n          planetDistrictsMining {\n            alloys\n          }\n          planetDoctors {\n            alloys\n          }\n          planetEnergyThralls {\n            alloys\n          }\n          planetEngineers {\n            alloys\n          }\n          planetEntertainers {\n            alloys\n          }\n          planetFarmers {\n            alloys\n          }\n          planetJobs {\n            alloys\n          }\n          planetJobsProductive {\n            alloys\n          }\n          planetMaintenanceDrones {\n            alloys\n          }\n          planetMetallurgists {\n            alloys\n          }\n          planetMiners {\n            alloys\n          }\n          planetPhysicists {\n            alloys\n          }\n          planetPoliticians {\n            alloys\n          }\n          planetPopAssemblers {\n            alloys\n          }\n          planetPops {\n            alloys\n          }\n          planetResourceDeficit {\n            alloys\n          }\n          planetSrMiners {\n            alloys\n          }\n          planetTechnician {\n            alloys\n          }\n          planetTraders {\n            alloys\n          }\n          popCategoryCivilians {\n            alloys\n          }\n          popCategoryDrones {\n            alloys\n          }\n          popCategoryRulers {\n            alloys\n          }\n          popCategorySpecialists {\n            alloys\n          }\n          popCategoryWorkers {\n            alloys\n          }\n          popFactions {\n            alloys\n          }\n          shipComponents {\n            alloys\n          }\n          ships {\n            alloys\n          }\n          situations {\n            alloys\n          }\n          starbaseBuildings {\n            alloys\n          }\n          starbaseModules {\n            alloys\n          }\n          starbases {\n            alloys\n          }\n          stationGatherers {\n            alloys\n          }\n          stationObserverMissions {\n            alloys\n          }\n          stationObservers {\n            alloys\n          }\n          stationResearchers {\n            alloys\n          }\n          tradePolicy {\n            alloys\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Alloys Income",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.expenses.armies.alloys",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.colonies.alloys",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.commercialPacts.alloys",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryAgendas.alloys",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryBase.alloys",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryCivics.alloys",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryDessanu.alloys",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryEthic.alloys",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryPowerProjection.alloys",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryRuler.alloys",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.edicts.alloys",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderCommanders.alloys",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderOfficials.alloys",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderScientists.alloys",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructures.alloys",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresGrandArchive.alloys",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHabitat.alloys",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHyperRelay.alloys",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.migrationPacts.alloys",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.none.alloys",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalMiningDeposits.alloys",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalResearchDeposits.alloys",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.overlordSubsidy.alloys",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetArtisans.alloys",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBiologists.alloys",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildings.alloys",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsCloneVats.alloys",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsHabCapital.alloys",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStormTech.alloys",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStrongholds.alloys",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBureaucrats.alloys",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetCivilians.alloys",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetClerks.alloys",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDeposits.alloys",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistricts.alloys",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsCities.alloys",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsFarming.alloys",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsGenerator.alloys",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsHab.alloys",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsMining.alloys",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDoctors.alloys",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEnergyThralls.alloys",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEngineers.alloys",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEntertainers.alloys",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetFarmers.alloys",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobs.alloys",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobsProductive.alloys",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMaintenanceDrones.alloys",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMetallurgists.alloys",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMiners.alloys",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPhysicists.alloys",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPoliticians.alloys",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPopAssemblers.alloys",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPops.alloys",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetResourceDeficit.alloys",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetSrMiners.alloys",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTechnician.alloys",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTraders.alloys",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryCivilians.alloys",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryDrones.alloys",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryRulers.alloys",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategorySpecialists.alloys",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.situations.alloys",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObserverMissions.alloys",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObservers.alloys",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query AlloysExpenses($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        expenses {\n          armies {\n            alloys\n          }\n          colonies {\n            alloys\n          }\n          commercialPacts {\n            alloys\n          }\n          countryAgendas {\n            alloys\n          }\n          countryBase {\n            alloys\n          }\n          countryCivics {\n            alloys\n          }\n          countryDessanu {\n            alloys\n          }\n          countryEthic {\n            alloys\n          }\n          countryPowerProjection {\n            alloys\n          }\n          countryRuler {\n            alloys\n          }\n          edicts {\n            alloys\n          }\n          leaderCommanders {\n            alloys\n          }\n          leaderOfficials {\n            alloys\n          }\n          leaderScientists {\n            alloys\n          }\n          megastructures {\n            alloys\n          }\n          megastructuresGrandArchive {\n            alloys\n          }\n          megastructuresHabitat {\n            alloys\n          }\n          megastructuresHyperRelay {\n            alloys\n          }\n          migrationPacts {\n            alloys\n          }\n          none {\n            alloys\n          }\n          orbitalMiningDeposits {\n            alloys\n          }\n          orbitalResearchDeposits {\n            alloys\n          }\n          overlordSubsidy {\n            alloys\n          }\n          planetArtisans {\n            alloys\n          }\n          planetBiologists {\n            alloys\n          }\n          planetBuildings {\n            alloys\n          }\n          planetBuildingsCloneVats {\n            alloys\n          }\n          planetBuildingsHabCapital {\n            alloys\n          }\n          planetBuildingsStormTech {\n            alloys\n          }\n          planetBuildingsStrongholds {\n            alloys\n          }\n          planetBureaucrats {\n            alloys\n          }\n          planetCivilians {\n            alloys\n          }\n          planetClerks {\n            alloys\n          }\n          planetDeposits {\n            alloys\n          }\n          planetDistricts {\n            alloys\n          }\n          planetDistrictsCities {\n            alloys\n          }\n          planetDistrictsFarming {\n            alloys\n          }\n          planetDistrictsGenerator {\n            alloys\n          }\n          planetDistrictsHab {\n            alloys\n          }\n          planetDistrictsMining {\n            alloys\n          }\n          planetDoctors {\n            alloys\n          }\n          planetEnergyThralls {\n            alloys\n          }\n          planetEngineers {\n            alloys\n          }\n          planetEntertainers {\n            alloys\n          }\n          planetFarmers {\n            alloys\n          }\n          planetJobs {\n            alloys\n          }\n          planetJobsProductive {\n            alloys\n          }\n          planetMaintenanceDrones {\n            alloys\n          }\n          planetMetallurgists {\n            alloys\n          }\n          planetMiners {\n            alloys\n          }\n          planetPhysicists {\n            alloys\n          }\n          planetPoliticians {\n            alloys\n          }\n          planetPopAssemblers {\n            alloys\n          }\n          planetPops {\n            alloys\n          }\n          planetResourceDeficit {\n            alloys\n          }\n          planetSrMiners {\n            alloys\n          }\n          planetTechnician {\n            alloys\n          }\n          planetTraders {\n            alloys\n          }\n          popCategoryCivilians {\n            alloys\n          }\n          popCategoryDrones {\n            alloys\n          }\n          popCategoryRulers {\n            alloys\n          }\n          popCategorySpecialists {\n            alloys\n          }\n          popCategoryWorkers {\n            alloys\n          }\n          popFactions {\n            alloys\n          }\n          shipComponents {\n            alloys\n          }\n          ships {\n            alloys\n          }\n          situations {\n            alloys\n          }\n          starbaseBuildings {\n            alloys\n          }\n          starbaseModules {\n            alloys\n          }\n          starbases {\n            alloys\n          }\n          stationGatherers {\n            alloys\n          }\n          stationObserverMissions {\n            alloys\n          }\n          stationObservers {\n            alloys\n          }\n          stationResearchers {\n            alloys\n          }\n          tradePolicy {\n            alloys\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Alloys Expenses",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "preload": true,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "commonwealthofman_1251622081",
+          "value": "commonwealthofman_1251622081"
+        },
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "ef6cnm49brb40d"
+        },
+        "definition": "",
+        "description": "",
+        "label": "Save Filename",
+        "name": "saveFilename",
+        "options": [],
+        "query": {
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "data.saves",
+            "source": "url",
+            "type": "graphql",
+            "url": "",
+            "url_options": {
+              "body_content_type": "application/json",
+              "body_graphql_query": "query Filenames {\n  saves {\n    filename\n  }\n}\n",
+              "body_type": "graphql",
+              "data": "",
+              "method": "POST"
+            }
+          },
+          "query": "",
+          "queryType": "infinity"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2199-12-31T22:00:00.000Z",
+    "to": "2499-12-31T22:00:00.000Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Alloys Budget",
+  "uid": "alloysbudget",
+  "version": 1
+}
