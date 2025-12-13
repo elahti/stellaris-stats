@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 0,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -81,12 +80,60 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Total Energy Income"
+              "options": "Energy Balance"
             },
             "properties": [
               {
-                "id": "custom.lineWidth",
-                "value": 2
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2CC0C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Minerals Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#E02F44",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Food Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#73BF69",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Trade Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#8AB8FF",
+                  "mode": "fixed"
+                }
               }
             ]
           }
@@ -126,378 +173,1503 @@
               "type": "string"
             },
             {
-              "selector": "budget.income.armies.energy",
-              "text": "Armies",
+              "selector": "budget.balance.armies.energy",
+              "text": "Armies Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.colonies.energy",
-              "text": "Colonies",
+              "selector": "budget.balance.armies.minerals",
+              "text": "Armies Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.commercialPacts.energy",
-              "text": "Commercial Pacts",
+              "selector": "budget.balance.armies.food",
+              "text": "Armies Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.countryAgendas.energy",
-              "text": "Country Agendas",
+              "selector": "budget.balance.armies.trade",
+              "text": "Armies Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.countryBase.energy",
-              "text": "Country Base",
+              "selector": "budget.balance.colonies.energy",
+              "text": "Colonies Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.countryCivics.energy",
-              "text": "Country Civics",
+              "selector": "budget.balance.colonies.minerals",
+              "text": "Colonies Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.countryDessanu.energy",
-              "text": "Country Dessanu",
+              "selector": "budget.balance.colonies.food",
+              "text": "Colonies Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.countryEthic.energy",
-              "text": "Country Ethic",
+              "selector": "budget.balance.colonies.trade",
+              "text": "Colonies Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.countryPowerProjection.energy",
-              "text": "Power Projection",
+              "selector": "budget.balance.commercialPacts.energy",
+              "text": "Commercial Pacts Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.countryRuler.energy",
-              "text": "Country Ruler",
+              "selector": "budget.balance.commercialPacts.minerals",
+              "text": "Commercial Pacts Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.edicts.energy",
-              "text": "Edicts",
+              "selector": "budget.balance.commercialPacts.food",
+              "text": "Commercial Pacts Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.leaderCommanders.energy",
-              "text": "Commander Leaders",
+              "selector": "budget.balance.commercialPacts.trade",
+              "text": "Commercial Pacts Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.leaderOfficials.energy",
-              "text": "Official Leaders",
+              "selector": "budget.balance.countryAgendas.energy",
+              "text": "Country Agendas Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.leaderScientists.energy",
-              "text": "Scientist Leaders",
+              "selector": "budget.balance.countryAgendas.minerals",
+              "text": "Country Agendas Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.megastructures.energy",
-              "text": "Megastructures",
+              "selector": "budget.balance.countryAgendas.food",
+              "text": "Country Agendas Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.megastructuresGrandArchive.energy",
-              "text": "Megastructures Grand Archive",
+              "selector": "budget.balance.countryAgendas.trade",
+              "text": "Country Agendas Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.megastructuresHabitat.energy",
-              "text": "Megastructures Habitat",
+              "selector": "budget.balance.countryBase.energy",
+              "text": "Country Base Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.megastructuresHyperRelay.energy",
-              "text": "Megastructures Hyper Relay",
+              "selector": "budget.balance.countryBase.minerals",
+              "text": "Country Base Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.migrationPacts.energy",
-              "text": "Migration Pacts",
+              "selector": "budget.balance.countryBase.food",
+              "text": "Country Base Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.none.energy",
-              "text": "None",
+              "selector": "budget.balance.countryBase.trade",
+              "text": "Country Base Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.orbitalMiningDeposits.energy",
-              "text": "Orbital Mining Deposits",
+              "selector": "budget.balance.countryCivics.energy",
+              "text": "Country Civics Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.orbitalResearchDeposits.energy",
-              "text": "Orbital Research Deposits",
+              "selector": "budget.balance.countryCivics.minerals",
+              "text": "Country Civics Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.overlordSubsidy.energy",
-              "text": "Overlord Subsidy",
+              "selector": "budget.balance.countryCivics.food",
+              "text": "Country Civics Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetArtisans.energy",
-              "text": "Artisans",
+              "selector": "budget.balance.countryCivics.trade",
+              "text": "Country Civics Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetBiologists.energy",
-              "text": "Biologists",
+              "selector": "budget.balance.countryDessanu.energy",
+              "text": "Country Dessanu Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetBuildings.energy",
-              "text": "Buildings",
+              "selector": "budget.balance.countryDessanu.minerals",
+              "text": "Country Dessanu Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetBuildingsCloneVats.energy",
-              "text": "Buildings Clone Vats",
+              "selector": "budget.balance.countryDessanu.food",
+              "text": "Country Dessanu Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetBuildingsHabCapital.energy",
-              "text": "Buildings Hab Capital",
+              "selector": "budget.balance.countryDessanu.trade",
+              "text": "Country Dessanu Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetBuildingsStormTech.energy",
-              "text": "Buildings Storm Tech",
+              "selector": "budget.balance.countryEthic.energy",
+              "text": "Country Ethic Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetBuildingsStrongholds.energy",
-              "text": "Strongholds",
+              "selector": "budget.balance.countryEthic.minerals",
+              "text": "Country Ethic Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetBureaucrats.energy",
-              "text": "Bureucrats",
+              "selector": "budget.balance.countryEthic.food",
+              "text": "Country Ethic Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetCivilians.energy",
-              "text": "Civilians",
+              "selector": "budget.balance.countryEthic.trade",
+              "text": "Country Ethic Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetClerks.energy",
-              "text": "Clerks",
+              "selector": "budget.balance.countryPowerProjection.energy",
+              "text": "Power Projection Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetDeposits.energy",
-              "text": "Deposits",
+              "selector": "budget.balance.countryPowerProjection.minerals",
+              "text": "Power Projection Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetDistricts.energy",
-              "text": "Districts",
+              "selector": "budget.balance.countryPowerProjection.food",
+              "text": "Power Projection Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetDistrictsCities.energy",
-              "text": "City Districts",
+              "selector": "budget.balance.countryPowerProjection.trade",
+              "text": "Power Projection Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetDistrictsFarming.energy",
-              "text": "Farming Districts",
+              "selector": "budget.balance.countryRuler.energy",
+              "text": "Country Ruler Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetDistrictsGenerator.energy",
-              "text": "Generator Districts",
+              "selector": "budget.balance.countryRuler.minerals",
+              "text": "Country Ruler Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetDistrictsHab.energy",
-              "text": "Hab Districts",
+              "selector": "budget.balance.countryRuler.food",
+              "text": "Country Ruler Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetDistrictsMining.energy",
-              "text": "Mining Districts",
+              "selector": "budget.balance.countryRuler.trade",
+              "text": "Country Ruler Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetDoctors.energy",
-              "text": "Doctors",
+              "selector": "budget.balance.edicts.energy",
+              "text": "Edicts Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetEnergyThralls.energy",
-              "text": "Energy Thralls",
+              "selector": "budget.balance.edicts.minerals",
+              "text": "Edicts Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetEngineers.energy",
-              "text": "Engineers",
+              "selector": "budget.balance.edicts.food",
+              "text": "Edicts Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetEntertainers.energy",
-              "text": "Entertainers",
+              "selector": "budget.balance.edicts.trade",
+              "text": "Edicts Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetFarmers.energy",
-              "text": "Farmers",
+              "selector": "budget.balance.leaderCommanders.energy",
+              "text": "Commander Leaders Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetJobs.energy",
-              "text": "Jobs",
+              "selector": "budget.balance.leaderCommanders.minerals",
+              "text": "Commander Leaders Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetJobsProductive.energy",
-              "text": "Jobs Productive",
+              "selector": "budget.balance.leaderCommanders.food",
+              "text": "Commander Leaders Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetMaintenanceDrones.energy",
-              "text": "Maintenance Drones",
+              "selector": "budget.balance.leaderCommanders.trade",
+              "text": "Commander Leaders Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetMetallurgists.energy",
-              "text": "Metallurgists",
+              "selector": "budget.balance.leaderOfficials.energy",
+              "text": "Official Leaders Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetMiners.energy",
-              "text": "Miners",
+              "selector": "budget.balance.leaderOfficials.minerals",
+              "text": "Official Leaders Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetPhysicists.energy",
-              "text": "Physicists",
+              "selector": "budget.balance.leaderOfficials.food",
+              "text": "Official Leaders Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetPoliticians.energy",
-              "text": "Politicians",
+              "selector": "budget.balance.leaderOfficials.trade",
+              "text": "Official Leaders Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetPopAssemblers.energy",
-              "text": "Pop Assemblers",
+              "selector": "budget.balance.leaderScientists.energy",
+              "text": "Scientist Leaders Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetPops.energy",
-              "text": "Pops",
+              "selector": "budget.balance.leaderScientists.minerals",
+              "text": "Scientist Leaders Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetResourceDeficit.energy",
-              "text": "Planet Resource Deficit",
+              "selector": "budget.balance.leaderScientists.food",
+              "text": "Scientist Leaders Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetSrMiners.energy",
-              "text": "Strategic Resource Miners",
+              "selector": "budget.balance.leaderScientists.trade",
+              "text": "Scientist Leaders Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetTechnician.energy",
-              "text": "Technicians",
+              "selector": "budget.balance.megastructures.energy",
+              "text": "Megastructures Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.planetTraders.energy",
-              "text": "Traders",
+              "selector": "budget.balance.megastructures.minerals",
+              "text": "Megastructures Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.popCategoryCivilians.energy",
-              "text": "Civilian Pops",
+              "selector": "budget.balance.megastructures.food",
+              "text": "Megastructures Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.popCategoryDrones.energy",
-              "text": "Drone Pops",
+              "selector": "budget.balance.megastructures.trade",
+              "text": "Megastructures Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.popCategoryRulers.energy",
-              "text": "Ruler Pops",
+              "selector": "budget.balance.megastructuresGrandArchive.energy",
+              "text": "Megastructures Grand Archive Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.popCategorySpecialists.energy",
-              "text": "Specialist Pops",
+              "selector": "budget.balance.megastructuresGrandArchive.minerals",
+              "text": "Megastructures Grand Archive Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.popCategoryWorkers.energy",
-              "text": "Worker Pops",
+              "selector": "budget.balance.megastructuresGrandArchive.food",
+              "text": "Megastructures Grand Archive Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.popFactions.energy",
-              "text": "Factions",
+              "selector": "budget.balance.megastructuresGrandArchive.trade",
+              "text": "Megastructures Grand Archive Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.shipComponents.energy",
-              "text": "Ship Components",
+              "selector": "budget.balance.megastructuresHabitat.energy",
+              "text": "Megastructures Habitat Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.ships.energy",
-              "text": "Ships",
+              "selector": "budget.balance.megastructuresHabitat.minerals",
+              "text": "Megastructures Habitat Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.situations.energy",
-              "text": "Situations",
+              "selector": "budget.balance.megastructuresHabitat.food",
+              "text": "Megastructures Habitat Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseBuildings.energy",
-              "text": "Starbase Buildings",
+              "selector": "budget.balance.megastructuresHabitat.trade",
+              "text": "Megastructures Habitat Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseModules.energy",
-              "text": "Starbase Modules",
+              "selector": "budget.balance.megastructuresHyperRelay.energy",
+              "text": "Megastructures Hyper Relay Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbases.energy",
-              "text": "Starbases",
+              "selector": "budget.balance.megastructuresHyperRelay.minerals",
+              "text": "Megastructures Hyper Relay Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.stationGatherers.energy",
-              "text": "Station Gatherers",
+              "selector": "budget.balance.megastructuresHyperRelay.food",
+              "text": "Megastructures Hyper Relay Food",
               "type": "number"
             },
             {
-              "selector": "budget.income.stationObserverMissions.energy",
-              "text": "Station Observer Missions",
+              "selector": "budget.balance.megastructuresHyperRelay.trade",
+              "text": "Megastructures Hyper Relay Trade",
               "type": "number"
             },
             {
-              "selector": "budget.income.stationObservers.energy",
-              "text": "Station Observers",
+              "selector": "budget.balance.migrationPacts.energy",
+              "text": "Migration Pacts Energy",
               "type": "number"
             },
             {
-              "selector": "budget.income.stationResearchers.energy",
-              "text": "Station Researchers",
+              "selector": "budget.balance.migrationPacts.minerals",
+              "text": "Migration Pacts Minerals",
               "type": "number"
             },
             {
-              "selector": "budget.income.tradePolicy.energy",
-              "text": "Trade Policy",
+              "selector": "budget.balance.migrationPacts.food",
+              "text": "Migration Pacts Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.trade",
+              "text": "Migration Pacts Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.energy",
+              "text": "None Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.minerals",
+              "text": "None Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.food",
+              "text": "None Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.trade",
+              "text": "None Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.energy",
+              "text": "Orbital Mining Deposits Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.minerals",
+              "text": "Orbital Mining Deposits Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.food",
+              "text": "Orbital Mining Deposits Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.trade",
+              "text": "Orbital Mining Deposits Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.energy",
+              "text": "Orbital Research Deposits Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.minerals",
+              "text": "Orbital Research Deposits Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.food",
+              "text": "Orbital Research Deposits Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.trade",
+              "text": "Orbital Research Deposits Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.energy",
+              "text": "Overlord Subsidy Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.minerals",
+              "text": "Overlord Subsidy Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.food",
+              "text": "Overlord Subsidy Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.trade",
+              "text": "Overlord Subsidy Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.energy",
+              "text": "Artisans Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.minerals",
+              "text": "Artisans Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.food",
+              "text": "Artisans Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.trade",
+              "text": "Artisans Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.energy",
+              "text": "Biologists Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.minerals",
+              "text": "Biologists Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.food",
+              "text": "Biologists Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.trade",
+              "text": "Biologists Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.energy",
+              "text": "Buildings Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.minerals",
+              "text": "Buildings Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.food",
+              "text": "Buildings Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.trade",
+              "text": "Buildings Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.energy",
+              "text": "Buildings Clone Vats Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.minerals",
+              "text": "Buildings Clone Vats Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.food",
+              "text": "Buildings Clone Vats Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.trade",
+              "text": "Buildings Clone Vats Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.energy",
+              "text": "Buildings Hab Capital Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.minerals",
+              "text": "Buildings Hab Capital Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.food",
+              "text": "Buildings Hab Capital Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.trade",
+              "text": "Buildings Hab Capital Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.energy",
+              "text": "Buildings Storm Tech Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.minerals",
+              "text": "Buildings Storm Tech Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.food",
+              "text": "Buildings Storm Tech Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.trade",
+              "text": "Buildings Storm Tech Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.energy",
+              "text": "Strongholds Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.minerals",
+              "text": "Strongholds Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.food",
+              "text": "Strongholds Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.trade",
+              "text": "Strongholds Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.energy",
+              "text": "Bureucrats Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.minerals",
+              "text": "Bureucrats Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.food",
+              "text": "Bureucrats Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.trade",
+              "text": "Bureucrats Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.energy",
+              "text": "Civilians Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.minerals",
+              "text": "Civilians Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.food",
+              "text": "Civilians Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.trade",
+              "text": "Civilians Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.energy",
+              "text": "Clerks Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.minerals",
+              "text": "Clerks Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.food",
+              "text": "Clerks Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.trade",
+              "text": "Clerks Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.energy",
+              "text": "Deposits Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.minerals",
+              "text": "Deposits Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.food",
+              "text": "Deposits Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.trade",
+              "text": "Deposits Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.energy",
+              "text": "Districts Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.minerals",
+              "text": "Districts Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.food",
+              "text": "Districts Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.trade",
+              "text": "Districts Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.energy",
+              "text": "City Districts Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.minerals",
+              "text": "City Districts Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.food",
+              "text": "City Districts Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.trade",
+              "text": "City Districts Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.energy",
+              "text": "Farming Districts Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.minerals",
+              "text": "Farming Districts Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.food",
+              "text": "Farming Districts Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.trade",
+              "text": "Farming Districts Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.energy",
+              "text": "Generator Districts Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.minerals",
+              "text": "Generator Districts Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.food",
+              "text": "Generator Districts Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.trade",
+              "text": "Generator Districts Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.energy",
+              "text": "Hab Districts Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.minerals",
+              "text": "Hab Districts Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.food",
+              "text": "Hab Districts Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.trade",
+              "text": "Hab Districts Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.energy",
+              "text": "Mining Districts Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.minerals",
+              "text": "Mining Districts Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.food",
+              "text": "Mining Districts Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.trade",
+              "text": "Mining Districts Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.energy",
+              "text": "Doctors Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.minerals",
+              "text": "Doctors Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.food",
+              "text": "Doctors Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.trade",
+              "text": "Doctors Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.energy",
+              "text": "Energy Thralls Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.minerals",
+              "text": "Energy Thralls Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.food",
+              "text": "Energy Thralls Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.trade",
+              "text": "Energy Thralls Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.energy",
+              "text": "Engineers Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.minerals",
+              "text": "Engineers Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.food",
+              "text": "Engineers Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.trade",
+              "text": "Engineers Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.energy",
+              "text": "Entertainers Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.minerals",
+              "text": "Entertainers Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.food",
+              "text": "Entertainers Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.trade",
+              "text": "Entertainers Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.energy",
+              "text": "Farmers Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.minerals",
+              "text": "Farmers Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.food",
+              "text": "Farmers Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.trade",
+              "text": "Farmers Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.energy",
+              "text": "Jobs Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.minerals",
+              "text": "Jobs Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.food",
+              "text": "Jobs Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.trade",
+              "text": "Jobs Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.energy",
+              "text": "Jobs Productive Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.minerals",
+              "text": "Jobs Productive Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.food",
+              "text": "Jobs Productive Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.trade",
+              "text": "Jobs Productive Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.energy",
+              "text": "Maintenance Drones Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.minerals",
+              "text": "Maintenance Drones Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.food",
+              "text": "Maintenance Drones Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.trade",
+              "text": "Maintenance Drones Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.energy",
+              "text": "Metallurgists Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.minerals",
+              "text": "Metallurgists Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.food",
+              "text": "Metallurgists Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.trade",
+              "text": "Metallurgists Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.energy",
+              "text": "Miners Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.minerals",
+              "text": "Miners Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.food",
+              "text": "Miners Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.trade",
+              "text": "Miners Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.energy",
+              "text": "Physicists Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.minerals",
+              "text": "Physicists Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.food",
+              "text": "Physicists Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.trade",
+              "text": "Physicists Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.energy",
+              "text": "Politicians Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.minerals",
+              "text": "Politicians Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.food",
+              "text": "Politicians Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.trade",
+              "text": "Politicians Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.energy",
+              "text": "Pop Assemblers Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.minerals",
+              "text": "Pop Assemblers Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.food",
+              "text": "Pop Assemblers Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.trade",
+              "text": "Pop Assemblers Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.energy",
+              "text": "Pops Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.minerals",
+              "text": "Pops Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.food",
+              "text": "Pops Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.trade",
+              "text": "Pops Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.energy",
+              "text": "Planet Resource Deficit Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.minerals",
+              "text": "Planet Resource Deficit Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.food",
+              "text": "Planet Resource Deficit Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.trade",
+              "text": "Planet Resource Deficit Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.energy",
+              "text": "Strategic Resource Miners Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.minerals",
+              "text": "Strategic Resource Miners Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.food",
+              "text": "Strategic Resource Miners Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.trade",
+              "text": "Strategic Resource Miners Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.energy",
+              "text": "Technicians Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.minerals",
+              "text": "Technicians Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.food",
+              "text": "Technicians Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.trade",
+              "text": "Technicians Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.energy",
+              "text": "Traders Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.minerals",
+              "text": "Traders Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.food",
+              "text": "Traders Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.trade",
+              "text": "Traders Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.energy",
+              "text": "Civilian Pops Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.minerals",
+              "text": "Civilian Pops Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.food",
+              "text": "Civilian Pops Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.trade",
+              "text": "Civilian Pops Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.energy",
+              "text": "Drone Pops Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.minerals",
+              "text": "Drone Pops Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.food",
+              "text": "Drone Pops Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.trade",
+              "text": "Drone Pops Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.energy",
+              "text": "Ruler Pops Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.minerals",
+              "text": "Ruler Pops Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.food",
+              "text": "Ruler Pops Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.trade",
+              "text": "Ruler Pops Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.energy",
+              "text": "Specialist Pops Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.minerals",
+              "text": "Specialist Pops Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.food",
+              "text": "Specialist Pops Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.trade",
+              "text": "Specialist Pops Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.energy",
+              "text": "Worker Pops Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.minerals",
+              "text": "Worker Pops Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.food",
+              "text": "Worker Pops Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.trade",
+              "text": "Worker Pops Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.energy",
+              "text": "Factions Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.minerals",
+              "text": "Factions Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.food",
+              "text": "Factions Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.trade",
+              "text": "Factions Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.energy",
+              "text": "Ship Components Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.minerals",
+              "text": "Ship Components Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.food",
+              "text": "Ship Components Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.trade",
+              "text": "Ship Components Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.energy",
+              "text": "Ships Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.minerals",
+              "text": "Ships Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.food",
+              "text": "Ships Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.trade",
+              "text": "Ships Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.energy",
+              "text": "Situations Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.minerals",
+              "text": "Situations Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.food",
+              "text": "Situations Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.trade",
+              "text": "Situations Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.energy",
+              "text": "Starbase Buildings Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.minerals",
+              "text": "Starbase Buildings Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.food",
+              "text": "Starbase Buildings Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.trade",
+              "text": "Starbase Buildings Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.energy",
+              "text": "Starbase Modules Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.minerals",
+              "text": "Starbase Modules Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.food",
+              "text": "Starbase Modules Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.trade",
+              "text": "Starbase Modules Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.energy",
+              "text": "Starbases Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.minerals",
+              "text": "Starbases Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.food",
+              "text": "Starbases Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.trade",
+              "text": "Starbases Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.energy",
+              "text": "Station Gatherers Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.minerals",
+              "text": "Station Gatherers Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.food",
+              "text": "Station Gatherers Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.trade",
+              "text": "Station Gatherers Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.energy",
+              "text": "Station Observer Missions Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.minerals",
+              "text": "Station Observer Missions Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.food",
+              "text": "Station Observer Missions Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.trade",
+              "text": "Station Observer Missions Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.energy",
+              "text": "Station Observers Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.minerals",
+              "text": "Station Observers Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.food",
+              "text": "Station Observers Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.trade",
+              "text": "Station Observers Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.energy",
+              "text": "Station Researchers Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.minerals",
+              "text": "Station Researchers Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.food",
+              "text": "Station Researchers Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.trade",
+              "text": "Station Researchers Trade",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.energy",
+              "text": "Trade Policy Energy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.minerals",
+              "text": "Trade Policy Minerals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.food",
+              "text": "Trade Policy Food",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.trade",
+              "text": "Trade Policy Trade",
               "type": "number"
             }
           ],
@@ -516,7 +1688,7 @@
           "url": "",
           "url_options": {
             "body_content_type": "application/json",
-            "body_graphql_query": "query EnergyIncome($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        income {\n          armies {\n            energy\n          }\n          colonies {\n            energy\n          }\n          commercialPacts {\n            energy\n          }\n          countryAgendas {\n            energy\n          }\n          countryBase {\n            energy\n          }\n          countryCivics {\n            energy\n          }\n          countryDessanu {\n            energy\n          }\n          countryEthic {\n            energy\n          }\n          countryPowerProjection {\n            energy\n          }\n          countryRuler {\n            energy\n          }\n          edicts {\n            energy\n          }\n          leaderCommanders {\n            energy\n          }\n          leaderOfficials {\n            energy\n          }\n          leaderScientists {\n            energy\n          }\n          megastructures {\n            energy\n          }\n          megastructuresGrandArchive {\n            energy\n          }\n          megastructuresHabitat {\n            energy\n          }\n          megastructuresHyperRelay {\n            energy\n          }\n          migrationPacts {\n            energy\n          }\n          none {\n            energy\n          }\n          orbitalMiningDeposits {\n            energy\n          }\n          orbitalResearchDeposits {\n            energy\n          }\n          overlordSubsidy {\n            energy\n          }\n          planetArtisans {\n            energy\n          }\n          planetBiologists {\n            energy\n          }\n          planetBuildings {\n            energy\n          }\n          planetBuildingsCloneVats {\n            energy\n          }\n          planetBuildingsHabCapital {\n            energy\n          }\n          planetBuildingsStormTech {\n            energy\n          }\n          planetBuildingsStrongholds {\n            energy\n          }\n          planetBureaucrats {\n            energy\n          }\n          planetCivilians {\n            energy\n          }\n          planetClerks {\n            energy\n          }\n          planetDeposits {\n            energy\n          }\n          planetDistricts {\n            energy\n          }\n          planetDistrictsCities {\n            energy\n          }\n          planetDistrictsFarming {\n            energy\n          }\n          planetDistrictsGenerator {\n            energy\n          }\n          planetDistrictsHab {\n            energy\n          }\n          planetDistrictsMining {\n            energy\n          }\n          planetDoctors {\n            energy\n          }\n          planetEnergyThralls {\n            energy\n          }\n          planetEngineers {\n            energy\n          }\n          planetEntertainers {\n            energy\n          }\n          planetFarmers {\n            energy\n          }\n          planetJobs {\n            energy\n          }\n          planetJobsProductive {\n            energy\n          }\n          planetMaintenanceDrones {\n            energy\n          }\n          planetMetallurgists {\n            energy\n          }\n          planetMiners {\n            energy\n          }\n          planetPhysicists {\n            energy\n          }\n          planetPoliticians {\n            energy\n          }\n          planetPopAssemblers {\n            energy\n          }\n          planetPops {\n            energy\n          }\n          planetResourceDeficit {\n            energy\n          }\n          planetSrMiners {\n            energy\n          }\n          planetTechnician {\n            energy\n          }\n          planetTraders {\n            energy\n          }\n          popCategoryCivilians {\n            energy\n          }\n          popCategoryDrones {\n            energy\n          }\n          popCategoryRulers {\n            energy\n          }\n          popCategorySpecialists {\n            energy\n          }\n          popCategoryWorkers {\n            energy\n          }\n          popFactions {\n            energy\n          }\n          shipComponents {\n            energy\n          }\n          ships {\n            energy\n          }\n          situations {\n            energy\n          }\n          starbaseBuildings {\n            energy\n          }\n          starbaseModules {\n            energy\n          }\n          starbases {\n            energy\n          }\n          stationGatherers {\n            energy\n          }\n          stationObserverMissions {\n            energy\n          }\n          stationObservers {\n            energy\n          }\n          stationResearchers {\n            energy\n          }\n          tradePolicy {\n            energy\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_query": "query BasicResources($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        balance {\n          armies {\n            energy\n            minerals\n            food\n            trade\n          }\n          colonies {\n            energy\n            minerals\n            food\n            trade\n          }\n          commercialPacts {\n            energy\n            minerals\n            food\n            trade\n          }\n          countryAgendas {\n            energy\n            minerals\n            food\n            trade\n          }\n          countryBase {\n            energy\n            minerals\n            food\n            trade\n          }\n          countryCivics {\n            energy\n            minerals\n            food\n            trade\n          }\n          countryDessanu {\n            energy\n            minerals\n            food\n            trade\n          }\n          countryEthic {\n            energy\n            minerals\n            food\n            trade\n          }\n          countryPowerProjection {\n            energy\n            minerals\n            food\n            trade\n          }\n          countryRuler {\n            energy\n            minerals\n            food\n            trade\n          }\n          edicts {\n            energy\n            minerals\n            food\n            trade\n          }\n          leaderCommanders {\n            energy\n            minerals\n            food\n            trade\n          }\n          leaderOfficials {\n            energy\n            minerals\n            food\n            trade\n          }\n          leaderScientists {\n            energy\n            minerals\n            food\n            trade\n          }\n          megastructures {\n            energy\n            minerals\n            food\n            trade\n          }\n          megastructuresGrandArchive {\n            energy\n            minerals\n            food\n            trade\n          }\n          megastructuresHabitat {\n            energy\n            minerals\n            food\n            trade\n          }\n          megastructuresHyperRelay {\n            energy\n            minerals\n            food\n            trade\n          }\n          migrationPacts {\n            energy\n            minerals\n            food\n            trade\n          }\n          none {\n            energy\n            minerals\n            food\n            trade\n          }\n          orbitalMiningDeposits {\n            energy\n            minerals\n            food\n            trade\n          }\n          orbitalResearchDeposits {\n            energy\n            minerals\n            food\n            trade\n          }\n          overlordSubsidy {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetArtisans {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetBiologists {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetBuildings {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetBuildingsCloneVats {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetBuildingsHabCapital {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetBuildingsStormTech {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetBuildingsStrongholds {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetBureaucrats {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetCivilians {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetClerks {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetDeposits {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetDistricts {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetDistrictsCities {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetDistrictsFarming {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetDistrictsGenerator {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetDistrictsHab {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetDistrictsMining {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetDoctors {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetEnergyThralls {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetEngineers {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetEntertainers {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetFarmers {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetJobs {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetJobsProductive {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetMaintenanceDrones {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetMetallurgists {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetMiners {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetPhysicists {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetPoliticians {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetPopAssemblers {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetPops {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetResourceDeficit {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetSrMiners {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetTechnician {\n            energy\n            minerals\n            food\n            trade\n          }\n          planetTraders {\n            energy\n            minerals\n            food\n            trade\n          }\n          popCategoryCivilians {\n            energy\n            minerals\n            food\n            trade\n          }\n          popCategoryDrones {\n            energy\n            minerals\n            food\n            trade\n          }\n          popCategoryRulers {\n            energy\n            minerals\n            food\n            trade\n          }\n          popCategorySpecialists {\n            energy\n            minerals\n            food\n            trade\n          }\n          popCategoryWorkers {\n            energy\n            minerals\n            food\n            trade\n          }\n          popFactions {\n            energy\n            minerals\n            food\n            trade\n          }\n          shipComponents {\n            energy\n            minerals\n            food\n            trade\n          }\n          ships {\n            energy\n            minerals\n            food\n            trade\n          }\n          situations {\n            energy\n            minerals\n            food\n            trade\n          }\n          starbaseBuildings {\n            energy\n            minerals\n            food\n            trade\n          }\n          starbaseModules {\n            energy\n            minerals\n            food\n            trade\n          }\n          starbases {\n            energy\n            minerals\n            food\n            trade\n          }\n          stationGatherers {\n            energy\n            minerals\n            food\n            trade\n          }\n          stationObserverMissions {\n            energy\n            minerals\n            food\n            trade\n          }\n          stationObservers {\n            energy\n            minerals\n            food\n            trade\n          }\n          stationResearchers {\n            energy\n            minerals\n            food\n            trade\n          }\n          tradePolicy {\n            energy\n            minerals\n            food\n            trade\n          }\n        }\n      }\n    }\n  }\n}\n",
             "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
             "body_type": "graphql",
             "data": "",
@@ -524,7 +1696,7 @@
           }
         }
       ],
-      "title": "Total Energy Income",
+      "title": "Basic Resources",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -541,91 +1713,373 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Total Energy Income",
+            "alias": "Energy Balance",
             "binary": {
-              "left": "Armies",
+              "left": "Armies Energy",
               "operator": "+",
               "reducer": "sum",
-              "right": "Colonies"
+              "right": "Colonies Energy"
             },
             "mode": "reduceRow",
             "reduce": {
               "include": [
-                "Armies",
-                "Colonies",
-                "Commercial Pacts",
-                "Country Agendas",
-                "Country Base",
-                "Country Civics",
-                "Country Dessanu",
-                "Country Ethic",
-                "Power Projection",
-                "Country Ruler",
-                "Edicts",
-                "Commander Leaders",
-                "Official Leaders",
-                "Scientist Leaders",
-                "Megastructures",
-                "Megastructures Grand Archive",
-                "Megastructures Habitat",
-                "Megastructures Hyper Relay",
-                "Migration Pacts",
-                "None",
-                "Orbital Mining Deposits",
-                "Orbital Research Deposits",
-                "Overlord Subsidy",
-                "Artisans",
-                "Biologists",
-                "Buildings",
-                "Buildings Clone Vats",
-                "Buildings Hab Capital",
-                "Buildings Storm Tech",
-                "Strongholds",
-                "Bureucrats",
-                "Civilians",
-                "Clerks",
-                "Deposits",
-                "Districts",
-                "City Districts",
-                "Farming Districts",
-                "Generator Districts",
-                "Hab Districts",
-                "Mining Districts",
-                "Doctors",
-                "Energy Thralls",
-                "Engineers",
-                "Entertainers",
-                "Farmers",
-                "Jobs",
-                "Jobs Productive",
-                "Maintenance Drones",
-                "Metallurgists",
-                "Miners",
-                "Physicists",
-                "Politicians",
-                "Pop Assemblers",
-                "Pops",
-                "Planet Resource Deficit",
-                "Strategic Resource Miners",
-                "Technicians",
-                "Traders",
-                "Civilian Pops",
-                "Drone Pops",
-                "Ruler Pops",
-                "Specialist Pops",
-                "Worker Pops",
-                "Factions",
-                "Ship Components",
-                "Ships",
-                "Situations",
-                "Starbase Buildings",
-                "Starbase Modules",
-                "Starbases",
-                "Station Gatherers",
-                "Station Observer Missions",
-                "Station Observers",
-                "Station Researchers",
-                "Trade Policy"
+                "Armies Energy",
+                "Colonies Energy",
+                "Commercial Pacts Energy",
+                "Country Agendas Energy",
+                "Country Base Energy",
+                "Country Civics Energy",
+                "Country Dessanu Energy",
+                "Country Ethic Energy",
+                "Power Projection Energy",
+                "Country Ruler Energy",
+                "Edicts Energy",
+                "Commander Leaders Energy",
+                "Official Leaders Energy",
+                "Scientist Leaders Energy",
+                "Megastructures Energy",
+                "Megastructures Grand Archive Energy",
+                "Megastructures Habitat Energy",
+                "Megastructures Hyper Relay Energy",
+                "Migration Pacts Energy",
+                "None Energy",
+                "Orbital Mining Deposits Energy",
+                "Orbital Research Deposits Energy",
+                "Overlord Subsidy Energy",
+                "Artisans Energy",
+                "Biologists Energy",
+                "Buildings Energy",
+                "Buildings Clone Vats Energy",
+                "Buildings Hab Capital Energy",
+                "Buildings Storm Tech Energy",
+                "Strongholds Energy",
+                "Bureucrats Energy",
+                "Civilians Energy",
+                "Clerks Energy",
+                "Deposits Energy",
+                "Districts Energy",
+                "City Districts Energy",
+                "Farming Districts Energy",
+                "Generator Districts Energy",
+                "Hab Districts Energy",
+                "Mining Districts Energy",
+                "Doctors Energy",
+                "Energy Thralls Energy",
+                "Engineers Energy",
+                "Entertainers Energy",
+                "Farmers Energy",
+                "Jobs Energy",
+                "Jobs Productive Energy",
+                "Maintenance Drones Energy",
+                "Metallurgists Energy",
+                "Miners Energy",
+                "Physicists Energy",
+                "Politicians Energy",
+                "Pop Assemblers Energy",
+                "Pops Energy",
+                "Planet Resource Deficit Energy",
+                "Strategic Resource Miners Energy",
+                "Technicians Energy",
+                "Traders Energy",
+                "Civilian Pops Energy",
+                "Drone Pops Energy",
+                "Ruler Pops Energy",
+                "Specialist Pops Energy",
+                "Worker Pops Energy",
+                "Factions Energy",
+                "Ship Components Energy",
+                "Ships Energy",
+                "Situations Energy",
+                "Starbase Buildings Energy",
+                "Starbase Modules Energy",
+                "Starbases Energy",
+                "Station Gatherers Energy",
+                "Station Observer Missions Energy",
+                "Station Observers Energy",
+                "Station Researchers Energy",
+                "Trade Policy Energy"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Minerals Balance",
+            "binary": {
+              "left": "Armies Minerals",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Minerals"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Minerals",
+                "Colonies Minerals",
+                "Commercial Pacts Minerals",
+                "Country Agendas Minerals",
+                "Country Base Minerals",
+                "Country Civics Minerals",
+                "Country Dessanu Minerals",
+                "Country Ethic Minerals",
+                "Power Projection Minerals",
+                "Country Ruler Minerals",
+                "Edicts Minerals",
+                "Commander Leaders Minerals",
+                "Official Leaders Minerals",
+                "Scientist Leaders Minerals",
+                "Megastructures Minerals",
+                "Megastructures Grand Archive Minerals",
+                "Megastructures Habitat Minerals",
+                "Megastructures Hyper Relay Minerals",
+                "Migration Pacts Minerals",
+                "None Minerals",
+                "Orbital Mining Deposits Minerals",
+                "Orbital Research Deposits Minerals",
+                "Overlord Subsidy Minerals",
+                "Artisans Minerals",
+                "Biologists Minerals",
+                "Buildings Minerals",
+                "Buildings Clone Vats Minerals",
+                "Buildings Hab Capital Minerals",
+                "Buildings Storm Tech Minerals",
+                "Strongholds Minerals",
+                "Bureucrats Minerals",
+                "Civilians Minerals",
+                "Clerks Minerals",
+                "Deposits Minerals",
+                "Districts Minerals",
+                "City Districts Minerals",
+                "Farming Districts Minerals",
+                "Generator Districts Minerals",
+                "Hab Districts Minerals",
+                "Mining Districts Minerals",
+                "Doctors Minerals",
+                "Energy Thralls Minerals",
+                "Engineers Minerals",
+                "Entertainers Minerals",
+                "Farmers Minerals",
+                "Jobs Minerals",
+                "Jobs Productive Minerals",
+                "Maintenance Drones Minerals",
+                "Metallurgists Minerals",
+                "Miners Minerals",
+                "Physicists Minerals",
+                "Politicians Minerals",
+                "Pop Assemblers Minerals",
+                "Pops Minerals",
+                "Planet Resource Deficit Minerals",
+                "Strategic Resource Miners Minerals",
+                "Technicians Minerals",
+                "Traders Minerals",
+                "Civilian Pops Minerals",
+                "Drone Pops Minerals",
+                "Ruler Pops Minerals",
+                "Specialist Pops Minerals",
+                "Worker Pops Minerals",
+                "Factions Minerals",
+                "Ship Components Minerals",
+                "Ships Minerals",
+                "Situations Minerals",
+                "Starbase Buildings Minerals",
+                "Starbase Modules Minerals",
+                "Starbases Minerals",
+                "Station Gatherers Minerals",
+                "Station Observer Missions Minerals",
+                "Station Observers Minerals",
+                "Station Researchers Minerals",
+                "Trade Policy Minerals"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Food Balance",
+            "binary": {
+              "left": "Armies Food",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Food"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Food",
+                "Colonies Food",
+                "Commercial Pacts Food",
+                "Country Agendas Food",
+                "Country Base Food",
+                "Country Civics Food",
+                "Country Dessanu Food",
+                "Country Ethic Food",
+                "Power Projection Food",
+                "Country Ruler Food",
+                "Edicts Food",
+                "Commander Leaders Food",
+                "Official Leaders Food",
+                "Scientist Leaders Food",
+                "Megastructures Food",
+                "Megastructures Grand Archive Food",
+                "Megastructures Habitat Food",
+                "Megastructures Hyper Relay Food",
+                "Migration Pacts Food",
+                "None Food",
+                "Orbital Mining Deposits Food",
+                "Orbital Research Deposits Food",
+                "Overlord Subsidy Food",
+                "Artisans Food",
+                "Biologists Food",
+                "Buildings Food",
+                "Buildings Clone Vats Food",
+                "Buildings Hab Capital Food",
+                "Buildings Storm Tech Food",
+                "Strongholds Food",
+                "Bureucrats Food",
+                "Civilians Food",
+                "Clerks Food",
+                "Deposits Food",
+                "Districts Food",
+                "City Districts Food",
+                "Farming Districts Food",
+                "Generator Districts Food",
+                "Hab Districts Food",
+                "Mining Districts Food",
+                "Doctors Food",
+                "Energy Thralls Food",
+                "Engineers Food",
+                "Entertainers Food",
+                "Farmers Food",
+                "Jobs Food",
+                "Jobs Productive Food",
+                "Maintenance Drones Food",
+                "Metallurgists Food",
+                "Miners Food",
+                "Physicists Food",
+                "Politicians Food",
+                "Pop Assemblers Food",
+                "Pops Food",
+                "Planet Resource Deficit Food",
+                "Strategic Resource Miners Food",
+                "Technicians Food",
+                "Traders Food",
+                "Civilian Pops Food",
+                "Drone Pops Food",
+                "Ruler Pops Food",
+                "Specialist Pops Food",
+                "Worker Pops Food",
+                "Factions Food",
+                "Ship Components Food",
+                "Ships Food",
+                "Situations Food",
+                "Starbase Buildings Food",
+                "Starbase Modules Food",
+                "Starbases Food",
+                "Station Gatherers Food",
+                "Station Observer Missions Food",
+                "Station Observers Food",
+                "Station Researchers Food",
+                "Trade Policy Food"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Trade Balance",
+            "binary": {
+              "left": "Armies Trade",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Trade"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Trade",
+                "Colonies Trade",
+                "Commercial Pacts Trade",
+                "Country Agendas Trade",
+                "Country Base Trade",
+                "Country Civics Trade",
+                "Country Dessanu Trade",
+                "Country Ethic Trade",
+                "Power Projection Trade",
+                "Country Ruler Trade",
+                "Edicts Trade",
+                "Commander Leaders Trade",
+                "Official Leaders Trade",
+                "Scientist Leaders Trade",
+                "Megastructures Trade",
+                "Megastructures Grand Archive Trade",
+                "Megastructures Habitat Trade",
+                "Megastructures Hyper Relay Trade",
+                "Migration Pacts Trade",
+                "None Trade",
+                "Orbital Mining Deposits Trade",
+                "Orbital Research Deposits Trade",
+                "Overlord Subsidy Trade",
+                "Artisans Trade",
+                "Biologists Trade",
+                "Buildings Trade",
+                "Buildings Clone Vats Trade",
+                "Buildings Hab Capital Trade",
+                "Buildings Storm Tech Trade",
+                "Strongholds Trade",
+                "Bureucrats Trade",
+                "Civilians Trade",
+                "Clerks Trade",
+                "Deposits Trade",
+                "Districts Trade",
+                "City Districts Trade",
+                "Farming Districts Trade",
+                "Generator Districts Trade",
+                "Hab Districts Trade",
+                "Mining Districts Trade",
+                "Doctors Trade",
+                "Energy Thralls Trade",
+                "Engineers Trade",
+                "Entertainers Trade",
+                "Farmers Trade",
+                "Jobs Trade",
+                "Jobs Productive Trade",
+                "Maintenance Drones Trade",
+                "Metallurgists Trade",
+                "Miners Trade",
+                "Physicists Trade",
+                "Politicians Trade",
+                "Pop Assemblers Trade",
+                "Pops Trade",
+                "Planet Resource Deficit Trade",
+                "Strategic Resource Miners Trade",
+                "Technicians Trade",
+                "Traders Trade",
+                "Civilian Pops Trade",
+                "Drone Pops Trade",
+                "Ruler Pops Trade",
+                "Specialist Pops Trade",
+                "Worker Pops Trade",
+                "Factions Trade",
+                "Ship Components Trade",
+                "Ships Trade",
+                "Situations Trade",
+                "Starbase Buildings Trade",
+                "Starbase Modules Trade",
+                "Starbases Trade",
+                "Station Gatherers Trade",
+                "Station Observer Missions Trade",
+                "Station Observers Trade",
+                "Station Researchers Trade",
+                "Trade Policy Trade"
               ],
               "reducer": "sum"
             },
@@ -636,81 +2090,306 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Armies": true,
-              "Artisans": true,
-              "Biologists": true,
-              "Buildings": true,
-              "Buildings Clone Vats": true,
-              "Buildings Hab Capital": true,
-              "Buildings Storm Tech": true,
-              "Bureucrats": true,
-              "City Districts": true,
-              "Civilian Pops": true,
-              "Civilians": true,
-              "Clerks": true,
-              "Colonies": true,
-              "Commander Leaders": true,
-              "Commercial Pacts": true,
-              "Country Agendas": true,
-              "Country Base": true,
-              "Country Civics": true,
-              "Country Dessanu": true,
-              "Country Ethic": true,
-              "Country Ruler": true,
-              "Deposits": true,
-              "Districts": true,
-              "Doctors": true,
-              "Drone Pops": true,
-              "Edicts": true,
-              "Energy Thralls": true,
-              "Engineers": true,
-              "Entertainers": true,
-              "Factions": true,
-              "Farmers": true,
-              "Farming Districts": true,
-              "Generator Districts": true,
-              "Hab Districts": true,
-              "Jobs": true,
-              "Jobs Productive": true,
-              "Maintenance Drones": true,
-              "Megastructures": true,
-              "Megastructures Grand Archive": true,
-              "Megastructures Habitat": true,
-              "Megastructures Hyper Relay": true,
-              "Metallurgists": true,
-              "Migration Pacts": true,
-              "Miners": true,
-              "Mining Districts": true,
-              "None": true,
-              "Official Leaders": true,
-              "Orbital Mining Deposits": true,
-              "Orbital Research Deposits": true,
-              "Overlord Subsidy": true,
-              "Physicists": true,
-              "Planet Resource Deficit": true,
-              "Politicians": true,
-              "Pop Assemblers": true,
-              "Pops": true,
-              "Power Projection": true,
-              "Ruler Pops": true,
-              "Scientist Leaders": true,
-              "Ship Components": true,
-              "Ships": true,
-              "Situations": true,
-              "Specialist Pops": true,
-              "Starbase Buildings": true,
-              "Starbase Modules": true,
-              "Starbases": true,
-              "Station Gatherers": true,
-              "Station Observer Missions": true,
-              "Station Observers": true,
-              "Station Researchers": true,
-              "Strategic Resource Miners": true,
-              "Strongholds": true,
-              "Technicians": true,
-              "Trade Policy": true,
-              "Traders": true,
-              "Worker Pops": true
+              "Armies Energy": true,
+              "Armies Food": true,
+              "Armies Minerals": true,
+              "Armies Trade": true,
+              "Artisans Energy": true,
+              "Artisans Food": true,
+              "Artisans Minerals": true,
+              "Artisans Trade": true,
+              "Biologists Energy": true,
+              "Biologists Food": true,
+              "Biologists Minerals": true,
+              "Biologists Trade": true,
+              "Buildings Clone Vats Energy": true,
+              "Buildings Clone Vats Food": true,
+              "Buildings Clone Vats Minerals": true,
+              "Buildings Clone Vats Trade": true,
+              "Buildings Energy": true,
+              "Buildings Food": true,
+              "Buildings Hab Capital Energy": true,
+              "Buildings Hab Capital Food": true,
+              "Buildings Hab Capital Minerals": true,
+              "Buildings Hab Capital Trade": true,
+              "Buildings Minerals": true,
+              "Buildings Storm Tech Energy": true,
+              "Buildings Storm Tech Food": true,
+              "Buildings Storm Tech Minerals": true,
+              "Buildings Storm Tech Trade": true,
+              "Buildings Trade": true,
+              "Bureucrats Energy": true,
+              "Bureucrats Food": true,
+              "Bureucrats Minerals": true,
+              "Bureucrats Trade": true,
+              "City Districts Energy": true,
+              "City Districts Food": true,
+              "City Districts Minerals": true,
+              "City Districts Trade": true,
+              "Civilian Pops Energy": true,
+              "Civilian Pops Food": true,
+              "Civilian Pops Minerals": true,
+              "Civilian Pops Trade": true,
+              "Civilians Energy": true,
+              "Civilians Food": true,
+              "Civilians Minerals": true,
+              "Civilians Trade": true,
+              "Clerks Energy": true,
+              "Clerks Food": true,
+              "Clerks Minerals": true,
+              "Clerks Trade": true,
+              "Colonies Energy": true,
+              "Colonies Food": true,
+              "Colonies Minerals": true,
+              "Colonies Trade": true,
+              "Commander Leaders Energy": true,
+              "Commander Leaders Food": true,
+              "Commander Leaders Minerals": true,
+              "Commander Leaders Trade": true,
+              "Commercial Pacts Energy": true,
+              "Commercial Pacts Food": true,
+              "Commercial Pacts Minerals": true,
+              "Commercial Pacts Trade": true,
+              "Country Agendas Energy": true,
+              "Country Agendas Food": true,
+              "Country Agendas Minerals": true,
+              "Country Agendas Trade": true,
+              "Country Base Energy": true,
+              "Country Base Food": true,
+              "Country Base Minerals": true,
+              "Country Base Trade": true,
+              "Country Civics Energy": true,
+              "Country Civics Food": true,
+              "Country Civics Minerals": true,
+              "Country Civics Trade": true,
+              "Country Dessanu Energy": true,
+              "Country Dessanu Food": true,
+              "Country Dessanu Minerals": true,
+              "Country Dessanu Trade": true,
+              "Country Ethic Energy": true,
+              "Country Ethic Food": true,
+              "Country Ethic Minerals": true,
+              "Country Ethic Trade": true,
+              "Country Ruler Energy": true,
+              "Country Ruler Food": true,
+              "Country Ruler Minerals": true,
+              "Country Ruler Trade": true,
+              "Deposits Energy": true,
+              "Deposits Food": true,
+              "Deposits Minerals": true,
+              "Deposits Trade": true,
+              "Districts Energy": true,
+              "Districts Food": true,
+              "Districts Minerals": true,
+              "Districts Trade": true,
+              "Doctors Energy": true,
+              "Doctors Food": true,
+              "Doctors Minerals": true,
+              "Doctors Trade": true,
+              "Drone Pops Energy": true,
+              "Drone Pops Food": true,
+              "Drone Pops Minerals": true,
+              "Drone Pops Trade": true,
+              "Edicts Energy": true,
+              "Edicts Food": true,
+              "Edicts Minerals": true,
+              "Edicts Trade": true,
+              "Energy Thralls Energy": true,
+              "Energy Thralls Food": true,
+              "Energy Thralls Minerals": true,
+              "Energy Thralls Trade": true,
+              "Engineers Energy": true,
+              "Engineers Food": true,
+              "Engineers Minerals": true,
+              "Engineers Trade": true,
+              "Entertainers Energy": true,
+              "Entertainers Food": true,
+              "Entertainers Minerals": true,
+              "Entertainers Trade": true,
+              "Factions Energy": true,
+              "Factions Food": true,
+              "Factions Minerals": true,
+              "Factions Trade": true,
+              "Farmers Energy": true,
+              "Farmers Food": true,
+              "Farmers Minerals": true,
+              "Farmers Trade": true,
+              "Farming Districts Energy": true,
+              "Farming Districts Food": true,
+              "Farming Districts Minerals": true,
+              "Farming Districts Trade": true,
+              "Generator Districts Energy": true,
+              "Generator Districts Food": true,
+              "Generator Districts Minerals": true,
+              "Generator Districts Trade": true,
+              "Hab Districts Energy": true,
+              "Hab Districts Food": true,
+              "Hab Districts Minerals": true,
+              "Hab Districts Trade": true,
+              "Jobs Energy": true,
+              "Jobs Food": true,
+              "Jobs Minerals": true,
+              "Jobs Productive Energy": true,
+              "Jobs Productive Food": true,
+              "Jobs Productive Minerals": true,
+              "Jobs Productive Trade": true,
+              "Jobs Trade": true,
+              "Maintenance Drones Energy": true,
+              "Maintenance Drones Food": true,
+              "Maintenance Drones Minerals": true,
+              "Maintenance Drones Trade": true,
+              "Megastructures Energy": true,
+              "Megastructures Food": true,
+              "Megastructures Grand Archive Energy": true,
+              "Megastructures Grand Archive Food": true,
+              "Megastructures Grand Archive Minerals": true,
+              "Megastructures Grand Archive Trade": true,
+              "Megastructures Habitat Energy": true,
+              "Megastructures Habitat Food": true,
+              "Megastructures Habitat Minerals": true,
+              "Megastructures Habitat Trade": true,
+              "Megastructures Hyper Relay Energy": true,
+              "Megastructures Hyper Relay Food": true,
+              "Megastructures Hyper Relay Minerals": true,
+              "Megastructures Hyper Relay Trade": true,
+              "Megastructures Minerals": true,
+              "Megastructures Trade": true,
+              "Metallurgists Energy": true,
+              "Metallurgists Food": true,
+              "Metallurgists Minerals": true,
+              "Metallurgists Trade": true,
+              "Migration Pacts Energy": true,
+              "Migration Pacts Food": true,
+              "Migration Pacts Minerals": true,
+              "Migration Pacts Trade": true,
+              "Miners Energy": true,
+              "Miners Food": true,
+              "Miners Minerals": true,
+              "Miners Trade": true,
+              "Mining Districts Energy": true,
+              "Mining Districts Food": true,
+              "Mining Districts Minerals": true,
+              "Mining Districts Trade": true,
+              "None Energy": true,
+              "None Food": true,
+              "None Minerals": true,
+              "None Trade": true,
+              "Official Leaders Energy": true,
+              "Official Leaders Food": true,
+              "Official Leaders Minerals": true,
+              "Official Leaders Trade": true,
+              "Orbital Mining Deposits Energy": true,
+              "Orbital Mining Deposits Food": true,
+              "Orbital Mining Deposits Minerals": true,
+              "Orbital Mining Deposits Trade": true,
+              "Orbital Research Deposits Energy": true,
+              "Orbital Research Deposits Food": true,
+              "Orbital Research Deposits Minerals": true,
+              "Orbital Research Deposits Trade": true,
+              "Overlord Subsidy Energy": true,
+              "Overlord Subsidy Food": true,
+              "Overlord Subsidy Minerals": true,
+              "Overlord Subsidy Trade": true,
+              "Physicists Energy": true,
+              "Physicists Food": true,
+              "Physicists Minerals": true,
+              "Physicists Trade": true,
+              "Planet Resource Deficit Energy": true,
+              "Planet Resource Deficit Food": true,
+              "Planet Resource Deficit Minerals": true,
+              "Planet Resource Deficit Trade": true,
+              "Politicians Energy": true,
+              "Politicians Food": true,
+              "Politicians Minerals": true,
+              "Politicians Trade": true,
+              "Pop Assemblers Energy": true,
+              "Pop Assemblers Food": true,
+              "Pop Assemblers Minerals": true,
+              "Pop Assemblers Trade": true,
+              "Pops Energy": true,
+              "Pops Food": true,
+              "Pops Minerals": true,
+              "Pops Trade": true,
+              "Power Projection Energy": true,
+              "Power Projection Food": true,
+              "Power Projection Minerals": true,
+              "Power Projection Trade": true,
+              "Ruler Pops Energy": true,
+              "Ruler Pops Food": true,
+              "Ruler Pops Minerals": true,
+              "Ruler Pops Trade": true,
+              "Scientist Leaders Energy": true,
+              "Scientist Leaders Food": true,
+              "Scientist Leaders Minerals": true,
+              "Scientist Leaders Trade": true,
+              "Ship Components Energy": true,
+              "Ship Components Food": true,
+              "Ship Components Minerals": true,
+              "Ship Components Trade": true,
+              "Ships Energy": true,
+              "Ships Food": true,
+              "Ships Minerals": true,
+              "Ships Trade": true,
+              "Situations Energy": true,
+              "Situations Food": true,
+              "Situations Minerals": true,
+              "Situations Trade": true,
+              "Specialist Pops Energy": true,
+              "Specialist Pops Food": true,
+              "Specialist Pops Minerals": true,
+              "Specialist Pops Trade": true,
+              "Starbase Buildings Energy": true,
+              "Starbase Buildings Food": true,
+              "Starbase Buildings Minerals": true,
+              "Starbase Buildings Trade": true,
+              "Starbase Modules Energy": true,
+              "Starbase Modules Food": true,
+              "Starbase Modules Minerals": true,
+              "Starbase Modules Trade": true,
+              "Starbases Energy": true,
+              "Starbases Food": true,
+              "Starbases Minerals": true,
+              "Starbases Trade": true,
+              "Station Gatherers Energy": true,
+              "Station Gatherers Food": true,
+              "Station Gatherers Minerals": true,
+              "Station Gatherers Trade": true,
+              "Station Observer Missions Energy": true,
+              "Station Observer Missions Food": true,
+              "Station Observer Missions Minerals": true,
+              "Station Observer Missions Trade": true,
+              "Station Observers Energy": true,
+              "Station Observers Food": true,
+              "Station Observers Minerals": true,
+              "Station Observers Trade": true,
+              "Station Researchers Energy": true,
+              "Station Researchers Food": true,
+              "Station Researchers Minerals": true,
+              "Station Researchers Trade": true,
+              "Strategic Resource Miners Energy": true,
+              "Strategic Resource Miners Food": true,
+              "Strategic Resource Miners Minerals": true,
+              "Strategic Resource Miners Trade": true,
+              "Strongholds Energy": true,
+              "Strongholds Food": true,
+              "Strongholds Minerals": true,
+              "Strongholds Trade": true,
+              "Technicians Energy": true,
+              "Technicians Food": true,
+              "Technicians Minerals": true,
+              "Technicians Trade": true,
+              "Trade Policy Energy": true,
+              "Trade Policy Food": true,
+              "Trade Policy Minerals": true,
+              "Trade Policy Trade": true,
+              "Traders Energy": true,
+              "Traders Food": true,
+              "Traders Minerals": true,
+              "Traders Trade": true,
+              "Worker Pops Energy": true,
+              "Worker Pops Food": true,
+              "Worker Pops Minerals": true,
+              "Worker Pops Trade": true
             },
             "indexByName": {},
             "renameByName": {}
@@ -775,5 +2454,5 @@
   "timezone": "browser",
   "title": "Empire Budget",
   "uid": "elsvtkf",
-  "version": 8
+  "version": 14
 }
