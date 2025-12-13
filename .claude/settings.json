@@ -1,9 +1,12 @@
 {
   "permissions": {
     "allow": [
+      "Bash(bun --help:*)",
+      "Bash(bun --version:*)",
       "Bash(cat:*)",
       "Bash(find:*)",
       "Bash(git add:*)",
+      "Bash(git checkout:*)",
       "Bash(git commit:*)",
       "Bash(jq:*)",
       "Bash(ls:*)",
@@ -16,6 +19,7 @@
       "Bash(npm run build)",
       "Bash(npm run db:validate-budget-schema:*)",
       "Bash(npm run graphql:codegen:*)",
+      "Bash(npm run test)",
       "Bash(npx eslint:*)",
       "Bash(npx graphql-codegen:*)",
       "Bash(npx prettier:*)",

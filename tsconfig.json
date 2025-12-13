@@ -29,7 +29,8 @@
     "strictNullChecks": true,
     "target": "esnext",
     "types": [
-      "node"
+      "node",
+      "bun"
     ]
   },
   "exclude": [

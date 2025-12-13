@@ -20,6 +20,14 @@ export default tseslint.config(
     ],
   },
   {
+    files: ['tests/**/*.test.ts', 'tests/**/*.spec.ts'],
+    rules: {
+      'n/no-missing-import': ['off'],
+      '@typescript-eslint/no-unsafe-return': ['off'],
+      '@typescript-eslint/no-unsafe-member-access': ['off'],
+    },
+  },
+  {
     languageOptions: {
       parserOptions: {
         project: ['tsconfig.json'],
