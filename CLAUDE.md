@@ -20,6 +20,9 @@ The repository is organized into the following main directories:
 - `migrations/` - Database migration files
 - `graphql/` - GraphQL schema definitions
 - `grafana/` - Grafana dashboard configurations
+- `tests/` - Test files and utilities
+  - `utils/` - Test utilities (database, server, fixtures)
+  - `fixtures/` - SQL fixture files for test data
 - `dist/` - Compiled TypeScript output
 - `.devcontainer/` - Development container configuration
 - `db-dump-data/` - Database dump files
@@ -69,6 +72,20 @@ Run formatting:
 
 ```bash
 cd agent && uv run ruff format
+```
+
+### Testing Commands
+
+Run all tests:
+
+```bash
+npm test
+```
+
+Run tests in watch mode:
+
+```bash
+npm test -- --watch
 ```
 
 ## Development Guidelines
@@ -376,6 +393,255 @@ GraphQL Query
             → Return result
 ```
 
+### Testing Framework
+
+The project uses end-to-end integration testing with complete database isolation, allowing tests to run in parallel without interference.
+
+**TL;DR**: Database-per-test isolation using Bun test runner. Each test gets its own PostgreSQL database with migrations.
+
+#### Testing Architecture
+
+##### Test Runner
+- **Framework**: Bun (built-in test runner)
+- **Test Files**: `tests/**/*.test.ts`
+- **Command**: `npm test` (uses `dotenvx` to load test environment)
+- **Execution**: Parallel by default, each test fully isolated
+
+##### Database Isolation Strategy
+- **Pattern**: Database-per-test
+- **Implementation**: Each test creates a unique PostgreSQL database using `crypto.randomUUID()`
+- **Database Naming**: `stellaris_test_{uuid}` with hyphens replaced by underscores
+- **Lifecycle**: Created in `beforeEach`, destroyed in `afterEach`
+- **Migrations**: Automatically run on each test database using `node-pg-migrate`
+- **Test Database Service**: Separate `db-test` PostgreSQL container in docker-compose
+
+##### Test Infrastructure Components
+
+###### 1. Test Database Manager (`tests/utils/testDatabase.ts`)
+
+Creates and destroys isolated test databases:
+
+```typescript
+const testDb = await createTestDatabase()
+// Returns: { pool: Pool, dbName: string, dbConfig: PoolConfig }
+
+await destroyTestDatabase(testDb)
+```
+
+**Features:**
+- Creates unique database with UUID-based name
+- Runs all migrations automatically
+- Provides dedicated connection pool
+- Cleanup ensures no test database leaks
+
+###### 2. Test Server Factory (`tests/utils/testServer.ts`)
+
+Creates Apollo Server configured for testing:
+
+```typescript
+const testServer = createTestServer(testDb)
+// Returns: { server, pool, cache, mockRedis, cleanup }
+```
+
+**Configuration:**
+- Uses test database pool
+- Mock Redis implementation (in-memory)
+- All production plugins (response cache, cache control)
+- Client release plugin (auto-releases connections)
+- No HTTP layer (uses `executeOperation` directly)
+
+###### 3. GraphQL Client Wrapper (`tests/utils/graphqlClient.ts`)
+
+Type-safe GraphQL query execution:
+
+```typescript
+const result = await executeQuerySimple<{
+  saves: { filename: string }[]
+}>(testServer, query, variables)
+// Returns: { data?: T, errors?: GraphQLFormattedError[] }
+```
+
+**Features:**
+- Creates proper GraphQL context per request
+- Includes DataLoaders and cache
+- Type-safe response with generics
+- Automatic client release via server plugin
+
+###### 4. Fixture Loader (`tests/utils/fixtures.ts`)
+
+Loads SQL fixtures into test database:
+
+```typescript
+await loadFixture(testDb.pool, 'saves/basic-save.sql')
+await loadFixtures(testDb.pool, ['saves/save1.sql', 'saves/save2.sql'])
+```
+
+**Fixture Pattern:**
+- Located in `tests/fixtures/`
+- Use subqueries for foreign key references
+- Sequential execution to maintain FK dependencies
+- Example: `(SELECT save_id FROM save WHERE filename = 'test.sav')`
+
+###### 5. Mock Redis (`tests/utils/mockRedis.ts`)
+
+In-memory Redis implementation:
+
+- Implements same interface as `ioredis`
+- Compatible with `RedisCache` wrapper
+- No external dependencies
+- Automatically cleared on cleanup
+
+#### Test Configuration
+
+**Environment File**: `.devcontainer/.env.db.test`
+
+```bash
+STELLARIS_TEST_DB_HOST=db-test
+STELLARIS_TEST_DB_PORT=5432
+STELLARIS_TEST_DB_USER=stellaris_test
+STELLARIS_TEST_DB_PASSWORD=stellaris_test
+STELLARIS_TEST_DB_ADMIN_DATABASE=stellaris_test_admin
+```
+
+**Docker Compose**: Separate test database service
+
+```yaml
+db-test:
+  image: postgres:18
+  container_name: stellaris-stats_db-test
+  env_file:
+    - .env.db.test
+  networks:
+    - stellaris-stats-db-test-network
+  volumes:
+    - db-test-data:/var/lib/postgresql
+```
+
+#### Writing Tests
+
+**Complete Test Example:**
+
+```typescript
+import { describe, it, expect, beforeEach, afterEach } from 'bun:test'
+import { createTestDatabase, destroyTestDatabase } from './utils/testDatabase.js'
+import { createTestServer } from './utils/testServer.js'
+import { executeQuerySimple } from './utils/graphqlClient.js'
+import { loadFixture } from './utils/fixtures.js'
+import type { TestDatabaseContext } from './utils/testDatabase.js'
+import type { TestServerContext } from './utils/testServer.js'
+
+describe('Feature Name', () => {
+  let testDb: TestDatabaseContext
+  let testServer: TestServerContext
+
+  beforeEach(async () => {
+    // Create isolated database and load test data
+    testDb = await createTestDatabase()
+    await loadFixture(testDb.pool, 'feature/test-data.sql')
+
+    // Create Apollo Server with test database
+    testServer = createTestServer(testDb)
+  })
+
+  afterEach(async () => {
+    // Clean up server and database
+    await testServer.cleanup()
+    await destroyTestDatabase(testDb)
+  })
+
+  it('performs expected behavior', async () => {
+    // Execute GraphQL query with type safety
+    const result = await executeQuerySimple<{
+      field: { subfield: string }
+    }>(
+      testServer,
+      `query { field { subfield } }`
+    )
+
+    // Assert results
+    expect(result.errors).toBeUndefined()
+    expect(result.data?.field.subfield).toBe('expected value')
+  })
+})
+```
+
+**Fixture File Example** (`tests/fixtures/feature/test-data.sql`):
+
+```sql
+-- Insert parent record
+INSERT INTO save (filename, name)
+VALUES ('test.sav', 'Test Empire');
+
+-- Insert child record with FK reference using subquery
+INSERT INTO gamestate (save_id, date, data)
+VALUES (
+  (SELECT save_id FROM save WHERE filename = 'test.sav'),
+  '2250-01-01',
+  '{}'::jsonb
+);
+```
+
+#### Testing Best Practices
+
+**Database Setup:**
+- Always create fresh database in `beforeEach`
+- Always destroy database in `afterEach`
+- Load fixtures after creating database
+- Use descriptive fixture file names reflecting test scenarios
+
+**GraphQL Queries:**
+- Use TypeScript generics for type-safe responses
+- Always check `result.errors` is undefined
+- Use optional chaining for data access (`result.data?.field`)
+- Request only the fields needed for assertions
+
+**Fixtures:**
+- Keep fixtures focused on specific test scenarios
+- Use subqueries for FK references (no hardcoded IDs)
+- Organize fixtures by feature/domain
+- Document complex data setups with SQL comments
+
+**Test Organization:**
+- Group related tests in `describe` blocks
+- Use descriptive test names following pattern: "returns/performs/validates X when Y"
+- One logical assertion per test when possible
+- Share setup via `beforeEach`, not between tests
+
+**Performance:**
+- Tests run in parallel by default (database-per-test enables this)
+- Each test takes ~200-400ms including database setup
+- Avoid unnecessary data in fixtures
+- Consider `--watch` mode for development
+
+#### Key Implementation Details
+
+**Context Creation Pattern:**
+```typescript
+const client = await pool.connect()
+const contextValue: GraphQLServerContext = {
+  client,
+  loaders: createDataLoaders(client),
+  cache
+}
+```
+
+**Client Lifecycle:**
+- Client acquired from pool per GraphQL request
+- Released automatically by server's `willSendResponse` plugin
+- No manual `client.release()` needed in tests
+- Tests must `await executeQuery` to ensure cleanup
+
+**Server vs Production:**
+- Test server has same plugins as production
+- Uses `executeOperation()` instead of HTTP
+- No `startStandaloneServer()` call
+- Context created per operation, not pre-configured
+
+**Database Naming Constraints:**
+- PostgreSQL identifiers use underscores not hyphens
+- UUID hyphens replaced: `randomUUID().replace(/-/g, '_')`
+- Format: `stellaris_test_550e8400_e29b_41d4_a716_446655440000`
+
 ## Libraries Reference
 
 ### TypeScript/Node.js Libraries
@@ -405,6 +671,8 @@ GraphQL Query
 - **prettier** (3.7.4) - Code formatter
 - **husky** (9.1.7) - Git hooks management
 - **lint-staged** (16.2.7) - Run linters on staged git files
+- **@types/bun** (1.3.4) - TypeScript definitions for Bun
+- **bun** (installed globally in dev container) - Fast JavaScript runtime and test runner
 
 ### Python Libraries
 
