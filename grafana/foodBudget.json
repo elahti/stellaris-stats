@@ -1,0 +1,1087 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.income.armies.food",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.colonies.food",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.commercialPacts.food",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryAgendas.food",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryBase.food",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryCivics.food",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryDessanu.food",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryEthic.food",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryPowerProjection.food",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryRuler.food",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.edicts.food",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderCommanders.food",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderOfficials.food",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderScientists.food",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructures.food",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresGrandArchive.food",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHabitat.food",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHyperRelay.food",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.migrationPacts.food",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.none.food",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalMiningDeposits.food",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalResearchDeposits.food",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.overlordSubsidy.food",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetArtisans.food",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBiologists.food",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildings.food",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsCloneVats.food",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsHabCapital.food",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStormTech.food",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStrongholds.food",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBureaucrats.food",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetCivilians.food",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetClerks.food",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDeposits.food",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistricts.food",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsCities.food",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsFarming.food",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsGenerator.food",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsHab.food",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsMining.food",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDoctors.food",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEnergyThralls.food",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEngineers.food",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEntertainers.food",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetFarmers.food",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobs.food",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobsProductive.food",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMaintenanceDrones.food",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMetallurgists.food",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMiners.food",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPhysicists.food",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPoliticians.food",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPopAssemblers.food",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPops.food",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetResourceDeficit.food",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetSrMiners.food",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTechnician.food",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTraders.food",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryCivilians.food",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryDrones.food",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryRulers.food",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategorySpecialists.food",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.situations.food",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObserverMissions.food",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObservers.food",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query FoodIncome($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        income {\n          armies {\n            food\n          }\n          colonies {\n            food\n          }\n          commercialPacts {\n            food\n          }\n          countryAgendas {\n            food\n          }\n          countryBase {\n            food\n          }\n          countryCivics {\n            food\n          }\n          countryDessanu {\n            food\n          }\n          countryEthic {\n            food\n          }\n          countryPowerProjection {\n            food\n          }\n          countryRuler {\n            food\n          }\n          edicts {\n            food\n          }\n          leaderCommanders {\n            food\n          }\n          leaderOfficials {\n            food\n          }\n          leaderScientists {\n            food\n          }\n          megastructures {\n            food\n          }\n          megastructuresGrandArchive {\n            food\n          }\n          megastructuresHabitat {\n            food\n          }\n          megastructuresHyperRelay {\n            food\n          }\n          migrationPacts {\n            food\n          }\n          none {\n            food\n          }\n          orbitalMiningDeposits {\n            food\n          }\n          orbitalResearchDeposits {\n            food\n          }\n          overlordSubsidy {\n            food\n          }\n          planetArtisans {\n            food\n          }\n          planetBiologists {\n            food\n          }\n          planetBuildings {\n            food\n          }\n          planetBuildingsCloneVats {\n            food\n          }\n          planetBuildingsHabCapital {\n            food\n          }\n          planetBuildingsStormTech {\n            food\n          }\n          planetBuildingsStrongholds {\n            food\n          }\n          planetBureaucrats {\n            food\n          }\n          planetCivilians {\n            food\n          }\n          planetClerks {\n            food\n          }\n          planetDeposits {\n            food\n          }\n          planetDistricts {\n            food\n          }\n          planetDistrictsCities {\n            food\n          }\n          planetDistrictsFarming {\n            food\n          }\n          planetDistrictsGenerator {\n            food\n          }\n          planetDistrictsHab {\n            food\n          }\n          planetDistrictsMining {\n            food\n          }\n          planetDoctors {\n            food\n          }\n          planetEnergyThralls {\n            food\n          }\n          planetEngineers {\n            food\n          }\n          planetEntertainers {\n            food\n          }\n          planetFarmers {\n            food\n          }\n          planetJobs {\n            food\n          }\n          planetJobsProductive {\n            food\n          }\n          planetMaintenanceDrones {\n            food\n          }\n          planetMetallurgists {\n            food\n          }\n          planetMiners {\n            food\n          }\n          planetPhysicists {\n            food\n          }\n          planetPoliticians {\n            food\n          }\n          planetPopAssemblers {\n            food\n          }\n          planetPops {\n            food\n          }\n          planetResourceDeficit {\n            food\n          }\n          planetSrMiners {\n            food\n          }\n          planetTechnician {\n            food\n          }\n          planetTraders {\n            food\n          }\n          popCategoryCivilians {\n            food\n          }\n          popCategoryDrones {\n            food\n          }\n          popCategoryRulers {\n            food\n          }\n          popCategorySpecialists {\n            food\n          }\n          popCategoryWorkers {\n            food\n          }\n          popFactions {\n            food\n          }\n          shipComponents {\n            food\n          }\n          ships {\n            food\n          }\n          situations {\n            food\n          }\n          starbaseBuildings {\n            food\n          }\n          starbaseModules {\n            food\n          }\n          starbases {\n            food\n          }\n          stationGatherers {\n            food\n          }\n          stationObserverMissions {\n            food\n          }\n          stationObservers {\n            food\n          }\n          stationResearchers {\n            food\n          }\n          tradePolicy {\n            food\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Food Income",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.expenses.armies.food",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.colonies.food",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.commercialPacts.food",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryAgendas.food",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryBase.food",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryCivics.food",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryDessanu.food",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryEthic.food",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryPowerProjection.food",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryRuler.food",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.edicts.food",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderCommanders.food",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderOfficials.food",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderScientists.food",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructures.food",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresGrandArchive.food",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHabitat.food",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHyperRelay.food",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.migrationPacts.food",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.none.food",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalMiningDeposits.food",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalResearchDeposits.food",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.overlordSubsidy.food",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetArtisans.food",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBiologists.food",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildings.food",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsCloneVats.food",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsHabCapital.food",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStormTech.food",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStrongholds.food",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBureaucrats.food",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetCivilians.food",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetClerks.food",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDeposits.food",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistricts.food",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsCities.food",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsFarming.food",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsGenerator.food",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsHab.food",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsMining.food",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDoctors.food",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEnergyThralls.food",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEngineers.food",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEntertainers.food",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetFarmers.food",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobs.food",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobsProductive.food",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMaintenanceDrones.food",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMetallurgists.food",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMiners.food",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPhysicists.food",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPoliticians.food",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPopAssemblers.food",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPops.food",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetResourceDeficit.food",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetSrMiners.food",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTechnician.food",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTraders.food",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryCivilians.food",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryDrones.food",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryRulers.food",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategorySpecialists.food",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.situations.food",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObserverMissions.food",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObservers.food",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query FoodExpenses($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        expenses {\n          armies {\n            food\n          }\n          colonies {\n            food\n          }\n          commercialPacts {\n            food\n          }\n          countryAgendas {\n            food\n          }\n          countryBase {\n            food\n          }\n          countryCivics {\n            food\n          }\n          countryDessanu {\n            food\n          }\n          countryEthic {\n            food\n          }\n          countryPowerProjection {\n            food\n          }\n          countryRuler {\n            food\n          }\n          edicts {\n            food\n          }\n          leaderCommanders {\n            food\n          }\n          leaderOfficials {\n            food\n          }\n          leaderScientists {\n            food\n          }\n          megastructures {\n            food\n          }\n          megastructuresGrandArchive {\n            food\n          }\n          megastructuresHabitat {\n            food\n          }\n          megastructuresHyperRelay {\n            food\n          }\n          migrationPacts {\n            food\n          }\n          none {\n            food\n          }\n          orbitalMiningDeposits {\n            food\n          }\n          orbitalResearchDeposits {\n            food\n          }\n          overlordSubsidy {\n            food\n          }\n          planetArtisans {\n            food\n          }\n          planetBiologists {\n            food\n          }\n          planetBuildings {\n            food\n          }\n          planetBuildingsCloneVats {\n            food\n          }\n          planetBuildingsHabCapital {\n            food\n          }\n          planetBuildingsStormTech {\n            food\n          }\n          planetBuildingsStrongholds {\n            food\n          }\n          planetBureaucrats {\n            food\n          }\n          planetCivilians {\n            food\n          }\n          planetClerks {\n            food\n          }\n          planetDeposits {\n            food\n          }\n          planetDistricts {\n            food\n          }\n          planetDistrictsCities {\n            food\n          }\n          planetDistrictsFarming {\n            food\n          }\n          planetDistrictsGenerator {\n            food\n          }\n          planetDistrictsHab {\n            food\n          }\n          planetDistrictsMining {\n            food\n          }\n          planetDoctors {\n            food\n          }\n          planetEnergyThralls {\n            food\n          }\n          planetEngineers {\n            food\n          }\n          planetEntertainers {\n            food\n          }\n          planetFarmers {\n            food\n          }\n          planetJobs {\n            food\n          }\n          planetJobsProductive {\n            food\n          }\n          planetMaintenanceDrones {\n            food\n          }\n          planetMetallurgists {\n            food\n          }\n          planetMiners {\n            food\n          }\n          planetPhysicists {\n            food\n          }\n          planetPoliticians {\n            food\n          }\n          planetPopAssemblers {\n            food\n          }\n          planetPops {\n            food\n          }\n          planetResourceDeficit {\n            food\n          }\n          planetSrMiners {\n            food\n          }\n          planetTechnician {\n            food\n          }\n          planetTraders {\n            food\n          }\n          popCategoryCivilians {\n            food\n          }\n          popCategoryDrones {\n            food\n          }\n          popCategoryRulers {\n            food\n          }\n          popCategorySpecialists {\n            food\n          }\n          popCategoryWorkers {\n            food\n          }\n          popFactions {\n            food\n          }\n          shipComponents {\n            food\n          }\n          ships {\n            food\n          }\n          situations {\n            food\n          }\n          starbaseBuildings {\n            food\n          }\n          starbaseModules {\n            food\n          }\n          starbases {\n            food\n          }\n          stationGatherers {\n            food\n          }\n          stationObserverMissions {\n            food\n          }\n          stationObservers {\n            food\n          }\n          stationResearchers {\n            food\n          }\n          tradePolicy {\n            food\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Food Expenses",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "preload": true,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "commonwealthofman_1251622081",
+          "value": "commonwealthofman_1251622081"
+        },
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "ef6cnm49brb40d"
+        },
+        "definition": "",
+        "description": "",
+        "label": "Save Filename",
+        "name": "saveFilename",
+        "options": [],
+        "query": {
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "data.saves",
+            "source": "url",
+            "type": "graphql",
+            "url": "",
+            "url_options": {
+              "body_content_type": "application/json",
+              "body_graphql_query": "query Filenames {\n  saves {\n    filename\n  }\n}\n",
+              "body_type": "graphql",
+              "data": "",
+              "method": "POST"
+            }
+          },
+          "query": "",
+          "queryType": "infinity"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2199-12-31T22:00:00.000Z",
+    "to": "2499-12-31T22:00:00.000Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Food Budget",
+  "uid": "foodbudget",
+  "version": 1
+}
