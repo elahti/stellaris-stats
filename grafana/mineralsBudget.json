@@ -1,0 +1,1087 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.income.armies.minerals",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.colonies.minerals",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.commercialPacts.minerals",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryAgendas.minerals",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryBase.minerals",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryCivics.minerals",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryDessanu.minerals",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryEthic.minerals",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryPowerProjection.minerals",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.countryRuler.minerals",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.edicts.minerals",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderCommanders.minerals",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderOfficials.minerals",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.leaderScientists.minerals",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructures.minerals",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresGrandArchive.minerals",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHabitat.minerals",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.megastructuresHyperRelay.minerals",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.migrationPacts.minerals",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.none.minerals",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalMiningDeposits.minerals",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.orbitalResearchDeposits.minerals",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.overlordSubsidy.minerals",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetArtisans.minerals",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBiologists.minerals",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildings.minerals",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsCloneVats.minerals",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsHabCapital.minerals",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStormTech.minerals",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBuildingsStrongholds.minerals",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetBureaucrats.minerals",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetCivilians.minerals",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetClerks.minerals",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDeposits.minerals",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistricts.minerals",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsCities.minerals",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsFarming.minerals",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsGenerator.minerals",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsHab.minerals",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDistrictsMining.minerals",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetDoctors.minerals",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEnergyThralls.minerals",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEngineers.minerals",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetEntertainers.minerals",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetFarmers.minerals",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobs.minerals",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetJobsProductive.minerals",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMaintenanceDrones.minerals",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMetallurgists.minerals",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetMiners.minerals",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPhysicists.minerals",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPoliticians.minerals",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPopAssemblers.minerals",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetPops.minerals",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetResourceDeficit.minerals",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetSrMiners.minerals",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTechnician.minerals",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.planetTraders.minerals",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryCivilians.minerals",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryDrones.minerals",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryRulers.minerals",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategorySpecialists.minerals",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.situations.minerals",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObserverMissions.minerals",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationObservers.minerals",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.income.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query MineralsIncome($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        income {\n          armies {\n            minerals\n          }\n          colonies {\n            minerals\n          }\n          commercialPacts {\n            minerals\n          }\n          countryAgendas {\n            minerals\n          }\n          countryBase {\n            minerals\n          }\n          countryCivics {\n            minerals\n          }\n          countryDessanu {\n            minerals\n          }\n          countryEthic {\n            minerals\n          }\n          countryPowerProjection {\n            minerals\n          }\n          countryRuler {\n            minerals\n          }\n          edicts {\n            minerals\n          }\n          leaderCommanders {\n            minerals\n          }\n          leaderOfficials {\n            minerals\n          }\n          leaderScientists {\n            minerals\n          }\n          megastructures {\n            minerals\n          }\n          megastructuresGrandArchive {\n            minerals\n          }\n          megastructuresHabitat {\n            minerals\n          }\n          megastructuresHyperRelay {\n            minerals\n          }\n          migrationPacts {\n            minerals\n          }\n          none {\n            minerals\n          }\n          orbitalMiningDeposits {\n            minerals\n          }\n          orbitalResearchDeposits {\n            minerals\n          }\n          overlordSubsidy {\n            minerals\n          }\n          planetArtisans {\n            minerals\n          }\n          planetBiologists {\n            minerals\n          }\n          planetBuildings {\n            minerals\n          }\n          planetBuildingsCloneVats {\n            minerals\n          }\n          planetBuildingsHabCapital {\n            minerals\n          }\n          planetBuildingsStormTech {\n            minerals\n          }\n          planetBuildingsStrongholds {\n            minerals\n          }\n          planetBureaucrats {\n            minerals\n          }\n          planetCivilians {\n            minerals\n          }\n          planetClerks {\n            minerals\n          }\n          planetDeposits {\n            minerals\n          }\n          planetDistricts {\n            minerals\n          }\n          planetDistrictsCities {\n            minerals\n          }\n          planetDistrictsFarming {\n            minerals\n          }\n          planetDistrictsGenerator {\n            minerals\n          }\n          planetDistrictsHab {\n            minerals\n          }\n          planetDistrictsMining {\n            minerals\n          }\n          planetDoctors {\n            minerals\n          }\n          planetEnergyThralls {\n            minerals\n          }\n          planetEngineers {\n            minerals\n          }\n          planetEntertainers {\n            minerals\n          }\n          planetFarmers {\n            minerals\n          }\n          planetJobs {\n            minerals\n          }\n          planetJobsProductive {\n            minerals\n          }\n          planetMaintenanceDrones {\n            minerals\n          }\n          planetMetallurgists {\n            minerals\n          }\n          planetMiners {\n            minerals\n          }\n          planetPhysicists {\n            minerals\n          }\n          planetPoliticians {\n            minerals\n          }\n          planetPopAssemblers {\n            minerals\n          }\n          planetPops {\n            minerals\n          }\n          planetResourceDeficit {\n            minerals\n          }\n          planetSrMiners {\n            minerals\n          }\n          planetTechnician {\n            minerals\n          }\n          planetTraders {\n            minerals\n          }\n          popCategoryCivilians {\n            minerals\n          }\n          popCategoryDrones {\n            minerals\n          }\n          popCategoryRulers {\n            minerals\n          }\n          popCategorySpecialists {\n            minerals\n          }\n          popCategoryWorkers {\n            minerals\n          }\n          popFactions {\n            minerals\n          }\n          shipComponents {\n            minerals\n          }\n          ships {\n            minerals\n          }\n          situations {\n            minerals\n          }\n          starbaseBuildings {\n            minerals\n          }\n          starbaseModules {\n            minerals\n          }\n          starbases {\n            minerals\n          }\n          stationGatherers {\n            minerals\n          }\n          stationObserverMissions {\n            minerals\n          }\n          stationObservers {\n            minerals\n          }\n          stationResearchers {\n            minerals\n          }\n          tradePolicy {\n            minerals\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Minerals Income",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.expenses.armies.minerals",
+              "text": "Armies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.colonies.minerals",
+              "text": "Colonies",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.commercialPacts.minerals",
+              "text": "Commercial Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryAgendas.minerals",
+              "text": "Country Agendas",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryBase.minerals",
+              "text": "Country Base",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryCivics.minerals",
+              "text": "Country Civics",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryDessanu.minerals",
+              "text": "Country Dessanu",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryEthic.minerals",
+              "text": "Country Ethic",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryPowerProjection.minerals",
+              "text": "Power Projection",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.countryRuler.minerals",
+              "text": "Country Ruler",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.edicts.minerals",
+              "text": "Edicts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderCommanders.minerals",
+              "text": "Commander Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderOfficials.minerals",
+              "text": "Official Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.leaderScientists.minerals",
+              "text": "Scientist Leaders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructures.minerals",
+              "text": "Megastructures",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresGrandArchive.minerals",
+              "text": "Megastructures Grand Archive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHabitat.minerals",
+              "text": "Megastructures Habitat",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.megastructuresHyperRelay.minerals",
+              "text": "Megastructures Hyper Relay",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.migrationPacts.minerals",
+              "text": "Migration Pacts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.none.minerals",
+              "text": "None",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalMiningDeposits.minerals",
+              "text": "Orbital Mining Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.orbitalResearchDeposits.minerals",
+              "text": "Orbital Research Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.overlordSubsidy.minerals",
+              "text": "Overlord Subsidy",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetArtisans.minerals",
+              "text": "Artisans",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBiologists.minerals",
+              "text": "Biologists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildings.minerals",
+              "text": "Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsCloneVats.minerals",
+              "text": "Buildings Clone Vats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsHabCapital.minerals",
+              "text": "Buildings Hab Capital",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStormTech.minerals",
+              "text": "Buildings Storm Tech",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBuildingsStrongholds.minerals",
+              "text": "Strongholds",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetBureaucrats.minerals",
+              "text": "Bureucrats",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetCivilians.minerals",
+              "text": "Civilians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetClerks.minerals",
+              "text": "Clerks",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDeposits.minerals",
+              "text": "Deposits",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistricts.minerals",
+              "text": "Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsCities.minerals",
+              "text": "City Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsFarming.minerals",
+              "text": "Farming Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsGenerator.minerals",
+              "text": "Generator Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsHab.minerals",
+              "text": "Hab Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDistrictsMining.minerals",
+              "text": "Mining Districts",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetDoctors.minerals",
+              "text": "Doctors",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEnergyThralls.minerals",
+              "text": "Energy Thralls",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEngineers.minerals",
+              "text": "Engineers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetEntertainers.minerals",
+              "text": "Entertainers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetFarmers.minerals",
+              "text": "Farmers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobs.minerals",
+              "text": "Jobs",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetJobsProductive.minerals",
+              "text": "Jobs Productive",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMaintenanceDrones.minerals",
+              "text": "Maintenance Drones",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMetallurgists.minerals",
+              "text": "Metallurgists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetMiners.minerals",
+              "text": "Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPhysicists.minerals",
+              "text": "Physicists",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPoliticians.minerals",
+              "text": "Politicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPopAssemblers.minerals",
+              "text": "Pop Assemblers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetPops.minerals",
+              "text": "Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetResourceDeficit.minerals",
+              "text": "Planet Resource Deficit",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetSrMiners.minerals",
+              "text": "Strategic Resource Miners",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTechnician.minerals",
+              "text": "Technicians",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.planetTraders.minerals",
+              "text": "Traders",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryCivilians.minerals",
+              "text": "Civilian Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryDrones.minerals",
+              "text": "Drone Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryRulers.minerals",
+              "text": "Ruler Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategorySpecialists.minerals",
+              "text": "Specialist Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popCategoryWorkers",
+              "text": "Worker Pops",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.popFactions",
+              "text": "Factions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.shipComponents",
+              "text": "Ship Components",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.ships",
+              "text": "Ships",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.situations.minerals",
+              "text": "Situations",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseBuildings",
+              "text": "Starbase Buildings",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbaseModules",
+              "text": "Starbase Modules",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.starbases",
+              "text": "Starbases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationGatherers",
+              "text": "Station Gatherers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObserverMissions.minerals",
+              "text": "Station Observer Missions",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationObservers.minerals",
+              "text": "Station Observers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.stationResearchers",
+              "text": "Station Researchers",
+              "type": "number"
+            },
+            {
+              "selector": "budget.expenses.tradePolicy",
+              "text": "Trade Policy",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query MineralsExpenses($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        expenses {\n          armies {\n            minerals\n          }\n          colonies {\n            minerals\n          }\n          commercialPacts {\n            minerals\n          }\n          countryAgendas {\n            minerals\n          }\n          countryBase {\n            minerals\n          }\n          countryCivics {\n            minerals\n          }\n          countryDessanu {\n            minerals\n          }\n          countryEthic {\n            minerals\n          }\n          countryPowerProjection {\n            minerals\n          }\n          countryRuler {\n            minerals\n          }\n          edicts {\n            minerals\n          }\n          leaderCommanders {\n            minerals\n          }\n          leaderOfficials {\n            minerals\n          }\n          leaderScientists {\n            minerals\n          }\n          megastructures {\n            minerals\n          }\n          megastructuresGrandArchive {\n            minerals\n          }\n          megastructuresHabitat {\n            minerals\n          }\n          megastructuresHyperRelay {\n            minerals\n          }\n          migrationPacts {\n            minerals\n          }\n          none {\n            minerals\n          }\n          orbitalMiningDeposits {\n            minerals\n          }\n          orbitalResearchDeposits {\n            minerals\n          }\n          overlordSubsidy {\n            minerals\n          }\n          planetArtisans {\n            minerals\n          }\n          planetBiologists {\n            minerals\n          }\n          planetBuildings {\n            minerals\n          }\n          planetBuildingsCloneVats {\n            minerals\n          }\n          planetBuildingsHabCapital {\n            minerals\n          }\n          planetBuildingsStormTech {\n            minerals\n          }\n          planetBuildingsStrongholds {\n            minerals\n          }\n          planetBureaucrats {\n            minerals\n          }\n          planetCivilians {\n            minerals\n          }\n          planetClerks {\n            minerals\n          }\n          planetDeposits {\n            minerals\n          }\n          planetDistricts {\n            minerals\n          }\n          planetDistrictsCities {\n            minerals\n          }\n          planetDistrictsFarming {\n            minerals\n          }\n          planetDistrictsGenerator {\n            minerals\n          }\n          planetDistrictsHab {\n            minerals\n          }\n          planetDistrictsMining {\n            minerals\n          }\n          planetDoctors {\n            minerals\n          }\n          planetEnergyThralls {\n            minerals\n          }\n          planetEngineers {\n            minerals\n          }\n          planetEntertainers {\n            minerals\n          }\n          planetFarmers {\n            minerals\n          }\n          planetJobs {\n            minerals\n          }\n          planetJobsProductive {\n            minerals\n          }\n          planetMaintenanceDrones {\n            minerals\n          }\n          planetMetallurgists {\n            minerals\n          }\n          planetMiners {\n            minerals\n          }\n          planetPhysicists {\n            minerals\n          }\n          planetPoliticians {\n            minerals\n          }\n          planetPopAssemblers {\n            minerals\n          }\n          planetPops {\n            minerals\n          }\n          planetResourceDeficit {\n            minerals\n          }\n          planetSrMiners {\n            minerals\n          }\n          planetTechnician {\n            minerals\n          }\n          planetTraders {\n            minerals\n          }\n          popCategoryCivilians {\n            minerals\n          }\n          popCategoryDrones {\n            minerals\n          }\n          popCategoryRulers {\n            minerals\n          }\n          popCategorySpecialists {\n            minerals\n          }\n          popCategoryWorkers {\n            minerals\n          }\n          popFactions {\n            minerals\n          }\n          shipComponents {\n            minerals\n          }\n          ships {\n            minerals\n          }\n          situations {\n            minerals\n          }\n          starbaseBuildings {\n            minerals\n          }\n          starbaseModules {\n            minerals\n          }\n          starbases {\n            minerals\n          }\n          stationGatherers {\n            minerals\n          }\n          stationObserverMissions {\n            minerals\n          }\n          stationObservers {\n            minerals\n          }\n          stationResearchers {\n            minerals\n          }\n          tradePolicy {\n            minerals\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Minerals Expenses",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "preload": true,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "commonwealthofman_1251622081",
+          "value": "commonwealthofman_1251622081"
+        },
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "ef6cnm49brb40d"
+        },
+        "definition": "",
+        "description": "",
+        "label": "Save Filename",
+        "name": "saveFilename",
+        "options": [],
+        "query": {
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "data.saves",
+            "source": "url",
+            "type": "graphql",
+            "url": "",
+            "url_options": {
+              "body_content_type": "application/json",
+              "body_graphql_query": "query Filenames {\n  saves {\n    filename\n  }\n}\n",
+              "body_type": "graphql",
+              "data": "",
+              "method": "POST"
+            }
+          },
+          "query": "",
+          "queryType": "infinity"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2199-12-31T22:00:00.000Z",
+    "to": "2499-12-31T22:00:00.000Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Minerals Budget",
+  "uid": "mineralsbudget",
+  "version": 1
+}
