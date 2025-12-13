@@ -262,11 +262,37 @@ When creating new Grafana visualizations, follow these patterns established in e
 2. **Calculate Aggregates**: Use `calculateField` with `mode: "reduceRow"` and `reducer: "sum"` to create aggregate metrics
 3. **Organize Fields**: Use `organize` transformation with `excludeByName` to hide individual detail columns and show only aggregates
 
-**Color Coding (Standard Resource Colors):**
+**Color Coding (Resource Colors by Panel):**
+
+The Empire Budget dashboard (`grafana/empireBudget.json`) uses the following color scheme for resources:
+
+**Basic Resources:**
 - Energy: `#F2CC0C` (Yellow)
 - Minerals: `#E02F44` (Red)
 - Food: `#73BF69` (Green)
 - Trade: `#8AB8FF` (Blue)
+
+**Advanced Resources:**
+- Alloys: `#FF69B4` (Hot Pink)
+- Consumer Goods: `#8B4513` (Saddle Brown)
+
+**Strategic Resources:**
+- Exotic Gases: `#73BF69` (Green)
+- Rare Crystals: `#F2CC0C` (Yellow)
+- Volatile Motes: `#8B4513` (Saddle Brown)
+
+**Rare Resources:**
+- Zro: `#5DADE2` (Light Blue)
+- Dark Matter: `#9B59B6` (Purple)
+- Living Metal: `#616161` (Gray)
+- Nanites: `#BDBDBD` (Light Gray)
+
+**Abstract Resources:**
+- Influence: `#A64D79` (Purple)
+- Unity: `#56B4E9` (Turquoise)
+- Physics Research: `#3274A1` (Blue)
+- Engineering Research: `#F2CC0C` (Yellow)
+- Society Research: `#73BF69` (Green)
 
 Apply colors using field overrides with `matcher.id: "byName"` and `properties.id: "color"` with `mode: "fixed"`.
 
