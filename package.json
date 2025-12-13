@@ -52,6 +52,7 @@
     "graphql-server:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/graphql/graphqlServerMain.ts",
     "graphql:codegen": "graphql-codegen --config codegen.yml && prettier -w src/graphql/generated",
     "lint": "eslint .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "dotenvx run -f .devcontainer/.env.db.test -- bun test"
   }
 }

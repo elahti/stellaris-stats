@@ -39,6 +39,7 @@
   ],
   "include": [
     "src/**/*",
-    "migrations/**/*"
+    "migrations/**/*",
+    "tests/**/*"
   ]
 }
