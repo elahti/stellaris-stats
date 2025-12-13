@@ -11,16 +11,25 @@ import {
 
 const emptyBudgetEntry = (): BudgetEntry => ({
   alloys: 0,
+  astralThreads: 0,
   consumerGoods: 0,
   energy: 0,
   engineeringResearch: 0,
+  exoticGases: 0,
   food: 0,
   influence: 0,
   minerals: 0,
+  minorArtifacts: 0,
+  nanites: 0,
   physicsResearch: 0,
+  rareCrystals: 0,
   societyResearch: 0,
+  srDarkMatter: 0,
+  srLivingMetal: 0,
+  srZro: 0,
   trade: 0,
   unity: 0,
+  volatileMotes: 0,
 })
 
 const emptyBudgetCategory = (): BudgetCategory => ({
@@ -79,16 +88,25 @@ SELECT
   bc.category_type,
   bc.category_name,
   be.alloys,
+  be.astral_threads,
   be.consumer_goods,
   be.energy,
   be.engineering_research,
+  be.exotic_gases,
   be.food,
   be.influence,
   be.minerals,
+  be.minor_artifacts,
+  be.nanites,
   be.physics_research,
+  be.rare_crystals,
   be.society_research,
+  be.sr_dark_matter,
+  be.sr_living_metal,
+  be.sr_zro,
   be.trade,
-  be.unity
+  be.unity,
+  be.volatile_motes
 FROM
   budget_category bc
   JOIN budget_entry be ON bc.budget_entry_id = be.budget_entry_id

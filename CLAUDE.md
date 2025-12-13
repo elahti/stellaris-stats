@@ -205,6 +205,25 @@ After making Python changes:
 
 ### GraphQL & Grafana
 
+#### Schema and Database Query Synchronization
+
+When modifying the GraphQL schema at `graphql/schema.graphql`, you MUST update corresponding database queries to maintain consistency:
+
+**BudgetEntry Schema Changes:**
+
+If you add, remove, or rename fields in the `BudgetEntry` type, you MUST update `src/db/budget.ts`:
+
+1. **Update `emptyBudgetEntry()` function** - Add/remove/rename fields with default value of `0`
+2. **Update `getBudgetBatchQuery` SQL** - Add/remove/rename corresponding database columns (using snake_case)
+   - The query automatically converts snake_case column names to camelCase via `selectRows()`
+   - Example mappings: `astral_threads` → `astralThreads`, `exotic_gases` → `exoticGases`
+
+**Important Notes:**
+- Database column names use snake_case (e.g., `be.astral_threads`)
+- GraphQL schema fields use camelCase (e.g., `astralThreads`)
+- The `selectRows()` function in `src/db.ts` automatically converts snake_case to camelCase
+- The `BudgetCategoryRow` schema extends `BudgetEntrySchema()`, which is auto-generated from GraphQL schema
+
 #### Schema and Dashboard Synchronization
 
 When modifying the GraphQL schema at `graphql/schema.graphql`, check if Grafana dashboards need corresponding updates:
