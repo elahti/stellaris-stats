@@ -5474,6 +5474,2383 @@
         }
       ],
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Zro Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#5DADE2",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Dark Matter Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#9B59B6",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Living Metal Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#616161",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Nanites Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#BDBDBD",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last",
+            "max",
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.balance.armies.srZro",
+              "text": "Armies Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.srDarkMatter",
+              "text": "Armies Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.srLivingMetal",
+              "text": "Armies Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.nanites",
+              "text": "Armies Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.srZro",
+              "text": "Colonies Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.srDarkMatter",
+              "text": "Colonies Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.srLivingMetal",
+              "text": "Colonies Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.nanites",
+              "text": "Colonies Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.srZro",
+              "text": "Commercial Pacts Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.srDarkMatter",
+              "text": "Commercial Pacts Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.srLivingMetal",
+              "text": "Commercial Pacts Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.nanites",
+              "text": "Commercial Pacts Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.srZro",
+              "text": "Country Agendas Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.srDarkMatter",
+              "text": "Country Agendas Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.srLivingMetal",
+              "text": "Country Agendas Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.nanites",
+              "text": "Country Agendas Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.srZro",
+              "text": "Country Base Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.srDarkMatter",
+              "text": "Country Base Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.srLivingMetal",
+              "text": "Country Base Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.nanites",
+              "text": "Country Base Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.srZro",
+              "text": "Country Civics Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.srDarkMatter",
+              "text": "Country Civics Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.srLivingMetal",
+              "text": "Country Civics Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.nanites",
+              "text": "Country Civics Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.srZro",
+              "text": "Country Dessanu Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.srDarkMatter",
+              "text": "Country Dessanu Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.srLivingMetal",
+              "text": "Country Dessanu Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.nanites",
+              "text": "Country Dessanu Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.srZro",
+              "text": "Country Ethic Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.srDarkMatter",
+              "text": "Country Ethic Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.srLivingMetal",
+              "text": "Country Ethic Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.nanites",
+              "text": "Country Ethic Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryPowerProjection.srZro",
+              "text": "Power Projection Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryPowerProjection.srDarkMatter",
+              "text": "Power Projection Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryPowerProjection.srLivingMetal",
+              "text": "Power Projection Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryPowerProjection.nanites",
+              "text": "Power Projection Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.srZro",
+              "text": "Country Ruler Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.srDarkMatter",
+              "text": "Country Ruler Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.srLivingMetal",
+              "text": "Country Ruler Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.nanites",
+              "text": "Country Ruler Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.srZro",
+              "text": "Edicts Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.srDarkMatter",
+              "text": "Edicts Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.srLivingMetal",
+              "text": "Edicts Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.nanites",
+              "text": "Edicts Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderCommanders.srZro",
+              "text": "Commander Leaders Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderCommanders.srDarkMatter",
+              "text": "Commander Leaders Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderCommanders.srLivingMetal",
+              "text": "Commander Leaders Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderCommanders.nanites",
+              "text": "Commander Leaders Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderOfficials.srZro",
+              "text": "Official Leaders Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderOfficials.srDarkMatter",
+              "text": "Official Leaders Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderOfficials.srLivingMetal",
+              "text": "Official Leaders Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderOfficials.nanites",
+              "text": "Official Leaders Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderScientists.srZro",
+              "text": "Scientist Leaders Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderScientists.srDarkMatter",
+              "text": "Scientist Leaders Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderScientists.srLivingMetal",
+              "text": "Scientist Leaders Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderScientists.nanites",
+              "text": "Scientist Leaders Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.srZro",
+              "text": "Megastructures Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.srDarkMatter",
+              "text": "Megastructures Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.srLivingMetal",
+              "text": "Megastructures Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.nanites",
+              "text": "Megastructures Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.srZro",
+              "text": "Megastructures Grand Archive Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.srDarkMatter",
+              "text": "Megastructures Grand Archive Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.srLivingMetal",
+              "text": "Megastructures Grand Archive Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.nanites",
+              "text": "Megastructures Grand Archive Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.srZro",
+              "text": "Megastructures Habitat Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.srDarkMatter",
+              "text": "Megastructures Habitat Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.srLivingMetal",
+              "text": "Megastructures Habitat Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.nanites",
+              "text": "Megastructures Habitat Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.srZro",
+              "text": "Megastructures Hyper Relay Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.srDarkMatter",
+              "text": "Megastructures Hyper Relay Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.srLivingMetal",
+              "text": "Megastructures Hyper Relay Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.nanites",
+              "text": "Megastructures Hyper Relay Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.srZro",
+              "text": "Migration Pacts Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.srDarkMatter",
+              "text": "Migration Pacts Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.srLivingMetal",
+              "text": "Migration Pacts Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.nanites",
+              "text": "Migration Pacts Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.srZro",
+              "text": "None Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.srDarkMatter",
+              "text": "None Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.srLivingMetal",
+              "text": "None Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.nanites",
+              "text": "None Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.srZro",
+              "text": "Orbital Mining Deposits Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.srDarkMatter",
+              "text": "Orbital Mining Deposits Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.srLivingMetal",
+              "text": "Orbital Mining Deposits Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.nanites",
+              "text": "Orbital Mining Deposits Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.srZro",
+              "text": "Orbital Research Deposits Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.srDarkMatter",
+              "text": "Orbital Research Deposits Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.srLivingMetal",
+              "text": "Orbital Research Deposits Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.nanites",
+              "text": "Orbital Research Deposits Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.srZro",
+              "text": "Overlord Subsidy Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.srDarkMatter",
+              "text": "Overlord Subsidy Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.srLivingMetal",
+              "text": "Overlord Subsidy Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.nanites",
+              "text": "Overlord Subsidy Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.srZro",
+              "text": "Artisans Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.srDarkMatter",
+              "text": "Artisans Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.srLivingMetal",
+              "text": "Artisans Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.nanites",
+              "text": "Artisans Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.srZro",
+              "text": "Biologists Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.srDarkMatter",
+              "text": "Biologists Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.srLivingMetal",
+              "text": "Biologists Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.nanites",
+              "text": "Biologists Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.srZro",
+              "text": "Buildings Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.srDarkMatter",
+              "text": "Buildings Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.srLivingMetal",
+              "text": "Buildings Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.nanites",
+              "text": "Buildings Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.srZro",
+              "text": "Buildings Clone Vats Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.srDarkMatter",
+              "text": "Buildings Clone Vats Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.srLivingMetal",
+              "text": "Buildings Clone Vats Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.nanites",
+              "text": "Buildings Clone Vats Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.srZro",
+              "text": "Buildings Hab Capital Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.srDarkMatter",
+              "text": "Buildings Hab Capital Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.srLivingMetal",
+              "text": "Buildings Hab Capital Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.nanites",
+              "text": "Buildings Hab Capital Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.srZro",
+              "text": "Buildings Storm Tech Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.srDarkMatter",
+              "text": "Buildings Storm Tech Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.srLivingMetal",
+              "text": "Buildings Storm Tech Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.nanites",
+              "text": "Buildings Storm Tech Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.srZro",
+              "text": "Strongholds Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.srDarkMatter",
+              "text": "Strongholds Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.srLivingMetal",
+              "text": "Strongholds Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.nanites",
+              "text": "Strongholds Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.srZro",
+              "text": "Bureucrats Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.srDarkMatter",
+              "text": "Bureucrats Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.srLivingMetal",
+              "text": "Bureucrats Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.nanites",
+              "text": "Bureucrats Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.srZro",
+              "text": "Civilians Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.srDarkMatter",
+              "text": "Civilians Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.srLivingMetal",
+              "text": "Civilians Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.nanites",
+              "text": "Civilians Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.srZro",
+              "text": "Clerks Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.srDarkMatter",
+              "text": "Clerks Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.srLivingMetal",
+              "text": "Clerks Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.nanites",
+              "text": "Clerks Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.srZro",
+              "text": "Deposits Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.srDarkMatter",
+              "text": "Deposits Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.srLivingMetal",
+              "text": "Deposits Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.nanites",
+              "text": "Deposits Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.srZro",
+              "text": "Districts Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.srDarkMatter",
+              "text": "Districts Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.srLivingMetal",
+              "text": "Districts Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.nanites",
+              "text": "Districts Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.srZro",
+              "text": "City Districts Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.srDarkMatter",
+              "text": "City Districts Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.srLivingMetal",
+              "text": "City Districts Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.nanites",
+              "text": "City Districts Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.srZro",
+              "text": "Farming Districts Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.srDarkMatter",
+              "text": "Farming Districts Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.srLivingMetal",
+              "text": "Farming Districts Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.nanites",
+              "text": "Farming Districts Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.srZro",
+              "text": "Generator Districts Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.srDarkMatter",
+              "text": "Generator Districts Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.srLivingMetal",
+              "text": "Generator Districts Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.nanites",
+              "text": "Generator Districts Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.srZro",
+              "text": "Hab Districts Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.srDarkMatter",
+              "text": "Hab Districts Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.srLivingMetal",
+              "text": "Hab Districts Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.nanites",
+              "text": "Hab Districts Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.srZro",
+              "text": "Mining Districts Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.srDarkMatter",
+              "text": "Mining Districts Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.srLivingMetal",
+              "text": "Mining Districts Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.nanites",
+              "text": "Mining Districts Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.srZro",
+              "text": "Doctors Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.srDarkMatter",
+              "text": "Doctors Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.srLivingMetal",
+              "text": "Doctors Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.nanites",
+              "text": "Doctors Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.srZro",
+              "text": "Energy Thralls Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.srDarkMatter",
+              "text": "Energy Thralls Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.srLivingMetal",
+              "text": "Energy Thralls Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.nanites",
+              "text": "Energy Thralls Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.srZro",
+              "text": "Engineers Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.srDarkMatter",
+              "text": "Engineers Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.srLivingMetal",
+              "text": "Engineers Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.nanites",
+              "text": "Engineers Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.srZro",
+              "text": "Entertainers Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.srDarkMatter",
+              "text": "Entertainers Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.srLivingMetal",
+              "text": "Entertainers Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.nanites",
+              "text": "Entertainers Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.srZro",
+              "text": "Farmers Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.srDarkMatter",
+              "text": "Farmers Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.srLivingMetal",
+              "text": "Farmers Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.nanites",
+              "text": "Farmers Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.srZro",
+              "text": "Jobs Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.srDarkMatter",
+              "text": "Jobs Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.srLivingMetal",
+              "text": "Jobs Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.nanites",
+              "text": "Jobs Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.srZro",
+              "text": "Jobs Productive Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.srDarkMatter",
+              "text": "Jobs Productive Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.srLivingMetal",
+              "text": "Jobs Productive Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.nanites",
+              "text": "Jobs Productive Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.srZro",
+              "text": "Maintenance Drones Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.srDarkMatter",
+              "text": "Maintenance Drones Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.srLivingMetal",
+              "text": "Maintenance Drones Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.nanites",
+              "text": "Maintenance Drones Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.srZro",
+              "text": "Metallurgists Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.srDarkMatter",
+              "text": "Metallurgists Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.srLivingMetal",
+              "text": "Metallurgists Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.nanites",
+              "text": "Metallurgists Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.srZro",
+              "text": "Miners Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.srDarkMatter",
+              "text": "Miners Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.srLivingMetal",
+              "text": "Miners Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.nanites",
+              "text": "Miners Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.srZro",
+              "text": "Physicists Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.srDarkMatter",
+              "text": "Physicists Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.srLivingMetal",
+              "text": "Physicists Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.nanites",
+              "text": "Physicists Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.srZro",
+              "text": "Politicians Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.srDarkMatter",
+              "text": "Politicians Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.srLivingMetal",
+              "text": "Politicians Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.nanites",
+              "text": "Politicians Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.srZro",
+              "text": "Pop Assemblers Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.srDarkMatter",
+              "text": "Pop Assemblers Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.srLivingMetal",
+              "text": "Pop Assemblers Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.nanites",
+              "text": "Pop Assemblers Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.srZro",
+              "text": "Pops Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.srDarkMatter",
+              "text": "Pops Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.srLivingMetal",
+              "text": "Pops Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.nanites",
+              "text": "Pops Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.srZro",
+              "text": "Planet Resource Deficit Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.srDarkMatter",
+              "text": "Planet Resource Deficit Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.srLivingMetal",
+              "text": "Planet Resource Deficit Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.nanites",
+              "text": "Planet Resource Deficit Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.srZro",
+              "text": "Strategic Resource Miners Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.srDarkMatter",
+              "text": "Strategic Resource Miners Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.srLivingMetal",
+              "text": "Strategic Resource Miners Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.nanites",
+              "text": "Strategic Resource Miners Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.srZro",
+              "text": "Technicians Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.srDarkMatter",
+              "text": "Technicians Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.srLivingMetal",
+              "text": "Technicians Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.nanites",
+              "text": "Technicians Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.srZro",
+              "text": "Traders Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.srDarkMatter",
+              "text": "Traders Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.srLivingMetal",
+              "text": "Traders Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.nanites",
+              "text": "Traders Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.srZro",
+              "text": "Civilian Pops Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.srDarkMatter",
+              "text": "Civilian Pops Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.srLivingMetal",
+              "text": "Civilian Pops Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.nanites",
+              "text": "Civilian Pops Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.srZro",
+              "text": "Drone Pops Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.srDarkMatter",
+              "text": "Drone Pops Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.srLivingMetal",
+              "text": "Drone Pops Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.nanites",
+              "text": "Drone Pops Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.srZro",
+              "text": "Ruler Pops Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.srDarkMatter",
+              "text": "Ruler Pops Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.srLivingMetal",
+              "text": "Ruler Pops Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.nanites",
+              "text": "Ruler Pops Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.srZro",
+              "text": "Specialist Pops Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.srDarkMatter",
+              "text": "Specialist Pops Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.srLivingMetal",
+              "text": "Specialist Pops Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.nanites",
+              "text": "Specialist Pops Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.srZro",
+              "text": "Worker Pops Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.srDarkMatter",
+              "text": "Worker Pops Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.srLivingMetal",
+              "text": "Worker Pops Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.nanites",
+              "text": "Worker Pops Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.srZro",
+              "text": "Factions Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.srDarkMatter",
+              "text": "Factions Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.srLivingMetal",
+              "text": "Factions Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.nanites",
+              "text": "Factions Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.srZro",
+              "text": "Ship Components Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.srDarkMatter",
+              "text": "Ship Components Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.srLivingMetal",
+              "text": "Ship Components Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.nanites",
+              "text": "Ship Components Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.srZro",
+              "text": "Ships Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.srDarkMatter",
+              "text": "Ships Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.srLivingMetal",
+              "text": "Ships Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.nanites",
+              "text": "Ships Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.srZro",
+              "text": "Situations Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.srDarkMatter",
+              "text": "Situations Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.srLivingMetal",
+              "text": "Situations Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.nanites",
+              "text": "Situations Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.srZro",
+              "text": "Starbase Buildings Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.srDarkMatter",
+              "text": "Starbase Buildings Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.srLivingMetal",
+              "text": "Starbase Buildings Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.nanites",
+              "text": "Starbase Buildings Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.srZro",
+              "text": "Starbase Modules Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.srDarkMatter",
+              "text": "Starbase Modules Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.srLivingMetal",
+              "text": "Starbase Modules Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.nanites",
+              "text": "Starbase Modules Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.srZro",
+              "text": "Starbases Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.srDarkMatter",
+              "text": "Starbases Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.srLivingMetal",
+              "text": "Starbases Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.nanites",
+              "text": "Starbases Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.srZro",
+              "text": "Station Gatherers Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.srDarkMatter",
+              "text": "Station Gatherers Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.srLivingMetal",
+              "text": "Station Gatherers Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.nanites",
+              "text": "Station Gatherers Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.srZro",
+              "text": "Station Observer Missions Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.srDarkMatter",
+              "text": "Station Observer Missions Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.srLivingMetal",
+              "text": "Station Observer Missions Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.nanites",
+              "text": "Station Observer Missions Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.srZro",
+              "text": "Station Observers Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.srDarkMatter",
+              "text": "Station Observers Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.srLivingMetal",
+              "text": "Station Observers Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.nanites",
+              "text": "Station Observers Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.srZro",
+              "text": "Station Researchers Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.srDarkMatter",
+              "text": "Station Researchers Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.srLivingMetal",
+              "text": "Station Researchers Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.nanites",
+              "text": "Station Researchers Nanites",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.srZro",
+              "text": "Trade Policy Zro",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.srDarkMatter",
+              "text": "Trade Policy Dark Matter",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.srLivingMetal",
+              "text": "Trade Policy Living Metal",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.nanites",
+              "text": "Trade Policy Nanites",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query RareResources($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        balance {\n          armies {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          colonies {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          commercialPacts {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          countryAgendas {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          countryBase {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          countryCivics {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          countryDessanu {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          countryEthic {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          countryPowerProjection {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          countryRuler {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          edicts {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          leaderCommanders {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          leaderOfficials {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          leaderScientists {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          megastructures {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          megastructuresGrandArchive {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          megastructuresHabitat {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          megastructuresHyperRelay {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          migrationPacts {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          none {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          orbitalMiningDeposits {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          orbitalResearchDeposits {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          overlordSubsidy {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetArtisans {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetBiologists {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetBuildings {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetBuildingsCloneVats {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetBuildingsHabCapital {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetBuildingsStormTech {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetBuildingsStrongholds {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetBureaucrats {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetCivilians {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetClerks {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetDeposits {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetDistricts {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetDistrictsCities {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetDistrictsFarming {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetDistrictsGenerator {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetDistrictsHab {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetDistrictsMining {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetDoctors {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetEnergyThralls {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetEngineers {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetEntertainers {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetFarmers {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetJobs {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetJobsProductive {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetMaintenanceDrones {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetMetallurgists {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetMiners {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetPhysicists {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetPoliticians {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetPopAssemblers {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetPops {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetResourceDeficit {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetSrMiners {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetTechnician {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          planetTraders {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          popCategoryCivilians {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          popCategoryDrones {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          popCategoryRulers {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          popCategorySpecialists {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          popCategoryWorkers {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          popFactions {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          shipComponents {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          ships {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          situations {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          starbaseBuildings {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          starbaseModules {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          starbases {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          stationGatherers {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          stationObserverMissions {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          stationObservers {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          stationResearchers {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n          tradePolicy {\n            srZro\n            srDarkMatter\n            srLivingMetal\n            nanites\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Rare Resources",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Zro Balance",
+            "binary": {
+              "left": "Armies Zro",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Zro"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Zro",
+                "Colonies Zro",
+                "Commercial Pacts Zro",
+                "Country Agendas Zro",
+                "Country Base Zro",
+                "Country Civics Zro",
+                "Country Dessanu Zro",
+                "Country Ethic Zro",
+                "Power Projection Zro",
+                "Country Ruler Zro",
+                "Edicts Zro",
+                "Commander Leaders Zro",
+                "Official Leaders Zro",
+                "Scientist Leaders Zro",
+                "Megastructures Zro",
+                "Megastructures Grand Archive Zro",
+                "Megastructures Habitat Zro",
+                "Megastructures Hyper Relay Zro",
+                "Migration Pacts Zro",
+                "None Zro",
+                "Orbital Mining Deposits Zro",
+                "Orbital Research Deposits Zro",
+                "Overlord Subsidy Zro",
+                "Artisans Zro",
+                "Biologists Zro",
+                "Buildings Zro",
+                "Buildings Clone Vats Zro",
+                "Buildings Hab Capital Zro",
+                "Buildings Storm Tech Zro",
+                "Strongholds Zro",
+                "Bureucrats Zro",
+                "Civilians Zro",
+                "Clerks Zro",
+                "Deposits Zro",
+                "Districts Zro",
+                "City Districts Zro",
+                "Farming Districts Zro",
+                "Generator Districts Zro",
+                "Hab Districts Zro",
+                "Mining Districts Zro",
+                "Doctors Zro",
+                "Energy Thralls Zro",
+                "Engineers Zro",
+                "Entertainers Zro",
+                "Farmers Zro",
+                "Jobs Zro",
+                "Jobs Productive Zro",
+                "Maintenance Drones Zro",
+                "Metallurgists Zro",
+                "Miners Zro",
+                "Physicists Zro",
+                "Politicians Zro",
+                "Pop Assemblers Zro",
+                "Pops Zro",
+                "Planet Resource Deficit Zro",
+                "Strategic Resource Miners Zro",
+                "Technicians Zro",
+                "Traders Zro",
+                "Civilian Pops Zro",
+                "Drone Pops Zro",
+                "Ruler Pops Zro",
+                "Specialist Pops Zro",
+                "Worker Pops Zro",
+                "Factions Zro",
+                "Ship Components Zro",
+                "Ships Zro",
+                "Situations Zro",
+                "Starbase Buildings Zro",
+                "Starbase Modules Zro",
+                "Starbases Zro",
+                "Station Gatherers Zro",
+                "Station Observer Missions Zro",
+                "Station Observers Zro",
+                "Station Researchers Zro",
+                "Trade Policy Zro"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Dark Matter Balance",
+            "binary": {
+              "left": "Armies Dark Matter",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Dark Matter"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Dark Matter",
+                "Colonies Dark Matter",
+                "Commercial Pacts Dark Matter",
+                "Country Agendas Dark Matter",
+                "Country Base Dark Matter",
+                "Country Civics Dark Matter",
+                "Country Dessanu Dark Matter",
+                "Country Ethic Dark Matter",
+                "Power Projection Dark Matter",
+                "Country Ruler Dark Matter",
+                "Edicts Dark Matter",
+                "Commander Leaders Dark Matter",
+                "Official Leaders Dark Matter",
+                "Scientist Leaders Dark Matter",
+                "Megastructures Dark Matter",
+                "Megastructures Grand Archive Dark Matter",
+                "Megastructures Habitat Dark Matter",
+                "Megastructures Hyper Relay Dark Matter",
+                "Migration Pacts Dark Matter",
+                "None Dark Matter",
+                "Orbital Mining Deposits Dark Matter",
+                "Orbital Research Deposits Dark Matter",
+                "Overlord Subsidy Dark Matter",
+                "Artisans Dark Matter",
+                "Biologists Dark Matter",
+                "Buildings Dark Matter",
+                "Buildings Clone Vats Dark Matter",
+                "Buildings Hab Capital Dark Matter",
+                "Buildings Storm Tech Dark Matter",
+                "Strongholds Dark Matter",
+                "Bureucrats Dark Matter",
+                "Civilians Dark Matter",
+                "Clerks Dark Matter",
+                "Deposits Dark Matter",
+                "Districts Dark Matter",
+                "City Districts Dark Matter",
+                "Farming Districts Dark Matter",
+                "Generator Districts Dark Matter",
+                "Hab Districts Dark Matter",
+                "Mining Districts Dark Matter",
+                "Doctors Dark Matter",
+                "Energy Thralls Dark Matter",
+                "Engineers Dark Matter",
+                "Entertainers Dark Matter",
+                "Farmers Dark Matter",
+                "Jobs Dark Matter",
+                "Jobs Productive Dark Matter",
+                "Maintenance Drones Dark Matter",
+                "Metallurgists Dark Matter",
+                "Miners Dark Matter",
+                "Physicists Dark Matter",
+                "Politicians Dark Matter",
+                "Pop Assemblers Dark Matter",
+                "Pops Dark Matter",
+                "Planet Resource Deficit Dark Matter",
+                "Strategic Resource Miners Dark Matter",
+                "Technicians Dark Matter",
+                "Traders Dark Matter",
+                "Civilian Pops Dark Matter",
+                "Drone Pops Dark Matter",
+                "Ruler Pops Dark Matter",
+                "Specialist Pops Dark Matter",
+                "Worker Pops Dark Matter",
+                "Factions Dark Matter",
+                "Ship Components Dark Matter",
+                "Ships Dark Matter",
+                "Situations Dark Matter",
+                "Starbase Buildings Dark Matter",
+                "Starbase Modules Dark Matter",
+                "Starbases Dark Matter",
+                "Station Gatherers Dark Matter",
+                "Station Observer Missions Dark Matter",
+                "Station Observers Dark Matter",
+                "Station Researchers Dark Matter",
+                "Trade Policy Dark Matter"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Living Metal Balance",
+            "binary": {
+              "left": "Armies Living Metal",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Living Metal"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Living Metal",
+                "Colonies Living Metal",
+                "Commercial Pacts Living Metal",
+                "Country Agendas Living Metal",
+                "Country Base Living Metal",
+                "Country Civics Living Metal",
+                "Country Dessanu Living Metal",
+                "Country Ethic Living Metal",
+                "Power Projection Living Metal",
+                "Country Ruler Living Metal",
+                "Edicts Living Metal",
+                "Commander Leaders Living Metal",
+                "Official Leaders Living Metal",
+                "Scientist Leaders Living Metal",
+                "Megastructures Living Metal",
+                "Megastructures Grand Archive Living Metal",
+                "Megastructures Habitat Living Metal",
+                "Megastructures Hyper Relay Living Metal",
+                "Migration Pacts Living Metal",
+                "None Living Metal",
+                "Orbital Mining Deposits Living Metal",
+                "Orbital Research Deposits Living Metal",
+                "Overlord Subsidy Living Metal",
+                "Artisans Living Metal",
+                "Biologists Living Metal",
+                "Buildings Living Metal",
+                "Buildings Clone Vats Living Metal",
+                "Buildings Hab Capital Living Metal",
+                "Buildings Storm Tech Living Metal",
+                "Strongholds Living Metal",
+                "Bureucrats Living Metal",
+                "Civilians Living Metal",
+                "Clerks Living Metal",
+                "Deposits Living Metal",
+                "Districts Living Metal",
+                "City Districts Living Metal",
+                "Farming Districts Living Metal",
+                "Generator Districts Living Metal",
+                "Hab Districts Living Metal",
+                "Mining Districts Living Metal",
+                "Doctors Living Metal",
+                "Energy Thralls Living Metal",
+                "Engineers Living Metal",
+                "Entertainers Living Metal",
+                "Farmers Living Metal",
+                "Jobs Living Metal",
+                "Jobs Productive Living Metal",
+                "Maintenance Drones Living Metal",
+                "Metallurgists Living Metal",
+                "Miners Living Metal",
+                "Physicists Living Metal",
+                "Politicians Living Metal",
+                "Pop Assemblers Living Metal",
+                "Pops Living Metal",
+                "Planet Resource Deficit Living Metal",
+                "Strategic Resource Miners Living Metal",
+                "Technicians Living Metal",
+                "Traders Living Metal",
+                "Civilian Pops Living Metal",
+                "Drone Pops Living Metal",
+                "Ruler Pops Living Metal",
+                "Specialist Pops Living Metal",
+                "Worker Pops Living Metal",
+                "Factions Living Metal",
+                "Ship Components Living Metal",
+                "Ships Living Metal",
+                "Situations Living Metal",
+                "Starbase Buildings Living Metal",
+                "Starbase Modules Living Metal",
+                "Starbases Living Metal",
+                "Station Gatherers Living Metal",
+                "Station Observer Missions Living Metal",
+                "Station Observers Living Metal",
+                "Station Researchers Living Metal",
+                "Trade Policy Living Metal"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Nanites Balance",
+            "binary": {
+              "left": "Armies Nanites",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Nanites"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Nanites",
+                "Colonies Nanites",
+                "Commercial Pacts Nanites",
+                "Country Agendas Nanites",
+                "Country Base Nanites",
+                "Country Civics Nanites",
+                "Country Dessanu Nanites",
+                "Country Ethic Nanites",
+                "Power Projection Nanites",
+                "Country Ruler Nanites",
+                "Edicts Nanites",
+                "Commander Leaders Nanites",
+                "Official Leaders Nanites",
+                "Scientist Leaders Nanites",
+                "Megastructures Nanites",
+                "Megastructures Grand Archive Nanites",
+                "Megastructures Habitat Nanites",
+                "Megastructures Hyper Relay Nanites",
+                "Migration Pacts Nanites",
+                "None Nanites",
+                "Orbital Mining Deposits Nanites",
+                "Orbital Research Deposits Nanites",
+                "Overlord Subsidy Nanites",
+                "Artisans Nanites",
+                "Biologists Nanites",
+                "Buildings Nanites",
+                "Buildings Clone Vats Nanites",
+                "Buildings Hab Capital Nanites",
+                "Buildings Storm Tech Nanites",
+                "Strongholds Nanites",
+                "Bureucrats Nanites",
+                "Civilians Nanites",
+                "Clerks Nanites",
+                "Deposits Nanites",
+                "Districts Nanites",
+                "City Districts Nanites",
+                "Farming Districts Nanites",
+                "Generator Districts Nanites",
+                "Hab Districts Nanites",
+                "Mining Districts Nanites",
+                "Doctors Nanites",
+                "Energy Thralls Nanites",
+                "Engineers Nanites",
+                "Entertainers Nanites",
+                "Farmers Nanites",
+                "Jobs Nanites",
+                "Jobs Productive Nanites",
+                "Maintenance Drones Nanites",
+                "Metallurgists Nanites",
+                "Miners Nanites",
+                "Physicists Nanites",
+                "Politicians Nanites",
+                "Pop Assemblers Nanites",
+                "Pops Nanites",
+                "Planet Resource Deficit Nanites",
+                "Strategic Resource Miners Nanites",
+                "Technicians Nanites",
+                "Traders Nanites",
+                "Civilian Pops Nanites",
+                "Drone Pops Nanites",
+                "Ruler Pops Nanites",
+                "Specialist Pops Nanites",
+                "Worker Pops Nanites",
+                "Factions Nanites",
+                "Ship Components Nanites",
+                "Ships Nanites",
+                "Situations Nanites",
+                "Starbase Buildings Nanites",
+                "Starbase Modules Nanites",
+                "Starbases Nanites",
+                "Station Gatherers Nanites",
+                "Station Observer Missions Nanites",
+                "Station Observers Nanites",
+                "Station Researchers Nanites",
+                "Trade Policy Nanites"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Armies Dark Matter": true,
+              "Armies Living Metal": true,
+              "Armies Nanites": true,
+              "Armies Zro": true,
+              "Artisans Dark Matter": true,
+              "Artisans Living Metal": true,
+              "Artisans Nanites": true,
+              "Artisans Zro": true,
+              "Biologists Dark Matter": true,
+              "Biologists Living Metal": true,
+              "Biologists Nanites": true,
+              "Biologists Zro": true,
+              "Buildings Clone Vats Dark Matter": true,
+              "Buildings Clone Vats Living Metal": true,
+              "Buildings Clone Vats Nanites": true,
+              "Buildings Clone Vats Zro": true,
+              "Buildings Dark Matter": true,
+              "Buildings Hab Capital Dark Matter": true,
+              "Buildings Hab Capital Living Metal": true,
+              "Buildings Hab Capital Nanites": true,
+              "Buildings Hab Capital Zro": true,
+              "Buildings Living Metal": true,
+              "Buildings Nanites": true,
+              "Buildings Storm Tech Dark Matter": true,
+              "Buildings Storm Tech Living Metal": true,
+              "Buildings Storm Tech Nanites": true,
+              "Buildings Storm Tech Zro": true,
+              "Buildings Zro": true,
+              "Bureucrats Dark Matter": true,
+              "Bureucrats Living Metal": true,
+              "Bureucrats Nanites": true,
+              "Bureucrats Zro": true,
+              "City Districts Dark Matter": true,
+              "City Districts Living Metal": true,
+              "City Districts Nanites": true,
+              "City Districts Zro": true,
+              "Civilian Pops Dark Matter": true,
+              "Civilian Pops Living Metal": true,
+              "Civilian Pops Nanites": true,
+              "Civilian Pops Zro": true,
+              "Civilians Dark Matter": true,
+              "Civilians Living Metal": true,
+              "Civilians Nanites": true,
+              "Civilians Zro": true,
+              "Clerks Dark Matter": true,
+              "Clerks Living Metal": true,
+              "Clerks Nanites": true,
+              "Clerks Zro": true,
+              "Colonies Dark Matter": true,
+              "Colonies Living Metal": true,
+              "Colonies Nanites": true,
+              "Colonies Zro": true,
+              "Commander Leaders Dark Matter": true,
+              "Commander Leaders Living Metal": true,
+              "Commander Leaders Nanites": true,
+              "Commander Leaders Zro": true,
+              "Commercial Pacts Dark Matter": true,
+              "Commercial Pacts Living Metal": true,
+              "Commercial Pacts Nanites": true,
+              "Commercial Pacts Zro": true,
+              "Country Agendas Dark Matter": true,
+              "Country Agendas Living Metal": true,
+              "Country Agendas Nanites": true,
+              "Country Agendas Zro": true,
+              "Country Base Dark Matter": true,
+              "Country Base Living Metal": true,
+              "Country Base Nanites": true,
+              "Country Base Zro": true,
+              "Country Civics Dark Matter": true,
+              "Country Civics Living Metal": true,
+              "Country Civics Nanites": true,
+              "Country Civics Zro": true,
+              "Country Dessanu Dark Matter": true,
+              "Country Dessanu Living Metal": true,
+              "Country Dessanu Nanites": true,
+              "Country Dessanu Zro": true,
+              "Country Ethic Dark Matter": true,
+              "Country Ethic Living Metal": true,
+              "Country Ethic Nanites": true,
+              "Country Ethic Zro": true,
+              "Country Ruler Dark Matter": true,
+              "Country Ruler Living Metal": true,
+              "Country Ruler Nanites": true,
+              "Country Ruler Zro": true,
+              "Deposits Dark Matter": true,
+              "Deposits Living Metal": true,
+              "Deposits Nanites": true,
+              "Deposits Zro": true,
+              "Districts Dark Matter": true,
+              "Districts Living Metal": true,
+              "Districts Nanites": true,
+              "Districts Zro": true,
+              "Doctors Dark Matter": true,
+              "Doctors Living Metal": true,
+              "Doctors Nanites": true,
+              "Doctors Zro": true,
+              "Drone Pops Dark Matter": true,
+              "Drone Pops Living Metal": true,
+              "Drone Pops Nanites": true,
+              "Drone Pops Zro": true,
+              "Edicts Dark Matter": true,
+              "Edicts Living Metal": true,
+              "Edicts Nanites": true,
+              "Edicts Zro": true,
+              "Energy Thralls Dark Matter": true,
+              "Energy Thralls Living Metal": true,
+              "Energy Thralls Nanites": true,
+              "Energy Thralls Zro": true,
+              "Engineers Dark Matter": true,
+              "Engineers Living Metal": true,
+              "Engineers Nanites": true,
+              "Engineers Zro": true,
+              "Entertainers Dark Matter": true,
+              "Entertainers Living Metal": true,
+              "Entertainers Nanites": true,
+              "Entertainers Zro": true,
+              "Factions Dark Matter": true,
+              "Factions Living Metal": true,
+              "Factions Nanites": true,
+              "Factions Zro": true,
+              "Farmers Dark Matter": true,
+              "Farmers Living Metal": true,
+              "Farmers Nanites": true,
+              "Farmers Zro": true,
+              "Farming Districts Dark Matter": true,
+              "Farming Districts Living Metal": true,
+              "Farming Districts Nanites": true,
+              "Farming Districts Zro": true,
+              "Generator Districts Dark Matter": true,
+              "Generator Districts Living Metal": true,
+              "Generator Districts Nanites": true,
+              "Generator Districts Zro": true,
+              "Hab Districts Dark Matter": true,
+              "Hab Districts Living Metal": true,
+              "Hab Districts Nanites": true,
+              "Hab Districts Zro": true,
+              "Jobs Dark Matter": true,
+              "Jobs Living Metal": true,
+              "Jobs Nanites": true,
+              "Jobs Productive Dark Matter": true,
+              "Jobs Productive Living Metal": true,
+              "Jobs Productive Nanites": true,
+              "Jobs Productive Zro": true,
+              "Jobs Zro": true,
+              "Maintenance Drones Dark Matter": true,
+              "Maintenance Drones Living Metal": true,
+              "Maintenance Drones Nanites": true,
+              "Maintenance Drones Zro": true,
+              "Megastructures Dark Matter": true,
+              "Megastructures Grand Archive Dark Matter": true,
+              "Megastructures Grand Archive Living Metal": true,
+              "Megastructures Grand Archive Nanites": true,
+              "Megastructures Grand Archive Zro": true,
+              "Megastructures Habitat Dark Matter": true,
+              "Megastructures Habitat Living Metal": true,
+              "Megastructures Habitat Nanites": true,
+              "Megastructures Habitat Zro": true,
+              "Megastructures Hyper Relay Dark Matter": true,
+              "Megastructures Hyper Relay Living Metal": true,
+              "Megastructures Hyper Relay Nanites": true,
+              "Megastructures Hyper Relay Zro": true,
+              "Megastructures Living Metal": true,
+              "Megastructures Nanites": true,
+              "Megastructures Zro": true,
+              "Metallurgists Dark Matter": true,
+              "Metallurgists Living Metal": true,
+              "Metallurgists Nanites": true,
+              "Metallurgists Zro": true,
+              "Migration Pacts Dark Matter": true,
+              "Migration Pacts Living Metal": true,
+              "Migration Pacts Nanites": true,
+              "Migration Pacts Zro": true,
+              "Miners Dark Matter": true,
+              "Miners Living Metal": true,
+              "Miners Nanites": true,
+              "Miners Zro": true,
+              "Mining Districts Dark Matter": true,
+              "Mining Districts Living Metal": true,
+              "Mining Districts Nanites": true,
+              "Mining Districts Zro": true,
+              "None Dark Matter": true,
+              "None Living Metal": true,
+              "None Nanites": true,
+              "None Zro": true,
+              "Official Leaders Dark Matter": true,
+              "Official Leaders Living Metal": true,
+              "Official Leaders Nanites": true,
+              "Official Leaders Zro": true,
+              "Orbital Mining Deposits Dark Matter": true,
+              "Orbital Mining Deposits Living Metal": true,
+              "Orbital Mining Deposits Nanites": true,
+              "Orbital Mining Deposits Zro": true,
+              "Orbital Research Deposits Dark Matter": true,
+              "Orbital Research Deposits Living Metal": true,
+              "Orbital Research Deposits Nanites": true,
+              "Orbital Research Deposits Zro": true,
+              "Overlord Subsidy Dark Matter": true,
+              "Overlord Subsidy Living Metal": true,
+              "Overlord Subsidy Nanites": true,
+              "Overlord Subsidy Zro": true,
+              "Physicists Dark Matter": true,
+              "Physicists Living Metal": true,
+              "Physicists Nanites": true,
+              "Physicists Zro": true,
+              "Planet Resource Deficit Dark Matter": true,
+              "Planet Resource Deficit Living Metal": true,
+              "Planet Resource Deficit Nanites": true,
+              "Planet Resource Deficit Zro": true,
+              "Politicians Dark Matter": true,
+              "Politicians Living Metal": true,
+              "Politicians Nanites": true,
+              "Politicians Zro": true,
+              "Pop Assemblers Dark Matter": true,
+              "Pop Assemblers Living Metal": true,
+              "Pop Assemblers Nanites": true,
+              "Pop Assemblers Zro": true,
+              "Pops Dark Matter": true,
+              "Pops Living Metal": true,
+              "Pops Nanites": true,
+              "Pops Zro": true,
+              "Power Projection Dark Matter": true,
+              "Power Projection Living Metal": true,
+              "Power Projection Nanites": true,
+              "Power Projection Zro": true,
+              "Ruler Pops Dark Matter": true,
+              "Ruler Pops Living Metal": true,
+              "Ruler Pops Nanites": true,
+              "Ruler Pops Zro": true,
+              "Scientist Leaders Dark Matter": true,
+              "Scientist Leaders Living Metal": true,
+              "Scientist Leaders Nanites": true,
+              "Scientist Leaders Zro": true,
+              "Ship Components Dark Matter": true,
+              "Ship Components Living Metal": true,
+              "Ship Components Nanites": true,
+              "Ship Components Zro": true,
+              "Ships Dark Matter": true,
+              "Ships Living Metal": true,
+              "Ships Nanites": true,
+              "Ships Zro": true,
+              "Situations Dark Matter": true,
+              "Situations Living Metal": true,
+              "Situations Nanites": true,
+              "Situations Zro": true,
+              "Specialist Pops Dark Matter": true,
+              "Specialist Pops Living Metal": true,
+              "Specialist Pops Nanites": true,
+              "Specialist Pops Zro": true,
+              "Starbase Buildings Dark Matter": true,
+              "Starbase Buildings Living Metal": true,
+              "Starbase Buildings Nanites": true,
+              "Starbase Buildings Zro": true,
+              "Starbase Modules Dark Matter": true,
+              "Starbase Modules Living Metal": true,
+              "Starbase Modules Nanites": true,
+              "Starbase Modules Zro": true,
+              "Starbases Dark Matter": true,
+              "Starbases Living Metal": true,
+              "Starbases Nanites": true,
+              "Starbases Zro": true,
+              "Station Gatherers Dark Matter": true,
+              "Station Gatherers Living Metal": true,
+              "Station Gatherers Nanites": true,
+              "Station Gatherers Zro": true,
+              "Station Observer Missions Dark Matter": true,
+              "Station Observer Missions Living Metal": true,
+              "Station Observer Missions Nanites": true,
+              "Station Observer Missions Zro": true,
+              "Station Observers Dark Matter": true,
+              "Station Observers Living Metal": true,
+              "Station Observers Nanites": true,
+              "Station Observers Zro": true,
+              "Station Researchers Dark Matter": true,
+              "Station Researchers Living Metal": true,
+              "Station Researchers Nanites": true,
+              "Station Researchers Zro": true,
+              "Strategic Resource Miners Dark Matter": true,
+              "Strategic Resource Miners Living Metal": true,
+              "Strategic Resource Miners Nanites": true,
+              "Strategic Resource Miners Zro": true,
+              "Strongholds Dark Matter": true,
+              "Strongholds Living Metal": true,
+              "Strongholds Nanites": true,
+              "Strongholds Zro": true,
+              "Technicians Dark Matter": true,
+              "Technicians Living Metal": true,
+              "Technicians Nanites": true,
+              "Technicians Zro": true,
+              "Trade Policy Dark Matter": true,
+              "Trade Policy Living Metal": true,
+              "Trade Policy Nanites": true,
+              "Trade Policy Zro": true,
+              "Traders Dark Matter": true,
+              "Traders Living Metal": true,
+              "Traders Nanites": true,
+              "Traders Zro": true,
+              "Worker Pops Dark Matter": true,
+              "Worker Pops Living Metal": true,
+              "Worker Pops Nanites": true,
+              "Worker Pops Zro": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "timeseries"
     }
   ],
   "preload": true,
