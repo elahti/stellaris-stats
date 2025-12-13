@@ -3656,6 +3656,1824 @@
         }
       ],
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Exotic Gases Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#73BF69",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rare Crystals Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2CC0C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Volatile Motes Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#8B4513",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last",
+            "max",
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.balance.armies.exoticGases",
+              "text": "Armies Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.rareCrystals",
+              "text": "Armies Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.volatileMotes",
+              "text": "Armies Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.exoticGases",
+              "text": "Colonies Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.rareCrystals",
+              "text": "Colonies Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.volatileMotes",
+              "text": "Colonies Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.exoticGases",
+              "text": "Commercial Pacts Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.rareCrystals",
+              "text": "Commercial Pacts Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.volatileMotes",
+              "text": "Commercial Pacts Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.exoticGases",
+              "text": "Country Agendas Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.rareCrystals",
+              "text": "Country Agendas Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.volatileMotes",
+              "text": "Country Agendas Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.exoticGases",
+              "text": "Country Base Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.rareCrystals",
+              "text": "Country Base Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.volatileMotes",
+              "text": "Country Base Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.exoticGases",
+              "text": "Country Civics Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.rareCrystals",
+              "text": "Country Civics Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.volatileMotes",
+              "text": "Country Civics Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.exoticGases",
+              "text": "Country Dessanu Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.rareCrystals",
+              "text": "Country Dessanu Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.volatileMotes",
+              "text": "Country Dessanu Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.exoticGases",
+              "text": "Country Ethic Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.rareCrystals",
+              "text": "Country Ethic Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.volatileMotes",
+              "text": "Country Ethic Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryPowerProjection.exoticGases",
+              "text": "Power Projection Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryPowerProjection.rareCrystals",
+              "text": "Power Projection Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryPowerProjection.volatileMotes",
+              "text": "Power Projection Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.exoticGases",
+              "text": "Country Ruler Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.rareCrystals",
+              "text": "Country Ruler Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.volatileMotes",
+              "text": "Country Ruler Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.exoticGases",
+              "text": "Edicts Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.rareCrystals",
+              "text": "Edicts Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.volatileMotes",
+              "text": "Edicts Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderCommanders.exoticGases",
+              "text": "Commander Leaders Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderCommanders.rareCrystals",
+              "text": "Commander Leaders Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderCommanders.volatileMotes",
+              "text": "Commander Leaders Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderOfficials.exoticGases",
+              "text": "Official Leaders Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderOfficials.rareCrystals",
+              "text": "Official Leaders Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderOfficials.volatileMotes",
+              "text": "Official Leaders Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderScientists.exoticGases",
+              "text": "Scientist Leaders Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderScientists.rareCrystals",
+              "text": "Scientist Leaders Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderScientists.volatileMotes",
+              "text": "Scientist Leaders Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.exoticGases",
+              "text": "Megastructures Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.rareCrystals",
+              "text": "Megastructures Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.volatileMotes",
+              "text": "Megastructures Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.exoticGases",
+              "text": "Megastructures Grand Archive Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.rareCrystals",
+              "text": "Megastructures Grand Archive Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.volatileMotes",
+              "text": "Megastructures Grand Archive Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.exoticGases",
+              "text": "Megastructures Habitat Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.rareCrystals",
+              "text": "Megastructures Habitat Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.volatileMotes",
+              "text": "Megastructures Habitat Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.exoticGases",
+              "text": "Megastructures Hyper Relay Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.rareCrystals",
+              "text": "Megastructures Hyper Relay Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.volatileMotes",
+              "text": "Megastructures Hyper Relay Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.exoticGases",
+              "text": "Migration Pacts Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.rareCrystals",
+              "text": "Migration Pacts Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.volatileMotes",
+              "text": "Migration Pacts Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.exoticGases",
+              "text": "None Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.rareCrystals",
+              "text": "None Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.volatileMotes",
+              "text": "None Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.exoticGases",
+              "text": "Orbital Mining Deposits Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.rareCrystals",
+              "text": "Orbital Mining Deposits Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.volatileMotes",
+              "text": "Orbital Mining Deposits Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.exoticGases",
+              "text": "Orbital Research Deposits Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.rareCrystals",
+              "text": "Orbital Research Deposits Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.volatileMotes",
+              "text": "Orbital Research Deposits Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.exoticGases",
+              "text": "Overlord Subsidy Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.rareCrystals",
+              "text": "Overlord Subsidy Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.volatileMotes",
+              "text": "Overlord Subsidy Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.exoticGases",
+              "text": "Artisans Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.rareCrystals",
+              "text": "Artisans Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.volatileMotes",
+              "text": "Artisans Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.exoticGases",
+              "text": "Biologists Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.rareCrystals",
+              "text": "Biologists Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.volatileMotes",
+              "text": "Biologists Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.exoticGases",
+              "text": "Buildings Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.rareCrystals",
+              "text": "Buildings Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.volatileMotes",
+              "text": "Buildings Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.exoticGases",
+              "text": "Buildings Clone Vats Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.rareCrystals",
+              "text": "Buildings Clone Vats Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.volatileMotes",
+              "text": "Buildings Clone Vats Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.exoticGases",
+              "text": "Buildings Hab Capital Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.rareCrystals",
+              "text": "Buildings Hab Capital Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.volatileMotes",
+              "text": "Buildings Hab Capital Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.exoticGases",
+              "text": "Buildings Storm Tech Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.rareCrystals",
+              "text": "Buildings Storm Tech Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.volatileMotes",
+              "text": "Buildings Storm Tech Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.exoticGases",
+              "text": "Strongholds Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.rareCrystals",
+              "text": "Strongholds Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.volatileMotes",
+              "text": "Strongholds Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.exoticGases",
+              "text": "Bureucrats Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.rareCrystals",
+              "text": "Bureucrats Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.volatileMotes",
+              "text": "Bureucrats Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.exoticGases",
+              "text": "Civilians Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.rareCrystals",
+              "text": "Civilians Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.volatileMotes",
+              "text": "Civilians Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.exoticGases",
+              "text": "Clerks Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.rareCrystals",
+              "text": "Clerks Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.volatileMotes",
+              "text": "Clerks Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.exoticGases",
+              "text": "Deposits Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.rareCrystals",
+              "text": "Deposits Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.volatileMotes",
+              "text": "Deposits Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.exoticGases",
+              "text": "Districts Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.rareCrystals",
+              "text": "Districts Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.volatileMotes",
+              "text": "Districts Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.exoticGases",
+              "text": "City Districts Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.rareCrystals",
+              "text": "City Districts Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.volatileMotes",
+              "text": "City Districts Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.exoticGases",
+              "text": "Farming Districts Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.rareCrystals",
+              "text": "Farming Districts Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.volatileMotes",
+              "text": "Farming Districts Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.exoticGases",
+              "text": "Generator Districts Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.rareCrystals",
+              "text": "Generator Districts Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.volatileMotes",
+              "text": "Generator Districts Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.exoticGases",
+              "text": "Hab Districts Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.rareCrystals",
+              "text": "Hab Districts Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.volatileMotes",
+              "text": "Hab Districts Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.exoticGases",
+              "text": "Mining Districts Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.rareCrystals",
+              "text": "Mining Districts Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.volatileMotes",
+              "text": "Mining Districts Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.exoticGases",
+              "text": "Doctors Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.rareCrystals",
+              "text": "Doctors Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.volatileMotes",
+              "text": "Doctors Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.exoticGases",
+              "text": "Energy Thralls Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.rareCrystals",
+              "text": "Energy Thralls Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.volatileMotes",
+              "text": "Energy Thralls Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.exoticGases",
+              "text": "Engineers Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.rareCrystals",
+              "text": "Engineers Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.volatileMotes",
+              "text": "Engineers Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.exoticGases",
+              "text": "Entertainers Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.rareCrystals",
+              "text": "Entertainers Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.volatileMotes",
+              "text": "Entertainers Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.exoticGases",
+              "text": "Farmers Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.rareCrystals",
+              "text": "Farmers Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.volatileMotes",
+              "text": "Farmers Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.exoticGases",
+              "text": "Jobs Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.rareCrystals",
+              "text": "Jobs Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.volatileMotes",
+              "text": "Jobs Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.exoticGases",
+              "text": "Jobs Productive Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.rareCrystals",
+              "text": "Jobs Productive Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.volatileMotes",
+              "text": "Jobs Productive Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.exoticGases",
+              "text": "Maintenance Drones Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.rareCrystals",
+              "text": "Maintenance Drones Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.volatileMotes",
+              "text": "Maintenance Drones Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.exoticGases",
+              "text": "Metallurgists Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.rareCrystals",
+              "text": "Metallurgists Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.volatileMotes",
+              "text": "Metallurgists Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.exoticGases",
+              "text": "Miners Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.rareCrystals",
+              "text": "Miners Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.volatileMotes",
+              "text": "Miners Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.exoticGases",
+              "text": "Physicists Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.rareCrystals",
+              "text": "Physicists Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.volatileMotes",
+              "text": "Physicists Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.exoticGases",
+              "text": "Politicians Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.rareCrystals",
+              "text": "Politicians Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.volatileMotes",
+              "text": "Politicians Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.exoticGases",
+              "text": "Pop Assemblers Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.rareCrystals",
+              "text": "Pop Assemblers Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.volatileMotes",
+              "text": "Pop Assemblers Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.exoticGases",
+              "text": "Pops Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.rareCrystals",
+              "text": "Pops Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.volatileMotes",
+              "text": "Pops Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.exoticGases",
+              "text": "Planet Resource Deficit Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.rareCrystals",
+              "text": "Planet Resource Deficit Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.volatileMotes",
+              "text": "Planet Resource Deficit Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.exoticGases",
+              "text": "Strategic Resource Miners Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.rareCrystals",
+              "text": "Strategic Resource Miners Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.volatileMotes",
+              "text": "Strategic Resource Miners Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.exoticGases",
+              "text": "Technicians Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.rareCrystals",
+              "text": "Technicians Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.volatileMotes",
+              "text": "Technicians Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.exoticGases",
+              "text": "Traders Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.rareCrystals",
+              "text": "Traders Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.volatileMotes",
+              "text": "Traders Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.exoticGases",
+              "text": "Civilian Pops Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.rareCrystals",
+              "text": "Civilian Pops Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.volatileMotes",
+              "text": "Civilian Pops Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.exoticGases",
+              "text": "Drone Pops Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.rareCrystals",
+              "text": "Drone Pops Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.volatileMotes",
+              "text": "Drone Pops Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.exoticGases",
+              "text": "Ruler Pops Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.rareCrystals",
+              "text": "Ruler Pops Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.volatileMotes",
+              "text": "Ruler Pops Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.exoticGases",
+              "text": "Specialist Pops Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.rareCrystals",
+              "text": "Specialist Pops Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.volatileMotes",
+              "text": "Specialist Pops Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.exoticGases",
+              "text": "Worker Pops Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.rareCrystals",
+              "text": "Worker Pops Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.volatileMotes",
+              "text": "Worker Pops Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.exoticGases",
+              "text": "Factions Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.rareCrystals",
+              "text": "Factions Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.volatileMotes",
+              "text": "Factions Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.exoticGases",
+              "text": "Ship Components Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.rareCrystals",
+              "text": "Ship Components Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.volatileMotes",
+              "text": "Ship Components Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.exoticGases",
+              "text": "Ships Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.rareCrystals",
+              "text": "Ships Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.volatileMotes",
+              "text": "Ships Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.exoticGases",
+              "text": "Situations Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.rareCrystals",
+              "text": "Situations Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.volatileMotes",
+              "text": "Situations Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.exoticGases",
+              "text": "Starbase Buildings Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.rareCrystals",
+              "text": "Starbase Buildings Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.volatileMotes",
+              "text": "Starbase Buildings Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.exoticGases",
+              "text": "Starbase Modules Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.rareCrystals",
+              "text": "Starbase Modules Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.volatileMotes",
+              "text": "Starbase Modules Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.exoticGases",
+              "text": "Starbases Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.rareCrystals",
+              "text": "Starbases Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.volatileMotes",
+              "text": "Starbases Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.exoticGases",
+              "text": "Station Gatherers Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.rareCrystals",
+              "text": "Station Gatherers Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.volatileMotes",
+              "text": "Station Gatherers Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.exoticGases",
+              "text": "Station Observer Missions Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.rareCrystals",
+              "text": "Station Observer Missions Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.volatileMotes",
+              "text": "Station Observer Missions Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.exoticGases",
+              "text": "Station Observers Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.rareCrystals",
+              "text": "Station Observers Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.volatileMotes",
+              "text": "Station Observers Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.exoticGases",
+              "text": "Station Researchers Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.rareCrystals",
+              "text": "Station Researchers Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.volatileMotes",
+              "text": "Station Researchers Volatile Motes",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.exoticGases",
+              "text": "Trade Policy Exotic Gases",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.rareCrystals",
+              "text": "Trade Policy Rare Crystals",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.volatileMotes",
+              "text": "Trade Policy Volatile Motes",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query StrategicResources($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        balance {\n          armies {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          colonies {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          commercialPacts {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          countryAgendas {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          countryBase {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          countryCivics {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          countryDessanu {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          countryEthic {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          countryPowerProjection {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          countryRuler {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          edicts {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          leaderCommanders {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          leaderOfficials {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          leaderScientists {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          megastructures {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          megastructuresGrandArchive {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          megastructuresHabitat {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          megastructuresHyperRelay {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          migrationPacts {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          none {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          orbitalMiningDeposits {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          orbitalResearchDeposits {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          overlordSubsidy {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetArtisans {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetBiologists {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetBuildings {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetBuildingsCloneVats {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetBuildingsHabCapital {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetBuildingsStormTech {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetBuildingsStrongholds {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetBureaucrats {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetCivilians {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetClerks {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetDeposits {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetDistricts {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetDistrictsCities {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetDistrictsFarming {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetDistrictsGenerator {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetDistrictsHab {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetDistrictsMining {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetDoctors {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetEnergyThralls {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetEngineers {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetEntertainers {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetFarmers {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetJobs {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetJobsProductive {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetMaintenanceDrones {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetMetallurgists {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetMiners {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetPhysicists {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetPoliticians {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetPopAssemblers {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetPops {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetResourceDeficit {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetSrMiners {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetTechnician {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          planetTraders {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          popCategoryCivilians {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          popCategoryDrones {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          popCategoryRulers {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          popCategorySpecialists {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          popCategoryWorkers {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          popFactions {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          shipComponents {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          ships {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          situations {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          starbaseBuildings {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          starbaseModules {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          starbases {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          stationGatherers {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          stationObserverMissions {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          stationObservers {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          stationResearchers {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n          tradePolicy {\n            exoticGases\n            rareCrystals\n            volatileMotes\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Strategic Resources",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Exotic Gases Balance",
+            "binary": {
+              "left": "Armies Exotic Gases",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Exotic Gases"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Exotic Gases",
+                "Colonies Exotic Gases",
+                "Commercial Pacts Exotic Gases",
+                "Country Agendas Exotic Gases",
+                "Country Base Exotic Gases",
+                "Country Civics Exotic Gases",
+                "Country Dessanu Exotic Gases",
+                "Country Ethic Exotic Gases",
+                "Power Projection Exotic Gases",
+                "Country Ruler Exotic Gases",
+                "Edicts Exotic Gases",
+                "Commander Leaders Exotic Gases",
+                "Official Leaders Exotic Gases",
+                "Scientist Leaders Exotic Gases",
+                "Megastructures Exotic Gases",
+                "Megastructures Grand Archive Exotic Gases",
+                "Megastructures Habitat Exotic Gases",
+                "Megastructures Hyper Relay Exotic Gases",
+                "Migration Pacts Exotic Gases",
+                "None Exotic Gases",
+                "Orbital Mining Deposits Exotic Gases",
+                "Orbital Research Deposits Exotic Gases",
+                "Overlord Subsidy Exotic Gases",
+                "Artisans Exotic Gases",
+                "Biologists Exotic Gases",
+                "Buildings Exotic Gases",
+                "Buildings Clone Vats Exotic Gases",
+                "Buildings Hab Capital Exotic Gases",
+                "Buildings Storm Tech Exotic Gases",
+                "Strongholds Exotic Gases",
+                "Bureucrats Exotic Gases",
+                "Civilians Exotic Gases",
+                "Clerks Exotic Gases",
+                "Deposits Exotic Gases",
+                "Districts Exotic Gases",
+                "City Districts Exotic Gases",
+                "Farming Districts Exotic Gases",
+                "Generator Districts Exotic Gases",
+                "Hab Districts Exotic Gases",
+                "Mining Districts Exotic Gases",
+                "Doctors Exotic Gases",
+                "Energy Thralls Exotic Gases",
+                "Engineers Exotic Gases",
+                "Entertainers Exotic Gases",
+                "Farmers Exotic Gases",
+                "Jobs Exotic Gases",
+                "Jobs Productive Exotic Gases",
+                "Maintenance Drones Exotic Gases",
+                "Metallurgists Exotic Gases",
+                "Miners Exotic Gases",
+                "Physicists Exotic Gases",
+                "Politicians Exotic Gases",
+                "Pop Assemblers Exotic Gases",
+                "Pops Exotic Gases",
+                "Planet Resource Deficit Exotic Gases",
+                "Strategic Resource Miners Exotic Gases",
+                "Technicians Exotic Gases",
+                "Traders Exotic Gases",
+                "Civilian Pops Exotic Gases",
+                "Drone Pops Exotic Gases",
+                "Ruler Pops Exotic Gases",
+                "Specialist Pops Exotic Gases",
+                "Worker Pops Exotic Gases",
+                "Factions Exotic Gases",
+                "Ship Components Exotic Gases",
+                "Ships Exotic Gases",
+                "Situations Exotic Gases",
+                "Starbase Buildings Exotic Gases",
+                "Starbase Modules Exotic Gases",
+                "Starbases Exotic Gases",
+                "Station Gatherers Exotic Gases",
+                "Station Observer Missions Exotic Gases",
+                "Station Observers Exotic Gases",
+                "Station Researchers Exotic Gases",
+                "Trade Policy Exotic Gases"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Rare Crystals Balance",
+            "binary": {
+              "left": "Armies Rare Crystals",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Rare Crystals"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Rare Crystals",
+                "Colonies Rare Crystals",
+                "Commercial Pacts Rare Crystals",
+                "Country Agendas Rare Crystals",
+                "Country Base Rare Crystals",
+                "Country Civics Rare Crystals",
+                "Country Dessanu Rare Crystals",
+                "Country Ethic Rare Crystals",
+                "Power Projection Rare Crystals",
+                "Country Ruler Rare Crystals",
+                "Edicts Rare Crystals",
+                "Commander Leaders Rare Crystals",
+                "Official Leaders Rare Crystals",
+                "Scientist Leaders Rare Crystals",
+                "Megastructures Rare Crystals",
+                "Megastructures Grand Archive Rare Crystals",
+                "Megastructures Habitat Rare Crystals",
+                "Megastructures Hyper Relay Rare Crystals",
+                "Migration Pacts Rare Crystals",
+                "None Rare Crystals",
+                "Orbital Mining Deposits Rare Crystals",
+                "Orbital Research Deposits Rare Crystals",
+                "Overlord Subsidy Rare Crystals",
+                "Artisans Rare Crystals",
+                "Biologists Rare Crystals",
+                "Buildings Rare Crystals",
+                "Buildings Clone Vats Rare Crystals",
+                "Buildings Hab Capital Rare Crystals",
+                "Buildings Storm Tech Rare Crystals",
+                "Strongholds Rare Crystals",
+                "Bureucrats Rare Crystals",
+                "Civilians Rare Crystals",
+                "Clerks Rare Crystals",
+                "Deposits Rare Crystals",
+                "Districts Rare Crystals",
+                "City Districts Rare Crystals",
+                "Farming Districts Rare Crystals",
+                "Generator Districts Rare Crystals",
+                "Hab Districts Rare Crystals",
+                "Mining Districts Rare Crystals",
+                "Doctors Rare Crystals",
+                "Energy Thralls Rare Crystals",
+                "Engineers Rare Crystals",
+                "Entertainers Rare Crystals",
+                "Farmers Rare Crystals",
+                "Jobs Rare Crystals",
+                "Jobs Productive Rare Crystals",
+                "Maintenance Drones Rare Crystals",
+                "Metallurgists Rare Crystals",
+                "Miners Rare Crystals",
+                "Physicists Rare Crystals",
+                "Politicians Rare Crystals",
+                "Pop Assemblers Rare Crystals",
+                "Pops Rare Crystals",
+                "Planet Resource Deficit Rare Crystals",
+                "Strategic Resource Miners Rare Crystals",
+                "Technicians Rare Crystals",
+                "Traders Rare Crystals",
+                "Civilian Pops Rare Crystals",
+                "Drone Pops Rare Crystals",
+                "Ruler Pops Rare Crystals",
+                "Specialist Pops Rare Crystals",
+                "Worker Pops Rare Crystals",
+                "Factions Rare Crystals",
+                "Ship Components Rare Crystals",
+                "Ships Rare Crystals",
+                "Situations Rare Crystals",
+                "Starbase Buildings Rare Crystals",
+                "Starbase Modules Rare Crystals",
+                "Starbases Rare Crystals",
+                "Station Gatherers Rare Crystals",
+                "Station Observer Missions Rare Crystals",
+                "Station Observers Rare Crystals",
+                "Station Researchers Rare Crystals",
+                "Trade Policy Rare Crystals"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Volatile Motes Balance",
+            "binary": {
+              "left": "Armies Volatile Motes",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Volatile Motes"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Volatile Motes",
+                "Colonies Volatile Motes",
+                "Commercial Pacts Volatile Motes",
+                "Country Agendas Volatile Motes",
+                "Country Base Volatile Motes",
+                "Country Civics Volatile Motes",
+                "Country Dessanu Volatile Motes",
+                "Country Ethic Volatile Motes",
+                "Power Projection Volatile Motes",
+                "Country Ruler Volatile Motes",
+                "Edicts Volatile Motes",
+                "Commander Leaders Volatile Motes",
+                "Official Leaders Volatile Motes",
+                "Scientist Leaders Volatile Motes",
+                "Megastructures Volatile Motes",
+                "Megastructures Grand Archive Volatile Motes",
+                "Megastructures Habitat Volatile Motes",
+                "Megastructures Hyper Relay Volatile Motes",
+                "Migration Pacts Volatile Motes",
+                "None Volatile Motes",
+                "Orbital Mining Deposits Volatile Motes",
+                "Orbital Research Deposits Volatile Motes",
+                "Overlord Subsidy Volatile Motes",
+                "Artisans Volatile Motes",
+                "Biologists Volatile Motes",
+                "Buildings Volatile Motes",
+                "Buildings Clone Vats Volatile Motes",
+                "Buildings Hab Capital Volatile Motes",
+                "Buildings Storm Tech Volatile Motes",
+                "Strongholds Volatile Motes",
+                "Bureucrats Volatile Motes",
+                "Civilians Volatile Motes",
+                "Clerks Volatile Motes",
+                "Deposits Volatile Motes",
+                "Districts Volatile Motes",
+                "City Districts Volatile Motes",
+                "Farming Districts Volatile Motes",
+                "Generator Districts Volatile Motes",
+                "Hab Districts Volatile Motes",
+                "Mining Districts Volatile Motes",
+                "Doctors Volatile Motes",
+                "Energy Thralls Volatile Motes",
+                "Engineers Volatile Motes",
+                "Entertainers Volatile Motes",
+                "Farmers Volatile Motes",
+                "Jobs Volatile Motes",
+                "Jobs Productive Volatile Motes",
+                "Maintenance Drones Volatile Motes",
+                "Metallurgists Volatile Motes",
+                "Miners Volatile Motes",
+                "Physicists Volatile Motes",
+                "Politicians Volatile Motes",
+                "Pop Assemblers Volatile Motes",
+                "Pops Volatile Motes",
+                "Planet Resource Deficit Volatile Motes",
+                "Strategic Resource Miners Volatile Motes",
+                "Technicians Volatile Motes",
+                "Traders Volatile Motes",
+                "Civilian Pops Volatile Motes",
+                "Drone Pops Volatile Motes",
+                "Ruler Pops Volatile Motes",
+                "Specialist Pops Volatile Motes",
+                "Worker Pops Volatile Motes",
+                "Factions Volatile Motes",
+                "Ship Components Volatile Motes",
+                "Ships Volatile Motes",
+                "Situations Volatile Motes",
+                "Starbase Buildings Volatile Motes",
+                "Starbase Modules Volatile Motes",
+                "Starbases Volatile Motes",
+                "Station Gatherers Volatile Motes",
+                "Station Observer Missions Volatile Motes",
+                "Station Observers Volatile Motes",
+                "Station Researchers Volatile Motes",
+                "Trade Policy Volatile Motes"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Armies Exotic Gases": true,
+              "Armies Rare Crystals": true,
+              "Armies Volatile Motes": true,
+              "Artisans Exotic Gases": true,
+              "Artisans Rare Crystals": true,
+              "Artisans Volatile Motes": true,
+              "Biologists Exotic Gases": true,
+              "Biologists Rare Crystals": true,
+              "Biologists Volatile Motes": true,
+              "Buildings Clone Vats Exotic Gases": true,
+              "Buildings Clone Vats Rare Crystals": true,
+              "Buildings Clone Vats Volatile Motes": true,
+              "Buildings Exotic Gases": true,
+              "Buildings Hab Capital Exotic Gases": true,
+              "Buildings Hab Capital Rare Crystals": true,
+              "Buildings Hab Capital Volatile Motes": true,
+              "Buildings Rare Crystals": true,
+              "Buildings Storm Tech Exotic Gases": true,
+              "Buildings Storm Tech Rare Crystals": true,
+              "Buildings Storm Tech Volatile Motes": true,
+              "Buildings Volatile Motes": true,
+              "Bureucrats Exotic Gases": true,
+              "Bureucrats Rare Crystals": true,
+              "Bureucrats Volatile Motes": true,
+              "City Districts Exotic Gases": true,
+              "City Districts Rare Crystals": true,
+              "City Districts Volatile Motes": true,
+              "Civilian Pops Exotic Gases": true,
+              "Civilian Pops Rare Crystals": true,
+              "Civilian Pops Volatile Motes": true,
+              "Civilians Exotic Gases": true,
+              "Civilians Rare Crystals": true,
+              "Civilians Volatile Motes": true,
+              "Clerks Exotic Gases": true,
+              "Clerks Rare Crystals": true,
+              "Clerks Volatile Motes": true,
+              "Colonies Exotic Gases": true,
+              "Colonies Rare Crystals": true,
+              "Colonies Volatile Motes": true,
+              "Commander Leaders Exotic Gases": true,
+              "Commander Leaders Rare Crystals": true,
+              "Commander Leaders Volatile Motes": true,
+              "Commercial Pacts Exotic Gases": true,
+              "Commercial Pacts Rare Crystals": true,
+              "Commercial Pacts Volatile Motes": true,
+              "Country Agendas Exotic Gases": true,
+              "Country Agendas Rare Crystals": true,
+              "Country Agendas Volatile Motes": true,
+              "Country Base Exotic Gases": true,
+              "Country Base Rare Crystals": true,
+              "Country Base Volatile Motes": true,
+              "Country Civics Exotic Gases": true,
+              "Country Civics Rare Crystals": true,
+              "Country Civics Volatile Motes": true,
+              "Country Dessanu Exotic Gases": true,
+              "Country Dessanu Rare Crystals": true,
+              "Country Dessanu Volatile Motes": true,
+              "Country Ethic Exotic Gases": true,
+              "Country Ethic Rare Crystals": true,
+              "Country Ethic Volatile Motes": true,
+              "Country Ruler Exotic Gases": true,
+              "Country Ruler Rare Crystals": true,
+              "Country Ruler Volatile Motes": true,
+              "Deposits Exotic Gases": true,
+              "Deposits Rare Crystals": true,
+              "Deposits Volatile Motes": true,
+              "Districts Exotic Gases": true,
+              "Districts Rare Crystals": true,
+              "Districts Volatile Motes": true,
+              "Doctors Exotic Gases": true,
+              "Doctors Rare Crystals": true,
+              "Doctors Volatile Motes": true,
+              "Drone Pops Exotic Gases": true,
+              "Drone Pops Rare Crystals": true,
+              "Drone Pops Volatile Motes": true,
+              "Edicts Exotic Gases": true,
+              "Edicts Rare Crystals": true,
+              "Edicts Volatile Motes": true,
+              "Energy Thralls Exotic Gases": true,
+              "Energy Thralls Rare Crystals": true,
+              "Energy Thralls Volatile Motes": true,
+              "Engineers Exotic Gases": true,
+              "Engineers Rare Crystals": true,
+              "Engineers Volatile Motes": true,
+              "Entertainers Exotic Gases": true,
+              "Entertainers Rare Crystals": true,
+              "Entertainers Volatile Motes": true,
+              "Factions Exotic Gases": true,
+              "Factions Rare Crystals": true,
+              "Factions Volatile Motes": true,
+              "Farmers Exotic Gases": true,
+              "Farmers Rare Crystals": true,
+              "Farmers Volatile Motes": true,
+              "Farming Districts Exotic Gases": true,
+              "Farming Districts Rare Crystals": true,
+              "Farming Districts Volatile Motes": true,
+              "Generator Districts Exotic Gases": true,
+              "Generator Districts Rare Crystals": true,
+              "Generator Districts Volatile Motes": true,
+              "Hab Districts Exotic Gases": true,
+              "Hab Districts Rare Crystals": true,
+              "Hab Districts Volatile Motes": true,
+              "Jobs Exotic Gases": true,
+              "Jobs Productive Exotic Gases": true,
+              "Jobs Productive Rare Crystals": true,
+              "Jobs Productive Volatile Motes": true,
+              "Jobs Rare Crystals": true,
+              "Jobs Volatile Motes": true,
+              "Maintenance Drones Exotic Gases": true,
+              "Maintenance Drones Rare Crystals": true,
+              "Maintenance Drones Volatile Motes": true,
+              "Megastructures Exotic Gases": true,
+              "Megastructures Grand Archive Exotic Gases": true,
+              "Megastructures Grand Archive Rare Crystals": true,
+              "Megastructures Grand Archive Volatile Motes": true,
+              "Megastructures Habitat Exotic Gases": true,
+              "Megastructures Habitat Rare Crystals": true,
+              "Megastructures Habitat Volatile Motes": true,
+              "Megastructures Hyper Relay Exotic Gases": true,
+              "Megastructures Hyper Relay Rare Crystals": true,
+              "Megastructures Hyper Relay Volatile Motes": true,
+              "Megastructures Rare Crystals": true,
+              "Megastructures Volatile Motes": true,
+              "Metallurgists Exotic Gases": true,
+              "Metallurgists Rare Crystals": true,
+              "Metallurgists Volatile Motes": true,
+              "Migration Pacts Exotic Gases": true,
+              "Migration Pacts Rare Crystals": true,
+              "Migration Pacts Volatile Motes": true,
+              "Miners Exotic Gases": true,
+              "Miners Rare Crystals": true,
+              "Miners Volatile Motes": true,
+              "Mining Districts Exotic Gases": true,
+              "Mining Districts Rare Crystals": true,
+              "Mining Districts Volatile Motes": true,
+              "None Exotic Gases": true,
+              "None Rare Crystals": true,
+              "None Volatile Motes": true,
+              "Official Leaders Exotic Gases": true,
+              "Official Leaders Rare Crystals": true,
+              "Official Leaders Volatile Motes": true,
+              "Orbital Mining Deposits Exotic Gases": true,
+              "Orbital Mining Deposits Rare Crystals": true,
+              "Orbital Mining Deposits Volatile Motes": true,
+              "Orbital Research Deposits Exotic Gases": true,
+              "Orbital Research Deposits Rare Crystals": true,
+              "Orbital Research Deposits Volatile Motes": true,
+              "Overlord Subsidy Exotic Gases": true,
+              "Overlord Subsidy Rare Crystals": true,
+              "Overlord Subsidy Volatile Motes": true,
+              "Physicists Exotic Gases": true,
+              "Physicists Rare Crystals": true,
+              "Physicists Volatile Motes": true,
+              "Planet Resource Deficit Exotic Gases": true,
+              "Planet Resource Deficit Rare Crystals": true,
+              "Planet Resource Deficit Volatile Motes": true,
+              "Politicians Exotic Gases": true,
+              "Politicians Rare Crystals": true,
+              "Politicians Volatile Motes": true,
+              "Pop Assemblers Exotic Gases": true,
+              "Pop Assemblers Rare Crystals": true,
+              "Pop Assemblers Volatile Motes": true,
+              "Pops Exotic Gases": true,
+              "Pops Rare Crystals": true,
+              "Pops Volatile Motes": true,
+              "Power Projection Exotic Gases": true,
+              "Power Projection Rare Crystals": true,
+              "Power Projection Volatile Motes": true,
+              "Ruler Pops Exotic Gases": true,
+              "Ruler Pops Rare Crystals": true,
+              "Ruler Pops Volatile Motes": true,
+              "Scientist Leaders Exotic Gases": true,
+              "Scientist Leaders Rare Crystals": true,
+              "Scientist Leaders Volatile Motes": true,
+              "Ship Components Exotic Gases": true,
+              "Ship Components Rare Crystals": true,
+              "Ship Components Volatile Motes": true,
+              "Ships Exotic Gases": true,
+              "Ships Rare Crystals": true,
+              "Ships Volatile Motes": true,
+              "Situations Exotic Gases": true,
+              "Situations Rare Crystals": true,
+              "Situations Volatile Motes": true,
+              "Specialist Pops Exotic Gases": true,
+              "Specialist Pops Rare Crystals": true,
+              "Specialist Pops Volatile Motes": true,
+              "Starbase Buildings Exotic Gases": true,
+              "Starbase Buildings Rare Crystals": true,
+              "Starbase Buildings Volatile Motes": true,
+              "Starbase Modules Exotic Gases": true,
+              "Starbase Modules Rare Crystals": true,
+              "Starbase Modules Volatile Motes": true,
+              "Starbases Exotic Gases": true,
+              "Starbases Rare Crystals": true,
+              "Starbases Volatile Motes": true,
+              "Station Gatherers Exotic Gases": true,
+              "Station Gatherers Rare Crystals": true,
+              "Station Gatherers Volatile Motes": true,
+              "Station Observer Missions Exotic Gases": true,
+              "Station Observer Missions Rare Crystals": true,
+              "Station Observer Missions Volatile Motes": true,
+              "Station Observers Exotic Gases": true,
+              "Station Observers Rare Crystals": true,
+              "Station Observers Volatile Motes": true,
+              "Station Researchers Exotic Gases": true,
+              "Station Researchers Rare Crystals": true,
+              "Station Researchers Volatile Motes": true,
+              "Strategic Resource Miners Exotic Gases": true,
+              "Strategic Resource Miners Rare Crystals": true,
+              "Strategic Resource Miners Volatile Motes": true,
+              "Strongholds Exotic Gases": true,
+              "Strongholds Rare Crystals": true,
+              "Strongholds Volatile Motes": true,
+              "Technicians Exotic Gases": true,
+              "Technicians Rare Crystals": true,
+              "Technicians Volatile Motes": true,
+              "Trade Policy Exotic Gases": true,
+              "Trade Policy Rare Crystals": true,
+              "Trade Policy Volatile Motes": true,
+              "Traders Exotic Gases": true,
+              "Traders Rare Crystals": true,
+              "Traders Volatile Motes": true,
+              "Worker Pops Exotic Gases": true,
+              "Worker Pops Rare Crystals": true,
+              "Worker Pops Volatile Motes": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "timeseries"
     }
   ],
   "preload": true,
