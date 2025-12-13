@@ -2397,6 +2397,1265 @@
         }
       ],
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "ef6cnm49brb40d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Alloys Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#FF69B4",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Consumer Goods Balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#8B4513",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last",
+            "max",
+            "mean"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19877932531",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "date",
+              "text": "Date",
+              "type": "string"
+            },
+            {
+              "selector": "budget.balance.armies.alloys",
+              "text": "Armies Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.armies.consumerGoods",
+              "text": "Armies Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.alloys",
+              "text": "Colonies Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.colonies.consumerGoods",
+              "text": "Colonies Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.alloys",
+              "text": "Commercial Pacts Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.commercialPacts.consumerGoods",
+              "text": "Commercial Pacts Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.alloys",
+              "text": "Country Agendas Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryAgendas.consumerGoods",
+              "text": "Country Agendas Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.alloys",
+              "text": "Country Base Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryBase.consumerGoods",
+              "text": "Country Base Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.alloys",
+              "text": "Country Civics Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryCivics.consumerGoods",
+              "text": "Country Civics Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.alloys",
+              "text": "Country Dessanu Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryDessanu.consumerGoods",
+              "text": "Country Dessanu Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.alloys",
+              "text": "Country Ethic Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryEthic.consumerGoods",
+              "text": "Country Ethic Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryPowerProjection.alloys",
+              "text": "Power Projection Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryPowerProjection.consumerGoods",
+              "text": "Power Projection Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.alloys",
+              "text": "Country Ruler Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.countryRuler.consumerGoods",
+              "text": "Country Ruler Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.alloys",
+              "text": "Edicts Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.edicts.consumerGoods",
+              "text": "Edicts Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderCommanders.alloys",
+              "text": "Commander Leaders Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderCommanders.consumerGoods",
+              "text": "Commander Leaders Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderOfficials.alloys",
+              "text": "Official Leaders Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderOfficials.consumerGoods",
+              "text": "Official Leaders Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderScientists.alloys",
+              "text": "Scientist Leaders Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.leaderScientists.consumerGoods",
+              "text": "Scientist Leaders Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.alloys",
+              "text": "Megastructures Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructures.consumerGoods",
+              "text": "Megastructures Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.alloys",
+              "text": "Megastructures Grand Archive Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresGrandArchive.consumerGoods",
+              "text": "Megastructures Grand Archive Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.alloys",
+              "text": "Megastructures Habitat Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHabitat.consumerGoods",
+              "text": "Megastructures Habitat Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.alloys",
+              "text": "Megastructures Hyper Relay Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.megastructuresHyperRelay.consumerGoods",
+              "text": "Megastructures Hyper Relay Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.alloys",
+              "text": "Migration Pacts Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.migrationPacts.consumerGoods",
+              "text": "Migration Pacts Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.alloys",
+              "text": "None Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.none.consumerGoods",
+              "text": "None Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.alloys",
+              "text": "Orbital Mining Deposits Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalMiningDeposits.consumerGoods",
+              "text": "Orbital Mining Deposits Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.alloys",
+              "text": "Orbital Research Deposits Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.orbitalResearchDeposits.consumerGoods",
+              "text": "Orbital Research Deposits Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.alloys",
+              "text": "Overlord Subsidy Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.overlordSubsidy.consumerGoods",
+              "text": "Overlord Subsidy Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.alloys",
+              "text": "Artisans Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetArtisans.consumerGoods",
+              "text": "Artisans Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.alloys",
+              "text": "Biologists Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBiologists.consumerGoods",
+              "text": "Biologists Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.alloys",
+              "text": "Buildings Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildings.consumerGoods",
+              "text": "Buildings Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.alloys",
+              "text": "Buildings Clone Vats Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsCloneVats.consumerGoods",
+              "text": "Buildings Clone Vats Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.alloys",
+              "text": "Buildings Hab Capital Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsHabCapital.consumerGoods",
+              "text": "Buildings Hab Capital Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.alloys",
+              "text": "Buildings Storm Tech Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStormTech.consumerGoods",
+              "text": "Buildings Storm Tech Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.alloys",
+              "text": "Strongholds Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBuildingsStrongholds.consumerGoods",
+              "text": "Strongholds Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.alloys",
+              "text": "Bureucrats Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetBureaucrats.consumerGoods",
+              "text": "Bureucrats Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.alloys",
+              "text": "Civilians Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetCivilians.consumerGoods",
+              "text": "Civilians Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.alloys",
+              "text": "Clerks Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetClerks.consumerGoods",
+              "text": "Clerks Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.alloys",
+              "text": "Deposits Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDeposits.consumerGoods",
+              "text": "Deposits Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.alloys",
+              "text": "Districts Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistricts.consumerGoods",
+              "text": "Districts Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.alloys",
+              "text": "City Districts Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsCities.consumerGoods",
+              "text": "City Districts Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.alloys",
+              "text": "Farming Districts Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsFarming.consumerGoods",
+              "text": "Farming Districts Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.alloys",
+              "text": "Generator Districts Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsGenerator.consumerGoods",
+              "text": "Generator Districts Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.alloys",
+              "text": "Hab Districts Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsHab.consumerGoods",
+              "text": "Hab Districts Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.alloys",
+              "text": "Mining Districts Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDistrictsMining.consumerGoods",
+              "text": "Mining Districts Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.alloys",
+              "text": "Doctors Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetDoctors.consumerGoods",
+              "text": "Doctors Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.alloys",
+              "text": "Energy Thralls Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEnergyThralls.consumerGoods",
+              "text": "Energy Thralls Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.alloys",
+              "text": "Engineers Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEngineers.consumerGoods",
+              "text": "Engineers Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.alloys",
+              "text": "Entertainers Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetEntertainers.consumerGoods",
+              "text": "Entertainers Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.alloys",
+              "text": "Farmers Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetFarmers.consumerGoods",
+              "text": "Farmers Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.alloys",
+              "text": "Jobs Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobs.consumerGoods",
+              "text": "Jobs Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.alloys",
+              "text": "Jobs Productive Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetJobsProductive.consumerGoods",
+              "text": "Jobs Productive Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.alloys",
+              "text": "Maintenance Drones Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMaintenanceDrones.consumerGoods",
+              "text": "Maintenance Drones Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.alloys",
+              "text": "Metallurgists Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMetallurgists.consumerGoods",
+              "text": "Metallurgists Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.alloys",
+              "text": "Miners Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetMiners.consumerGoods",
+              "text": "Miners Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.alloys",
+              "text": "Physicists Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPhysicists.consumerGoods",
+              "text": "Physicists Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.alloys",
+              "text": "Politicians Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPoliticians.consumerGoods",
+              "text": "Politicians Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.alloys",
+              "text": "Pop Assemblers Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPopAssemblers.consumerGoods",
+              "text": "Pop Assemblers Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.alloys",
+              "text": "Pops Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetPops.consumerGoods",
+              "text": "Pops Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.alloys",
+              "text": "Planet Resource Deficit Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetResourceDeficit.consumerGoods",
+              "text": "Planet Resource Deficit Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.alloys",
+              "text": "Strategic Resource Miners Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetSrMiners.consumerGoods",
+              "text": "Strategic Resource Miners Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.alloys",
+              "text": "Technicians Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTechnician.consumerGoods",
+              "text": "Technicians Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.alloys",
+              "text": "Traders Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.planetTraders.consumerGoods",
+              "text": "Traders Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.alloys",
+              "text": "Civilian Pops Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryCivilians.consumerGoods",
+              "text": "Civilian Pops Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.alloys",
+              "text": "Drone Pops Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryDrones.consumerGoods",
+              "text": "Drone Pops Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.alloys",
+              "text": "Ruler Pops Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryRulers.consumerGoods",
+              "text": "Ruler Pops Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.alloys",
+              "text": "Specialist Pops Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategorySpecialists.consumerGoods",
+              "text": "Specialist Pops Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.alloys",
+              "text": "Worker Pops Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popCategoryWorkers.consumerGoods",
+              "text": "Worker Pops Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.alloys",
+              "text": "Factions Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.popFactions.consumerGoods",
+              "text": "Factions Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.alloys",
+              "text": "Ship Components Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.shipComponents.consumerGoods",
+              "text": "Ship Components Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.alloys",
+              "text": "Ships Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.ships.consumerGoods",
+              "text": "Ships Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.alloys",
+              "text": "Situations Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.situations.consumerGoods",
+              "text": "Situations Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.alloys",
+              "text": "Starbase Buildings Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseBuildings.consumerGoods",
+              "text": "Starbase Buildings Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.alloys",
+              "text": "Starbase Modules Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbaseModules.consumerGoods",
+              "text": "Starbase Modules Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.alloys",
+              "text": "Starbases Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.starbases.consumerGoods",
+              "text": "Starbases Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.alloys",
+              "text": "Station Gatherers Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationGatherers.consumerGoods",
+              "text": "Station Gatherers Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.alloys",
+              "text": "Station Observer Missions Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObserverMissions.consumerGoods",
+              "text": "Station Observer Missions Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.alloys",
+              "text": "Station Observers Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationObservers.consumerGoods",
+              "text": "Station Observers Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.alloys",
+              "text": "Station Researchers Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.stationResearchers.consumerGoods",
+              "text": "Station Researchers Consumer Goods",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.alloys",
+              "text": "Trade Policy Alloys",
+              "type": "number"
+            },
+            {
+              "selector": "budget.balance.tradePolicy.consumerGoods",
+              "text": "Trade Policy Consumer Goods",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "ef6cnm49brb40d"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.save.gamestates",
+          "source": "url",
+          "type": "graphql",
+          "url": "",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_graphql_query": "query AdvancedResources($filename: String!) {\n  save(filename: $filename) {\n    gamestates {\n      date\n      budget {\n        balance {\n          armies {\n            alloys\n            consumerGoods\n          }\n          colonies {\n            alloys\n            consumerGoods\n          }\n          commercialPacts {\n            alloys\n            consumerGoods\n          }\n          countryAgendas {\n            alloys\n            consumerGoods\n          }\n          countryBase {\n            alloys\n            consumerGoods\n          }\n          countryCivics {\n            alloys\n            consumerGoods\n          }\n          countryDessanu {\n            alloys\n            consumerGoods\n          }\n          countryEthic {\n            alloys\n            consumerGoods\n          }\n          countryPowerProjection {\n            alloys\n            consumerGoods\n          }\n          countryRuler {\n            alloys\n            consumerGoods\n          }\n          edicts {\n            alloys\n            consumerGoods\n          }\n          leaderCommanders {\n            alloys\n            consumerGoods\n          }\n          leaderOfficials {\n            alloys\n            consumerGoods\n          }\n          leaderScientists {\n            alloys\n            consumerGoods\n          }\n          megastructures {\n            alloys\n            consumerGoods\n          }\n          megastructuresGrandArchive {\n            alloys\n            consumerGoods\n          }\n          megastructuresHabitat {\n            alloys\n            consumerGoods\n          }\n          megastructuresHyperRelay {\n            alloys\n            consumerGoods\n          }\n          migrationPacts {\n            alloys\n            consumerGoods\n          }\n          none {\n            alloys\n            consumerGoods\n          }\n          orbitalMiningDeposits {\n            alloys\n            consumerGoods\n          }\n          orbitalResearchDeposits {\n            alloys\n            consumerGoods\n          }\n          overlordSubsidy {\n            alloys\n            consumerGoods\n          }\n          planetArtisans {\n            alloys\n            consumerGoods\n          }\n          planetBiologists {\n            alloys\n            consumerGoods\n          }\n          planetBuildings {\n            alloys\n            consumerGoods\n          }\n          planetBuildingsCloneVats {\n            alloys\n            consumerGoods\n          }\n          planetBuildingsHabCapital {\n            alloys\n            consumerGoods\n          }\n          planetBuildingsStormTech {\n            alloys\n            consumerGoods\n          }\n          planetBuildingsStrongholds {\n            alloys\n            consumerGoods\n          }\n          planetBureaucrats {\n            alloys\n            consumerGoods\n          }\n          planetCivilians {\n            alloys\n            consumerGoods\n          }\n          planetClerks {\n            alloys\n            consumerGoods\n          }\n          planetDeposits {\n            alloys\n            consumerGoods\n          }\n          planetDistricts {\n            alloys\n            consumerGoods\n          }\n          planetDistrictsCities {\n            alloys\n            consumerGoods\n          }\n          planetDistrictsFarming {\n            alloys\n            consumerGoods\n          }\n          planetDistrictsGenerator {\n            alloys\n            consumerGoods\n          }\n          planetDistrictsHab {\n            alloys\n            consumerGoods\n          }\n          planetDistrictsMining {\n            alloys\n            consumerGoods\n          }\n          planetDoctors {\n            alloys\n            consumerGoods\n          }\n          planetEnergyThralls {\n            alloys\n            consumerGoods\n          }\n          planetEngineers {\n            alloys\n            consumerGoods\n          }\n          planetEntertainers {\n            alloys\n            consumerGoods\n          }\n          planetFarmers {\n            alloys\n            consumerGoods\n          }\n          planetJobs {\n            alloys\n            consumerGoods\n          }\n          planetJobsProductive {\n            alloys\n            consumerGoods\n          }\n          planetMaintenanceDrones {\n            alloys\n            consumerGoods\n          }\n          planetMetallurgists {\n            alloys\n            consumerGoods\n          }\n          planetMiners {\n            alloys\n            consumerGoods\n          }\n          planetPhysicists {\n            alloys\n            consumerGoods\n          }\n          planetPoliticians {\n            alloys\n            consumerGoods\n          }\n          planetPopAssemblers {\n            alloys\n            consumerGoods\n          }\n          planetPops {\n            alloys\n            consumerGoods\n          }\n          planetResourceDeficit {\n            alloys\n            consumerGoods\n          }\n          planetSrMiners {\n            alloys\n            consumerGoods\n          }\n          planetTechnician {\n            alloys\n            consumerGoods\n          }\n          planetTraders {\n            alloys\n            consumerGoods\n          }\n          popCategoryCivilians {\n            alloys\n            consumerGoods\n          }\n          popCategoryDrones {\n            alloys\n            consumerGoods\n          }\n          popCategoryRulers {\n            alloys\n            consumerGoods\n          }\n          popCategorySpecialists {\n            alloys\n            consumerGoods\n          }\n          popCategoryWorkers {\n            alloys\n            consumerGoods\n          }\n          popFactions {\n            alloys\n            consumerGoods\n          }\n          shipComponents {\n            alloys\n            consumerGoods\n          }\n          ships {\n            alloys\n            consumerGoods\n          }\n          situations {\n            alloys\n            consumerGoods\n          }\n          starbaseBuildings {\n            alloys\n            consumerGoods\n          }\n          starbaseModules {\n            alloys\n            consumerGoods\n          }\n          starbases {\n            alloys\n            consumerGoods\n          }\n          stationGatherers {\n            alloys\n            consumerGoods\n          }\n          stationObserverMissions {\n            alloys\n            consumerGoods\n          }\n          stationObservers {\n            alloys\n            consumerGoods\n          }\n          stationResearchers {\n            alloys\n            consumerGoods\n          }\n          tradePolicy {\n            alloys\n            consumerGoods\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "body_graphql_variables": "{\n  \"filename\": \"$saveFilename\"\n}",
+            "body_type": "graphql",
+            "data": "",
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Advanced Resources",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "time",
+                "targetField": "Date"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Alloys Balance",
+            "binary": {
+              "left": "Armies Alloys",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Alloys"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Alloys",
+                "Colonies Alloys",
+                "Commercial Pacts Alloys",
+                "Country Agendas Alloys",
+                "Country Base Alloys",
+                "Country Civics Alloys",
+                "Country Dessanu Alloys",
+                "Country Ethic Alloys",
+                "Power Projection Alloys",
+                "Country Ruler Alloys",
+                "Edicts Alloys",
+                "Commander Leaders Alloys",
+                "Official Leaders Alloys",
+                "Scientist Leaders Alloys",
+                "Megastructures Alloys",
+                "Megastructures Grand Archive Alloys",
+                "Megastructures Habitat Alloys",
+                "Megastructures Hyper Relay Alloys",
+                "Migration Pacts Alloys",
+                "None Alloys",
+                "Orbital Mining Deposits Alloys",
+                "Orbital Research Deposits Alloys",
+                "Overlord Subsidy Alloys",
+                "Artisans Alloys",
+                "Biologists Alloys",
+                "Buildings Alloys",
+                "Buildings Clone Vats Alloys",
+                "Buildings Hab Capital Alloys",
+                "Buildings Storm Tech Alloys",
+                "Strongholds Alloys",
+                "Bureucrats Alloys",
+                "Civilians Alloys",
+                "Clerks Alloys",
+                "Deposits Alloys",
+                "Districts Alloys",
+                "City Districts Alloys",
+                "Farming Districts Alloys",
+                "Generator Districts Alloys",
+                "Hab Districts Alloys",
+                "Mining Districts Alloys",
+                "Doctors Alloys",
+                "Energy Thralls Alloys",
+                "Engineers Alloys",
+                "Entertainers Alloys",
+                "Farmers Alloys",
+                "Jobs Alloys",
+                "Jobs Productive Alloys",
+                "Maintenance Drones Alloys",
+                "Metallurgists Alloys",
+                "Miners Alloys",
+                "Physicists Alloys",
+                "Politicians Alloys",
+                "Pop Assemblers Alloys",
+                "Pops Alloys",
+                "Planet Resource Deficit Alloys",
+                "Strategic Resource Miners Alloys",
+                "Technicians Alloys",
+                "Traders Alloys",
+                "Civilian Pops Alloys",
+                "Drone Pops Alloys",
+                "Ruler Pops Alloys",
+                "Specialist Pops Alloys",
+                "Worker Pops Alloys",
+                "Factions Alloys",
+                "Ship Components Alloys",
+                "Ships Alloys",
+                "Situations Alloys",
+                "Starbase Buildings Alloys",
+                "Starbase Modules Alloys",
+                "Starbases Alloys",
+                "Station Gatherers Alloys",
+                "Station Observer Missions Alloys",
+                "Station Observers Alloys",
+                "Station Researchers Alloys",
+                "Trade Policy Alloys"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Consumer Goods Balance",
+            "binary": {
+              "left": "Armies Consumer Goods",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "Colonies Consumer Goods"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Armies Consumer Goods",
+                "Colonies Consumer Goods",
+                "Commercial Pacts Consumer Goods",
+                "Country Agendas Consumer Goods",
+                "Country Base Consumer Goods",
+                "Country Civics Consumer Goods",
+                "Country Dessanu Consumer Goods",
+                "Country Ethic Consumer Goods",
+                "Power Projection Consumer Goods",
+                "Country Ruler Consumer Goods",
+                "Edicts Consumer Goods",
+                "Commander Leaders Consumer Goods",
+                "Official Leaders Consumer Goods",
+                "Scientist Leaders Consumer Goods",
+                "Megastructures Consumer Goods",
+                "Megastructures Grand Archive Consumer Goods",
+                "Megastructures Habitat Consumer Goods",
+                "Megastructures Hyper Relay Consumer Goods",
+                "Migration Pacts Consumer Goods",
+                "None Consumer Goods",
+                "Orbital Mining Deposits Consumer Goods",
+                "Orbital Research Deposits Consumer Goods",
+                "Overlord Subsidy Consumer Goods",
+                "Artisans Consumer Goods",
+                "Biologists Consumer Goods",
+                "Buildings Consumer Goods",
+                "Buildings Clone Vats Consumer Goods",
+                "Buildings Hab Capital Consumer Goods",
+                "Buildings Storm Tech Consumer Goods",
+                "Strongholds Consumer Goods",
+                "Bureucrats Consumer Goods",
+                "Civilians Consumer Goods",
+                "Clerks Consumer Goods",
+                "Deposits Consumer Goods",
+                "Districts Consumer Goods",
+                "City Districts Consumer Goods",
+                "Farming Districts Consumer Goods",
+                "Generator Districts Consumer Goods",
+                "Hab Districts Consumer Goods",
+                "Mining Districts Consumer Goods",
+                "Doctors Consumer Goods",
+                "Energy Thralls Consumer Goods",
+                "Engineers Consumer Goods",
+                "Entertainers Consumer Goods",
+                "Farmers Consumer Goods",
+                "Jobs Consumer Goods",
+                "Jobs Productive Consumer Goods",
+                "Maintenance Drones Consumer Goods",
+                "Metallurgists Consumer Goods",
+                "Miners Consumer Goods",
+                "Physicists Consumer Goods",
+                "Politicians Consumer Goods",
+                "Pop Assemblers Consumer Goods",
+                "Pops Consumer Goods",
+                "Planet Resource Deficit Consumer Goods",
+                "Strategic Resource Miners Consumer Goods",
+                "Technicians Consumer Goods",
+                "Traders Consumer Goods",
+                "Civilian Pops Consumer Goods",
+                "Drone Pops Consumer Goods",
+                "Ruler Pops Consumer Goods",
+                "Specialist Pops Consumer Goods",
+                "Worker Pops Consumer Goods",
+                "Factions Consumer Goods",
+                "Ship Components Consumer Goods",
+                "Ships Consumer Goods",
+                "Situations Consumer Goods",
+                "Starbase Buildings Consumer Goods",
+                "Starbase Modules Consumer Goods",
+                "Starbases Consumer Goods",
+                "Station Gatherers Consumer Goods",
+                "Station Observer Missions Consumer Goods",
+                "Station Observers Consumer Goods",
+                "Station Researchers Consumer Goods",
+                "Trade Policy Consumer Goods"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Armies Alloys": true,
+              "Armies Consumer Goods": true,
+              "Artisans Alloys": true,
+              "Artisans Consumer Goods": true,
+              "Biologists Alloys": true,
+              "Biologists Consumer Goods": true,
+              "Buildings Alloys": true,
+              "Buildings Clone Vats Alloys": true,
+              "Buildings Clone Vats Consumer Goods": true,
+              "Buildings Consumer Goods": true,
+              "Buildings Hab Capital Alloys": true,
+              "Buildings Hab Capital Consumer Goods": true,
+              "Buildings Storm Tech Alloys": true,
+              "Buildings Storm Tech Consumer Goods": true,
+              "Bureucrats Alloys": true,
+              "Bureucrats Consumer Goods": true,
+              "City Districts Alloys": true,
+              "City Districts Consumer Goods": true,
+              "Civilian Pops Alloys": true,
+              "Civilian Pops Consumer Goods": true,
+              "Civilians Alloys": true,
+              "Civilians Consumer Goods": true,
+              "Clerks Alloys": true,
+              "Clerks Consumer Goods": true,
+              "Colonies Alloys": true,
+              "Colonies Consumer Goods": true,
+              "Commander Leaders Alloys": true,
+              "Commander Leaders Consumer Goods": true,
+              "Commercial Pacts Alloys": true,
+              "Commercial Pacts Consumer Goods": true,
+              "Country Agendas Alloys": true,
+              "Country Agendas Consumer Goods": true,
+              "Country Base Alloys": true,
+              "Country Base Consumer Goods": true,
+              "Country Civics Alloys": true,
+              "Country Civics Consumer Goods": true,
+              "Country Dessanu Alloys": true,
+              "Country Dessanu Consumer Goods": true,
+              "Country Ethic Alloys": true,
+              "Country Ethic Consumer Goods": true,
+              "Country Ruler Alloys": true,
+              "Country Ruler Consumer Goods": true,
+              "Deposits Alloys": true,
+              "Deposits Consumer Goods": true,
+              "Districts Alloys": true,
+              "Districts Consumer Goods": true,
+              "Doctors Alloys": true,
+              "Doctors Consumer Goods": true,
+              "Drone Pops Alloys": true,
+              "Drone Pops Consumer Goods": true,
+              "Edicts Alloys": true,
+              "Edicts Consumer Goods": true,
+              "Energy Thralls Alloys": true,
+              "Energy Thralls Consumer Goods": true,
+              "Engineers Alloys": true,
+              "Engineers Consumer Goods": true,
+              "Entertainers Alloys": true,
+              "Entertainers Consumer Goods": true,
+              "Factions Alloys": true,
+              "Factions Consumer Goods": true,
+              "Farmers Alloys": true,
+              "Farmers Consumer Goods": true,
+              "Farming Districts Alloys": true,
+              "Farming Districts Consumer Goods": true,
+              "Generator Districts Alloys": true,
+              "Generator Districts Consumer Goods": true,
+              "Hab Districts Alloys": true,
+              "Hab Districts Consumer Goods": true,
+              "Jobs Alloys": true,
+              "Jobs Consumer Goods": true,
+              "Jobs Productive Alloys": true,
+              "Jobs Productive Consumer Goods": true,
+              "Maintenance Drones Alloys": true,
+              "Maintenance Drones Consumer Goods": true,
+              "Megastructures Alloys": true,
+              "Megastructures Consumer Goods": true,
+              "Megastructures Grand Archive Alloys": true,
+              "Megastructures Grand Archive Consumer Goods": true,
+              "Megastructures Habitat Alloys": true,
+              "Megastructures Habitat Consumer Goods": true,
+              "Megastructures Hyper Relay Alloys": true,
+              "Megastructures Hyper Relay Consumer Goods": true,
+              "Metallurgists Alloys": true,
+              "Metallurgists Consumer Goods": true,
+              "Migration Pacts Alloys": true,
+              "Migration Pacts Consumer Goods": true,
+              "Miners Alloys": true,
+              "Miners Consumer Goods": true,
+              "Mining Districts Alloys": true,
+              "Mining Districts Consumer Goods": true,
+              "None Alloys": true,
+              "None Consumer Goods": true,
+              "Official Leaders Alloys": true,
+              "Official Leaders Consumer Goods": true,
+              "Orbital Mining Deposits Alloys": true,
+              "Orbital Mining Deposits Consumer Goods": true,
+              "Orbital Research Deposits Alloys": true,
+              "Orbital Research Deposits Consumer Goods": true,
+              "Overlord Subsidy Alloys": true,
+              "Overlord Subsidy Consumer Goods": true,
+              "Physicists Alloys": true,
+              "Physicists Consumer Goods": true,
+              "Planet Resource Deficit Alloys": true,
+              "Planet Resource Deficit Consumer Goods": true,
+              "Politicians Alloys": true,
+              "Politicians Consumer Goods": true,
+              "Pop Assemblers Alloys": true,
+              "Pop Assemblers Consumer Goods": true,
+              "Pops Alloys": true,
+              "Pops Consumer Goods": true,
+              "Power Projection Alloys": true,
+              "Power Projection Consumer Goods": true,
+              "Ruler Pops Alloys": true,
+              "Ruler Pops Consumer Goods": true,
+              "Scientist Leaders Alloys": true,
+              "Scientist Leaders Consumer Goods": true,
+              "Ship Components Alloys": true,
+              "Ship Components Consumer Goods": true,
+              "Ships Alloys": true,
+              "Ships Consumer Goods": true,
+              "Situations Alloys": true,
+              "Situations Consumer Goods": true,
+              "Specialist Pops Alloys": true,
+              "Specialist Pops Consumer Goods": true,
+              "Starbase Buildings Alloys": true,
+              "Starbase Buildings Consumer Goods": true,
+              "Starbase Modules Alloys": true,
+              "Starbase Modules Consumer Goods": true,
+              "Starbases Alloys": true,
+              "Starbases Consumer Goods": true,
+              "Station Gatherers Alloys": true,
+              "Station Gatherers Consumer Goods": true,
+              "Station Observer Missions Alloys": true,
+              "Station Observer Missions Consumer Goods": true,
+              "Station Observers Alloys": true,
+              "Station Observers Consumer Goods": true,
+              "Station Researchers Alloys": true,
+              "Station Researchers Consumer Goods": true,
+              "Strategic Resource Miners Alloys": true,
+              "Strategic Resource Miners Consumer Goods": true,
+              "Strongholds Alloys": true,
+              "Strongholds Consumer Goods": true,
+              "Technicians Alloys": true,
+              "Technicians Consumer Goods": true,
+              "Trade Policy Alloys": true,
+              "Trade Policy Consumer Goods": true,
+              "Traders Alloys": true,
+              "Traders Consumer Goods": true,
+              "Worker Pops Alloys": true,
+              "Worker Pops Consumer Goods": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "timeseries"
     }
   ],
   "preload": true,
