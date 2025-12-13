@@ -75,65 +75,22 @@ cd agent && uv run ruff format
 
 Use these guidelines and rules whenever you're making changes to the codebase.
 
-### Claude-Specific Instructions
+### Documentation Maintenance
 
-- Always use context7 when I need code generation, setup or configuration steps, or library/API documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get library docs without me having to explicitly ask.
-- Always use `mcp__ide__getDiagnostics` tool to verify that code passes linting and formatting checks.
+This CLAUDE.md file serves as the central source of truth for development practices, architecture, and conventions. Keep it synchronized with the codebase:
 
-### General Principles
+- When adding or modifying development commands, update the "Development Commands" section
+- When adding, updating, or removing dependencies, update the "Libraries Reference" section with exact versions
+- When establishing new architectural patterns or changing existing ones, update the "Architecture & Technical Details" section
+- When changing code style conventions or quality check processes, update the relevant guidelines section
+- When modifying the GraphQL schema, update documentation about schema structure and any affected Grafana dashboards
+- When creating or updating Grafana dashboards, update the "GraphQL & Grafana" section
+- When changing Git workflows or commit conventions, update the "Git & Commits" section
+- When adding new configuration files or changing build processes, document them appropriately
 
-#### GraphQL Schema and Grafana Dashboard Synchronization
+The goal is to ensure that CLAUDE.md always accurately reflects the current state of the project, making it a reliable reference for development work.
 
-When modifying the GraphQL schema at `graphql/schema.graphql`, check if Grafana dashboards need corresponding updates:
-
-- Grafana dashboards are located in the `grafana/` directory
-- Dashboard JSON files contain hardcoded column definitions and GraphQL queries that mirror the schema structure
-- If you add, remove, or rename fields in the GraphQL schema's `BudgetCategory` or `BudgetEntry` types, the affected dashboards must be updated to maintain consistency
-- Each dashboard panel typically has:
-  - Column definitions (`columns` array) specifying which fields to display
-  - GraphQL query (`body_graphql_query`) that fetches the data
-- Both the column definitions and GraphQL queries must be kept in sync with the schema
-- After schema changes, review all dashboard files to identify which ones query the modified types
-
-#### Grafana Visualization Guidelines
-
-When creating new Grafana visualizations, follow these patterns established in existing dashboards:
-
-**Panel Configuration:**
-- Use `yesoreyeram-infinity-datasource` as the data source
-- Set panel type to `timeseries` for time-based data
-- Enable `liveNow: true` for real-time updates
-- Configure legend to show `last`, `max`, and `mean` values
-
-**Column Definitions:**
-- Define columns with JSON selectors matching the GraphQL response structure
-- Example: `selector: "budget.balance.armies.energy"`
-- Always include a `date` column as the first column for time series data
-
-**GraphQL Query Structure:**
-- Use `root_selector` to specify the data path (e.g., `data.save.gamestates`)
-- Include the `$saveFilename` variable in queries to support dashboard template variables
-- Structure the query to match the column selectors exactly
-
-**Data Transformations (Applied in Order):**
-1. **Convert Date Field**: Use `convertFieldType` transformation to convert the date field to time type
-2. **Calculate Aggregates**: Use `calculateField` with `mode: "reduceRow"` and `reducer: "sum"` to create aggregate metrics
-3. **Organize Fields**: Use `organize` transformation with `excludeByName` to hide individual detail columns and show only aggregates
-
-**Color Coding (Standard Resource Colors):**
-- Energy: `#F2CC0C` (Yellow)
-- Minerals: `#E02F44` (Red)
-- Food: `#73BF69` (Green)
-- Trade: `#8AB8FF` (Blue)
-
-Apply colors using field overrides with `matcher.id: "byName"` and `properties.id: "color"` with `mode: "fixed"`.
-
-**Template Variables:**
-- Include a `saveFilename` variable that queries available save files
-- Configure variable with `refresh: 1` for automatic updates
-- Use GraphQL query to populate variable options from the `saves` query
-
-#### Code Editing Principles
+### Code Editing Principles
 
 - When editing code or other files, don't add comments.
 - When creating or updating code, do only edits that the user has asked you to do.
@@ -201,8 +158,6 @@ git status
 - Use strict typing and strict null checks.
 - Never use type casting ("as" keyword).
 - Never use non-null assertions ("!" keyword).
-- Always check that the code you edit do not have any type errors.
-- When having the option of using async and sync version of a library, prefer async version.
 - Always use arrow function syntax instead of function keywords.
 - Prefer ternary operators over if/else statements.
 - Always use generated Zod schemas and TypeScript types from GraphQL code generation when working with GraphQL data structures.
@@ -214,17 +169,16 @@ git status
 
 #### Quality Checks
 
-After making TypeScript changes, verify your code by:
+After making TypeScript changes:
 
-- Using `mcp__ide__getDiagnostics` tool to verify that code passes linting and formatting checks.
-- Running `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
+- Use `mcp__ide__getDiagnostics` tool to check for linting and formatting errors.
+- Run `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
 
 ### Python Guidelines
 
 #### Code Style
 
 - Use strict typing with full type annotations for all functions, variables, and class attributes.
-- When having the option of using async and sync version of a library, prefer async version.
 - Prefer list comprehensions and generator expressions over map/filter when readability is maintained.
 - Use context managers (with statements) for resource management.
 - Follow PEP 8 naming conventions: snake_case for functions and variables, PascalCase for classes.
@@ -236,7 +190,6 @@ After making TypeScript changes, verify your code by:
 - Use `uv sync` command to update `/workspace/agent/uv.lock`.
 - Ruff is configured for linting and formatting (configuration file location: `/workspace/agent/pyproject.toml`).
 - Pyright is configured with strict type-checked rules (configuration file location: `/workspace/agent/pyproject.toml`).
-- Always check that the code you edit does not have any type errors.
 
 #### Dependencies
 
@@ -245,12 +198,68 @@ After making TypeScript changes, verify your code by:
 
 #### Quality Checks
 
-After making Python changes, verify your code by:
+After making Python changes:
 
-- Using `mcp__ide__getDiagnostics` tool to verify that code passes linting and formatting checks.
-- Running type checking: `cd agent && uv run pyright`
-- Running linting: `cd agent && uv run ruff check`
-- Running formatting: `cd agent && uv run ruff format`
+- Use `mcp__ide__getDiagnostics` tool to check for linting and formatting errors.
+- Run the type checking, linting, and formatting commands listed in the Development Commands section.
+
+### GraphQL & Grafana
+
+#### Schema and Dashboard Synchronization
+
+When modifying the GraphQL schema at `graphql/schema.graphql`, check if Grafana dashboards need corresponding updates:
+
+- Grafana dashboards are located in the `grafana/` directory
+- Dashboard JSON files contain hardcoded column definitions and GraphQL queries that mirror the schema structure
+- If you add, remove, or rename fields in the GraphQL schema's `BudgetCategory` or `BudgetEntry` types, the affected dashboards must be updated to maintain consistency
+- Each dashboard panel typically has:
+  - Column definitions (`columns` array) specifying which fields to display
+  - GraphQL query (`body_graphql_query`) that fetches the data
+- Both the column definitions and GraphQL queries must be kept in sync with the schema
+- After schema changes, review all dashboard files to identify which ones query the modified types
+
+#### Visualization Guidelines
+
+When creating new Grafana visualizations, follow these patterns established in existing dashboards:
+
+**Panel Configuration:**
+- Use `yesoreyeram-infinity-datasource` as the data source
+- Set panel type to `timeseries` for time-based data
+- Enable `liveNow: true` for real-time updates
+- Configure legend to show `last`, `max`, and `mean` values
+
+**Column Definitions:**
+- Define columns with JSON selectors matching the GraphQL response structure
+- Example: `selector: "budget.balance.armies.energy"`
+- Always include a `date` column as the first column for time series data
+
+**GraphQL Query Structure:**
+- Use `root_selector` to specify the data path (e.g., `data.save.gamestates`)
+- Include the `$saveFilename` variable in queries to support dashboard template variables
+- Structure the query to match the column selectors exactly
+
+**Data Transformations (Applied in Order):**
+1. **Convert Date Field**: Use `convertFieldType` transformation to convert the date field to time type
+2. **Calculate Aggregates**: Use `calculateField` with `mode: "reduceRow"` and `reducer: "sum"` to create aggregate metrics
+3. **Organize Fields**: Use `organize` transformation with `excludeByName` to hide individual detail columns and show only aggregates
+
+**Color Coding (Standard Resource Colors):**
+- Energy: `#F2CC0C` (Yellow)
+- Minerals: `#E02F44` (Red)
+- Food: `#73BF69` (Green)
+- Trade: `#8AB8FF` (Blue)
+
+Apply colors using field overrides with `matcher.id: "byName"` and `properties.id: "color"` with `mode: "fixed"`.
+
+**Template Variables:**
+- Include a `saveFilename` variable that queries available save files
+- Configure variable with `refresh: 1` for automatic updates
+- Use GraphQL query to populate variable options from the `saves` query
+
+### Claude-Specific Tools
+
+- Always use context7 when I need code generation, setup or configuration steps, or library/API documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get library docs without me having to explicitly ask.
+- When having the option of using async and sync version of a library, prefer async version.
 
 ## Architecture & Technical Details
 
