@@ -56,5 +56,11 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    files: ['tests/**/*.test.ts'],
+    rules: {
+      'n/no-missing-import': 'off',
+    },
+  },
   prettier,
 )
