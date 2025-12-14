@@ -39,7 +39,10 @@ import { executeQuerySimple } from './utils/graphqlClient.js'
 import { loadFixture, loadFixtures } from './utils/fixtures.js'
 import type { TestDatabaseContext } from './utils/testDatabase.js'
 import type { TestServerContext } from './utils/testServer.js'
+import type { Save, Gamestate, Budget } from '../src/graphql/generated/validation.generated.js'
 ```
+
+**Note**: Import generated TypeScript types from `validation.generated.ts` for type-safe GraphQL response typing.
 
 ### Standard Test Structure
 
@@ -70,22 +73,44 @@ describe('Feature/Component Name', () => {
 
 ### GraphQL Query Execution Pattern
 
-Always use this pattern for executing GraphQL queries:
+Always use generated TypeScript types from `validation.generated.ts` for type-safe GraphQL queries:
 
 ```typescript
 const result = await executeQuerySimple<{
-  expectedField: { subfield: string }
+  save: Save
 }>(testServer, `
-  query {
-    expectedField {
-      subfield
+  query GetSave($filename: String!) {
+    save(filename: $filename) {
+      saveId
+      filename
+      name
+      gamestates {
+        gamestateId
+        date
+        budget {
+          balance {
+            energy
+            minerals
+          }
+        }
+      }
     }
   }
-`, { variables: 'if needed' })
+`, { filename: 'test.sav' })
 
 expect(result.errors).toBeUndefined()
-expect(result.data?.expectedField.subfield).toBe('expected value')
+expect(result.data?.save?.filename).toBe('test.sav')
+expect(result.data?.save?.gamestates[0]?.budget.balance.energy).toBe(100)
 ```
+
+**Available Generated Types**:
+- `Save` - Save file with metadata and gamestates
+- `Gamestate` - Game state snapshot at a specific date
+- `Budget` - Budget with income, expenses, and balance categories
+- `BudgetCategory` - Category containing budget entries
+- `BudgetEntry` - Individual resource amounts
+- `Planet` - Planet data with production details
+- `PlanetProduction` - Planet-specific resource production
 
 ## SQL Fixture Guidelines
 
@@ -147,9 +172,26 @@ When updating tests:
 
 ### GraphQL Schema Alignment
 
-- When testing GraphQL resolvers, always request fields that exist in the current schema
-- Use generated TypeScript types from `src/graphql/generated/` when available
-- Ensure test queries match the cacheControl directives in the schema
+**Always use generated types from `src/graphql/generated/validation.generated.ts`**:
+
+- **For GraphQL response typing**: Use TypeScript types (e.g., `Save`, `Gamestate`, `Budget`) when defining the expected response shape for `executeQuerySimple<T>()`
+- **For runtime validation**: Use Zod schemas (e.g., `SaveSchema()`, `GamestateSchema()`, `BudgetSchema()`) when you need to validate data at runtime
+- **Schema synchronization**: The generated file is automatically created from `graphql/schema.graphql` via `npm run graphql:codegen`
+- **When to regenerate**: After any changes to the GraphQL schema, run `npm run graphql:codegen` to update types and schemas
+
+**Type vs Schema Usage**:
+```typescript
+import type { Save } from '../src/graphql/generated/validation.generated.js'
+import { SaveSchema } from '../src/graphql/generated/validation.generated.js'
+
+const result = await executeQuerySimple<{ save: Save }>(testServer, query)
+
+if (result.data?.save) {
+  const validatedSave = SaveSchema().parse(result.data.save)
+}
+```
+
+**Important**: Always request only fields that exist in the current schema. Ensure test queries match the cacheControl directives defined in the schema.
 
 ### Database Schema Alignment
 
@@ -170,9 +212,10 @@ When updating tests:
 Before completing any test work, verify:
 
 - [ ] All imports are present and correct
+- [ ] Generated TypeScript types imported from `validation.generated.ts`
 - [ ] `beforeEach` creates database and loads fixtures
 - [ ] `afterEach` cleans up server and database
-- [ ] GraphQL queries use type-safe generics
+- [ ] GraphQL queries use type-safe generics with generated types
 - [ ] Error cases check `result.errors`
 - [ ] Success cases check `result.errors` is undefined
 - [ ] Fixtures use subqueries for FK references
