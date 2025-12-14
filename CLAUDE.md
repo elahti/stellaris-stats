@@ -46,6 +46,12 @@ Generate only GraphQL resolver types, TypeScript types and Zod schemas (without 
 npm run graphql:codegen
 ```
 
+Run linting:
+
+```bash
+npm run lint
+```
+
 ### Python Commands
 
 All Python commands use `cd agent &&` prefix.
@@ -189,6 +195,7 @@ git status
 After making TypeScript changes:
 
 - Use `mcp__ide__getDiagnostics` tool to check for linting and formatting errors.
+- Run `npm run lint` to verify no linting errors.
 - Run `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
 
 ### Python Guidelines
