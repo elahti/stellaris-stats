@@ -36,7 +36,6 @@ describe('Save Query', () => {
           filename
           name
           gamestates {
-            gamestateId
             date
           }
         }
