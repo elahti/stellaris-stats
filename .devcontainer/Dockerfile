@@ -58,6 +58,10 @@ COPY .devcontainer/.config/starship.toml $HOME/.config/starship.toml
 
 RUN curl -LsSf https://github.com/dotenvx/dotenvx/releases/download/v1.49.0/install.sh | sh -s -- --directory=/home/vscode/.local/bin
 
+RUN curl -fsSL https://bun.sh/install | bash
+ENV BUN_INSTALL="$HOME/.bun"
+ENV PATH="$BUN_INSTALL/bin:$PATH"
+
 COPY --from=ghcr.io/astral-sh/uv:0.9.16 /uv /uvx $HOME/.local/bin/
 
 COPY --chown=vscode:vscode .devcontainer/.zshrc $HOME/.zshrc
