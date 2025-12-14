@@ -1,14 +1,17 @@
 import { randomUUID } from 'crypto'
 import { Pool } from 'pg'
-import { Logger } from 'pino'
+import type { Logger } from 'pino'
+import z from 'zod/v4'
 import { DbConfig } from '../../src/db.js'
 import { runUpMigrations } from '../../src/migrations.js'
 import { getTestDbAdminConfig } from './testConfig.js'
 
+type DbConfigType = z.infer<typeof DbConfig>
+
 export interface TestDatabaseContext {
   pool: Pool
   dbName: string
-  dbConfig: DbConfig
+  dbConfig: DbConfigType
 }
 
 export interface CreateTestDatabaseOptions {
@@ -62,7 +65,12 @@ export const createTestDatabase = async (
     info: () => undefined,
     error: () => undefined,
     warn: () => undefined,
-  } as Logger
+    fatal: () => undefined,
+    debug: () => undefined,
+    trace: () => undefined,
+    silent: () => undefined,
+    child: () => silentLogger,
+  } as unknown as Logger
 
   try {
     await runUpMigrations(
@@ -78,13 +86,13 @@ export const createTestDatabase = async (
     logger?.error({ error, dbName }, 'Failed to run migrations')
     await testPool.end()
     await destroyTestDatabase(
-      { pool: testPool, dbName, dbConfig: {} as DbConfig },
+      { pool: testPool, dbName, dbConfig: {} as DbConfigType },
       logger,
     )
     throw error
   }
 
-  const dbConfig: DbConfig = {
+  const dbConfig: DbConfigType = {
     STELLARIS_STATS_DB_HOST: adminConfig.host,
     STELLARIS_STATS_DB_PORT: adminConfig.port,
     STELLARIS_STATS_DB_USER: adminConfig.user,
