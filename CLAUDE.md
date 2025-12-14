@@ -242,6 +242,7 @@ If you add, remove, or rename fields in the `BudgetEntry` type, you MUST update 
    - Example mappings: `astral_threads` → `astralThreads`, `exotic_gases` → `exoticGases`
 
 **Important Notes:**
+
 - Database column names use snake_case (e.g., `be.astral_threads`)
 - GraphQL schema fields use camelCase (e.g., `astralThreads`)
 - The `selectRows()` function in `src/db.ts` automatically converts snake_case to camelCase
@@ -265,22 +266,26 @@ When modifying the GraphQL schema at `graphql/schema.graphql`, check if Grafana 
 When creating new Grafana visualizations, follow these patterns established in existing dashboards:
 
 **Panel Configuration:**
+
 - Use `yesoreyeram-infinity-datasource` as the data source
 - Set panel type to `timeseries` for time-based data
 - Enable `liveNow: true` for real-time updates
 - Configure legend to show `last`, `max`, and `mean` values
 
 **Column Definitions:**
+
 - Define columns with JSON selectors matching the GraphQL response structure
 - Example: `selector: "budget.balance.armies.energy"`
 - Always include a `date` column as the first column for time series data
 
 **GraphQL Query Structure:**
+
 - Use `root_selector` to specify the data path (e.g., `data.save.gamestates`)
 - Include the `$saveFilename` variable in queries to support dashboard template variables
 - Structure the query to match the column selectors exactly
 
 **Data Transformations (Applied in Order):**
+
 1. **Convert Date Field**: Use `convertFieldType` transformation to convert the date field to time type
 2. **Calculate Aggregates**: Use `calculateField` with `mode: "reduceRow"` and `reducer: "sum"` to create aggregate metrics
 3. **Organize Fields**: Use `organize` transformation with `excludeByName` to hide individual detail columns and show only aggregates
@@ -290,27 +295,32 @@ When creating new Grafana visualizations, follow these patterns established in e
 The Empire Budget dashboard (`grafana/empireBudget.json`) uses the following color scheme for resources:
 
 **Basic Resources:**
+
 - Energy: `#F2CC0C` (Yellow)
 - Minerals: `#E02F44` (Red)
 - Food: `#73BF69` (Green)
 - Trade: `#8AB8FF` (Blue)
 
 **Advanced Resources:**
+
 - Alloys: `#FF69B4` (Hot Pink)
 - Consumer Goods: `#8B4513` (Saddle Brown)
 
 **Strategic Resources:**
+
 - Exotic Gases: `#73BF69` (Green)
 - Rare Crystals: `#F2CC0C` (Yellow)
 - Volatile Motes: `#8B4513` (Saddle Brown)
 
 **Rare Resources:**
+
 - Zro: `#5DADE2` (Light Blue)
 - Dark Matter: `#9B59B6` (Purple)
 - Living Metal: `#616161` (Gray)
 - Nanites: `#BDBDBD` (Light Gray)
 
 **Abstract Resources:**
+
 - Influence: `#A64D79` (Purple)
 - Unity: `#56B4E9` (Turquoise)
 - Physics Research: `#3274A1` (Blue)
@@ -320,6 +330,7 @@ The Empire Budget dashboard (`grafana/empireBudget.json`) uses the following col
 Apply colors using field overrides with `matcher.id: "byName"` and `properties.id: "color"` with `mode: "fixed"`.
 
 **Template Variables:**
+
 - Include a `saveFilename` variable that queries available save files
 - Configure variable with `refresh: 1` for automatic updates
 - Use GraphQL query to populate variable options from the `saves` query
@@ -340,6 +351,7 @@ The project implements a three-tier caching strategy using Redis to optimize Gra
 #### Caching Architecture
 
 ##### Tier 1: Response-Level Caching
+
 - **Implementation**: Custom Apollo Server plugin (`src/graphql/responseCache.ts`)
 - **Class**: `RedisCache` implementing Apollo's `KeyValueCache` interface
 - **Key Prefix**: `graphql:` for all cache entries
@@ -347,6 +359,7 @@ The project implements a three-tier caching strategy using Redis to optimize Gra
 - **Null Prevention**: Responses containing null values are NOT cached to prevent caching errors
 
 ##### Tier 2: Field-Level Caching
+
 - **Implementation**: Manual caching in resolvers (`src/graphql/generated/Gamestate.ts`)
 - **Cached Fields**:
   - `Gamestate.budget` - Key: `budget:gamestateId:{id}`
@@ -355,6 +368,7 @@ The project implements a three-tier caching strategy using Redis to optimize Gra
 - **TTL**: No expiration (immutable data)
 
 ##### Tier 3: DataLoader Batching with Request-Scoped Cache
+
 - **Location**: `src/graphql/dataloaders/`
 - **DataLoaders**:
   - `budgetLoader`: Batches budget queries by gamestateId
@@ -371,7 +385,7 @@ The project implements a three-tier caching strategy using Redis to optimize Gra
   - `STELLARIS_STATS_REDIS_HOST` (default: 'redis')
   - `STELLARIS_STATS_REDIS_PORT` (default: 6379)
   - `STELLARIS_STATS_REDIS_DB` (default: 0)
-- **Retry Strategy**: Exponential backoff (50ms * attempts, max 2000ms, 3 max retries)
+- **Retry Strategy**: Exponential backoff (50ms \* attempts, max 2000ms, 3 max retries)
 - **Deployment**: Redis 7.4-alpine container with persistent volume storage, internal network only (no exposed ports)
 
 #### Cache Control Directives
@@ -408,12 +422,14 @@ The project uses end-to-end integration testing with complete database isolation
 #### Testing Architecture
 
 ##### Test Runner
+
 - **Framework**: Bun (built-in test runner)
 - **Test Files**: `tests/**/*.test.ts`
 - **Command**: `npm test` (uses `dotenvx` to load test environment)
 - **Execution**: Parallel by default, each test fully isolated
 
 ##### Database Isolation Strategy
+
 - **Pattern**: Database-per-test
 - **Implementation**: Each test creates a unique PostgreSQL database using `crypto.randomUUID()`
 - **Database Naming**: `stellaris_test_{uuid}` with hyphens replaced by underscores
@@ -435,6 +451,7 @@ await destroyTestDatabase(testDb)
 ```
 
 **Features:**
+
 - Creates unique database with UUID-based name
 - Runs all migrations automatically
 - Provides dedicated connection pool
@@ -450,6 +467,7 @@ const testServer = createTestServer(testDb)
 ```
 
 **Configuration:**
+
 - Uses test database pool
 - Mock Redis implementation (in-memory)
 - All production plugins (response cache, cache control)
@@ -468,6 +486,7 @@ const result = await executeQuerySimple<{
 ```
 
 **Features:**
+
 - Creates proper GraphQL context per request
 - Includes DataLoaders and cache
 - Type-safe response with generics
@@ -483,6 +502,7 @@ await loadFixtures(testDb.pool, ['saves/save1.sql', 'saves/save2.sql'])
 ```
 
 **Fixture Pattern:**
+
 - Located in `tests/fixtures/`
 - Use subqueries for foreign key references
 - Sequential execution to maintain FK dependencies
@@ -529,7 +549,10 @@ db-test:
 
 ```typescript
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test'
-import { createTestDatabase, destroyTestDatabase } from './utils/testDatabase.js'
+import {
+  createTestDatabase,
+  destroyTestDatabase,
+} from './utils/testDatabase.js'
 import { createTestServer } from './utils/testServer.js'
 import { executeQuerySimple } from './utils/graphqlClient.js'
 import { loadFixture } from './utils/fixtures.js'
@@ -559,10 +582,7 @@ describe('Feature Name', () => {
     // Execute GraphQL query with type safety
     const result = await executeQuerySimple<{
       field: { subfield: string }
-    }>(
-      testServer,
-      `query { field { subfield } }`
-    )
+    }>(testServer, `query { field { subfield } }`)
 
     // Assert results
     expect(result.errors).toBeUndefined()
@@ -590,30 +610,35 @@ VALUES (
 #### Testing Best Practices
 
 **Database Setup:**
+
 - Always create fresh database in `beforeEach`
 - Always destroy database in `afterEach`
 - Load fixtures after creating database
 - Use descriptive fixture file names reflecting test scenarios
 
 **GraphQL Queries:**
+
 - Use TypeScript generics for type-safe responses
 - Always check `result.errors` is undefined
 - Use optional chaining for data access (`result.data?.field`)
 - Request only the fields needed for assertions
 
 **Fixtures:**
+
 - Keep fixtures focused on specific test scenarios
 - Use subqueries for FK references (no hardcoded IDs)
 - Organize fixtures by feature/domain
 - Document complex data setups with SQL comments
 
 **Test Organization:**
+
 - Group related tests in `describe` blocks
 - Use descriptive test names following pattern: "returns/performs/validates X when Y"
 - One logical assertion per test when possible
 - Share setup via `beforeEach`, not between tests
 
 **Performance:**
+
 - Tests run in parallel by default (database-per-test enables this)
 - Each test takes ~200-400ms including database setup
 - Avoid unnecessary data in fixtures
@@ -622,28 +647,32 @@ VALUES (
 #### Key Implementation Details
 
 **Context Creation Pattern:**
+
 ```typescript
 const client = await pool.connect()
 const contextValue: GraphQLServerContext = {
   client,
   loaders: createDataLoaders(client),
-  cache
+  cache,
 }
 ```
 
 **Client Lifecycle:**
+
 - Client acquired from pool per GraphQL request
 - Released automatically by server's `willSendResponse` plugin
 - No manual `client.release()` needed in tests
 - Tests must `await executeQuery` to ensure cleanup
 
 **Server vs Production:**
+
 - Test server has same plugins as production
 - Uses `executeOperation()` instead of HTTP
 - No `startStandaloneServer()` call
 - Context created per operation, not pre-configured
 
 **Database Naming Constraints:**
+
 - PostgreSQL identifiers use underscores not hyphens
 - UUID hyphens replaced: `randomUUID().replace(/-/g, '_')`
 - Format: `stellaris_test_550e8400_e29b_41d4_a716_446655440000`
