@@ -94,6 +94,8 @@ Run tests in watch mode:
 npm test -- --watch
 ```
 
+**Note**: When creating or modifying tests, use the `test-writer` agent which has comprehensive instructions for following the project's testing patterns and best practices
+
 ## Development Guidelines
 
 Use these guidelines and rules whenever you're making changes to the codebase.
@@ -542,107 +544,6 @@ db-test:
   volumes:
     - db-test-data:/var/lib/postgresql
 ```
-
-#### Writing Tests
-
-**Complete Test Example:**
-
-```typescript
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test'
-import {
-  createTestDatabase,
-  destroyTestDatabase,
-} from './utils/testDatabase.js'
-import { createTestServer } from './utils/testServer.js'
-import { executeQuerySimple } from './utils/graphqlClient.js'
-import { loadFixture } from './utils/fixtures.js'
-import type { TestDatabaseContext } from './utils/testDatabase.js'
-import type { TestServerContext } from './utils/testServer.js'
-
-describe('Feature Name', () => {
-  let testDb: TestDatabaseContext
-  let testServer: TestServerContext
-
-  beforeEach(async () => {
-    // Create isolated database and load test data
-    testDb = await createTestDatabase()
-    await loadFixture(testDb.pool, 'feature/test-data.sql')
-
-    // Create Apollo Server with test database
-    testServer = createTestServer(testDb)
-  })
-
-  afterEach(async () => {
-    // Clean up server and database
-    await testServer.cleanup()
-    await destroyTestDatabase(testDb)
-  })
-
-  it('performs expected behavior', async () => {
-    // Execute GraphQL query with type safety
-    const result = await executeQuerySimple<{
-      field: { subfield: string }
-    }>(testServer, `query { field { subfield } }`)
-
-    // Assert results
-    expect(result.errors).toBeUndefined()
-    expect(result.data?.field.subfield).toBe('expected value')
-  })
-})
-```
-
-**Fixture File Example** (`tests/fixtures/feature/test-data.sql`):
-
-```sql
--- Insert parent record
-INSERT INTO save (filename, name)
-VALUES ('test.sav', 'Test Empire');
-
--- Insert child record with FK reference using subquery
-INSERT INTO gamestate (save_id, date, data)
-VALUES (
-  (SELECT save_id FROM save WHERE filename = 'test.sav'),
-  '2250-01-01',
-  '{}'::jsonb
-);
-```
-
-#### Testing Best Practices
-
-**Database Setup:**
-
-- Always create fresh database in `beforeEach`
-- Always destroy database in `afterEach`
-- Load fixtures after creating database
-- Use descriptive fixture file names reflecting test scenarios
-
-**GraphQL Queries:**
-
-- Use TypeScript generics for type-safe responses
-- Always check `result.errors` is undefined
-- Use optional chaining for data access (`result.data?.field`)
-- Request only the fields needed for assertions
-
-**Fixtures:**
-
-- Keep fixtures focused on specific test scenarios
-- Use subqueries for FK references (no hardcoded IDs)
-- Organize fixtures by feature/domain
-- Document complex data setups with SQL comments
-
-**Test Organization:**
-
-- Group related tests in `describe` blocks
-- Use descriptive test names following pattern: "returns/performs/validates X when Y"
-- One logical assertion per test when possible
-- Share setup via `beforeEach`, not between tests
-
-**Performance:**
-
-- Tests run in parallel by default (database-per-test enables this)
-- Each test takes ~200-400ms including database setup
-- Avoid unnecessary data in fixtures
-- Consider `--watch` mode for development
 
 #### Key Implementation Details
 
