@@ -4,7 +4,7 @@ import {
   destroyTestDatabase,
 } from './utils/testDatabase.js'
 import { createTestServer } from './utils/testServer.js'
-import { executeQuerySimple } from './utils/graphqlClient.js'
+import { executeQuery } from './utils/graphqlClient.js'
 import { loadFixture } from './utils/fixtures.js'
 import type { TestDatabaseContext } from './utils/testDatabase.js'
 import type { TestServerContext } from './utils/testServer.js'
@@ -26,7 +26,7 @@ describe('Save Query', () => {
   })
 
   it('returns dates from gamestate list when querying save by filename', async () => {
-    const result = await executeQuerySimple<{
+    const result = await executeQuery<{
       save: Save
     }>(
       testServer,

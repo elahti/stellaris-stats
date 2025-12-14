@@ -4,7 +4,7 @@ import {
   destroyTestDatabase,
 } from './utils/testDatabase.js'
 import { createTestServer } from './utils/testServer.js'
-import { executeQuerySimple } from './utils/graphqlClient.js'
+import { executeQuery } from './utils/graphqlClient.js'
 import { loadFixture } from './utils/fixtures.js'
 import type { TestDatabaseContext } from './utils/testDatabase.js'
 import type { TestServerContext } from './utils/testServer.js'
@@ -26,7 +26,7 @@ describe('Saves Query', () => {
   })
 
   it('returns filename and name for all available saves', async () => {
-    const result = await executeQuerySimple<{
+    const result = await executeQuery<{
       saves: Pick<Save, 'filename' | 'name'>[]
     }>(
       testServer,
