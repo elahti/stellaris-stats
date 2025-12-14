@@ -1,46 +1,11 @@
 {
-  "compilerOptions": {
-    "declaration": false,
-    "declarationMap": false,
-    "esModuleInterop": true,
-    "exactOptionalPropertyTypes": false,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "inlineSourceMap": false,
-    "inlineSources": false,
-    "isolatedModules": true,
-    "lib": [
-      "ESNext"
-    ],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUncheckedIndexedAccess": true,
-    "outDir": "dist",
-    "removeComments": false,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "target": "esnext",
-    "types": [
-      "node",
-      "bun"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "*.tsbuildinfo"
-  ],
-  "include": [
-    "src/**/*",
-    "migrations/**/*",
-    "tests/**/*"
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.src.json"
+    },
+    {
+      "path": "./tsconfig.tests.json"
+    }
   ]
 }
