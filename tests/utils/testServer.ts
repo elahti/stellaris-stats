@@ -33,13 +33,16 @@ export const createTestServer = (
     responseCachePlugin<GraphQLServerContext>({ cache }),
     ApolloServerPluginCacheControl({ defaultMaxAge: 0 }),
     {
-      requestDidStart: () => ({
-        willSendResponse: (
-          requestContext: GraphQLRequestContext<GraphQLServerContext>,
-        ) => {
-          requestContext.contextValue.client.release()
-        },
-      }),
+      requestDidStart() {
+        return Promise.resolve({
+          willSendResponse(
+            requestContext: GraphQLRequestContext<GraphQLServerContext>,
+          ) {
+            requestContext.contextValue.client.release()
+            return Promise.resolve()
+          },
+        })
+      },
     },
   ]
 
