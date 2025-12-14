@@ -1,9 +1,6 @@
-import type { ApolloServer } from '@apollo/server'
 import type { GraphQLFormattedError } from 'graphql'
-import type { Pool } from 'pg'
 import { createDataLoaders } from '../../src/graphql/dataloaders/index.js'
 import type { GraphQLServerContext } from '../../src/graphql/graphqlServerContext.js'
-import type { RedisCache } from '../../src/graphql/responseCache.js'
 import type { TestServerContext } from './testServer.js'
 
 export interface GraphQLResult<T> {
@@ -12,20 +9,18 @@ export interface GraphQLResult<T> {
 }
 
 export const executeQuery = async <T = Record<string, unknown>>(
-  server: ApolloServer<GraphQLServerContext>,
-  pool: Pool,
-  cache: RedisCache,
+  testServer: TestServerContext,
   query: string,
   variables?: Record<string, unknown>,
 ): Promise<GraphQLResult<T>> => {
-  const client = await pool.connect()
+  const client = await testServer.pool.connect()
   const contextValue: GraphQLServerContext = {
     client,
     loaders: createDataLoaders(client),
-    cache,
+    cache: testServer.cache,
   }
 
-  const response = await server.executeOperation(
+  const response = await testServer.server.executeOperation(
     { query, variables },
     { contextValue },
   )
@@ -39,16 +34,3 @@ export const executeQuery = async <T = Record<string, unknown>>(
     errors: response.body.singleResult.errors,
   }
 }
-
-export const executeQuerySimple = async <T = Record<string, unknown>>(
-  testServer: TestServerContext,
-  query: string,
-  variables?: Record<string, unknown>,
-): Promise<GraphQLResult<T>> =>
-  executeQuery<T>(
-    testServer.server,
-    testServer.pool,
-    testServer.cache,
-    query,
-    variables,
-  )

@@ -82,16 +82,16 @@ cd agent && uv run ruff format
 
 ### Testing Commands
 
-Run all tests:
+Run tests in watch mode (development):
 
 ```bash
 npm test
 ```
 
-Run tests in watch mode:
+Run tests once (CI or one-time run):
 
 ```bash
-npm test -- --watch
+npm run test:ci
 ```
 
 **Note**: When creating or modifying tests, use the `test-writer` agent which has comprehensive instructions for following the project's testing patterns and best practices
@@ -196,7 +196,7 @@ git status
 
 After making TypeScript changes:
 
-- Use both `mcp__ide__getDiagnostics` and `npm run lint` tools to check for linting and formatting errors.
+- Run `npm run lint` to check for linting and formatting errors.
 - Run `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
 
 ### Python Guidelines
@@ -225,7 +225,6 @@ After making TypeScript changes:
 
 After making Python changes:
 
-- Use `mcp__ide__getDiagnostics` tool to check for linting and formatting errors.
 - Run the type checking, linting, and formatting commands listed in the Development Commands section.
 
 ### GraphQL & Grafana
