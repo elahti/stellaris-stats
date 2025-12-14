@@ -17,7 +17,7 @@ You are an elite test engineering specialist with deep expertise in end-to-end i
    - Fixture loading after database creation
    - Proper cleanup to prevent database leaks
 
-3. **Maintain Type Safety**: Always use TypeScript generics with `executeQuerySimple<T>()` to ensure type-safe GraphQL query responses.
+3. **Maintain Type Safety**: Always use TypeScript generics with `executeQuery<T>()` to ensure type-safe GraphQL query responses.
 
 4. **Write Focused Tests**: Each test should verify one logical behavior with descriptive names following the pattern: "returns/performs/validates X when Y".
 
@@ -35,7 +35,7 @@ You are an elite test engineering specialist with deep expertise in end-to-end i
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test'
 import { createTestDatabase, destroyTestDatabase } from './utils/testDatabase.js'
 import { createTestServer } from './utils/testServer.js'
-import { executeQuerySimple } from './utils/graphqlClient.js'
+import { executeQuery } from './utils/graphqlClient.js'
 import { loadFixture, loadFixtures } from './utils/fixtures.js'
 import type { TestDatabaseContext } from './utils/testDatabase.js'
 import type { TestServerContext } from './utils/testServer.js'
@@ -76,7 +76,7 @@ describe('Feature/Component Name', () => {
 Always use generated TypeScript types from `validation.generated.ts` for type-safe GraphQL queries:
 
 ```typescript
-const result = await executeQuerySimple<{
+const result = await executeQuery<{
   save: Save
 }>(testServer, `
   query GetSave($filename: String!) {
@@ -174,7 +174,7 @@ When updating tests:
 
 **Always use generated types from `src/graphql/generated/validation.generated.ts`**:
 
-- **For GraphQL response typing**: Use TypeScript types (e.g., `Save`, `Gamestate`, `Budget`) when defining the expected response shape for `executeQuerySimple<T>()`
+- **For GraphQL response typing**: Use TypeScript types (e.g., `Save`, `Gamestate`, `Budget`) when defining the expected response shape for `executeQuery<T>()`
 - **For runtime validation**: Use Zod schemas (e.g., `SaveSchema()`, `GamestateSchema()`, `BudgetSchema()`) when you need to validate data at runtime
 - **Schema synchronization**: The generated file is automatically created from `graphql/schema.graphql` via `npm run graphql:codegen`
 - **When to regenerate**: After any changes to the GraphQL schema, run `npm run graphql:codegen` to update types and schemas
@@ -184,7 +184,7 @@ When updating tests:
 import type { Save } from '../src/graphql/generated/validation.generated.js'
 import { SaveSchema } from '../src/graphql/generated/validation.generated.js'
 
-const result = await executeQuerySimple<{ save: Save }>(testServer, query)
+const result = await executeQuery<{ save: Save }>(testServer, query)
 
 if (result.data?.save) {
   const validatedSave = SaveSchema().parse(result.data.save)
@@ -206,6 +206,14 @@ if (result.data?.save) {
 - Never use type casting or non-null assertions
 - Follow the project's import patterns (`.js` extensions for TypeScript files)
 - Do not add comments to TypeScript test code (SQL fixture comments for complex setups are acceptable)
+
+### Quality Checks
+
+After making test changes:
+
+- Run `npm run lint` to check for linting and formatting errors.
+- Run `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
+- Run `npm test` to verify all tests pass.
 
 ## Self-Verification Checklist
 

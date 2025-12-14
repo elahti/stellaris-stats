@@ -196,7 +196,7 @@ git status
 
 After making TypeScript changes:
 
-- Use both `mcp__ide__getDiagnostics` and `npm run lint` tools to check for linting and formatting errors.
+- Run `npm run lint` to check for linting and formatting errors.
 - Run `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
 
 ### Python Guidelines
@@ -225,7 +225,6 @@ After making TypeScript changes:
 
 After making Python changes:
 
-- Use `mcp__ide__getDiagnostics` tool to check for linting and formatting errors.
 - Run the type checking, linting, and formatting commands listed in the Development Commands section.
 
 ### GraphQL & Grafana
