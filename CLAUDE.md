@@ -82,16 +82,16 @@ cd agent && uv run ruff format
 
 ### Testing Commands
 
-Run all tests:
+Run tests in watch mode (development):
 
 ```bash
 npm test
 ```
 
-Run tests in watch mode:
+Run tests once (CI or one-time run):
 
 ```bash
-npm test -- --watch
+npm run test:ci
 ```
 
 **Note**: When creating or modifying tests, use the `test-writer` agent which has comprehensive instructions for following the project's testing patterns and best practices
