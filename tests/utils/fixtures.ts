@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises'
 import { join } from 'path'
 import type { Pool } from 'pg'
 
-const FIXTURES_DIR = '/workspace/tests/fixtures'
+const FIXTURES_DIR = './tests/fixtures'
 
 export const loadFixture = async (
   pool: Pool,

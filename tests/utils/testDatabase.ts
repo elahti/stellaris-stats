@@ -24,7 +24,7 @@ export const createTestDatabase = async (
   options?: CreateTestDatabaseOptions,
 ): Promise<TestDatabaseContext> => {
   const {
-    migrationsDir = '/workspace/migrations',
+    migrationsDir = './migrations',
     migrationsTable = 'stellaris_test_migrations',
     logger,
   } = options ?? {}
