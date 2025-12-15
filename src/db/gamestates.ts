@@ -1,6 +1,6 @@
 import { PoolClient } from 'pg'
 import { z } from 'zod/v4'
-import { selectRows } from '../db.js'
+import { selectRows, selectRowStrict } from '../db.js'
 import {
   Gamestate,
   GamestateSchema,
@@ -78,3 +78,20 @@ export const getGamestateByMonth = async (
   )
   return rows[0]
 }
+
+const insertGamestateQuery = `
+INSERT INTO gamestate (save_id, date, data)
+VALUES ($1, $2, $3)
+RETURNING gamestate_id, date
+`
+
+export const insertGamestate = (
+  client: PoolClient,
+  saveId: number,
+  date: Date,
+  data: unknown,
+): Promise<Pick<Gamestate, 'gamestateId' | 'date'>> =>
+  selectRowStrict(
+    () => client.query(insertGamestateQuery, [saveId, date, data]),
+    GamestateByMonthRow,
+  )

@@ -3,7 +3,7 @@ import { Jomini } from 'jomini'
 import { Logger } from 'pino'
 import { z } from 'zod/v4'
 import { DbConfig, getDbPool } from '../db.js'
-import { getGamestateByMonth } from '../db/gamestates.js'
+import { getGamestateByMonth, insertGamestate } from '../db/gamestates.js'
 import { upsertSave } from '../db/save.js'
 import { getLogger } from '../logger.js'
 import { MigrationsConfig, runUpMigrations } from '../migrations.js'
@@ -67,7 +67,16 @@ const runParser = async (logger: Logger) => {
             return
           }
 
-          logger.info({ date }, 'Gamestate does not exist, ready to parse')
+          const insertedGamestate = await insertGamestate(
+            client,
+            save.saveId,
+            date,
+            parsed,
+          )
+          logger.info(
+            { gamestateId: insertedGamestate.gamestateId, date },
+            'Gamestate inserted',
+          )
         } finally {
           client.release()
         }
