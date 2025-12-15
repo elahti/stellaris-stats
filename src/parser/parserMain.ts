@@ -40,10 +40,6 @@ export const executeParserIteration = async (
     )
 
     if (existingGamestate) {
-      logger.info(
-        { gamestateId: existingGamestate.gamestateId, date },
-        'Gamestate already exists for this month, skipping',
-      )
       return
     }
 
