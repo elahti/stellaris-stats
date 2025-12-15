@@ -1,11 +1,11 @@
 import argparse
 import asyncio
-import os
 import sys
 
 import httpx
 
 from agent.models import BudgetAnalysisResult
+from agent.settings import Settings
 from agent.tools import AgentDeps, list_saves
 
 
@@ -111,14 +111,9 @@ Examples:
 
     args = parser.parse_args()
 
-    anthropic_api_key = os.environ.get("ANTHROPIC_API_KEY")
-    stellaris_anthropic_key = os.environ.get("STELLARIS_STATS_ANTHROPIC_API_KEY")
+    settings = Settings()
 
-    if stellaris_anthropic_key and not anthropic_api_key:
-        os.environ["ANTHROPIC_API_KEY"] = stellaris_anthropic_key
-        anthropic_api_key = stellaris_anthropic_key
-
-    if not anthropic_api_key and not args.list_saves:
+    if not settings.has_api_key() and not args.list_saves:
         print("Error: ANTHROPIC_API_KEY environment variable is not set.")
         print("Please set it or use dotenvx to load your secrets file.")
         sys.exit(1)
