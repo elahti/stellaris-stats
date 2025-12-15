@@ -49,3 +49,27 @@ export const getGamestatesBatch = async (
 
   return result
 }
+
+const getGamestateByMonthQuery = `
+SELECT
+  g.gamestate_id AS gamestate_id,
+  g.date AS date
+FROM
+  gamestate g
+WHERE
+  g.save_id = $1
+  AND DATE_TRUNC('month', g.date) = DATE_TRUNC('month', $2::timestamp)
+LIMIT 1
+`
+
+export const getGamestateByMonth = async (
+  client: PoolClient,
+  saveId: number,
+  date: Date,
+): Promise<Pick<Gamestate, 'gamestateId' | 'date'> | undefined> => {
+  const rows = await selectRows(
+    () => client.query(getGamestateByMonthQuery, [saveId, date]),
+    GamestateRow,
+  )
+  return rows[0]
+}

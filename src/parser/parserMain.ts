@@ -1,6 +1,10 @@
+import { startOfMonth } from 'date-fns'
 import { Jomini } from 'jomini'
 import { Logger } from 'pino'
+import { z } from 'zod/v4'
 import { DbConfig, getDbPool } from '../db.js'
+import { getGamestateByMonth } from '../db/gamestates.js'
+import { upsertSave } from '../db/save.js'
 import { getLogger } from '../logger.js'
 import { MigrationsConfig, runUpMigrations } from '../migrations.js'
 import { readGamestateData } from './gamestateReader.js'
@@ -31,13 +35,47 @@ const runParser = async (logger: Logger) => {
     'Parser initialized',
   )
 
+  const saveFilename = `${gamestateId}.sav`
+
   const parseInterval = setInterval(() => {
     void (async () => {
-      logger.info('Parser iteration started')
+      try {
+        logger.info('Parser iteration started')
 
-      const gamestateData = await readGamestateData(ironmanPath)
-      const jomini = await Jomini.initialize()
-      const _parsed = jomini.parseText(gamestateData)
+        const gamestateData = await readGamestateData(ironmanPath)
+        const jomini = await Jomini.initialize()
+        const parsed = jomini.parseText(gamestateData)
+
+        const name = z.string().parse(parsed.name)
+        const date = z.coerce.date().parse(parsed.date)
+
+        const client = await pool.connect()
+        try {
+          const save = await upsertSave(client, saveFilename, name)
+          logger.info({ saveId: save.saveId, name: save.name }, 'Save upserted')
+
+          const dateToCheck = startOfMonth(date)
+          const existingGamestate = await getGamestateByMonth(
+            client,
+            save.saveId,
+            dateToCheck,
+          )
+
+          if (existingGamestate) {
+            logger.info(
+              { gamestateId: existingGamestate.gamestateId, date },
+              'Gamestate already exists for this month, skipping',
+            )
+            return
+          }
+
+          logger.info({ date }, 'Gamestate does not exist, ready to parse')
+        } finally {
+          client.release()
+        }
+      } catch (error: unknown) {
+        logger.error({ error }, 'Error during parser iteration')
+      }
     })()
   }, config.STELLARIS_STATS_PARSER_INTERVAL)
 
