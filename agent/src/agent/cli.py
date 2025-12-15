@@ -3,6 +3,7 @@ import asyncio
 import sys
 
 import httpx
+import logfire
 
 from agent.models import BudgetAnalysisResult
 from agent.settings import Settings
@@ -112,6 +113,15 @@ Examples:
     args = parser.parse_args()
 
     settings = Settings()
+
+    logfire.configure(
+        service_name="stellaris-stats-agent",
+        token=settings.stellaris_stats_logfire_token,
+        console=logfire.ConsoleOptions(),
+        send_to_logfire=True,
+    )
+    logfire.instrument_pydantic_ai()
+    logfire.instrument_httpx()
 
     if not settings.has_api_key() and not args.list_saves:
         print("Error: ANTHROPIC_API_KEY environment variable is not set.")

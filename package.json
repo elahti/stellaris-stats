@@ -45,7 +45,7 @@
   },
   "name": "stellaris-stats",
   "scripts": {
-    "agent:list-saves": "cd agent && uv run budget-analyzer --list-saves",
+    "agent:list-saves": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run budget-analyzer --list-saves",
     "agent:analyze": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run budget-analyzer --save",
     "agent:analyze:threshold": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run budget-analyzer",
     "build": "npm run graphql:codegen && tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json",
