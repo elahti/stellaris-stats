@@ -1,4 +1,4 @@
-FROM ubuntu:26.04 AS ubuntu-base
+FROM ubuntu:resolute-20251130 AS ubuntu-base
 
 RUN apt update \
   && apt install -y \
