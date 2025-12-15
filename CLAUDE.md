@@ -21,12 +21,17 @@ The repository is organized into the following main directories:
     - `tools.py` - GraphQL data fetching and analysis tools
     - `budget_agent.py` - AI agent for budget analysis
     - `cli.py` - Command-line interface entry point
+    - `settings.py` - Pydantic settings for environment variables
 - `migrations/` - Database migration files
 - `graphql/` - GraphQL schema definitions
 - `grafana/` - Grafana dashboard configurations
 - `tests/` - Test files and utilities
   - `utils/` - Test utilities (database, server, fixtures)
   - `fixtures/` - SQL fixture files for test data
+  - `parser/` - Parser-specific tests
+- `prompts/` - System prompts for chat and MCP integrations
+- `.github/workflows/` - CI configuration
+- `.husky/` - Git hooks configuration
 - `dist/` - Compiled TypeScript output
 - `.devcontainer/` - Development container configuration
 - `db-dump-data/` - Database dump files
@@ -130,7 +135,9 @@ Use these guidelines and rules whenever you're making changes to the codebase.
 This CLAUDE.md file serves as the central source of truth for development practices, architecture, and conventions. Keep it synchronized with the codebase:
 
 - When adding or modifying development commands, update the "Development Commands" section
-- When adding, updating, or removing dependencies, update the "Libraries Reference" section with exact versions
+- When adding, updating, or removing dependencies, update the "Libraries Reference" section with exact versions:
+  - For TypeScript: after modifying `package.json`, update the corresponding entries in "TypeScript/Node.js Libraries"
+  - For Python: after modifying `agent/pyproject.toml`, update the corresponding entries in "Python Libraries"
 - When establishing new architectural patterns or changing existing ones, update the "Architecture & Technical Details" section
 - When changing code style conventions or quality check processes, update the relevant guidelines section
 - When modifying the GraphQL schema, update documentation about schema structure and any affected Grafana dashboards
@@ -149,6 +156,12 @@ The goal is to ensure that CLAUDE.md always accurately reflects the current stat
 - Do not perform any extraneous fixes to the code that are unrelated to the task that you're completing.
 
 ### Git & Commits
+
+#### Branch Policy
+
+- All code modifications should be made in a feature branch, not directly on main.
+- If the user asks to create a commit and the repository is on the main branch, create a new development branch first before committing.
+- Use descriptive branch names (e.g., `update-claude-md`, `fix-budget-parser`, `add-planet-resolver`).
 
 #### When to Commit
 
@@ -319,44 +332,9 @@ When creating new Grafana visualizations, follow these patterns established in e
 2. **Calculate Aggregates**: Use `calculateField` with `mode: "reduceRow"` and `reducer: "sum"` to create aggregate metrics
 3. **Organize Fields**: Use `organize` transformation with `excludeByName` to hide individual detail columns and show only aggregates
 
-**Color Coding (Resource Colors by Panel):**
+**Color Coding:**
 
-The Empire Budget dashboard (`grafana/empireBudget.json`) uses the following color scheme for resources:
-
-**Basic Resources:**
-
-- Energy: `#F2CC0C` (Yellow)
-- Minerals: `#E02F44` (Red)
-- Food: `#73BF69` (Green)
-- Trade: `#8AB8FF` (Blue)
-
-**Advanced Resources:**
-
-- Alloys: `#FF69B4` (Hot Pink)
-- Consumer Goods: `#8B4513` (Saddle Brown)
-
-**Strategic Resources:**
-
-- Exotic Gases: `#73BF69` (Green)
-- Rare Crystals: `#F2CC0C` (Yellow)
-- Volatile Motes: `#8B4513` (Saddle Brown)
-
-**Rare Resources:**
-
-- Zro: `#5DADE2` (Light Blue)
-- Dark Matter: `#9B59B6` (Purple)
-- Living Metal: `#616161` (Gray)
-- Nanites: `#BDBDBD` (Light Gray)
-
-**Abstract Resources:**
-
-- Influence: `#A64D79` (Purple)
-- Unity: `#56B4E9` (Turquoise)
-- Physics Research: `#3274A1` (Blue)
-- Engineering Research: `#F2CC0C` (Yellow)
-- Society Research: `#73BF69` (Green)
-
-Apply colors using field overrides with `matcher.id: "byName"` and `properties.id: "color"` with `mode: "fixed"`.
+See `grafana/README.md` for the complete resource color scheme used in dashboards.
 
 **Template Variables:**
 
@@ -785,16 +763,19 @@ class BudgetAnalysisResult(BaseModel):
 #### Core Dependencies
 
 - **@apollo/server** (5.2.0) - GraphQL server implementation
+- **@apollo/server-plugin-response-cache** (5.0.0) - Response caching plugin for Apollo Server
+- **@apollo/utils.keyvaluecache** (4.0.0) - Key-value cache interface for Apollo Server
 - **graphql** (16.12.0) - GraphQL implementation for JavaScript
 - **graphql-scalars** (1.25.0) - Additional GraphQL scalar types
 - **pg** (8.16.3) - PostgreSQL client for Node.js
 - **ioredis** (5.8.2) - Redis client for Node.js with cluster and sentinel support
+- **dataloader** (2.2.3) - Batching and caching for data fetching
 - **zod** (4.1.13) - TypeScript-first schema validation with static type inference
 - **jomini** (0.9.1) - Parser for Paradox Interactive game files (Clausewitz engine format)
 - **yauzl-promise** (4.0.0) - Promise-based ZIP file extraction
 - **pino** (10.1.0) - Fast JSON logger
 - **commander** (14.0.2) - Command-line interface builder
-- **node-pg-migrate** (8.0.3) - PostgreSQL database migration tool
+- **node-pg-migrate** (8.0.4) - PostgreSQL database migration tool
 - **date-fns** (4.1.0) - Modern JavaScript date utility library
 
 #### Development Dependencies
@@ -804,7 +785,7 @@ class BudgetAnalysisResult(BaseModel):
 - **graphql-codegen-typescript-validation-schema** (0.18.1) - Generates Zod validation schemas from GraphQL schema
 - **typescript** (5.9.3) - TypeScript compiler
 - **tsx** (4.21.0) - TypeScript execute - runs TypeScript files directly
-- **eslint** (9.39.1) - JavaScript/TypeScript linter
+- **eslint** (9.39.2) - JavaScript/TypeScript linter
 - **prettier** (3.7.4) - Code formatter
 - **husky** (9.1.7) - Git hooks management
 - **lint-staged** (16.2.7) - Run linters on staged git files
@@ -816,6 +797,7 @@ class BudgetAnalysisResult(BaseModel):
 #### Core Dependencies
 
 - **pydantic-ai** (1.32.0) - Python agent framework for building production-grade GenAI applications
+- **pydantic-settings** (2.12.0) - Settings management using Pydantic
 - **httpx** (0.28.1) - Async HTTP client for Python
 
 #### Development Dependencies
