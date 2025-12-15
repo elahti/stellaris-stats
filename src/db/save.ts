@@ -1,5 +1,5 @@
 import { PoolClient } from 'pg'
-import { selectRows } from '../db.js'
+import { selectRows, selectRowStrict } from '../db.js'
 import { Save, SaveSchema } from '../graphql/generated/validation.generated.js'
 
 const getSavesQuery = `
@@ -40,3 +40,19 @@ export const getSave = async (
   )
   return results[0]
 }
+
+const insertSaveQuery = `
+INSERT INTO save (filename, name)
+VALUES ($1, $2)
+RETURNING save_id, filename, name
+`
+
+export const insertSave = (
+  client: PoolClient,
+  filename: string,
+  name: string,
+): Promise<Pick<Save, 'saveId' | 'filename' | 'name'>> =>
+  selectRowStrict(
+    () => client.query(insertSaveQuery, [filename, name]),
+    SaveSchema().pick({ saveId: true, filename: true, name: true }),
+  )
