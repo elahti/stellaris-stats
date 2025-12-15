@@ -62,13 +62,13 @@ RUN curl -fsSL https://bun.sh/install | bash
 ENV BUN_INSTALL="$HOME/.bun"
 ENV PATH="$BUN_INSTALL/bin:$PATH"
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.16 /uv /uvx $HOME/.local/bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.17 /uv /uvx $HOME/.local/bin/
 
 COPY --chown=vscode:vscode .devcontainer/.zshrc $HOME/.zshrc
 
 FROM python:3.14-slim-bookworm AS pydantic-mcp-run-python
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.16 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.17 /uv /uvx /bin/
 COPY --from=docker.io/denoland/deno:bin-2.5.6 /deno /bin
 
 RUN apt update \
