@@ -1,806 +1,118 @@
 # CLAUDE.md
 
-This file provides instructions to Claude Code when working with code in this repository.
+Instructions for Claude Code when working with this repository.
 
 ## Project Overview
 
-This project provides a GraphQL API for analyzing Stellaris game statistics. It parses Stellaris save files (Paradox Interactive's Clausewitz engine format), stores game state data in PostgreSQL, and exposes it through a GraphQL API with Redis-based caching for optimal performance.
+GraphQL API for analyzing Stellaris game statistics. Parses save files (Clausewitz engine format), stores data in PostgreSQL, exposes via GraphQL with Redis caching.
 
-## Project Directory Structure
-
-The repository is organized into the following main directories:
-
-- `src/` - TypeScript source code
-  - `db/` - Database connection and utilities
-  - `graphql/` - GraphQL server implementation and generated types
-  - `parser/` - Game state parsing logic
-  - `scripts/` - Utility scripts
-- `agent/` - Python source code and project files
-  - `src/agent/` - Python source code
-    - `models.py` - Pydantic models for structured outputs
-    - `tools.py` - GraphQL data fetching and analysis tools
-    - `budget_agent.py` - AI agent for budget analysis
-    - `cli.py` - Command-line interface entry point
-    - `settings.py` - Pydantic settings for environment variables
-- `migrations/` - Database migration files
-- `graphql/` - GraphQL schema definitions
-- `grafana/` - Grafana dashboard configurations
-- `tests/` - Test files and utilities
-  - `utils/` - Test utilities (database, server, fixtures)
-  - `fixtures/` - SQL fixture files for test data
-  - `parser/` - Parser-specific tests
-- `prompts/` - System prompts for chat and MCP integrations
-- `.github/workflows/` - CI configuration
-- `.husky/` - Git hooks configuration
-- `dist/` - Compiled TypeScript output
-- `.devcontainer/` - Development container configuration
-- `db-dump-data/` - Database dump files
-- `gamestate-json-data/` - Game state data files
-
-## Development Commands
-
-All commands are run from the repository root (`/workspace`).
-
-### TypeScript Commands
-
-Build TypeScript code (includes GraphQL code generation):
-
-```bash
-npm run build
-```
-
-Generate only GraphQL resolver types, TypeScript types and Zod schemas (without full build):
-
-```bash
-npm run graphql:codegen
-```
-
-Run linting:
-
-```bash
-npm run lint:typescript
-```
-
-Run parser:
-
-```bash
-# Run parser with specific gamestate ID
-npm run parser:run -- -g <gamestateId>
-
-# List available gamestate IDs
-npm run parser:run -- -l
-```
-
-### Python Commands
-
-Sync dependencies and update lock file:
-
-```bash
-cd agent && uv sync
-```
-
-Run type checking:
-
-```bash
-npm run typecheck:python
-```
-
-Run linting:
-
-```bash
-npm run lint:python
-```
-
-Run formatting:
-
-```bash
-npm run format:python
-```
-
-Run budget analysis agent:
-
-```bash
-# List available saves
-npm run agent:list-saves
-
-# Analyze a specific save (pass save filename after --)
-npm run agent:analyze -- <save_filename>
-
-# Analyze with custom threshold
-npm run agent:analyze:threshold -- --save <save_filename> --threshold 20
-```
-
-### Testing Commands
-
-Run tests in watch mode (development):
-
-```bash
-npm run test:typescript
-```
-
-Run tests once (CI or one-time run):
-
-```bash
-npm run test:ci:typescript
-```
-
-**Note**: When creating or modifying tests, use the `test-writer` agent which has comprehensive instructions for following the project's testing patterns and best practices
-
-## Development Guidelines
-
-Use these guidelines and rules whenever you're making changes to the codebase.
-
-### Documentation Maintenance
-
-This CLAUDE.md file serves as the central source of truth for development practices, architecture, and conventions. Keep it synchronized with the codebase:
-
-- When adding or modifying development commands, update the "Development Commands" section
-- When adding, updating, or removing dependencies, update the "Libraries Reference" section with exact versions:
-  - For TypeScript: after modifying `package.json`, update the corresponding entries in "TypeScript/Node.js Libraries"
-  - For Python: after modifying `agent/pyproject.toml`, update the corresponding entries in "Python Libraries"
-- When establishing new architectural patterns or changing existing ones, update the "Architecture & Technical Details" section
-- When changing code style conventions or quality check processes, update the relevant guidelines section
-- When modifying the GraphQL schema, update documentation about schema structure and any affected Grafana dashboards
-- When creating or updating Grafana dashboards, update the "GraphQL & Grafana" section
-- When changing Git workflows or commit conventions, update the "Git & Commits" section
-- When adding new configuration files or changing build processes, document them appropriately
-
-The goal is to ensure that CLAUDE.md always accurately reflects the current state of the project, making it a reliable reference for development work.
-
-### Code Editing Principles
-
-- When editing code or other files, don't add comments.
-- When creating or updating code, do only edits that the user has asked you to do.
-- Ignore all errors that existed before you started editing code.
-- Do not add any extraneous features that the user hasn't asked you to do. Instead, you are allowed to ask the user if you should add such features.
-- Do not perform any extraneous fixes to the code that are unrelated to the task that you're completing.
-
-### Git & Commits
-
-#### Branch Policy
-
-- All code modifications should be made in a feature branch, not directly on main.
-- If the user asks to create a commit and the repository is on the main branch, create a new development branch first before committing.
-- Use descriptive branch names (e.g., `update-claude-md`, `fix-budget-parser`, `add-planet-resolver`).
-
-#### When to Commit
-
-- Only create commits when explicitly requested by the user.
-- If unclear whether to commit, ask the user first.
-
-#### Before Committing
-
-Before creating a commit, always:
-
-1. Run `git status` to see all untracked and modified files
-2. Run `git diff` to review unstaged changes
-3. Run `git diff --cached` to review staged changes (if any)
-4. Run `git log --oneline -5` to check recent commit message style
-
-#### Commit Message Style
-
-- Prefer concise, one-liner commit messages when possible
-- Use imperative mood (e.g., "Add feature" not "Added feature")
-- Keep the first line under 72 characters
-- For multi-line messages:
-  - First line is the summary
-  - Blank line
-  - Additional context as bullet points if needed
-- **Do not add any "authored by", "co-authored-by", or attribution lines**
-- **Do not add emoji or "generated with" signatures**
-
-#### Commit Safety
-
-- Never run destructive/irreversible git commands (force push, hard reset) unless explicitly requested
-- Never skip hooks (--no-verify, --no-gpg-sign) unless explicitly requested
-- Never amend commits from other developers - always check authorship first with `git log -1 --format='%an %ae'`
-- Never force push to main/master branches
-- Pre-commit hooks (husky, lint-staged) will run automatically - this is expected behavior
-
-#### Example Commit Workflow
-
-```bash
-# Review changes
-git status
-git diff
-
-# Stage relevant files
-git add file1.ts file2.ts
-
-# Create commit with clean message
-git commit -m "Add budget migration TypeScript conversion"
-
-# Verify commit
-git status
-```
-
-### TypeScript Guidelines
-
-#### Code Style
-
-- Use strict typing and strict null checks.
-- Never use type casting ("as" keyword).
-- Never use non-null assertions ("!" keyword).
-- Always use arrow function syntax instead of function keywords.
-- Prefer ternary operators over if/else statements.
-- Always use generated Zod schemas and TypeScript types from GraphQL code generation when working with GraphQL data structures.
-
-#### Dependencies
-
-- TypeScript dependencies are managed in `/workspace/package.json`.
-- Always use exact versioning and latest possible versions.
-
-#### Quality Checks
-
-After making TypeScript changes:
-
-- Run `npm run lint:typescript` to check for linting and formatting errors.
-- Run `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
-- Run `npm run test:ci:typescript` to ensure all tests pass.
-
-### Python Guidelines
-
-#### Code Style
-
-- Use strict typing with full type annotations for all functions, variables, and class attributes.
-- Prefer list comprehensions and generator expressions over map/filter when readability is maintained.
-- Use context managers (with statements) for resource management.
-- Follow PEP 8 naming conventions: snake_case for functions and variables, PascalCase for classes.
-
-#### Environment & Configuration
-
-- Python virtual environment managed with uv.
-- Dependencies defined in `/workspace/agent/pyproject.toml`.
-- Use `uv sync` command to update `/workspace/agent/uv.lock`.
-- Ruff is configured for linting and formatting (configuration file location: `/workspace/agent/pyproject.toml`).
-- Pyright is configured with strict type-checked rules (configuration file location: `/workspace/agent/pyproject.toml`).
-
-#### Dependencies
-
-- When adding dependencies to pyproject.toml, always use exact version, without caret (^) or other version specifiers.
-- Always use latest versions of dependencies where possible.
-
-#### Quality Checks
-
-After making Python changes:
-
-- Run `npm run typecheck:python` to check for type errors.
-- Run `npm run lint:python` to check for linting errors.
-- Run `npm run format:python` to check and fix formatting.
-
-### GraphQL & Grafana
-
-#### Schema and Database Query Synchronization
-
-When modifying the GraphQL schema at `graphql/schema.graphql`, you MUST update corresponding database queries to maintain consistency:
-
-**BudgetEntry Schema Changes:**
-
-If you add, remove, or rename fields in the `BudgetEntry` type, you MUST update `src/db/budget.ts`:
-
-1. **Update `emptyBudgetEntry()` function** - Add/remove/rename fields with default value of `0`
-2. **Update `getBudgetBatchQuery` SQL** - Add/remove/rename corresponding database columns (using snake_case)
-   - The query automatically converts snake_case column names to camelCase via `selectRows()`
-   - Example mappings: `astral_threads` → `astralThreads`, `exotic_gases` → `exoticGases`
-
-**Important Notes:**
-
-- Database column names use snake_case (e.g., `be.astral_threads`)
-- GraphQL schema fields use camelCase (e.g., `astralThreads`)
-- The `selectRows()` function in `src/db.ts` automatically converts snake_case to camelCase
-- The `BudgetCategoryRow` schema extends `BudgetEntrySchema()`, which is auto-generated from GraphQL schema
-
-#### Schema and Dashboard Synchronization
-
-When modifying the GraphQL schema at `graphql/schema.graphql`, check if Grafana dashboards need corresponding updates:
-
-- Grafana dashboards are located in the `grafana/` directory
-- Dashboard JSON files contain hardcoded column definitions and GraphQL queries that mirror the schema structure
-- If you add, remove, or rename fields in the GraphQL schema's `BudgetCategory` or `BudgetEntry` types, the affected dashboards must be updated to maintain consistency
-- Each dashboard panel typically has:
-  - Column definitions (`columns` array) specifying which fields to display
-  - GraphQL query (`body_graphql_query`) that fetches the data
-- Both the column definitions and GraphQL queries must be kept in sync with the schema
-- After schema changes, review all dashboard files to identify which ones query the modified types
-
-#### Visualization Guidelines
-
-When creating new Grafana visualizations, follow these patterns established in existing dashboards:
-
-**Panel Configuration:**
-
-- Use `yesoreyeram-infinity-datasource` as the data source
-- Set panel type to `timeseries` for time-based data
-- Enable `liveNow: true` for real-time updates
-- Configure legend to show `last`, `max`, and `mean` values
-
-**Column Definitions:**
-
-- Define columns with JSON selectors matching the GraphQL response structure
-- Example: `selector: "budget.balance.armies.energy"`
-- Always include a `date` column as the first column for time series data
-
-**GraphQL Query Structure:**
-
-- Use `root_selector` to specify the data path (e.g., `data.save.gamestates`)
-- Include the `$saveFilename` variable in queries to support dashboard template variables
-- Structure the query to match the column selectors exactly
-
-**Data Transformations (Applied in Order):**
-
-1. **Convert Date Field**: Use `convertFieldType` transformation to convert the date field to time type
-2. **Calculate Aggregates**: Use `calculateField` with `mode: "reduceRow"` and `reducer: "sum"` to create aggregate metrics
-3. **Organize Fields**: Use `organize` transformation with `excludeByName` to hide individual detail columns and show only aggregates
-
-**Color Coding:**
-
-See `grafana/README.md` for the complete resource color scheme used in dashboards.
-
-**Template Variables:**
-
-- Include a `saveFilename` variable that queries available save files
-- Configure variable with `refresh: 1` for automatic updates
-- Use GraphQL query to populate variable options from the `saves` query
-
-### Claude-Specific Tools
-
-- Always use context7 when I need code generation, setup or configuration steps, or library/API documentation. This means you should automatically use the Context7 MCP tools to resolve library id and get library docs without me having to explicitly ask.
-- When having the option of using async and sync version of a library, prefer async version.
-
-## Architecture & Technical Details
-
-### GraphQL Caching System
-
-The project implements a three-tier caching strategy using Redis to optimize GraphQL query performance for immutable game state data.
-
-**TL;DR**: Three-tier caching (Response → Field → DataLoader) using Redis for immutable game state.
-
-#### Caching Architecture
-
-##### Tier 1: Response-Level Caching
-
-- **Implementation**: Custom Apollo Server plugin (`src/graphql/responseCache.ts`)
-- **Class**: `RedisCache` implementing Apollo's `KeyValueCache` interface
-- **Key Prefix**: `graphql:` for all cache entries
-- **Key Format**: `graphql:{query-hash}:{variables-hash}` (auto-generated by Apollo)
-- **Null Prevention**: Responses containing null values are NOT cached to prevent caching errors
-
-##### Tier 2: Field-Level Caching
-
-- **Implementation**: Manual caching in resolvers (`src/graphql/generated/Gamestate.ts`)
-- **Cached Fields**:
-  - `Gamestate.budget` - Key: `budget:gamestateId:{id}`
-  - `Gamestate.planets` - Key: `planets:gamestateId:{id}`
-- **Strategy**: Check cache first, on miss load via DataLoader and cache result
-- **TTL**: No expiration (immutable data)
-
-##### Tier 3: DataLoader Batching with Request-Scoped Cache
-
-- **Location**: `src/graphql/dataloaders/`
-- **DataLoaders**:
-  - `budgetLoader`: Batches budget queries by gamestateId
-  - `planetsLoader`: Batches planet queries by gamestateId
-  - `gamestatesLoader`: Batches gamestate queries by saveId
-- **Purpose**: Prevent N+1 query problems and provide request-level deduplication
-- **Lifecycle**: Created per GraphQL request (request-scoped)
-- **Database Functions**: Calls batch query functions like `getBudgetBatch()`, `getPlanetsBatch()`
-
-#### Redis Configuration
-
-- **Client**: `ioredis` library (v5.8.2) configured in `src/redis.ts`
-- **Environment Variables**:
-  - `STELLARIS_STATS_REDIS_HOST` (default: 'redis')
-  - `STELLARIS_STATS_REDIS_PORT` (default: 6379)
-  - `STELLARIS_STATS_REDIS_DB` (default: 0)
-- **Retry Strategy**: Exponential backoff (50ms \* attempts, max 2000ms, 3 max retries)
-- **Deployment**: Redis 7.4-alpine container with persistent volume storage, internal network only (no exposed ports)
-
-#### Cache Control Directives
-
-- **GraphQL Schema**: Uses `@cacheControl` directive in `graphql/schema.graphql`
-- **Cached Types**: `Budget` and `Gamestate` types marked with `@cacheControl` (no maxAge specified)
-- **Default Behavior**: No caching unless explicit `@cacheControl` directive present
-- **TTL Strategy**: No expiration for immutable types (game state data never changes once stored)
-
-#### Cache Invalidation
-
-- **Current Implementation**: None
-- **Rationale**: Game state data is immutable - once parsed and stored, it never changes
-- **Considerations**: Redis memory may grow over time; consider implementing eviction policy (e.g., `allkeys-lru`) if needed
-
-#### Query Flow
+## Project Structure
 
 ```
-GraphQL Query
-  → Apollo Response Cache (check)
-    → Resolver Field-Level Cache (check)
-      → DataLoader Request Cache (check)
-        → Batch Database Query
-          → Store in all cache layers
-            → Return result
+src/                    # TypeScript source
+  db/                   # Database utilities
+  graphql/              # GraphQL server & generated types
+  parser/               # Save file parsing
+  scripts/              # Utility scripts
+agent/src/agent/        # Python budget analysis agent
+migrations/             # Database migrations
+graphql/                # GraphQL schema definitions
+grafana/                # Dashboard configurations (see grafana/README.md)
+tests/                  # Test files, utils, fixtures
+docs/                   # Detailed documentation
+  ARCHITECTURE.md       # Caching, testing, parser details
+  LIBRARIES.md          # Dependency versions
 ```
 
-### Testing Framework
+## Commands
 
-The project uses end-to-end integration testing with complete database isolation, allowing tests to run in parallel without interference.
+All commands run from `/workspace`.
 
-**TL;DR**: Database-per-test isolation using Bun test runner. Each test gets its own PostgreSQL database with migrations.
+### TypeScript
 
-#### Testing Architecture
+| Task | Command |
+|------|---------|
+| Build (includes codegen) | `npm run build` |
+| GraphQL codegen only | `npm run graphql:codegen` |
+| Lint | `npm run lint:typescript` |
+| Test (watch) | `npm run test:typescript` |
+| Test (CI) | `npm run test:ci:typescript` |
+| Run parser | `npm run parser:run -- -g <id>` |
+| List saves | `npm run parser:run -- -l` |
 
-##### Test Runner
+### Python
 
-- **Framework**: Bun (built-in test runner)
-- **Test Files**: `tests/**/*.test.ts`
-- **Command**: `npm run test:typescript` (uses `dotenvx` to load test environment)
-- **Execution**: Parallel by default, each test fully isolated
+| Task | Command |
+|------|---------|
+| Sync deps | `cd agent && uv sync` |
+| Type check | `npm run typecheck:python` |
+| Lint | `npm run lint:python` |
+| Format | `npm run format:python` |
+| List saves | `npm run agent:list-saves` |
+| Analyze budget | `npm run agent:analyze -- <filename>` |
 
-##### Database Isolation Strategy
+## Code Style
 
-- **Pattern**: Database-per-test
-- **Implementation**: Each test creates a unique PostgreSQL database using `crypto.randomUUID()`
-- **Database Naming**: `stellaris_test_{uuid}` with hyphens replaced by underscores
-- **Lifecycle**: Created in `beforeEach`, destroyed in `afterEach`
-- **Migrations**: Automatically run on each test database using `node-pg-migrate`
-- **Test Database Service**: Separate `db-test` PostgreSQL container in docker-compose
+**TypeScript**: Strict typing, no `as` casts, no `!` assertions, arrow functions only, ternaries over if/else, use generated Zod schemas for GraphQL data.
 
-##### Test Infrastructure Components
+**Python**: Full type annotations, PEP 8 naming, context managers for resources, list comprehensions where readable.
 
-###### 1. Test Database Manager (`tests/utils/testDatabase.ts`)
+**Both**: No comments in code, exact dependency versions, run quality checks after changes.
 
-Creates and destroys isolated test databases:
+### Quality Checks
 
-```typescript
-const testDb = await createTestDatabase()
-// Returns: { pool: Pool, dbName: string, dbConfig: PoolConfig }
+After TypeScript changes: `npm run lint:typescript && npm run build && npm run test:ci:typescript`
 
-await destroyTestDatabase(testDb)
-```
+After Python changes: `npm run typecheck:python && npm run lint:python && npm run format:python`
 
-**Features:**
+## Git & Commits
 
-- Creates unique database with UUID-based name
-- Runs all migrations automatically
-- Provides dedicated connection pool
-- Cleanup ensures no test database leaks
+### Branch Policy
 
-###### 2. Test Server Factory (`tests/utils/testServer.ts`)
+- All modifications in feature branches, not main
+- If on main when committing, create a branch first
+- Use descriptive names: `fix-budget-parser`, `add-planet-resolver`
 
-Creates Apollo Server configured for testing:
+### Commits
 
-```typescript
-const testServer = createTestServer(testDb)
-// Returns: { server, pool, cache, mockRedis, cleanup }
-```
+- Only commit when explicitly requested
+- Before committing: `git status`, `git diff`, `git log --oneline -5`
+- Concise messages, imperative mood, no attribution lines, no emoji
 
-**Configuration:**
+### Safety
 
-- Uses test database pool
-- Mock Redis implementation (in-memory)
-- All production plugins (response cache, cache control)
-- Client release plugin (auto-releases connections)
-- No HTTP layer (uses `executeOperation` directly)
+- Never force push, hard reset, or skip hooks unless requested
+- Never amend other developers' commits
+- Pre-commit hooks run automatically (expected)
 
-###### 3. GraphQL Client Wrapper (`tests/utils/graphqlClient.ts`)
+## GraphQL Schema Changes
 
-Type-safe GraphQL query execution:
+When modifying `graphql/schema.graphql`:
 
-```typescript
-const result = await executeQuerySimple<{
-  saves: { filename: string }[]
-}>(testServer, query, variables)
-// Returns: { data?: T, errors?: GraphQLFormattedError[] }
-```
+1. **BudgetEntry fields**: Update `src/db/budget.ts` (`emptyBudgetEntry()` and `getBudgetBatchQuery`)
+2. **Grafana dashboards**: Update affected JSON files in `grafana/` (column definitions + queries)
 
-**Features:**
+Column name mapping: `snake_case` (DB) → `camelCase` (GraphQL) via `selectRows()`
 
-- Creates proper GraphQL context per request
-- Includes DataLoaders and cache
-- Type-safe response with generics
-- Automatic client release via server plugin
+## Documentation Maintenance
 
-###### 4. Fixture Loader (`tests/utils/fixtures.ts`)
+Keep synchronized when changing:
+- Commands → Update Commands section
+- Dependencies → Update `docs/LIBRARIES.md`
+- Architecture → Update `docs/ARCHITECTURE.md`
+- Grafana → Update `grafana/README.md`
 
-Loads SQL fixtures into test database:
+## Architecture Summary
 
-```typescript
-await loadFixture(testDb.pool, 'saves/basic-save.sql')
-await loadFixtures(testDb.pool, ['saves/save1.sql', 'saves/save2.sql'])
-```
+**Caching**: Three-tier (Response → Field → DataLoader) using Redis. No TTL for immutable game data. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#graphql-caching-system).
 
-**Fixture Pattern:**
+**Testing**: Database-per-test isolation with Bun runner. Use `test-writer` agent for new tests. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#testing-framework).
 
-- Located in `tests/fixtures/`
-- Use subqueries for foreign key references
-- Sequential execution to maintain FK dependencies
-- Example: `(SELECT save_id FROM save WHERE filename = 'test.sav')`
+**Parser**: Interval-based ZIP extraction → Jomini parsing → PostgreSQL JSONB. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#parser-system).
 
-###### 5. Mock Redis (`tests/utils/mockRedis.ts`)
+**Budget Agent**: pydantic-ai agent comparing budget snapshots ~1 year apart. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#budget-analysis-agent).
 
-In-memory Redis implementation:
+## Claude-Specific
 
-- Implements same interface as `ioredis`
-- Compatible with `RedisCache` wrapper
-- No external dependencies
-- Automatically cleared on cleanup
-
-#### Test Configuration
-
-**Environment File**: `.devcontainer/.env.db.test`
-
-```bash
-STELLARIS_TEST_DB_HOST=db-test
-STELLARIS_TEST_DB_PORT=5432
-STELLARIS_TEST_DB_USER=stellaris_test
-STELLARIS_TEST_DB_PASSWORD=stellaris_test
-STELLARIS_TEST_DB_ADMIN_DATABASE=stellaris_test_admin
-```
-
-**Docker Compose**: Separate test database service
-
-```yaml
-db-test:
-  image: postgres:18
-  container_name: stellaris-stats_db-test
-  env_file:
-    - .env.db.test
-  networks:
-    - stellaris-stats-db-test-network
-  volumes:
-    - db-test-data:/var/lib/postgresql
-```
-
-#### Key Implementation Details
-
-**Context Creation Pattern:**
-
-```typescript
-const client = await pool.connect()
-const contextValue: GraphQLServerContext = {
-  client,
-  loaders: createDataLoaders(client),
-  cache,
-}
-```
-
-**Client Lifecycle:**
-
-- Client acquired from pool per GraphQL request
-- Released automatically by server's `willSendResponse` plugin
-- No manual `client.release()` needed in tests
-- Tests must `await executeQuery` to ensure cleanup
-
-**Server vs Production:**
-
-- Test server has same plugins as production
-- Uses `executeOperation()` instead of HTTP
-- No `startStandaloneServer()` call
-- Context created per operation, not pre-configured
-
-**Database Naming Constraints:**
-
-- PostgreSQL identifiers use underscores not hyphens
-- UUID hyphens replaced: `randomUUID().replace(/-/g, '_')`
-- Format: `stellaris_test_550e8400_e29b_41d4_a716_446655440000`
-
-### Parser System
-
-The parser is a background service that periodically reads Stellaris save files, extracts game state data, and stores it in PostgreSQL for analysis via the GraphQL API.
-
-**TL;DR**: Interval-based parser that reads ZIP-compressed save files, checks for existing data by month, and inserts new gamestate snapshots as JSONB.
-
-#### Parser Architecture
-
-##### Execution Model
-
-- **Interval-Based**: Runs on a configurable interval defined by `STELLARIS_STATS_PARSER_INTERVAL` environment variable
-- **Watch Mode**: Uses `tsx watch` for automatic restart on code changes during development
-- **Command**: `npm run parser:run -- -g <gamestateId>` or `npm run parser:run -- -l` to list available saves
-
-##### Key Components
-
-**Configuration (`src/parser/parserConfig.ts`)**
-- Defines parser-specific configuration schema
-- Validates `STELLARIS_STATS_PARSER_INTERVAL` using Zod
-
-**Main Parser (`src/parser/parserMain.ts`)**
-- Orchestrates the parsing workflow
-- Runs database migrations on startup
-- Executes parsing loop at configured intervals
-- Handles graceful shutdown (SIGTERM, SIGINT)
-
-**Gamestate Reader (`src/parser/gamestateReader.ts`)**
-- Extracts `gamestate` file from ZIP-compressed save files using yauzl-promise
-- Returns gamestate data as `Uint8Array` for parsing
-
-**Parser Options (`src/parser/parserOptions.ts`)**
-- Parses command-line arguments using Commander
-- Supports `-g <gamestateId>` to specify which save to parse
-- Supports `-l` to list available gamestate IDs from `/stellaris-data` directory
-
-##### Parsing Workflow
-
-1. **Read Save File**: Extract gamestate from ZIP file at `/stellaris-data/<gamestateId>/ironman.sav`
-2. **Parse with Jomini**: Convert Paradox Clausewitz format to JavaScript object
-3. **Extract Metadata**: Parse `name` (empire name) and `date` (in-game date) from gamestate
-4. **Begin Transaction**: Use `withTx()` helper to wrap all database operations in a transaction
-5. **Upsert Save**: Create or update save row with filename (without .sav extension) and name
-6. **Check Existence**: Query database for existing gamestate in the same month using `startOfMonth()` comparison
-7. **Insert Gamestate**: If no gamestate exists for that month, insert new row with full parsed JSON as JSONB
-8. **Populate Budget Tables**: Extract budget data from parsed object and insert into `budget_entry` and `budget_category` tables
-9. **Commit Transaction**: Transaction automatically commits on success, rolls back on error
-
-##### Budget Table Population
-
-**Budget Data Extraction:**
-- Player country ID: `parsed.player[0].country`
-- Budget data path: `parsed.country[playerCountryId].budget.current_month`
-- Structure: Three-level nested object with category types (`income`, `expenses`, `balance`), each containing category names (e.g., `country_base`, `armies`, `ships`), which contain resource fields (20 total: `energy`, `minerals`, `alloys`, etc.)
-
-**Database Functions:**
-- `populateBudgetTables(client, gamestateId, parsed, logger)` - Main orchestration function in `src/db/budget.ts`
-- `insertBudgetEntry(client, entryData)` - Inserts budget_entry row with 20 resource columns, returns budget_entry_id
-- `insertBudgetCategory(client, gamestateId, categoryType, categoryName, budgetEntryId)` - Links budget entry to gamestate
-
-**Transaction Atomicity:**
-- All parser operations (save upsert, gamestate insert, budget population) wrapped in single transaction using `withTx()` helper
-- Ensures budget data is never orphaned from its gamestate
-- If budget population fails unexpectedly, entire operation rolls back
-
-**Graceful Error Handling:**
-- Missing player country ID: Log warning, skip budget population
-- Missing budget data: Log info, skip budget population (normal for some saves)
-- Validation errors: Log error with context, skip budget population
-- Unexpected errors: Transaction rolls back, error bubbles up
-- Budget population is non-critical and won't fail parser iteration for missing/invalid data
-
-##### Database Operations
-
-**Save Management**
-- Function: `upsertSave(client, filename, name)` in `src/db/save.ts`
-- Uses `ON CONFLICT (filename) DO UPDATE` to handle duplicates
-- Updates save name if it changes between parses
-
-**Gamestate Existence Check**
-- Function: `getGamestateByMonth(client, saveId, date)` in `src/db/gamestates.ts`
-- Uses PostgreSQL `DATE_TRUNC('month', ...)` to compare dates by month
-- Applies `startOfMonth()` (from date-fns) to incoming date only, not database date
-- Example: File date `2200-04-18` matches database date `2200-04-01`
-- Returns existing gamestate if found, undefined otherwise
-
-**Gamestate Insertion**
-- Function: `insertGamestate(client, saveId, date, data)` in `src/db/gamestates.ts`
-- Inserts full parsed gamestate as JSONB into `data` column
-- Enforces uniqueness constraint on `(save_id, date)` pair
-- Returns inserted gamestate with `gamestateId` and `date`
-
-##### Error Handling
-
-- Try-catch wrapper around each parser iteration
-- Errors logged with full context using Pino logger
-- Failed iterations don't crash the parser - next iteration runs normally
-- Database client properly released even on errors (try-finally pattern)
-
-#### Configuration
-
-**Environment Variables:**
-- `STELLARIS_STATS_PARSER_INTERVAL` - Milliseconds between parser iterations
-
-**Data Location:**
-- Save files stored at `/stellaris-data/<gamestateId>/ironman.sav`
-- Each gamestate ID is a directory containing the save file
-
-#### Database Schema
-
-**Save Table:**
-```sql
-CREATE TABLE save (
-  save_id SERIAL PRIMARY KEY,
-  filename VARCHAR(255) NOT NULL UNIQUE,
-  name VARCHAR(255) NOT NULL
-)
-```
-
-**Gamestate Table:**
-```sql
-CREATE TABLE gamestate (
-  gamestate_id SERIAL PRIMARY KEY,
-  save_id INTEGER NOT NULL,
-  date TIMESTAMP WITH TIME ZONE NOT NULL,
-  data JSONB NOT NULL,
-  UNIQUE (save_id, date),
-  FOREIGN KEY (save_id) REFERENCES save (save_id) ON DELETE CASCADE
-)
-```
-
-### Budget Analysis Agent
-
-The budget analysis agent is a Python-based AI agent that analyzes Stellaris empire budget data to identify sudden changes in resource production.
-
-**TL;DR**: pydantic-ai agent that queries GraphQL API, compares budget data between two dates (~1 year apart), and identifies changes exceeding a configurable threshold.
-
-#### Agent Architecture
-
-##### Components
-
-- **Budget Agent** (`agent/src/agent/budget_agent.py`): Main agent using Claude Sonnet 4 model
-- **Tools** (`agent/src/agent/tools.py`): GraphQL data fetching and analysis functions
-- **Models** (`agent/src/agent/models.py`): Pydantic models for structured outputs
-- **CLI** (`agent/src/agent/cli.py`): Command-line interface entry point
-
-##### Data Flow
-
-1. User invokes CLI with save filename and optional threshold
-2. Agent fetches available dates from GraphQL API
-3. Finds comparison dates (latest vs ~1 year prior)
-4. Fetches budget balance data for both dates
-5. Compares all budget categories and resources
-6. Returns structured result with changes exceeding threshold
-
-##### Configuration
-
-- **Default Threshold**: 15% change triggers detection
-- **Comparison Scope**: Latest date vs approximately 1 year prior
-- **Model**: `anthropic:claude-sonnet-4-5-20250929`
-- **API Key**: `ANTHROPIC_API_KEY` or `STELLARIS_STATS_ANTHROPIC_API_KEY` environment variable (loaded via dotenvx from `.env.stellaris-stats.secrets`)
-
-##### Structured Output
-
-```python
-class BudgetAnalysisResult(BaseModel):
-    save_filename: str
-    previous_date: str
-    current_date: str
-    threshold_percent: float
-    sudden_changes: list[BudgetChange]
-    summary: str
-```
-
-## Libraries Reference
-
-### TypeScript/Node.js Libraries
-
-#### Core Dependencies
-
-- **@apollo/server** (5.2.0) - GraphQL server implementation
-- **@apollo/server-plugin-response-cache** (5.0.0) - Response caching plugin for Apollo Server
-- **@apollo/utils.keyvaluecache** (4.0.0) - Key-value cache interface for Apollo Server
-- **graphql** (16.12.0) - GraphQL implementation for JavaScript
-- **graphql-scalars** (1.25.0) - Additional GraphQL scalar types
-- **pg** (8.16.3) - PostgreSQL client for Node.js
-- **ioredis** (5.8.2) - Redis client for Node.js with cluster and sentinel support
-- **dataloader** (2.2.3) - Batching and caching for data fetching
-- **zod** (4.1.13) - TypeScript-first schema validation with static type inference
-- **jomini** (0.9.1) - Parser for Paradox Interactive game files (Clausewitz engine format)
-- **yauzl-promise** (4.0.0) - Promise-based ZIP file extraction
-- **pino** (10.1.0) - Fast JSON logger
-- **commander** (14.0.2) - Command-line interface builder
-- **node-pg-migrate** (8.0.4) - PostgreSQL database migration tool
-- **date-fns** (4.1.0) - Modern JavaScript date utility library
-
-#### Development Dependencies
-
-- **@graphql-codegen/cli** (6.1.0) - GraphQL code generation CLI
-- **@eddeee888/gcg-typescript-resolver-files** (0.14.1) - GraphQL code generator plugin for TypeScript resolver files
-- **graphql-codegen-typescript-validation-schema** (0.18.1) - Generates Zod validation schemas from GraphQL schema
-- **typescript** (5.9.3) - TypeScript compiler
-- **tsx** (4.21.0) - TypeScript execute - runs TypeScript files directly
-- **eslint** (9.39.2) - JavaScript/TypeScript linter
-- **prettier** (3.7.4) - Code formatter
-- **husky** (9.1.7) - Git hooks management
-- **lint-staged** (16.2.7) - Run linters on staged git files
-- **@types/bun** (1.3.4) - TypeScript definitions for Bun
-- **bun** (installed globally in dev container) - Fast JavaScript runtime and test runner
-
-### Python Libraries
-
-#### Core Dependencies
-
-- **pydantic-ai** (1.32.0) - Python agent framework for building production-grade GenAI applications
-- **pydantic-settings** (2.12.0) - Settings management using Pydantic
-- **httpx** (0.28.1) - Async HTTP client for Python
-
-#### Development Dependencies
-
-- **pyright** (1.1.407) - Static type checker for Python
-- **ruff** (0.14.9) - Fast Python linter and code formatter
+- Use Context7 MCP tools for library documentation without being asked
+- Prefer async versions of libraries
