@@ -1,5 +1,6 @@
 import { startOfMonth } from 'date-fns'
 import { Jomini } from 'jomini'
+import { Pool } from 'pg'
 import { Logger } from 'pino'
 import { z } from 'zod/v4'
 import { DbConfig, getDbPool } from '../db.js'
@@ -10,6 +11,56 @@ import { MigrationsConfig, runUpMigrations } from '../migrations.js'
 import { readGamestateData } from './gamestateReader.js'
 import { ParserConfig } from './parserConfig.js'
 import { getParserOptions } from './parserOptions.js'
+
+export const executeParserIteration = async (
+  pool: Pool,
+  ironmanPath: string,
+  gamestateId: string,
+  logger: Logger,
+): Promise<void> => {
+  logger.info('Parser iteration started')
+
+  const gamestateData = await readGamestateData(ironmanPath)
+  const jomini = await Jomini.initialize()
+  const parsed = jomini.parseText(gamestateData)
+
+  const name = z.string().parse(parsed.name)
+  const date = z.coerce.date().parse(parsed.date)
+
+  const client = await pool.connect()
+  try {
+    const save = await upsertSave(client, gamestateId, name)
+    logger.info({ saveId: save.saveId, name: save.name }, 'Save upserted')
+
+    const dateToCheck = startOfMonth(date)
+    const existingGamestate = await getGamestateByMonth(
+      client,
+      save.saveId,
+      dateToCheck,
+    )
+
+    if (existingGamestate) {
+      logger.info(
+        { gamestateId: existingGamestate.gamestateId, date },
+        'Gamestate already exists for this month, skipping',
+      )
+      return
+    }
+
+    const insertedGamestate = await insertGamestate(
+      client,
+      save.saveId,
+      date,
+      parsed,
+    )
+    logger.info(
+      { gamestateId: insertedGamestate.gamestateId, date },
+      'Gamestate inserted',
+    )
+  } finally {
+    client.release()
+  }
+}
 
 const runParser = async (logger: Logger) => {
   const config = ParserConfig.extend(DbConfig.shape)
@@ -38,48 +89,7 @@ const runParser = async (logger: Logger) => {
   const parseInterval = setInterval(() => {
     void (async () => {
       try {
-        logger.info('Parser iteration started')
-
-        const gamestateData = await readGamestateData(ironmanPath)
-        const jomini = await Jomini.initialize()
-        const parsed = jomini.parseText(gamestateData)
-
-        const name = z.string().parse(parsed.name)
-        const date = z.coerce.date().parse(parsed.date)
-
-        const client = await pool.connect()
-        try {
-          const save = await upsertSave(client, gamestateId, name)
-          logger.info({ saveId: save.saveId, name: save.name }, 'Save upserted')
-
-          const dateToCheck = startOfMonth(date)
-          const existingGamestate = await getGamestateByMonth(
-            client,
-            save.saveId,
-            dateToCheck,
-          )
-
-          if (existingGamestate) {
-            logger.info(
-              { gamestateId: existingGamestate.gamestateId, date },
-              'Gamestate already exists for this month, skipping',
-            )
-            return
-          }
-
-          const insertedGamestate = await insertGamestate(
-            client,
-            save.saveId,
-            date,
-            parsed,
-          )
-          logger.info(
-            { gamestateId: insertedGamestate.gamestateId, date },
-            'Gamestate inserted',
-          )
-        } finally {
-          client.release()
-        }
+        await executeParserIteration(pool, ironmanPath, gamestateId, logger)
       } catch (error: unknown) {
         logger.error({ error }, 'Error during parser iteration')
       }
@@ -99,7 +109,9 @@ const runParser = async (logger: Logger) => {
   process.on('SIGINT', shutdown)
 }
 
-const logger = getLogger()
-runParser(logger).catch((error: unknown) => {
-  logger.error(error)
-})
+if (process.env.NODE_ENV !== 'test') {
+  const logger = getLogger()
+  runParser(logger).catch((error: unknown) => {
+    logger.error(error)
+  })
+}
