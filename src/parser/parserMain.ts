@@ -1,7 +1,9 @@
+import { Jomini } from 'jomini'
 import { Logger } from 'pino'
 import { DbConfig, getDbPool } from '../db.js'
 import { getLogger } from '../logger.js'
 import { MigrationsConfig, runUpMigrations } from '../migrations.js'
+import { readGamestateData } from './gamestateReader.js'
 import { ParserConfig } from './parserConfig.js'
 import { getParserOptions } from './parserOptions.js'
 
@@ -30,7 +32,13 @@ const runParser = async (logger: Logger) => {
   )
 
   const parseInterval = setInterval(() => {
-    logger.info('Parser iteration started')
+    void (async () => {
+      logger.info('Parser iteration started')
+
+      const gamestateData = await readGamestateData(ironmanPath)
+      const jomini = await Jomini.initialize()
+      const _parsed = jomini.parseText(gamestateData)
+    })()
   }, config.STELLARIS_STATS_PARSER_INTERVAL)
 
   const shutdown = () => {
