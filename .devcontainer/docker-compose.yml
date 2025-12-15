@@ -57,7 +57,7 @@ services:
       - redis-data:/data
 
   apollo-mcp-server:
-    image: ghcr.io/apollographql/apollo-mcp-server:v1.2.1
+    image: ghcr.io/apollographql/apollo-mcp-server:v1.3.0
     container_name: stellaris-stats_apollo-mcp-server
     command: ['/apollo-mcp-server.yaml']
     networks:
