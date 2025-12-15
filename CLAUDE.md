@@ -16,7 +16,11 @@ The repository is organized into the following main directories:
   - `parser/` - Game state parsing logic
   - `scripts/` - Utility scripts
 - `agent/` - Python source code and project files
-  - `src/` - Python source code
+  - `src/agent/` - Python source code
+    - `models.py` - Pydantic models for structured outputs
+    - `tools.py` - GraphQL data fetching and analysis tools
+    - `budget_agent.py` - AI agent for budget analysis
+    - `cli.py` - Command-line interface entry point
 - `migrations/` - Database migration files
 - `graphql/` - GraphQL schema definitions
 - `grafana/` - Grafana dashboard configurations
@@ -86,6 +90,19 @@ Run formatting:
 
 ```bash
 npm run format:python
+```
+
+Run budget analysis agent:
+
+```bash
+# List available saves
+npm run agent:list-saves
+
+# Analyze a specific save (pass save filename after --)
+npm run agent:analyze -- <save_filename>
+
+# Analyze with custom threshold
+npm run agent:analyze:threshold -- --save <save_filename> --threshold 20
 ```
 
 ### Testing Commands
@@ -234,7 +251,9 @@ After making TypeScript changes:
 
 After making Python changes:
 
-- Run the type checking, linting, and formatting commands listed in the Development Commands section.
+- Run `npm run typecheck:python` to check for type errors.
+- Run `npm run lint:python` to check for linting errors.
+- Run `npm run format:python` to check and fix formatting.
 
 ### GraphQL & Grafana
 
@@ -716,6 +735,49 @@ CREATE TABLE gamestate (
 )
 ```
 
+### Budget Analysis Agent
+
+The budget analysis agent is a Python-based AI agent that analyzes Stellaris empire budget data to identify sudden changes in resource production.
+
+**TL;DR**: pydantic-ai agent that queries GraphQL API, compares budget data between two dates (~1 year apart), and identifies changes exceeding a configurable threshold.
+
+#### Agent Architecture
+
+##### Components
+
+- **Budget Agent** (`agent/src/agent/budget_agent.py`): Main agent using Claude Sonnet 4 model
+- **Tools** (`agent/src/agent/tools.py`): GraphQL data fetching and analysis functions
+- **Models** (`agent/src/agent/models.py`): Pydantic models for structured outputs
+- **CLI** (`agent/src/agent/cli.py`): Command-line interface entry point
+
+##### Data Flow
+
+1. User invokes CLI with save filename and optional threshold
+2. Agent fetches available dates from GraphQL API
+3. Finds comparison dates (latest vs ~1 year prior)
+4. Fetches budget balance data for both dates
+5. Compares all budget categories and resources
+6. Returns structured result with changes exceeding threshold
+
+##### Configuration
+
+- **Default Threshold**: 15% change triggers detection
+- **Comparison Scope**: Latest date vs approximately 1 year prior
+- **Model**: `anthropic:claude-sonnet-4-5-20250929`
+- **API Key**: `ANTHROPIC_API_KEY` or `STELLARIS_STATS_ANTHROPIC_API_KEY` environment variable (loaded via dotenvx from `.env.stellaris-stats.secrets`)
+
+##### Structured Output
+
+```python
+class BudgetAnalysisResult(BaseModel):
+    save_filename: str
+    previous_date: str
+    current_date: str
+    threshold_percent: float
+    sudden_changes: list[BudgetChange]
+    summary: str
+```
+
 ## Libraries Reference
 
 ### TypeScript/Node.js Libraries
@@ -751,7 +813,12 @@ CREATE TABLE gamestate (
 
 ### Python Libraries
 
+#### Core Dependencies
+
+- **pydantic-ai** (1.32.0) - Python agent framework for building production-grade GenAI applications
+- **httpx** (0.28.1) - Async HTTP client for Python
+
 #### Development Dependencies
 
 - **pyright** (1.1.407) - Static type checker for Python
-- **ruff** (0.14.8) - Fast Python linter and code formatter
+- **ruff** (0.14.9) - Fast Python linter and code formatter
