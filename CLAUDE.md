@@ -251,7 +251,9 @@ After making TypeScript changes:
 
 After making Python changes:
 
-- Run the type checking, linting, and formatting commands listed in the Development Commands section.
+- Run `npm run typecheck:python` to check for type errors.
+- Run `npm run lint:python` to check for linting errors.
+- Run `npm run format:python` to check and fix formatting.
 
 ### GraphQL & Grafana
 
