@@ -48,7 +48,7 @@ services:
       - db-test-data:/var/lib/postgresql
 
   redis:
-    image: redis:7.4-alpine
+    image: redis:8.4-alpine
     container_name: stellaris-stats_redis
     command: redis-server --appendonly yes --appendfsync everysec
     networks:
