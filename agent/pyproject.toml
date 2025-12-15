@@ -1,8 +1,14 @@
 [project]
-dependencies    = []
+dependencies = [
+  "httpx==0.28.1",
+  "pydantic-ai==1.32.0",
+]
 name            = "agent"
 requires-python = "==3.14.2"
 version         = "0.1.0"
+
+[project.scripts]
+budget-analyzer = "agent.cli:main"
 
 [build-system]
 build-backend = "uv_build"
