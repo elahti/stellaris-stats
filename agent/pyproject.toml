@@ -6,7 +6,7 @@ version         = "0.1.0"
 
 [build-system]
 build-backend = "uv_build"
-requires      = ["uv_build==0.9.16"]
+requires      = ["uv_build==0.9.17"]
 
 [dependency-groups]
 dev = ["pyright==1.1.407", "ruff==0.14.9"]
