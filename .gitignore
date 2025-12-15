@@ -2,6 +2,7 @@
 /.devcontainer/.env.db
 /.env.keys
 /*.code-workspace
+/**/__pycache__/
 /**/.env.*.secrets
 /**/dist/
 /**/node_modules/
