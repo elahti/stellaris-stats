@@ -6,6 +6,7 @@
       "Bash(bun test --help:*)",
       "Bash(bun test:*)",
       "Bash(cat:*)",
+      "Bash(dotenvx run -f .devcontainer/.env.db.test -- bun test:*)",
       "Bash(find:*)",
       "Bash(git add:*)",
       "Bash(git checkout:*)",
