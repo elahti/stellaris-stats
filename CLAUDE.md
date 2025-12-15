@@ -52,6 +52,16 @@ Run linting:
 npm run lint
 ```
 
+Run parser:
+
+```bash
+# Run parser with specific gamestate ID
+npm run parser:run -- -g <gamestateId>
+
+# List available gamestate IDs
+npm run parser:run -- -l
+```
+
 ### Python Commands
 
 All Python commands use `cd agent &&` prefix.
@@ -577,6 +587,109 @@ const contextValue: GraphQLServerContext = {
 - UUID hyphens replaced: `randomUUID().replace(/-/g, '_')`
 - Format: `stellaris_test_550e8400_e29b_41d4_a716_446655440000`
 
+### Parser System
+
+The parser is a background service that periodically reads Stellaris save files, extracts game state data, and stores it in PostgreSQL for analysis via the GraphQL API.
+
+**TL;DR**: Interval-based parser that reads ZIP-compressed save files, checks for existing data by month, and inserts new gamestate snapshots as JSONB.
+
+#### Parser Architecture
+
+##### Execution Model
+
+- **Interval-Based**: Runs on a configurable interval defined by `STELLARIS_STATS_PARSER_INTERVAL` environment variable
+- **Watch Mode**: Uses `tsx watch` for automatic restart on code changes during development
+- **Command**: `npm run parser:run -- -g <gamestateId>` or `npm run parser:run -- -l` to list available saves
+
+##### Key Components
+
+**Configuration (`src/parser/parserConfig.ts`)**
+- Defines parser-specific configuration schema
+- Validates `STELLARIS_STATS_PARSER_INTERVAL` using Zod
+
+**Main Parser (`src/parser/parserMain.ts`)**
+- Orchestrates the parsing workflow
+- Runs database migrations on startup
+- Executes parsing loop at configured intervals
+- Handles graceful shutdown (SIGTERM, SIGINT)
+
+**Gamestate Reader (`src/parser/gamestateReader.ts`)**
+- Extracts `gamestate` file from ZIP-compressed save files using yauzl-promise
+- Returns gamestate data as `Uint8Array` for parsing
+
+**Parser Options (`src/parser/parserOptions.ts`)**
+- Parses command-line arguments using Commander
+- Supports `-g <gamestateId>` to specify which save to parse
+- Supports `-l` to list available gamestate IDs from `/stellaris-data` directory
+
+##### Parsing Workflow
+
+1. **Read Save File**: Extract gamestate from ZIP file at `/stellaris-data/<gamestateId>/ironman.sav`
+2. **Parse with Jomini**: Convert Paradox Clausewitz format to JavaScript object
+3. **Extract Metadata**: Parse `name` (empire name) and `date` (in-game date) from gamestate
+4. **Upsert Save**: Create or update save row with filename (without .sav extension) and name
+5. **Check Existence**: Query database for existing gamestate in the same month using `startOfMonth()` comparison
+6. **Insert Gamestate**: If no gamestate exists for that month, insert new row with full parsed JSON as JSONB
+
+##### Database Operations
+
+**Save Management**
+- Function: `upsertSave(client, filename, name)` in `src/db/save.ts`
+- Uses `ON CONFLICT (filename) DO UPDATE` to handle duplicates
+- Updates save name if it changes between parses
+
+**Gamestate Existence Check**
+- Function: `getGamestateByMonth(client, saveId, date)` in `src/db/gamestates.ts`
+- Uses PostgreSQL `DATE_TRUNC('month', ...)` to compare dates by month
+- Applies `startOfMonth()` (from date-fns) to incoming date only, not database date
+- Example: File date `2200-04-18` matches database date `2200-04-01`
+- Returns existing gamestate if found, undefined otherwise
+
+**Gamestate Insertion**
+- Function: `insertGamestate(client, saveId, date, data)` in `src/db/gamestates.ts`
+- Inserts full parsed gamestate as JSONB into `data` column
+- Enforces uniqueness constraint on `(save_id, date)` pair
+- Returns inserted gamestate with `gamestateId` and `date`
+
+##### Error Handling
+
+- Try-catch wrapper around each parser iteration
+- Errors logged with full context using Pino logger
+- Failed iterations don't crash the parser - next iteration runs normally
+- Database client properly released even on errors (try-finally pattern)
+
+#### Configuration
+
+**Environment Variables:**
+- `STELLARIS_STATS_PARSER_INTERVAL` - Milliseconds between parser iterations
+
+**Data Location:**
+- Save files stored at `/stellaris-data/<gamestateId>/ironman.sav`
+- Each gamestate ID is a directory containing the save file
+
+#### Database Schema
+
+**Save Table:**
+```sql
+CREATE TABLE save (
+  save_id SERIAL PRIMARY KEY,
+  filename VARCHAR(255) NOT NULL UNIQUE,
+  name VARCHAR(255) NOT NULL
+)
+```
+
+**Gamestate Table:**
+```sql
+CREATE TABLE gamestate (
+  gamestate_id SERIAL PRIMARY KEY,
+  save_id INTEGER NOT NULL,
+  date TIMESTAMP WITH TIME ZONE NOT NULL,
+  data JSONB NOT NULL,
+  UNIQUE (save_id, date),
+  FOREIGN KEY (save_id) REFERENCES save (save_id) ON DELETE CASCADE
+)
+```
+
 ## Libraries Reference
 
 ### TypeScript/Node.js Libraries
@@ -594,6 +707,7 @@ const contextValue: GraphQLServerContext = {
 - **pino** (10.1.0) - Fast JSON logger
 - **commander** (14.0.2) - Command-line interface builder
 - **node-pg-migrate** (8.0.3) - PostgreSQL database migration tool
+- **date-fns** (4.1.0) - Modern JavaScript date utility library
 
 #### Development Dependencies
 
