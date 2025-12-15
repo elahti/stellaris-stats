@@ -137,7 +137,7 @@ services:
     container_name: stellaris-stats_librechat-metrics
     env_file:
       - .env.librechat-metrics
-    image: ghcr.io/virtuos/librechat_exporter:2.0.6
+    image: ghcr.io/virtuos/librechat_exporter:2.1.0
     networks:
       - stellaris-stats-librechat-metrics-network
       - stellaris-stats-librechat-mongo-network
