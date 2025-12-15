@@ -208,6 +208,7 @@ After making TypeScript changes:
 
 - Run `npm run lint` to check for linting and formatting errors.
 - Run `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
+- Run `npm run test:ci` to ensure all tests pass.
 
 ### Python Guidelines
 
