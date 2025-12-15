@@ -49,7 +49,7 @@ npm run graphql:codegen
 Run linting:
 
 ```bash
-npm run lint
+npm run lint:typescript
 ```
 
 Run parser:
@@ -64,8 +64,6 @@ npm run parser:run -- -l
 
 ### Python Commands
 
-All Python commands use `cd agent &&` prefix.
-
 Sync dependencies and update lock file:
 
 ```bash
@@ -75,19 +73,19 @@ cd agent && uv sync
 Run type checking:
 
 ```bash
-cd agent && uv run pyright
+npm run typecheck:python
 ```
 
 Run linting:
 
 ```bash
-cd agent && uv run ruff check
+npm run lint:python
 ```
 
 Run formatting:
 
 ```bash
-cd agent && uv run ruff format
+npm run format:python
 ```
 
 ### Testing Commands
@@ -95,13 +93,13 @@ cd agent && uv run ruff format
 Run tests in watch mode (development):
 
 ```bash
-npm test
+npm run test:typescript
 ```
 
 Run tests once (CI or one-time run):
 
 ```bash
-npm run test:ci
+npm run test:ci:typescript
 ```
 
 **Note**: When creating or modifying tests, use the `test-writer` agent which has comprehensive instructions for following the project's testing patterns and best practices
@@ -206,9 +204,9 @@ git status
 
 After making TypeScript changes:
 
-- Run `npm run lint` to check for linting and formatting errors.
+- Run `npm run lint:typescript` to check for linting and formatting errors.
 - Run `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
-- Run `npm run test:ci` to ensure all tests pass.
+- Run `npm run test:ci:typescript` to ensure all tests pass.
 
 ### Python Guidelines
 
@@ -437,7 +435,7 @@ The project uses end-to-end integration testing with complete database isolation
 
 - **Framework**: Bun (built-in test runner)
 - **Test Files**: `tests/**/*.test.ts`
-- **Command**: `npm test` (uses `dotenvx` to load test environment)
+- **Command**: `npm run test:typescript` (uses `dotenvx` to load test environment)
 - **Execution**: Parallel by default, each test fully isolated
 
 ##### Database Isolation Strategy

@@ -211,9 +211,9 @@ if (result.data?.save) {
 
 After making test changes:
 
-- Run `npm run lint` to check for linting and formatting errors.
+- Run `npm run lint:typescript` to check for linting and formatting errors.
 - Run `npm run build` to verify no compile errors with up-to-date generated GraphQL files.
-- Run `npm test` to verify all tests pass.
+- Run `npm run test:typescript` to verify all tests pass.
 
 ## Self-Verification Checklist
 

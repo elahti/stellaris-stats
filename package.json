@@ -53,10 +53,13 @@
     "gamestateToJson:run": "tsx src/scripts/gamestateToJson.ts",
     "graphql-server:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/graphql/graphqlServerMain.ts",
     "graphql:codegen": "graphql-codegen --config codegen.yml && prettier -w src/graphql/generated",
-    "lint": "eslint .",
+    "lint:typescript": "eslint .",
+    "lint:python": "cd agent && uv run ruff check",
+    "format:python": "cd agent && uv run ruff format",
+    "typecheck:python": "cd agent && uv run pyright",
     "parser:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/parser/parserMain.ts",
     "prepare": "husky",
-    "test": "dotenvx run -f .devcontainer/.env.db.test -- bun test --watch",
-    "test:ci": "dotenvx run -f .devcontainer/.env.db.test -- bun test"
+    "test:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test --watch",
+    "test:ci:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test"
   }
 }
