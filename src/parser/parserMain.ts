@@ -23,10 +23,10 @@ export const executeParserIteration = async (
 
   const gamestateData = await readGamestateData(ironmanPath)
   const jomini = await Jomini.initialize()
-  const parsed = jomini.parseText(gamestateData)
+  const gamestate = jomini.parseText(gamestateData)
 
-  const name = z.string().parse(parsed.name)
-  const date = z.coerce.date().parse(parsed.date)
+  const name = z.string().parse(gamestate.name)
+  const date = z.coerce.date().parse(gamestate.date)
 
   await withTx(pool, async (client) => {
     const save = await upsertSave(client, gamestateId, name)
@@ -51,7 +51,7 @@ export const executeParserIteration = async (
       client,
       save.saveId,
       date,
-      parsed,
+      gamestate,
     )
     logger.info(
       { gamestateId: insertedGamestate.gamestateId, date },
@@ -61,7 +61,7 @@ export const executeParserIteration = async (
     await populateBudgetTables(
       client,
       insertedGamestate.gamestateId,
-      parsed,
+      gamestate,
       logger,
     )
     logger.info(

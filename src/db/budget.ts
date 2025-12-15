@@ -300,12 +300,12 @@ const insertBudgetCategory = async (
 export const populateBudgetTables = async (
   client: PoolClient,
   gamestateId: number,
-  parsed: unknown,
+  gamestate: unknown,
   logger: Logger,
 ): Promise<void> => {
   let parsedGamestate
   try {
-    parsedGamestate = ParsedGamestateSchema.parse(parsed)
+    parsedGamestate = ParsedGamestateSchema.parse(gamestate)
   } catch (error: unknown) {
     if (error instanceof z.ZodError) {
       logger.warn(
