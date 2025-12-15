@@ -3,7 +3,8 @@ import { Jomini } from 'jomini'
 import { Pool } from 'pg'
 import { Logger } from 'pino'
 import { z } from 'zod/v4'
-import { DbConfig, getDbPool } from '../db.js'
+import { DbConfig, getDbPool, withTx } from '../db.js'
+import { populateBudgetTables } from '../db/budget.js'
 import { getGamestateByMonth, insertGamestate } from '../db/gamestates.js'
 import { upsertSave } from '../db/save.js'
 import { getLogger } from '../logger.js'
@@ -27,8 +28,7 @@ export const executeParserIteration = async (
   const name = z.string().parse(parsed.name)
   const date = z.coerce.date().parse(parsed.date)
 
-  const client = await pool.connect()
-  try {
+  await withTx(pool, async (client) => {
     const save = await upsertSave(client, gamestateId, name)
     logger.info({ saveId: save.saveId, name: save.name }, 'Save upserted')
 
@@ -57,9 +57,18 @@ export const executeParserIteration = async (
       { gamestateId: insertedGamestate.gamestateId, date },
       'Gamestate inserted',
     )
-  } finally {
-    client.release()
-  }
+
+    await populateBudgetTables(
+      client,
+      insertedGamestate.gamestateId,
+      parsed,
+      logger,
+    )
+    logger.info(
+      { gamestateId: insertedGamestate.gamestateId },
+      'Budget data populated',
+    )
+  })
 }
 
 const runParser = async (logger: Logger) => {

@@ -627,9 +627,36 @@ The parser is a background service that periodically reads Stellaris save files,
 1. **Read Save File**: Extract gamestate from ZIP file at `/stellaris-data/<gamestateId>/ironman.sav`
 2. **Parse with Jomini**: Convert Paradox Clausewitz format to JavaScript object
 3. **Extract Metadata**: Parse `name` (empire name) and `date` (in-game date) from gamestate
-4. **Upsert Save**: Create or update save row with filename (without .sav extension) and name
-5. **Check Existence**: Query database for existing gamestate in the same month using `startOfMonth()` comparison
-6. **Insert Gamestate**: If no gamestate exists for that month, insert new row with full parsed JSON as JSONB
+4. **Begin Transaction**: Use `withTx()` helper to wrap all database operations in a transaction
+5. **Upsert Save**: Create or update save row with filename (without .sav extension) and name
+6. **Check Existence**: Query database for existing gamestate in the same month using `startOfMonth()` comparison
+7. **Insert Gamestate**: If no gamestate exists for that month, insert new row with full parsed JSON as JSONB
+8. **Populate Budget Tables**: Extract budget data from parsed object and insert into `budget_entry` and `budget_category` tables
+9. **Commit Transaction**: Transaction automatically commits on success, rolls back on error
+
+##### Budget Table Population
+
+**Budget Data Extraction:**
+- Player country ID: `parsed.player[0].country`
+- Budget data path: `parsed.country[playerCountryId].budget.current_month`
+- Structure: Three-level nested object with category types (`income`, `expenses`, `balance`), each containing category names (e.g., `country_base`, `armies`, `ships`), which contain resource fields (20 total: `energy`, `minerals`, `alloys`, etc.)
+
+**Database Functions:**
+- `populateBudgetTables(client, gamestateId, parsed, logger)` - Main orchestration function in `src/db/budget.ts`
+- `insertBudgetEntry(client, entryData)` - Inserts budget_entry row with 20 resource columns, returns budget_entry_id
+- `insertBudgetCategory(client, gamestateId, categoryType, categoryName, budgetEntryId)` - Links budget entry to gamestate
+
+**Transaction Atomicity:**
+- All parser operations (save upsert, gamestate insert, budget population) wrapped in single transaction using `withTx()` helper
+- Ensures budget data is never orphaned from its gamestate
+- If budget population fails unexpectedly, entire operation rolls back
+
+**Graceful Error Handling:**
+- Missing player country ID: Log warning, skip budget population
+- Missing budget data: Log info, skip budget population (normal for some saves)
+- Validation errors: Log error with context, skip budget population
+- Unexpected errors: Transaction rolls back, error bubbles up
+- Budget population is non-critical and won't fail parser iteration for missing/invalid data
 
 ##### Database Operations
 
