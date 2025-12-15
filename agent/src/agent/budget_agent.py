@@ -67,7 +67,10 @@ async def analyze_budget(ctx: RunContext[AgentDeps], save_filename: str) -> str:
     previous_date, current_date = comparison
 
     comparison_data = await fetch_budget_comparison(
-        client, save_filename, previous_date, current_date,
+        client,
+        save_filename,
+        previous_date,
+        current_date,
     )
 
     result = analyze_budget_changes(save_filename, comparison_data, threshold)

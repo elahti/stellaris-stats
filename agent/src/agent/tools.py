@@ -144,7 +144,8 @@ async def get_available_dates(client: httpx.AsyncClient, filename: str) -> list[
     }
     """
     response = await client.post(
-        GRAPHQL_URL, json={"query": query, "variables": {"filename": filename}},
+        GRAPHQL_URL,
+        json={"query": query, "variables": {"filename": filename}},
     )
     response.raise_for_status()
     data = response.json()
@@ -212,7 +213,8 @@ async def fetch_budget_comparison(
     """Fetch budget data for two dates and return comparison-ready structure."""
     query = build_budget_query()
     response = await client.post(
-        GRAPHQL_URL, json={"query": query, "variables": {"filename": filename}},
+        GRAPHQL_URL,
+        json={"query": query, "variables": {"filename": filename}},
     )
     response.raise_for_status()
     data = response.json()
