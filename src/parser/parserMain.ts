@@ -35,8 +35,6 @@ const runParser = async (logger: Logger) => {
     'Parser initialized',
   )
 
-  const saveFilename = `${gamestateId}.sav`
-
   const parseInterval = setInterval(() => {
     void (async () => {
       try {
@@ -51,7 +49,7 @@ const runParser = async (logger: Logger) => {
 
         const client = await pool.connect()
         try {
-          const save = await upsertSave(client, saveFilename, name)
+          const save = await upsertSave(client, gamestateId, name)
           logger.info({ saveId: save.saveId, name: save.name }, 'Save upserted')
 
           const dateToCheck = startOfMonth(date)
