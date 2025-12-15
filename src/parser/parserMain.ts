@@ -5,7 +5,7 @@ import { Logger } from 'pino'
 import { z } from 'zod/v4'
 import { DbConfig, getDbPool, withTx } from '../db.js'
 import { getGamestateByMonth, insertGamestate } from '../db/gamestates.js'
-import { upsertSave } from '../db/save.js'
+import { getSave, insertSave } from '../db/save.js'
 import { getLogger } from '../logger.js'
 import { MigrationsConfig, runUpMigrations } from '../migrations.js'
 import { populateBudgetTables } from './budgetPopulator.js'
@@ -19,8 +19,6 @@ export const executeParserIteration = async (
   gamestateId: string,
   logger: Logger,
 ): Promise<void> => {
-  logger.info('Parser iteration started')
-
   const gamestateData = await readGamestateData(ironmanPath)
   const jomini = await Jomini.initialize()
   const gamestate = jomini.parseText(gamestateData)
@@ -29,8 +27,12 @@ export const executeParserIteration = async (
   const date = z.coerce.date().parse(gamestate.date)
 
   await withTx(pool, async (client) => {
-    const save = await upsertSave(client, gamestateId, name)
-    logger.info({ saveId: save.saveId, name: save.name }, 'Save upserted')
+    const existingSave = await getSave(client, gamestateId)
+    const save = existingSave ?? (await insertSave(client, gamestateId, name))
+
+    if (!existingSave) {
+      logger.info({ saveId: save.saveId, name: save.name }, 'Save inserted')
+    }
 
     const dateToCheck = startOfMonth(date)
     const existingGamestate = await getGamestateByMonth(

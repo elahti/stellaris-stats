@@ -41,20 +41,18 @@ export const getSave = async (
   return results[0]
 }
 
-const upsertSaveQuery = `
+const insertSaveQuery = `
 INSERT INTO save (filename, name)
 VALUES ($1, $2)
-ON CONFLICT (filename)
-DO UPDATE SET name = EXCLUDED.name
 RETURNING save_id, filename, name
 `
 
-export const upsertSave = (
+export const insertSave = (
   client: PoolClient,
   filename: string,
   name: string,
 ): Promise<Pick<Save, 'saveId' | 'filename' | 'name'>> =>
   selectRowStrict(
-    () => client.query(upsertSaveQuery, [filename, name]),
+    () => client.query(insertSaveQuery, [filename, name]),
     SaveSchema().pick({ saveId: true, filename: true, name: true }),
   )
