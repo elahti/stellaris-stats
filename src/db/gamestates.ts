@@ -62,6 +62,11 @@ WHERE
 LIMIT 1
 `
 
+const GamestateByMonthRow = GamestateSchema().pick({
+  gamestateId: true,
+  date: true,
+})
+
 export const getGamestateByMonth = async (
   client: PoolClient,
   saveId: number,
@@ -69,7 +74,7 @@ export const getGamestateByMonth = async (
 ): Promise<Pick<Gamestate, 'gamestateId' | 'date'> | undefined> => {
   const rows = await selectRows(
     () => client.query(getGamestateByMonthQuery, [saveId, date]),
-    GamestateRow,
+    GamestateByMonthRow,
   )
   return rows[0]
 }
