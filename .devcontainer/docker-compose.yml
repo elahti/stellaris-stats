@@ -26,6 +26,7 @@ services:
       - gamestate-json-data:/workspace/gamestate-json-data
       - node-modules:/workspace/node_modules
       - user-cache:/home/vscode/.cache
+      - agent-venv:/workspace/agent/.venv
 
   db:
     image: postgres:18
@@ -217,3 +218,5 @@ volumes:
     name: stellaris-stats_redis-data
   user-cache:
     name: stellaris-stats_user-cache
+  agent-venv:
+    name: stellaris-stats_agent-venv
