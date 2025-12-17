@@ -7,6 +7,7 @@ for DIR in \
   $HOME/.cache \
   $HOME/.claude \
   $HOME/.claude.json-volume \
+  $WORKSPACE/agent/.venv \
   $WORKSPACE/db-dump-data \
   $WORKSPACE/gamestate-json-data \
   $WORKSPACE/node_modules; do
