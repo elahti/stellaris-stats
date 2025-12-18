@@ -22,10 +22,11 @@ async def run_list_saves() -> None:
             print(f"  - {save['filename']} ({save['name']})")
 
 
-async def run_analysis(save_filename: str, threshold: float) -> None:
+async def run_analysis(save_filename: str) -> None:
     """Run budget analysis for a specific save."""
     from agent.budget_agent import budget_agent
 
+    threshold = 15.0
     async with httpx.AsyncClient(timeout=60.0) as client:
         deps = AgentDeps(http_client=client, threshold_percent=threshold)
 
@@ -89,7 +90,6 @@ def main() -> None:
 Examples:
   budget-analyzer --list-saves
   budget-analyzer --save commonwealthofman_1251622081
-  budget-analyzer --save myempire --threshold 20
         """,
     )
 
@@ -102,12 +102,6 @@ Examples:
         "--save",
         type=str,
         help="Save filename to analyze (without .sav extension)",
-    )
-    parser.add_argument(
-        "--threshold",
-        type=float,
-        default=15.0,
-        help="Percentage threshold for detecting sudden changes (default: 15.0)",
     )
 
     args = parser.parse_args()
@@ -131,7 +125,7 @@ Examples:
     if args.list_saves:
         asyncio.run(run_list_saves())
     elif args.save:
-        asyncio.run(run_analysis(args.save, args.threshold))
+        asyncio.run(run_analysis(args.save))
     else:
         parser.print_help()
         sys.exit(1)
