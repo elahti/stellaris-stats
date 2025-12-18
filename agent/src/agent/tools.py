@@ -3,7 +3,13 @@ from typing import Any
 
 import httpx
 
-from agent.models import BudgetAnalysisResult, BudgetChange, ResourceChange
+from agent.models import (
+    BudgetAnalysisResult,
+    BudgetChange,
+    BudgetComparisonData,
+    BudgetComparisonError,
+    ResourceChange,
+)
 
 GRAPHQL_URL = "http://devcontainer:4000"
 
@@ -209,7 +215,7 @@ async def fetch_budget_comparison(
     filename: str,
     previous_date: str,
     current_date: str,
-) -> dict[str, Any]:
+) -> BudgetComparisonData | BudgetComparisonError:
     """Fetch budget data for two dates and return comparison-ready structure."""
     query = build_budget_query()
     response = await client.post(
@@ -221,43 +227,45 @@ async def fetch_budget_comparison(
 
     save_data: dict[str, Any] | None = data["data"]["save"]
     if save_data is None:
-        return {"error": f"Save '{filename}' not found"}
+        return BudgetComparisonError(error=f"Save '{filename}' not found")
 
     gamestates: list[dict[str, Any]] = save_data["gamestates"]
     previous_gs = next((gs for gs in gamestates if gs["date"] == previous_date), None)
     current_gs = next((gs for gs in gamestates if gs["date"] == current_date), None)
 
     if previous_gs is None or current_gs is None:
-        return {"error": "Could not find gamestates for specified dates"}
+        return BudgetComparisonError(
+            error="Could not find gamestates for specified dates",
+        )
 
-    return {
-        "previous_date": previous_date,
-        "current_date": current_date,
-        "previous_budget": previous_gs["budget"]["balance"],
-        "current_budget": current_gs["budget"]["balance"],
-    }
+    return BudgetComparisonData(
+        previous_date=previous_date,
+        current_date=current_date,
+        previous_budget=previous_gs["budget"]["balance"],
+        current_budget=current_gs["budget"]["balance"],
+    )
 
 
 def analyze_budget_changes(
     filename: str,
-    comparison_data: dict[str, Any],
+    comparison_data: BudgetComparisonData | BudgetComparisonError,
     threshold_percent: float,
 ) -> BudgetAnalysisResult:
     """Analyze budget changes and identify sudden changes exceeding threshold."""
-    if "error" in comparison_data:
+    if isinstance(comparison_data, BudgetComparisonError):
         return BudgetAnalysisResult(
             save_filename=filename,
             previous_date="",
             current_date="",
             threshold_percent=threshold_percent,
             sudden_changes=[],
-            summary=comparison_data["error"],
+            summary=comparison_data.error,
         )
 
-    previous_date: str = comparison_data["previous_date"]
-    current_date: str = comparison_data["current_date"]
-    previous_budget: dict[str, Any] = comparison_data["previous_budget"]
-    current_budget: dict[str, Any] = comparison_data["current_budget"]
+    previous_date = comparison_data.previous_date
+    current_date = comparison_data.current_date
+    previous_budget = comparison_data.previous_budget
+    current_budget = comparison_data.current_budget
 
     sudden_changes: list[BudgetChange] = []
 

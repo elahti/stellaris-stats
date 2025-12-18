@@ -3,7 +3,7 @@ import json
 import httpx
 from pydantic_ai import Agent, RunContext
 
-from agent.models import BudgetAnalysisResult
+from agent.models import BudgetAnalysisResult, BudgetComparisonError
 from agent.tools import (
     AgentDeps,
     fetch_budget_comparison,
@@ -99,13 +99,14 @@ async def get_budget_comparison(ctx: RunContext[AgentDeps], save_filename: str) 
         current_date,
     )
 
-    if "error" in comparison_data:
-        return f"Error fetching budget data: {comparison_data['error']}"
+    if isinstance(comparison_data, BudgetComparisonError):
+        return f"Error fetching budget data: {comparison_data.error}"
 
-    comparison_data["save_filename"] = save_filename
-    comparison_data["threshold_percent"] = threshold
+    result = comparison_data.model_dump()
+    result["save_filename"] = save_filename
+    result["threshold_percent"] = threshold
 
-    return json.dumps(comparison_data, indent=2)
+    return json.dumps(result, indent=2)
 
 
 def _build_analysis_prompt(save_filename: str, threshold: float) -> str:

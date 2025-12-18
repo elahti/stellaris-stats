@@ -28,3 +28,18 @@ class BudgetAnalysisResult(BaseModel):
     threshold_percent: float
     sudden_changes: list[BudgetChange]
     summary: str
+
+
+class BudgetComparisonData(BaseModel):
+    """Budget comparison data between two dates."""
+
+    previous_date: str
+    current_date: str
+    previous_budget: dict[str, dict[str, float | None] | None]
+    current_budget: dict[str, dict[str, float | None] | None]
+
+
+class BudgetComparisonError(BaseModel):
+    """Error result from budget comparison."""
+
+    error: str
