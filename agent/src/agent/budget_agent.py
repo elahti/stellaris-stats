@@ -1,3 +1,4 @@
+import httpx
 from pydantic_ai import Agent, RunContext
 
 from agent.models import BudgetAnalysisResult
@@ -9,6 +10,8 @@ from agent.tools import (
     get_available_dates,
     list_saves,
 )
+
+DEFAULT_THRESHOLD_PERCENT = 15.0
 
 SYSTEM_PROMPT = """You are a Stellaris game statistics analyst specializing in empire budget analysis.
 
@@ -95,3 +98,29 @@ async def analyze_budget(ctx: RunContext[AgentDeps], save_filename: str) -> str:
                 )
 
     return "\n".join(output_lines)
+
+
+def _build_analysis_prompt(save_filename: str, threshold: float) -> str:
+    return (
+        f"Analyze the budget for save '{save_filename}'. "
+        f"Identify any sudden changes in resource production that exceed {threshold}% "
+        f"by comparing the latest date to approximately one year prior. "
+        f"Return the analysis result."
+    )
+
+
+async def run_budget_analysis(save_filename: str) -> BudgetAnalysisResult:
+    """Run budget analysis for a specific save file.
+
+    Args:
+        save_filename: The filename of the save to analyze (without .sav extension).
+
+    Returns:
+        The budget analysis result.
+    """
+    threshold = DEFAULT_THRESHOLD_PERCENT
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        deps = AgentDeps(http_client=client, threshold_percent=threshold)
+        prompt = _build_analysis_prompt(save_filename, threshold)
+        result = await budget_agent.run(prompt, deps=deps)
+        return result.output

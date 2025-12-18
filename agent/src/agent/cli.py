@@ -5,9 +5,10 @@ import sys
 import httpx
 import logfire
 
+from agent.budget_agent import run_budget_analysis
 from agent.models import BudgetAnalysisResult
 from agent.settings import Settings
-from agent.tools import AgentDeps, list_saves
+from agent.tools import list_saves
 
 
 async def run_list_saves() -> None:
@@ -24,23 +25,8 @@ async def run_list_saves() -> None:
 
 async def run_analysis(save_filename: str) -> None:
     """Run budget analysis for a specific save."""
-    from agent.budget_agent import budget_agent
-
-    threshold = 15.0
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        deps = AgentDeps(http_client=client, threshold_percent=threshold)
-
-        prompt = (
-            f"Analyze the budget for save '{save_filename}'. "
-            f"Identify any sudden changes in resource production that exceed {threshold}% "
-            f"by comparing the latest date to approximately one year prior. "
-            f"Return the analysis result."
-        )
-
-        result = await budget_agent.run(prompt, deps=deps)
-
-        output: BudgetAnalysisResult = result.output
-        print_analysis_result(output)
+    result = await run_budget_analysis(save_filename)
+    print_analysis_result(result)
 
 
 def print_analysis_result(result: BudgetAnalysisResult) -> None:
