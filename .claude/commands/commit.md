@@ -16,4 +16,5 @@ Create a git commit.
 
 - Only commit when explicitly requested
 - Before committing: `git status`, `git diff`, `git log --oneline -5`
-- Concise messages, imperative mood, no attribution lines, no emoji
+- Concise messages, imperative mood
+- No emojis, no attribution lines, no "Generated with Claude Code", no "Co-Authored-By" lines
