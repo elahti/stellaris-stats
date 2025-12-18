@@ -30,25 +30,25 @@ All commands run from `/workspace`.
 
 ### TypeScript
 
-| Task | Command |
-|------|---------|
-| Build (includes codegen) | `npm run build` |
-| GraphQL codegen only | `npm run graphql:codegen` |
-| Lint | `npm run lint:typescript` |
-| Test (watch) | `npm run test:typescript` |
-| Test (CI) | `npm run test:ci:typescript` |
-| Run parser | `npm run parser:run -- -g <id>` |
-| List saves | `npm run parser:run -- -l` |
+| Task                     | Command                         |
+| ------------------------ | ------------------------------- |
+| Build (includes codegen) | `npm run build`                 |
+| GraphQL codegen only     | `npm run graphql:codegen`       |
+| Lint                     | `npm run lint:typescript`       |
+| Test (watch)             | `npm run test:typescript`       |
+| Test (CI)                | `npm run test:ci:typescript`    |
+| Run parser               | `npm run parser:run -- -g <id>` |
+| List saves               | `npm run parser:run -- -l`      |
 
 ### Python
 
-| Task | Command |
-|------|---------|
-| Sync deps | `cd agent && uv sync` |
-| Type check | `npm run typecheck:python` |
-| Lint | `npm run lint:python` |
-| Format | `npm run format:python` |
-| List saves | `npm run agent:list-saves` |
+| Task           | Command                               |
+| -------------- | ------------------------------------- |
+| Sync deps      | `cd agent && uv sync`                 |
+| Type check     | `npm run typecheck:python`            |
+| Lint           | `npm run lint:python`                 |
+| Format         | `npm run format:python`               |
+| List saves     | `npm run agent:list-saves`            |
 | Analyze budget | `npm run agent:analyze -- <filename>` |
 
 ## Code Style
@@ -64,20 +64,6 @@ All commands run from `/workspace`.
 After TypeScript changes: `npm run lint:typescript && npm run build && npm run test:ci:typescript`
 
 After Python changes: `npm run typecheck:python && npm run lint:python && npm run format:python`
-
-## Git & Commits
-
-### Branch Policy
-
-- All modifications in feature branches, not main
-- If on main when committing, create a branch first
-- Use descriptive names: `fix-budget-parser`, `add-planet-resolver`
-
-### Commits
-
-- Only commit when explicitly requested
-- Before committing: `git status`, `git diff`, `git log --oneline -5`
-- Concise messages, imperative mood, no attribution lines, no emoji
 
 ### Safety
 
@@ -97,6 +83,7 @@ Column name mapping: `snake_case` (DB) → `camelCase` (GraphQL) via `selectRows
 ## Documentation Maintenance
 
 Keep synchronized when changing:
+
 - Commands → Update Commands section
 - Dependencies → Update `docs/LIBRARIES.md`
 - Architecture → Update `docs/ARCHITECTURE.md`
