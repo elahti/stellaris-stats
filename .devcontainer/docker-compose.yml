@@ -27,6 +27,7 @@ services:
       - node-modules:/workspace/node_modules
       - user-cache:/home/vscode/.cache
       - agent-venv:/workspace/agent/.venv
+      - local-share-uv:/home/vscode/.local/share/uv
 
   db:
     image: postgres:18
@@ -210,6 +211,8 @@ volumes:
     name: stellaris-stats_librechat-upload-data
   librechat-logs:
     name: stellaris-stats_librechat-logs
+  local-share-uv:
+    name: stellaris-stats_local-share-uv
   node-modules:
     name: stellaris-stats_node-modules
   prometheus-data:
