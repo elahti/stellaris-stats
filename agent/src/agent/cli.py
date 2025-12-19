@@ -96,7 +96,7 @@ Examples:
 
     logfire.configure(
         service_name="stellaris-stats-agent",
-        token=settings.stellaris_stats_logfire_token,
+        token=settings.logfire_token,
         console=logfire.ConsoleOptions(),
         send_to_logfire=True,
     )
