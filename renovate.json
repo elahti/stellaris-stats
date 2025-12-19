@@ -4,44 +4,31 @@
   "extends": [
     "config:best-practices",
     "group:definitelyTyped",
-    "regexManagers:dockerfileVersions"
+    "customManagers:dockerfileVersions"
   ],
-  "labels": [
-    "dependencies"
-  ],
+  "labels": ["dependencies"],
   "packageRules": [
     {
       "groupName": "dev dependencies",
-      "matchDepTypes": [
-        "devDependencies"
-      ]
+      "matchDepTypes": ["devDependencies"]
     },
     {
       "automerge": false,
       "groupName": "major dependencies",
-      "matchUpdateTypes": [
-        "major"
-      ]
+      "matchUpdateTypes": ["major"]
     },
     {
       "automerge": true,
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ]
+      "matchUpdateTypes": ["minor", "patch"]
     }
   ],
   "rangeStrategy": "pin",
-  "schedule": [
-    "before 6am on monday"
-  ],
+  "schedule": ["before 6am on monday"],
   "semanticCommits": "enabled",
   "timezone": "UTC",
   "vulnerabilityAlerts": {
     "automerge": true,
     "enabled": true,
-    "labels": [
-      "security"
-    ]
+    "labels": ["security"]
   }
 }
