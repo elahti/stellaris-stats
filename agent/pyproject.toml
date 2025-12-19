@@ -16,11 +16,16 @@ build-backend = "uv_build"
 requires      = ["uv_build==0.9.17"]
 
 [dependency-groups]
-dev = ["pyright==1.1.407", "ruff==0.14.9"]
+dev = [
+    "ariadne-codegen>=0.17.0",
+    "pyright==1.1.407",
+    "ruff==0.14.9",
+]
 
 [tool.ruff]
 line-length    = 88
 target-version = "py314"
+exclude        = ["src/agent/graphql_client"]
 
 [tool.ruff.lint]
 ignore = [
@@ -50,8 +55,17 @@ preview                   = true
 quote-style               = "double"
 skip-magic-trailing-comma = false
 
+[tool.ariadne-codegen]
+schema_path = "../graphql/schema.graphql"
+queries_path = "queries.graphql"
+target_package_name = "graphql_client"
+target_package_path = "src/agent"
+async_client = true
+convert_to_snake_case = true
+
 [tool.pyright]
 include                             = ["src"]
+exclude                             = ["src/agent/graphql_client"]
 pythonVersion                       = "3.13"
 reportAssertAlwaysTrue              = "error"
 reportCallInDefaultInitializer      = "error"
@@ -75,7 +89,6 @@ reportMissingTypeStubs              = "error"
 reportPrivateUsage                  = "error"
 reportPropertyTypeMismatch          = "error"
 reportSelfClsParameterName          = "error"
-reportShadowedImports               = "error"
 reportTypeCommentUsage              = "error"
 reportUninitializedInstanceVariable = "error"
 reportUnknownArgumentType           = "error"
