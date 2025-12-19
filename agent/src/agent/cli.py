@@ -61,7 +61,7 @@ def print_analysis_result(result: SustainedDropAnalysisResult) -> None:
                 f"{v:.2f}" if v is not None else "null" for v in drop.values
             )
             print(
-                f"  {color_start}▼ Consecutive periods: {drop.consecutive_low_periods}{color_end}"
+                f"  {color_start}▼ Consecutive periods: {drop.consecutive_low_periods}{color_end}",
             )
             print(f"    Baseline: {drop.baseline_value:.2f}")
             print(f"    Values: {values_str}")
