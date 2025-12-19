@@ -1,6 +1,6 @@
 import json
 
-from pydantic_ai import Agent, RunContext
+from pydantic_ai import Agent, NativeOutput, RunContext
 from pydantic_ai.agent import AgentRunResult
 
 from agent.graphql_client import Client
@@ -44,21 +44,6 @@ When you receive budget time series data:
 - A sustained drop is when the last 4, 5, or all 6 values are negative
 - The severity is determined by how many consecutive periods and how negative
 
-## Output Requirements
-Populate the SustainedDropAnalysisResult with:
-- save_filename: The save file analyzed
-- analysis_period_start: The earliest date in the 6-point series
-- analysis_period_end: The latest date in the 6-point series
-- datapoints_analyzed: Should be 6
-- threshold_consecutive_periods: 4 (minimum to count as sustained)
-- sustained_drops: List of SustainedDrop objects for resources with 4+ consecutive negative periods
-  - category_name: The budget category (e.g., "ships", "armies")
-  - resource: The resource name (e.g., "energy", "minerals")
-  - consecutive_low_periods: How many of the recent periods have been negative (4, 5, or 6)
-  - values: The 6 values in order (oldest to newest)
-  - baseline_value: The first value for reference
-- summary: Brief analysis of the empire's resource health and recommendations
-
 ## Context
 The game starts on January 1, 2200. You are analyzing the 6 most recent budget snapshots to detect ongoing resource problems."""
 
@@ -66,7 +51,7 @@ The game starts on January 1, 2200. You are analyzing the 6 most recent budget s
 budget_agent = Agent(
     "anthropic:claude-sonnet-4-5-20250929",
     deps_type=AgentDeps,
-    output_type=SustainedDropAnalysisResult,
+    output_type=NativeOutput(SustainedDropAnalysisResult),
     system_prompt=SYSTEM_PROMPT,
 )
 
