@@ -3,55 +3,67 @@ import json
 import httpx
 from pydantic_ai import Agent, RunContext
 
-from agent.models import BudgetAnalysisResult, BudgetComparisonError
+from agent.models import BudgetComparisonError, SustainedDropAnalysisResult
 from agent.tools import (
     AgentDeps,
-    fetch_budget_comparison,
-    find_comparison_dates,
+    fetch_budget_time_series,
     get_available_dates,
     list_saves,
+    select_latest_dates,
 )
 
-DEFAULT_THRESHOLD_PERCENT = 15.0
+DEFAULT_CONSECUTIVE_PERIODS = 4
 
-SYSTEM_PROMPT = """You are a Stellaris game statistics analyst specializing in empire budget analysis.
+SYSTEM_PROMPT = """You are a Stellaris game statistics analyst specializing in detecting sustained resource drops.
 
-Your task is to identify sudden changes in an empire's resource production by analyzing budget balance data.
+Your task is to identify resources that have been consistently low or dropping over multiple consecutive time periods.
 
 ## Workflow
 1. If no save is specified, use get_available_saves to list available saves
-2. Use get_budget_comparison to fetch raw budget data for the specified save
-3. Analyze the data yourself to identify significant changes
+2. Use get_budget_time_series to fetch the latest 6 budget snapshots
+3. Analyze the time series data to identify sustained drops
 
 ## Analysis Instructions
-When you receive budget data from get_budget_comparison, you must:
+When you receive budget time series data:
 
-1. Compare each resource in each category between previous_budget and current_budget
-2. Calculate percentage change: ((current - previous) / |previous|) * 100
-   - Skip if previous value is 0 (cannot calculate percentage)
-   - Skip if absolute change is negligible (< 0.1)
-3. Identify changes that exceed the threshold_percent (default 15%)
-4. Focus on the most significant changes that would impact gameplay
+1. For each resource in the balance categories, examine the 6 values over time
+2. Identify "sustained drops" where:
+   - The resource balance has been NEGATIVE (< 0) for 4 or more consecutive RECENT periods
+   - Only look at the most recent periods (if last 4+ values are negative, it's a sustained drop)
+3. Focus only on DROPS (negative balances), not spikes (positive changes)
+4. Ignore resources that:
+   - Have been at 0 throughout the series
+   - Are occasionally negative but recover
+   - Have only recently started dropping (< 4 consecutive periods)
+
+## Sustained Drop Detection Logic
+- Compare each resource's values across the 6 datapoints (ordered oldest to newest)
+- A sustained drop is when the last 4, 5, or all 6 values are negative
+- The severity is determined by how many consecutive periods and how negative
 
 ## Output Requirements
-Populate the BudgetAnalysisResult with:
+Populate the SustainedDropAnalysisResult with:
 - save_filename: The save file analyzed
-- previous_date: The earlier date from the comparison
-- current_date: The later date from the comparison
-- threshold_percent: The threshold used (from the data)
-- sudden_changes: List of BudgetChange objects for categories with significant changes
-  - Each BudgetChange has category_type ("balance"), category_name, and list of ResourceChange
-  - Each ResourceChange has resource name, previous_value, current_value, change_absolute, change_percent
-- summary: A brief summary of the most impactful changes and their potential game implications
+- analysis_period_start: The earliest date in the 6-point series
+- analysis_period_end: The latest date in the 6-point series
+- datapoints_analyzed: Should be 6
+- threshold_consecutive_periods: 4 (minimum to count as sustained)
+- sustained_drops: List of SustainedDrop objects for resources with 4+ consecutive negative periods
+  - category_name: The budget category (e.g., "ships", "armies")
+  - resource: The resource name (e.g., "energy", "minerals")
+  - consecutive_low_periods: How many of the recent periods have been negative (4, 5, or 6)
+  - values: The 6 values in order (oldest to newest)
+  - baseline_value: The first value for reference
+- summary: Brief analysis of the empire's resource health and recommendations
 
 ## Context
-The game starts on January 1, 2200. The comparison is between the latest available date and approximately one year prior."""
+The game starts on January 1, 2200. You are analyzing the 6 most recent budget snapshots to detect ongoing resource problems."""
 
 
 budget_agent = Agent(
     "anthropic:claude-sonnet-4-5-20250929",
     deps_type=AgentDeps,
-    output_type=BudgetAnalysisResult,
+    output_type=SustainedDropAnalysisResult,
     system_prompt=SYSTEM_PROMPT,
 )
 
@@ -69,67 +81,63 @@ async def get_available_saves(ctx: RunContext[AgentDeps]) -> str:
 
 
 @budget_agent.tool
-async def get_budget_comparison(ctx: RunContext[AgentDeps], save_filename: str) -> str:
-    """Fetch raw budget data for comparison between two dates.
+async def get_budget_time_series(ctx: RunContext[AgentDeps], save_filename: str) -> str:
+    """Fetch budget time series data for the latest 6 datapoints.
 
-    Returns the budget data for the latest date and approximately one year prior.
-    You must analyze this data yourself to identify significant changes.
+    Returns budget balance data for the 6 most recent dates to analyze trends.
+    You must analyze this data to identify sustained resource drops.
 
     Args:
         ctx: The run context containing dependencies.
         save_filename: The filename of the save to analyze (without .sav extension).
     """
     client = ctx.deps.http_client
-    threshold = ctx.deps.threshold_percent
 
     dates = await get_available_dates(client, save_filename)
     if not dates:
         return f"No gamestates found for save '{save_filename}'. Please check the filename."
 
-    comparison = find_comparison_dates(dates)
-    if comparison is None:
-        return f"Not enough data points in save '{save_filename}' for comparison (need at least 2 dates)."
+    if len(dates) < 6:
+        return f"Not enough data points in save '{save_filename}' (need 6, found {len(dates)})."
 
-    previous_date, current_date = comparison
+    selected_dates = select_latest_dates(dates, count=6)
 
-    comparison_data = await fetch_budget_comparison(
+    time_series = await fetch_budget_time_series(
         client,
         save_filename,
-        previous_date,
-        current_date,
+        selected_dates,
     )
 
-    if isinstance(comparison_data, BudgetComparisonError):
-        return f"Error fetching budget data: {comparison_data.error}"
+    if isinstance(time_series, BudgetComparisonError):
+        return f"Error fetching budget data: {time_series.error}"
 
-    result = comparison_data.model_dump()
+    result = time_series.model_dump()
     result["save_filename"] = save_filename
-    result["threshold_percent"] = threshold
+    result["threshold_consecutive_periods"] = DEFAULT_CONSECUTIVE_PERIODS
 
     return json.dumps(result, indent=2)
 
 
-def _build_analysis_prompt(save_filename: str, threshold: float) -> str:
+def _build_analysis_prompt(save_filename: str) -> str:
     return (
         f"Fetch and analyze the budget for save '{save_filename}'. "
-        f"Use get_budget_comparison to get the raw budget data, then analyze it yourself. "
-        f"Identify any sudden changes in resource production that exceed {threshold}%. "
-        f"Return the analysis result with a summary of the most significant changes."
+        f"Use get_budget_time_series to get the latest 6 budget snapshots, then analyze them. "
+        f"Identify any resources with sustained negative balances (4+ consecutive periods). "
+        f"Return the analysis result with a summary of sustained drops."
     )
 
 
-async def run_budget_analysis(save_filename: str) -> BudgetAnalysisResult:
+async def run_budget_analysis(save_filename: str) -> SustainedDropAnalysisResult:
     """Run budget analysis for a specific save file.
 
     Args:
         save_filename: The filename of the save to analyze (without .sav extension).
 
     Returns:
-        The budget analysis result.
+        The sustained drop analysis result.
     """
-    threshold = DEFAULT_THRESHOLD_PERCENT
     async with httpx.AsyncClient(timeout=60.0) as client:
-        deps = AgentDeps(http_client=client, threshold_percent=threshold)
-        prompt = _build_analysis_prompt(save_filename, threshold)
+        deps = AgentDeps(http_client=client)
+        prompt = _build_analysis_prompt(save_filename)
         result = await budget_agent.run(prompt, deps=deps)
         return result.output

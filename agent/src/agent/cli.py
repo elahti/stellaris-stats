@@ -6,7 +6,7 @@ import httpx
 import logfire
 
 from agent.budget_agent import run_budget_analysis
-from agent.models import BudgetAnalysisResult
+from agent.models import SustainedDropAnalysisResult
 from agent.settings import Settings
 from agent.tools import list_saves
 
@@ -29,40 +29,44 @@ async def run_analysis(save_filename: str) -> None:
     print_analysis_result(result)
 
 
-def print_analysis_result(result: BudgetAnalysisResult) -> None:
+def print_analysis_result(result: SustainedDropAnalysisResult) -> None:
     """Print the analysis result in a readable format."""
     print("=" * 60)
-    print("STELLARIS BUDGET ANALYSIS REPORT")
+    print("STELLARIS SUSTAINED DROP ANALYSIS REPORT")
     print("=" * 60)
     print(f"Save: {result.save_filename}")
-    print(f"Period: {result.previous_date} to {result.current_date}")
-    print(f"Threshold: {result.threshold_percent}%")
+    print(f"Period: {result.analysis_period_start} to {result.analysis_period_end}")
+    print(f"Datapoints: {result.datapoints_analyzed}")
+    print(f"Threshold: {result.threshold_consecutive_periods}+ consecutive periods")
     print("-" * 60)
     print(f"\nSummary: {result.summary}")
 
-    if result.sudden_changes:
+    if result.sustained_drops:
         print("\n" + "=" * 60)
-        print("DETAILED CHANGES")
+        print("SUSTAINED DROPS DETECTED")
         print("=" * 60)
 
-        for change in result.sudden_changes:
-            print(f"\n[{change.category_type.upper()}] {change.category_name}")
+        for drop in result.sustained_drops:
+            print(f"\n[{drop.category_name}] {drop.resource}")
             print("-" * 40)
 
-            for rc in change.changes:
-                direction = "▲" if rc.change_percent > 0 else "▼"
-                color_start = ""
-                color_end = ""
+            color_start = ""
+            color_end = ""
 
-                if sys.stdout.isatty():
-                    color_start = "\033[92m" if rc.change_percent > 0 else "\033[91m"
-                    color_end = "\033[0m"
+            if sys.stdout.isatty():
+                color_start = "\033[91m"
+                color_end = "\033[0m"
 
-                print(
-                    f"  {color_start}{direction} {rc.resource}: {rc.previous_value:.2f} → {rc.current_value:.2f} ({rc.change_percent:+.1f}%){color_end}",
-                )
+            values_str = " → ".join(
+                f"{v:.2f}" if v is not None else "null" for v in drop.values
+            )
+            print(
+                f"  {color_start}▼ Consecutive periods: {drop.consecutive_low_periods}{color_end}"
+            )
+            print(f"    Baseline: {drop.baseline_value:.2f}")
+            print(f"    Values: {values_str}")
     else:
-        print("\nNo significant changes detected.")
+        print("\nNo sustained drops detected.")
 
     print("\n" + "=" * 60)
 
