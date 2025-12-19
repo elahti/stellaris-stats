@@ -16,35 +16,35 @@ $time\
 """
 
 [username]
-show_always = true
-style_user  = "bg:#9A348E"
-style_root  = "bg:#9A348E"
-format      = '[Stellaris Stats Devcontainer  ]($style)'
 disabled    = false
+format      = '[Stellaris Stats Devcontainer  ]($style)'
+show_always = true
+style_root  = "bg:#9A348E"
+style_user  = "bg:#9A348E"
 
 [directory]
-style             = "bg:#DA627D"
 format            = "[ $path ]($style)"
+style             = "bg:#DA627D"
+truncate_to_repo  = true
 truncation_length = 5
 truncation_symbol = "…/"
-truncate_to_repo  = true
 
 [git_branch]
-symbol = ""
-style  = "bg:#FCA17D"
 format = '[ $symbol $branch ]($style)'
+style  = "bg:#FCA17D"
+symbol = ""
 
 [git_status]
-style  = "bg:#FCA17D"
 format = '[$all_status$ahead_behind ]($style)'
+style  = "bg:#FCA17D"
 
 [nodejs]
-symbol = ""
-style  = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
+style  = "bg:#86BBD8"
+symbol = ""
 
 [time]
 disabled    = false
-time_format = "%R"
-style       = "bg:#33658A"
 format      = '[ $time ]($style)'
+style       = "bg:#33658A"
+time_format = "%R"
