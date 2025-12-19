@@ -4,11 +4,8 @@ from typing import Any
 import httpx
 
 from agent.models import (
-    BudgetAnalysisResult,
-    BudgetChange,
     BudgetComparisonData,
     BudgetComparisonError,
-    ResourceChange,
 )
 
 GRAPHQL_URL = "http://devcontainer:4000"
@@ -243,99 +240,4 @@ async def fetch_budget_comparison(
         current_date=current_date,
         previous_budget=previous_gs["budget"]["balance"],
         current_budget=current_gs["budget"]["balance"],
-    )
-
-
-def analyze_budget_changes(
-    filename: str,
-    comparison_data: BudgetComparisonData | BudgetComparisonError,
-    threshold_percent: float,
-) -> BudgetAnalysisResult:
-    """Analyze budget changes and identify sudden changes exceeding threshold."""
-    if isinstance(comparison_data, BudgetComparisonError):
-        return BudgetAnalysisResult(
-            save_filename=filename,
-            previous_date="",
-            current_date="",
-            threshold_percent=threshold_percent,
-            sudden_changes=[],
-            summary=comparison_data.error,
-        )
-
-    previous_date = comparison_data.previous_date
-    current_date = comparison_data.current_date
-    previous_budget = comparison_data.previous_budget
-    current_budget = comparison_data.current_budget
-
-    sudden_changes: list[BudgetChange] = []
-
-    for category_name in BUDGET_CATEGORIES:
-        prev_cat: dict[str, Any] | None = previous_budget.get(category_name)
-        curr_cat: dict[str, Any] | None = current_budget.get(category_name)
-
-        if prev_cat is None:
-            prev_cat = {}
-        if curr_cat is None:
-            curr_cat = {}
-
-        resource_changes: list[ResourceChange] = []
-
-        for resource in RESOURCES:
-            prev_val_raw: float | None = prev_cat.get(resource)
-            curr_val_raw: float | None = curr_cat.get(resource)
-
-            prev_val: float = prev_val_raw if prev_val_raw is not None else 0.0
-            curr_val: float = curr_val_raw if curr_val_raw is not None else 0.0
-
-            change_abs = curr_val - prev_val
-
-            if abs(prev_val) > 0.01:
-                change_pct = (change_abs / abs(prev_val)) * 100
-            elif abs(curr_val) > 0.01:
-                change_pct = 100.0 if curr_val > 0 else -100.0
-            else:
-                change_pct = 0.0
-
-            if abs(change_pct) >= threshold_percent and abs(change_abs) > 0.1:
-                resource_changes.append(
-                    ResourceChange(
-                        resource=resource,
-                        previous_value=prev_val,
-                        current_value=curr_val,
-                        change_absolute=round(change_abs, 2),
-                        change_percent=round(change_pct, 2),
-                    ),
-                )
-
-        if resource_changes:
-            sudden_changes.append(
-                BudgetChange(
-                    category_type="balance",
-                    category_name=category_name,
-                    changes=resource_changes,
-                ),
-            )
-
-    total_changes = sum(len(bc.changes) for bc in sudden_changes)
-    categories_affected = len(sudden_changes)
-
-    if total_changes == 0:
-        summary = (
-            f"No sudden changes (>{threshold_percent}%) detected in budget balance "
-            f"between {previous_date} and {current_date}."
-        )
-    else:
-        summary = (
-            f"Detected {total_changes} resource change(s) exceeding {threshold_percent}% "
-            f"threshold across {categories_affected} budget categorie(s) "
-            f"between {previous_date} and {current_date}."
-        )
-
-    return BudgetAnalysisResult(
-        save_filename=filename,
-        previous_date=previous_date,
-        current_date=current_date,
-        threshold_percent=threshold_percent,
-        sudden_changes=sudden_changes,
-        summary=summary,
     )
