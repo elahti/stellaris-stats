@@ -18,3 +18,4 @@ Create a git commit.
 - Before committing: `git status`, `git diff`, `git log --oneline -5`
 - Concise messages, imperative mood
 - No emojis, no attribution lines, no "Generated with Claude Code", no "Co-Authored-By" lines
+- Split into multiple commits when changes are logically distinct (e.g., refactor + feature, or unrelated fixes)
