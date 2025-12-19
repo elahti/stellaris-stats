@@ -40,7 +40,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "ariadne-codegen", specifier = ">=0.17.0" },
+    { name = "ariadne-codegen", specifier = "==0.17.0" },
     { name = "pyright", specifier = "==1.1.407" },
     { name = "ruff", specifier = "==0.14.9" },
 ]
