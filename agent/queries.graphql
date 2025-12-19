@@ -1,0 +1,278 @@
+fragment BudgetEntryFields on BudgetEntry {
+  alloys
+  astralThreads
+  consumerGoods
+  energy
+  engineeringResearch
+  exoticGases
+  food
+  influence
+  minerals
+  minorArtifacts
+  nanites
+  physicsResearch
+  rareCrystals
+  societyResearch
+  srDarkMatter
+  srLivingMetal
+  srZro
+  trade
+  unity
+  volatileMotes
+}
+
+fragment BudgetCategoryFields on BudgetCategory {
+  armies {
+    ...BudgetEntryFields
+  }
+  colonies {
+    ...BudgetEntryFields
+  }
+  commercialPacts {
+    ...BudgetEntryFields
+  }
+  countryAgendas {
+    ...BudgetEntryFields
+  }
+  countryBase {
+    ...BudgetEntryFields
+  }
+  countryCivics {
+    ...BudgetEntryFields
+  }
+  countryDessanu {
+    ...BudgetEntryFields
+  }
+  countryEthic {
+    ...BudgetEntryFields
+  }
+  countryPowerProjection {
+    ...BudgetEntryFields
+  }
+  countryRuler {
+    ...BudgetEntryFields
+  }
+  edicts {
+    ...BudgetEntryFields
+  }
+  leaderCommanders {
+    ...BudgetEntryFields
+  }
+  leaderOfficials {
+    ...BudgetEntryFields
+  }
+  leaderScientists {
+    ...BudgetEntryFields
+  }
+  megastructures {
+    ...BudgetEntryFields
+  }
+  megastructuresGrandArchive {
+    ...BudgetEntryFields
+  }
+  megastructuresHabitat {
+    ...BudgetEntryFields
+  }
+  megastructuresHyperRelay {
+    ...BudgetEntryFields
+  }
+  migrationPacts {
+    ...BudgetEntryFields
+  }
+  none {
+    ...BudgetEntryFields
+  }
+  orbitalMiningDeposits {
+    ...BudgetEntryFields
+  }
+  orbitalResearchDeposits {
+    ...BudgetEntryFields
+  }
+  overlordSubsidy {
+    ...BudgetEntryFields
+  }
+  planetArtisans {
+    ...BudgetEntryFields
+  }
+  planetBiologists {
+    ...BudgetEntryFields
+  }
+  planetBuildings {
+    ...BudgetEntryFields
+  }
+  planetBuildingsCloneVats {
+    ...BudgetEntryFields
+  }
+  planetBuildingsHabCapital {
+    ...BudgetEntryFields
+  }
+  planetBuildingsStormTech {
+    ...BudgetEntryFields
+  }
+  planetBuildingsStrongholds {
+    ...BudgetEntryFields
+  }
+  planetBureaucrats {
+    ...BudgetEntryFields
+  }
+  planetCivilians {
+    ...BudgetEntryFields
+  }
+  planetClerks {
+    ...BudgetEntryFields
+  }
+  planetDeposits {
+    ...BudgetEntryFields
+  }
+  planetDistricts {
+    ...BudgetEntryFields
+  }
+  planetDistrictsCities {
+    ...BudgetEntryFields
+  }
+  planetDistrictsFarming {
+    ...BudgetEntryFields
+  }
+  planetDistrictsGenerator {
+    ...BudgetEntryFields
+  }
+  planetDistrictsHab {
+    ...BudgetEntryFields
+  }
+  planetDistrictsMining {
+    ...BudgetEntryFields
+  }
+  planetDoctors {
+    ...BudgetEntryFields
+  }
+  planetEnergyThralls {
+    ...BudgetEntryFields
+  }
+  planetEngineers {
+    ...BudgetEntryFields
+  }
+  planetEntertainers {
+    ...BudgetEntryFields
+  }
+  planetFarmers {
+    ...BudgetEntryFields
+  }
+  planetJobs {
+    ...BudgetEntryFields
+  }
+  planetJobsProductive {
+    ...BudgetEntryFields
+  }
+  planetMaintenanceDrones {
+    ...BudgetEntryFields
+  }
+  planetMetallurgists {
+    ...BudgetEntryFields
+  }
+  planetMiners {
+    ...BudgetEntryFields
+  }
+  planetPhysicists {
+    ...BudgetEntryFields
+  }
+  planetPoliticians {
+    ...BudgetEntryFields
+  }
+  planetPopAssemblers {
+    ...BudgetEntryFields
+  }
+  planetPops {
+    ...BudgetEntryFields
+  }
+  planetResourceDeficit {
+    ...BudgetEntryFields
+  }
+  planetSrMiners {
+    ...BudgetEntryFields
+  }
+  planetTechnician {
+    ...BudgetEntryFields
+  }
+  planetTraders {
+    ...BudgetEntryFields
+  }
+  popCategoryCivilians {
+    ...BudgetEntryFields
+  }
+  popCategoryDrones {
+    ...BudgetEntryFields
+  }
+  popCategoryRulers {
+    ...BudgetEntryFields
+  }
+  popCategorySpecialists {
+    ...BudgetEntryFields
+  }
+  popCategoryWorkers {
+    ...BudgetEntryFields
+  }
+  popFactions {
+    ...BudgetEntryFields
+  }
+  shipComponents {
+    ...BudgetEntryFields
+  }
+  ships {
+    ...BudgetEntryFields
+  }
+  situations {
+    ...BudgetEntryFields
+  }
+  starbaseBuildings {
+    ...BudgetEntryFields
+  }
+  starbaseModules {
+    ...BudgetEntryFields
+  }
+  starbases {
+    ...BudgetEntryFields
+  }
+  stationGatherers {
+    ...BudgetEntryFields
+  }
+  stationObserverMissions {
+    ...BudgetEntryFields
+  }
+  stationObservers {
+    ...BudgetEntryFields
+  }
+  stationResearchers {
+    ...BudgetEntryFields
+  }
+  tradePolicy {
+    ...BudgetEntryFields
+  }
+}
+
+query ListSaves {
+  saves {
+    filename
+    name
+  }
+}
+
+query GetDates($filename: String!) {
+  save(filename: $filename) {
+    gamestates {
+      date
+    }
+  }
+}
+
+query GetBudget($filename: String!) {
+  save(filename: $filename) {
+    gamestates {
+      date
+      budget {
+        balance {
+          ...BudgetCategoryFields
+        }
+      }
+    }
+  }
+}

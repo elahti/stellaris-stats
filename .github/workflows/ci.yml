@@ -41,7 +41,7 @@ jobs:
         run: npm ci
 
       - name: Build project
-        run: npm run build
+        run: npm run graphql:codegen:typescript && tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json
 
   test-typescript:
     name: Test TypeScript
@@ -105,6 +105,25 @@ jobs:
 
       - name: Run tests
         run: npm run test:ci:typescript
+
+  build-python:
+    name: Build Python
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Setup Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: cd agent && uv sync
+
+      - name: Run Python codegen
+        run: npm run graphql:codegen:python
 
   lint-python:
     name: Lint Python

@@ -1,13 +1,15 @@
 import json
 
-import httpx
 from pydantic_ai import Agent, RunContext
 
-from agent.models import BudgetComparisonError, SustainedDropAnalysisResult
+from agent.graphql_client import Client
+from agent.models import SustainedDropAnalysisResult
 from agent.tools import (
+    GRAPHQL_URL,
     AgentDeps,
-    fetch_budget_time_series,
+    fetch_budget_data,
     get_available_dates,
+    get_gamestates_for_dates,
     list_saves,
     select_latest_dates,
 )
@@ -71,12 +73,12 @@ budget_agent = Agent(
 @budget_agent.tool
 async def get_available_saves(ctx: RunContext[AgentDeps]) -> str:
     """Get a list of all available save files that can be analyzed."""
-    saves = await list_saves(ctx.deps.http_client)
+    saves = await list_saves(ctx.deps.client)
     if not saves:
         return "No save files available."
     result = "Available saves:\n"
     for save in saves:
-        result += f"- {save['filename']} ({save['name']})\n"
+        result += f"- {save.filename} ({save.name})\n"
     return result
 
 
@@ -91,7 +93,7 @@ async def get_budget_time_series(ctx: RunContext[AgentDeps], save_filename: str)
         ctx: The run context containing dependencies.
         save_filename: The filename of the save to analyze (without .sav extension).
     """
-    client = ctx.deps.http_client
+    client = ctx.deps.client
 
     dates = await get_available_dates(client, save_filename)
     if not dates:
@@ -102,18 +104,26 @@ async def get_budget_time_series(ctx: RunContext[AgentDeps], save_filename: str)
 
     selected_dates = select_latest_dates(dates, count=6)
 
-    time_series = await fetch_budget_time_series(
-        client,
-        save_filename,
-        selected_dates,
-    )
+    budget_data = await fetch_budget_data(client, save_filename)
+    gamestates = get_gamestates_for_dates(budget_data, selected_dates)
 
-    if isinstance(time_series, BudgetComparisonError):
-        return f"Error fetching budget data: {time_series.error}"
+    if gamestates is None:
+        return f"Error fetching budget data for save '{save_filename}'."
 
-    result = time_series.model_dump()
-    result["save_filename"] = save_filename
-    result["threshold_consecutive_periods"] = DEFAULT_CONSECUTIVE_PERIODS
+    snapshots = [
+        {
+            "date": str(gs.date),
+            "budget": gs.budget.balance.model_dump(by_alias=True),
+        }
+        for gs in gamestates
+    ]
+
+    result = {
+        "dates": selected_dates,
+        "snapshots": snapshots,
+        "save_filename": save_filename,
+        "threshold_consecutive_periods": DEFAULT_CONSECUTIVE_PERIODS,
+    }
 
     return json.dumps(result, indent=2)
 
@@ -136,8 +146,8 @@ async def run_budget_analysis(save_filename: str) -> SustainedDropAnalysisResult
     Returns:
         The sustained drop analysis result.
     """
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        deps = AgentDeps(http_client=client)
-        prompt = _build_analysis_prompt(save_filename)
-        result = await budget_agent.run(prompt, deps=deps)
-        return result.output
+    client = Client(url=GRAPHQL_URL)
+    deps = AgentDeps(client=client)
+    prompt = _build_analysis_prompt(save_filename)
+    result = await budget_agent.run(prompt, deps=deps)
+    return result.output

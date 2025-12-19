@@ -101,11 +101,17 @@
         "python.analysis.diagnosticMode": "workspace",
         "python.analysis.enablePytestSupport": true,
         "python.analysis.enableTroubleshootMissingImports": true,
+        "python.analysis.exclude": [
+          "/workspace/agent/src/agent/graphql_client"
+        ],
         "python.analysis.extraPaths": [
           "/workspace/agent/src"
         ],
         "python.analysis.generateWithTypeAnnotation": true,
         "python.analysis.gotoDefinitionInStringLiteral": true,
+        "python.analysis.ignore": [
+          "/workspace/agent/src/agent/graphql_client"
+        ],
         "python.analysis.importFormat": "absolute",
         "python.analysis.indexing": true,
         "python.analysis.inlayHints.callArgumentNames": "all",
@@ -125,6 +131,9 @@
         "python.venvPath": "/workspace/agent/.venv",
         "remote.autoForwardPorts": false,
         "ruff.configurationPreference": "filesystemFirst",
+        "ruff.exclude": [
+          "/workspace/agent/src/agent/graphql_client"
+        ],
         "terminal.integrated.fontLigatures.enabled": true,
         "workbench.editorLargeFileConfirmation": 200
       }

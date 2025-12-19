@@ -30,35 +30,6 @@ class BudgetAnalysisResult(BaseModel):
     summary: str
 
 
-class BudgetComparisonData(BaseModel):
-    """Budget comparison data between two dates."""
-
-    previous_date: str
-    current_date: str
-    previous_budget: dict[str, dict[str, float | None] | None]
-    current_budget: dict[str, dict[str, float | None] | None]
-
-
-class BudgetComparisonError(BaseModel):
-    """Error result from budget comparison."""
-
-    error: str
-
-
-class BudgetSnapshot(BaseModel):
-    """Budget data for a single date."""
-
-    date: str
-    budget: dict[str, dict[str, float | None] | None]
-
-
-class BudgetTimeSeriesData(BaseModel):
-    """Budget data across multiple dates for trend analysis."""
-
-    dates: list[str]
-    snapshots: list[BudgetSnapshot]
-
-
 class SustainedDrop(BaseModel):
     """A resource that has been negative for multiple consecutive periods."""
 

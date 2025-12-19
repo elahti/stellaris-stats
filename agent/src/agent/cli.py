@@ -2,35 +2,32 @@ import argparse
 import asyncio
 import sys
 
-import httpx
 import logfire
 
 from agent.budget_agent import run_budget_analysis
+from agent.graphql_client import Client
 from agent.models import SustainedDropAnalysisResult
 from agent.settings import Settings
-from agent.tools import list_saves
+from agent.tools import GRAPHQL_URL, list_saves
 
 
 async def run_list_saves() -> None:
-    """List all available save files."""
-    async with httpx.AsyncClient(timeout=30.0) as client:
-        saves = await list_saves(client)
-        if not saves:
-            print("No save files available.")
-            return
-        print("Available saves:")
-        for save in saves:
-            print(f"  - {save['filename']} ({save['name']})")
+    client = Client(url=GRAPHQL_URL)
+    saves = await list_saves(client)
+    if not saves:
+        print("No save files available.")
+        return
+    print("Available saves:")
+    for save in saves:
+        print(f"  - {save.filename} ({save.name})")
 
 
 async def run_analysis(save_filename: str) -> None:
-    """Run budget analysis for a specific save."""
     result = await run_budget_analysis(save_filename)
     print_analysis_result(result)
 
 
 def print_analysis_result(result: SustainedDropAnalysisResult) -> None:
-    """Print the analysis result in a readable format."""
     print("=" * 60)
     print("STELLARIS SUSTAINED DROP ANALYSIS REPORT")
     print("=" * 60)
@@ -72,7 +69,6 @@ def print_analysis_result(result: SustainedDropAnalysisResult) -> None:
 
 
 def main() -> None:
-    """CLI entry point."""
     parser = argparse.ArgumentParser(
         description="Analyze Stellaris empire budget for sudden changes",
         formatter_class=argparse.RawDescriptionHelpFormatter,
