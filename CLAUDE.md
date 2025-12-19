@@ -42,14 +42,17 @@ All commands run from `/workspace`.
 
 ### Python
 
-| Task           | Command                               |
-| -------------- | ------------------------------------- |
-| Sync deps      | `cd agent && uv sync`                 |
-| Type check     | `npm run typecheck:python`            |
-| Lint           | `npm run lint:python`                 |
-| Format         | `npm run format:python`               |
-| List saves     | `npm run agent:list-saves`            |
-| Analyze budget | `npm run agent:analyze -- <filename>` |
+| Task              | Command                               |
+| ----------------- | ------------------------------------- |
+| Sync deps         | `cd agent && uv sync`                 |
+| GraphQL codegen   | `npm run graphql:codegen:python`      |
+| Type check        | `npm run typecheck:python`            |
+| Lint              | `npm run lint:python`                 |
+| Format            | `npm run format:python`               |
+| List saves        | `npm run agent:list-saves`            |
+| Analyze budget    | `npm run agent:analyze -- <filename>` |
+
+Python GraphQL client is generated using ariadne-codegen. Queries are defined in `agent/queries.graphql` and output to `agent/src/agent/graphql_client/`. The generated directory is excluded from ruff and pyright.
 
 ## Code Style
 
@@ -77,6 +80,7 @@ When modifying `graphql/schema.graphql`:
 
 1. **BudgetEntry fields**: Update `src/db/budget.ts` (`getBudgetBatchQuery`)
 2. **Grafana dashboards**: Update affected JSON files in `grafana/` (column definitions + queries)
+3. **Python client**: If Budget types change, update `agent/queries.graphql` and run `npm run graphql:codegen:python`
 
 Column name mapping: `snake_case` (DB) → `camelCase` (GraphQL) via `selectRows()`
 
