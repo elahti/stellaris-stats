@@ -6,6 +6,8 @@ import httpx
 from agent.models import (
     BudgetComparisonData,
     BudgetComparisonError,
+    BudgetSnapshot,
+    BudgetTimeSeriesData,
 )
 
 GRAPHQL_URL = "http://devcontainer:4000"
@@ -240,4 +242,49 @@ async def fetch_budget_comparison(
         current_date=current_date,
         previous_budget=previous_gs["budget"]["balance"],
         current_budget=current_gs["budget"]["balance"],
+    )
+
+
+def select_latest_dates(dates: list[str], count: int = 6) -> list[str]:
+    """Select the latest N dates from a sorted list of dates."""
+    return dates[-count:] if len(dates) >= count else dates
+
+
+async def fetch_budget_time_series(
+    client: httpx.AsyncClient,
+    filename: str,
+    dates: list[str],
+) -> BudgetTimeSeriesData | BudgetComparisonError:
+    """Fetch budget data for multiple dates and return time series structure."""
+    query = build_budget_query()
+    response = await client.post(
+        GRAPHQL_URL,
+        json={"query": query, "variables": {"filename": filename}},
+    )
+    response.raise_for_status()
+    data = response.json()
+
+    save_data: dict[str, Any] | None = data["data"]["save"]
+    if save_data is None:
+        return BudgetComparisonError(error=f"Save '{filename}' not found")
+
+    gamestates: list[dict[str, Any]] = save_data["gamestates"]
+
+    snapshots: list[BudgetSnapshot] = []
+    for date in dates:
+        gs = next((g for g in gamestates if g["date"] == date), None)
+        if gs is None:
+            return BudgetComparisonError(
+                error=f"Could not find gamestate for date {date}",
+            )
+        snapshots.append(
+            BudgetSnapshot(
+                date=date,
+                budget=gs["budget"]["balance"],
+            ),
+        )
+
+    return BudgetTimeSeriesData(
+        dates=dates,
+        snapshots=snapshots,
     )

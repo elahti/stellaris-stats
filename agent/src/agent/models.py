@@ -43,3 +43,39 @@ class BudgetComparisonError(BaseModel):
     """Error result from budget comparison."""
 
     error: str
+
+
+class BudgetSnapshot(BaseModel):
+    """Budget data for a single date."""
+
+    date: str
+    budget: dict[str, dict[str, float | None] | None]
+
+
+class BudgetTimeSeriesData(BaseModel):
+    """Budget data across multiple dates for trend analysis."""
+
+    dates: list[str]
+    snapshots: list[BudgetSnapshot]
+
+
+class SustainedDrop(BaseModel):
+    """A resource that has been negative for multiple consecutive periods."""
+
+    category_name: str
+    resource: str
+    consecutive_low_periods: int
+    values: list[float | None]
+    baseline_value: float
+
+
+class SustainedDropAnalysisResult(BaseModel):
+    """Result of analyzing sustained resource drops."""
+
+    save_filename: str
+    analysis_period_start: str
+    analysis_period_end: str
+    datapoints_analyzed: int
+    threshold_consecutive_periods: int
+    sustained_drops: list[SustainedDrop]
+    summary: str
