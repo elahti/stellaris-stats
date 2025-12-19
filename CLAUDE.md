@@ -75,7 +75,7 @@ After Python changes: `npm run typecheck:python && npm run lint:python && npm ru
 
 When modifying `graphql/schema.graphql`:
 
-1. **BudgetEntry fields**: Update `src/db/budget.ts` (`emptyBudgetEntry()` and `getBudgetBatchQuery`)
+1. **BudgetEntry fields**: Update `src/db/budget.ts` (`getBudgetBatchQuery`)
 2. **Grafana dashboards**: Update affected JSON files in `grafana/` (column definitions + queries)
 
 Column name mapping: `snake_case` (DB) → `camelCase` (GraphQL) via `selectRows()`
