@@ -1,5 +1,7 @@
 import argparse
 import asyncio
+import dataclasses
+import json
 import sys
 
 import logfire
@@ -22,9 +24,12 @@ async def run_list_saves() -> None:
         print(f"  - {save.filename} ({save.name})")
 
 
-async def run_analysis(save_filename: str) -> None:
+async def run_analysis(save_filename: str, *, raw: bool = False) -> None:
     result = await run_budget_analysis(save_filename)
-    print_analysis_result(result)
+    if raw:
+        print(json.dumps(dataclasses.asdict(result), indent=2, default=str))
+    else:
+        print_analysis_result(result.output)
 
 
 def print_analysis_result(result: SustainedDropAnalysisResult) -> None:
@@ -76,6 +81,7 @@ def main() -> None:
 Examples:
   budget-analyzer --list-saves
   budget-analyzer --save commonwealthofman_1251622081
+  budget-analyzer --save commonwealthofman_1251622081 --raw
         """,
     )
 
@@ -88,6 +94,11 @@ Examples:
         "--save",
         type=str,
         help="Save filename to analyze (without .sav extension)",
+    )
+    parser.add_argument(
+        "--raw",
+        action="store_true",
+        help="Print raw JSON output instead of formatted report",
     )
 
     args = parser.parse_args()
@@ -111,7 +122,7 @@ Examples:
     if args.list_saves:
         asyncio.run(run_list_saves())
     elif args.save:
-        asyncio.run(run_analysis(args.save))
+        asyncio.run(run_analysis(args.save, raw=args.raw))
     else:
         parser.print_help()
         sys.exit(1)
