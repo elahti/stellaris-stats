@@ -1,28 +1,51 @@
+import json
+
+import httpx
 from pydantic_ai import Agent, RunContext
 
-from agent.models import BudgetAnalysisResult
+from agent.models import BudgetAnalysisResult, BudgetComparisonError
 from agent.tools import (
     AgentDeps,
-    analyze_budget_changes,
     fetch_budget_comparison,
     find_comparison_dates,
     get_available_dates,
     list_saves,
 )
 
+DEFAULT_THRESHOLD_PERCENT = 15.0
+
 SYSTEM_PROMPT = """You are a Stellaris game statistics analyst specializing in empire budget analysis.
 
-Your task is to identify sudden changes in an empire's resource production by analyzing the budget balance data.
+Your task is to identify sudden changes in an empire's resource production by analyzing budget balance data.
 
-When analyzing budget changes:
-1. First, use the get_available_saves tool to list saves if the user hasn't specified one
-2. Use the analyze_budget tool to fetch and analyze budget data for a specific save
-3. Present your findings clearly, highlighting the most significant changes
+## Workflow
+1. If no save is specified, use get_available_saves to list available saves
+2. Use get_budget_comparison to fetch raw budget data for the specified save
+3. Analyze the data yourself to identify significant changes
 
-Focus on changes that exceed the configured threshold (default 15%).
-Explain what categories and resources changed significantly and potential game implications.
+## Analysis Instructions
+When you receive budget data from get_budget_comparison, you must:
 
-The game starts on January 1, 2200. When comparing dates, the analysis compares the latest available date to approximately one year prior."""
+1. Compare each resource in each category between previous_budget and current_budget
+2. Calculate percentage change: ((current - previous) / |previous|) * 100
+   - Skip if previous value is 0 (cannot calculate percentage)
+   - Skip if absolute change is negligible (< 0.1)
+3. Identify changes that exceed the threshold_percent (default 15%)
+4. Focus on the most significant changes that would impact gameplay
+
+## Output Requirements
+Populate the BudgetAnalysisResult with:
+- save_filename: The save file analyzed
+- previous_date: The earlier date from the comparison
+- current_date: The later date from the comparison
+- threshold_percent: The threshold used (from the data)
+- sudden_changes: List of BudgetChange objects for categories with significant changes
+  - Each BudgetChange has category_type ("balance"), category_name, and list of ResourceChange
+  - Each ResourceChange has resource name, previous_value, current_value, change_absolute, change_percent
+- summary: A brief summary of the most impactful changes and their potential game implications
+
+## Context
+The game starts on January 1, 2200. The comparison is between the latest available date and approximately one year prior."""
 
 
 budget_agent = Agent(
@@ -46,8 +69,11 @@ async def get_available_saves(ctx: RunContext[AgentDeps]) -> str:
 
 
 @budget_agent.tool
-async def analyze_budget(ctx: RunContext[AgentDeps], save_filename: str) -> str:
-    """Analyze budget changes for a specific save file.
+async def get_budget_comparison(ctx: RunContext[AgentDeps], save_filename: str) -> str:
+    """Fetch raw budget data for comparison between two dates.
+
+    Returns the budget data for the latest date and approximately one year prior.
+    You must analyze this data yourself to identify significant changes.
 
     Args:
         ctx: The run context containing dependencies.
@@ -73,25 +99,37 @@ async def analyze_budget(ctx: RunContext[AgentDeps], save_filename: str) -> str:
         current_date,
     )
 
-    result = analyze_budget_changes(save_filename, comparison_data, threshold)
+    if isinstance(comparison_data, BudgetComparisonError):
+        return f"Error fetching budget data: {comparison_data.error}"
 
-    output_lines = [
-        f"Budget Analysis for: {result.save_filename}",
-        f"Period: {result.previous_date} to {result.current_date}",
-        f"Threshold: {result.threshold_percent}%",
-        "",
-        result.summary,
-        "",
-    ]
+    result = comparison_data.model_dump()
+    result["save_filename"] = save_filename
+    result["threshold_percent"] = threshold
 
-    if result.sudden_changes:
-        output_lines.append("Detailed Changes:")
-        for change in result.sudden_changes:
-            output_lines.append(f"\n  Category: {change.category_name}")
-            for rc in change.changes:
-                direction = "increased" if rc.change_percent > 0 else "decreased"
-                output_lines.append(
-                    f"    - {rc.resource}: {rc.previous_value:.2f} → {rc.current_value:.2f} ({direction} {abs(rc.change_percent):.1f}%)",
-                )
+    return json.dumps(result, indent=2)
 
-    return "\n".join(output_lines)
+
+def _build_analysis_prompt(save_filename: str, threshold: float) -> str:
+    return (
+        f"Fetch and analyze the budget for save '{save_filename}'. "
+        f"Use get_budget_comparison to get the raw budget data, then analyze it yourself. "
+        f"Identify any sudden changes in resource production that exceed {threshold}%. "
+        f"Return the analysis result with a summary of the most significant changes."
+    )
+
+
+async def run_budget_analysis(save_filename: str) -> BudgetAnalysisResult:
+    """Run budget analysis for a specific save file.
+
+    Args:
+        save_filename: The filename of the save to analyze (without .sav extension).
+
+    Returns:
+        The budget analysis result.
+    """
+    threshold = DEFAULT_THRESHOLD_PERCENT
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        deps = AgentDeps(http_client=client, threshold_percent=threshold)
+        prompt = _build_analysis_prompt(save_filename, threshold)
+        result = await budget_agent.run(prompt, deps=deps)
+        return result.output

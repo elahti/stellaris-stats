@@ -45,24 +45,23 @@
   },
   "name": "stellaris-stats",
   "scripts": {
-    "agent:list-saves": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run budget-analyzer --list-saves",
     "agent:analyze": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run budget-analyzer --save",
-    "agent:analyze:threshold": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run budget-analyzer",
+    "agent:list-saves": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run budget-analyzer --list-saves",
     "build": "npm run graphql:codegen && tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json",
     "db:connect": "dotenvx run -f .env.stellaris-stats --strict -- sh -c 'PGPASSWORD=\"$STELLARIS_STATS_DB_PASSWORD\" psql -h \"$STELLARIS_STATS_DB_HOST\" -p \"$STELLARIS_STATS_DB_PORT\" -U \"$STELLARIS_STATS_DB_USER\" \"$STELLARIS_STATS_DB_NAME\"'",
     "db:dump": "dotenvx run -f .env.stellaris-stats -- sh -c 'PGPASSWORD=$STELLARIS_STATS_DB_PASSWORD pg_dump --clean -h $STELLARIS_STATS_DB_HOST -U $STELLARIS_STATS_DB_USER -d $STELLARIS_STATS_DB_NAME | gzip > /workspace/db-dump-data/db-dump-$(date +%Y-%m-%d-%H-%M-%S).sql.gz'",
     "db:restore": "dotenvx run -f .env.stellaris-stats -- sh -c 'PGPASSWORD=$STELLARIS_STATS_DB_PASSWORD zcat /workspace/db-dump-data/\"$1\" | psql -h $STELLARIS_STATS_DB_HOST -U $STELLARIS_STATS_DB_USER -d $STELLARIS_STATS_DB_NAME' --",
     "db:validate-budget-schema": "dotenvx run -f .env.stellaris-stats --strict -- tsx src/scripts/validateBudgetSchema.ts",
+    "format:python": "cd agent && uv run ruff format",
     "gamestateToJson:run": "tsx src/scripts/gamestateToJson.ts",
     "graphql-server:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/graphql/graphqlServerMain.ts",
     "graphql:codegen": "graphql-codegen --config codegen.yml && prettier -w src/graphql/generated",
-    "lint:typescript": "eslint .",
     "lint:python": "cd agent && uv run ruff check",
-    "format:python": "cd agent && uv run ruff format",
-    "typecheck:python": "cd agent && uv run pyright",
+    "lint:typescript": "eslint .",
     "parser:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/parser/parserMain.ts",
     "prepare": "husky",
+    "test:ci:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test",
     "test:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test --watch",
-    "test:ci:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test"
+    "typecheck:python": "cd agent && uv run pyright"
   }
 }
