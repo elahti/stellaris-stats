@@ -17,7 +17,7 @@ $time\
 
 [username]
 disabled    = false
-format      = '[Stellaris Stats Devcontainer  ]($style)'
+format      = '[Stellaris Stats devcontainer  ]($style)'
 show_always = true
 style_root  = "bg:#9A348E"
 style_user  = "bg:#9A348E"
