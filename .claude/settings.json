@@ -51,6 +51,7 @@
       "mcp__ide__getDiagnostics",
       "mcp__python_executor__*",
       "mcp__python-executor__run_python_code",
+      "Skill(commit)",
       "Skill(stellaris-stats-game-data-analysis)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:hub.docker.com)",
