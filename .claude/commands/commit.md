@@ -1,7 +1,7 @@
 ---
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*)
 description: Create a git commit
-model: claude-haiku-4-5-20251001
+model: haiku
 ---
 
 Create a git commit.
