@@ -1,6 +1,7 @@
 import json
 
 from pydantic_ai import Agent, RunContext
+from pydantic_ai.agent import AgentRunResult
 
 from agent.graphql_client import Client
 from agent.models import SustainedDropAnalysisResult
@@ -137,17 +138,18 @@ def _build_analysis_prompt(save_filename: str) -> str:
     )
 
 
-async def run_budget_analysis(save_filename: str) -> SustainedDropAnalysisResult:
+async def run_budget_analysis(
+    save_filename: str,
+) -> AgentRunResult[SustainedDropAnalysisResult]:
     """Run budget analysis for a specific save file.
 
     Args:
         save_filename: The filename of the save to analyze (without .sav extension).
 
     Returns:
-        The sustained drop analysis result.
+        The complete agent run result.
     """
     client = Client(url=GRAPHQL_URL)
     deps = AgentDeps(client=client)
     prompt = _build_analysis_prompt(save_filename)
-    result = await budget_agent.run(prompt, deps=deps)
-    return result.output
+    return await budget_agent.run(prompt, deps=deps)
