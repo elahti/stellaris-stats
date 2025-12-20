@@ -3,11 +3,10 @@ import json
 from pydantic_ai import Agent, NativeOutput, RunContext
 from pydantic_ai.agent import AgentRunResult
 
-from agent.graphql_client import Client
 from agent.models import SustainedDropAnalysisResult
 from agent.tools import (
-    GRAPHQL_URL,
     AgentDeps,
+    create_deps,
     fetch_budget_data,
     get_available_dates,
     get_gamestates_for_dates,
@@ -114,7 +113,7 @@ async def get_budget_time_series(ctx: RunContext[AgentDeps], save_filename: str)
     return json.dumps(result, indent=2)
 
 
-def _build_analysis_prompt(save_filename: str) -> str:
+def build_analysis_prompt(save_filename: str) -> str:
     return (
         f"Fetch and analyze the budget for save '{save_filename}'. "
         f"Use get_budget_time_series to get the latest 6 budget snapshots, then analyze them. "
@@ -125,16 +124,18 @@ def _build_analysis_prompt(save_filename: str) -> str:
 
 async def run_budget_analysis(
     save_filename: str,
+    deps: AgentDeps | None = None,
 ) -> AgentRunResult[SustainedDropAnalysisResult]:
     """Run budget analysis for a specific save file.
 
     Args:
         save_filename: The filename of the save to analyze (without .sav extension).
+        deps: Optional dependencies to use. If not provided, creates default deps.
 
     Returns:
         The complete agent run result.
     """
-    client = Client(url=GRAPHQL_URL)
-    deps = AgentDeps(client=client)
-    prompt = _build_analysis_prompt(save_filename)
+    if deps is None:
+        deps = create_deps()
+    prompt = build_analysis_prompt(save_filename)
     return await budget_agent.run(prompt, deps=deps)

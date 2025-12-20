@@ -1,27 +1,47 @@
 from dataclasses import dataclass
+from typing import Any, Protocol
 
 from agent.graphql_client import (
     Client,
     GetBudget,
     GetBudgetSaveGamestates,
+    GetDates,
+    ListSaves,
     ListSavesSaves,
 )
 
 GRAPHQL_URL = "http://devcontainer:4000"
 
 
+class GraphQLClientProtocol(Protocol):
+    async def list_saves(self, **kwargs: Any) -> ListSaves: ...
+
+    async def get_dates(self, filename: str, **kwargs: Any) -> GetDates: ...
+
+    async def get_budget(self, filename: str, **kwargs: Any) -> GetBudget: ...
+
+
 @dataclass
 class AgentDeps:
-    client: Client
+    client: GraphQLClientProtocol
     threshold_percent: float = 15.0
 
 
-async def list_saves(client: Client) -> list[ListSavesSaves]:
+def create_deps(client: Client | None = None) -> AgentDeps:
+    if client is None:
+        client = Client(url=GRAPHQL_URL)
+    return AgentDeps(client=client)
+
+
+async def list_saves(client: GraphQLClientProtocol) -> list[ListSavesSaves]:
     result = await client.list_saves()
     return result.saves
 
 
-async def get_available_dates(client: Client, filename: str) -> list[str]:
+async def get_available_dates(
+    client: GraphQLClientProtocol,
+    filename: str,
+) -> list[str]:
     result = await client.get_dates(filename=filename)
     if result.save is None:
         return []
@@ -55,7 +75,7 @@ def select_latest_dates(dates: list[str], count: int = 6) -> list[str]:
     return dates[-count:] if len(dates) >= count else dates
 
 
-async def fetch_budget_data(client: Client, filename: str) -> GetBudget:
+async def fetch_budget_data(client: GraphQLClientProtocol, filename: str) -> GetBudget:
     return await client.get_budget(filename=filename)
 
 

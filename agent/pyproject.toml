@@ -1,7 +1,9 @@
 [project]
 dependencies = [
   "httpx==0.28.1",
+  "logfire>=3.0.0",
   "pydantic-ai==1.32.0",
+  "pydantic-evals==1.32.0",
   "pydantic-settings==2.12.0",
 ]
 name = "agent"
@@ -10,6 +12,7 @@ version = "0.1.0"
 
 [project.scripts]
 budget-analyzer = "agent.cli:main"
+budget-evals = "agent.evals.cli:main"
 
 [build-system]
 build-backend = "uv_build"
@@ -25,7 +28,7 @@ dev = [
 [tool.ruff]
 line-length    = 88
 target-version = "py314"
-exclude        = ["src/agent/graphql_client"]
+exclude        = ["src/agent/graphql_client", "src/agent/evals/fixtures"]
 
 [tool.ruff.lint]
 ignore = [
@@ -64,8 +67,8 @@ async_client = true
 convert_to_snake_case = true
 
 [tool.pyright]
-include                             = ["src"]
-exclude                             = ["src/agent/graphql_client"]
+include                             = ["src", "scripts"]
+exclude                             = ["src/agent/graphql_client", "src/agent/evals/fixtures"]
 pythonVersion                       = "3.13"
 reportAssertAlwaysTrue              = "error"
 reportCallInDefaultInitializer      = "error"
