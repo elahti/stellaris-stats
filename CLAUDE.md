@@ -105,5 +105,5 @@ Keep synchronized when changing:
 
 ## Claude-Specific
 
-- Use Context7 MCP tools for library documentation without being asked
+- Use Context7 for library documentation without being asked
 - Prefer async versions of libraries
