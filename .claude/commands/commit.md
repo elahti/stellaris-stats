@@ -1,18 +1,20 @@
 ---
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*)
-description: Create a git commit
+description: Create one or more git commits
 model: haiku
 ---
 
-Create a git commit.
+# Git Commit Instructions
 
-# Branch Policy
+Create a one or more git commits.
+
+## Branch Policy
 
 - All modifications in feature branches, not main
 - If on main when committing, create a branch first
 - Use descriptive names: `fix-budget-parser`, `add-planet-resolver`
 
-# Commits
+## Commits
 
 - Only commit when explicitly requested
 - Before committing: `git status`, `git diff`, `git log --oneline -5`
