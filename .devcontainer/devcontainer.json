@@ -103,7 +103,8 @@
         "python.analysis.enableTroubleshootMissingImports": true,
         "python.analysis.exclude": [
           "/workspace/agent/.venv",
-          "/workspace/agent/src/agent/graphql_client"
+          "/workspace/agent/src/agent/graphql_client",
+          "/workspace/node_modules"
         ],
         "python.analysis.extraPaths": [
           "/workspace/agent/src"
@@ -112,7 +113,8 @@
         "python.analysis.gotoDefinitionInStringLiteral": true,
         "python.analysis.ignore": [
           "/workspace/agent/.venv",
-          "/workspace/agent/src/agent/graphql_client"
+          "/workspace/agent/src/agent/graphql_client",
+          "/workspace/node_modules"
         ],
         "python.analysis.importFormat": "absolute",
         "python.analysis.indexing": true,
@@ -135,7 +137,8 @@
         "ruff.configurationPreference": "filesystemFirst",
         "ruff.exclude": [
           "/workspace/agent/.venv",
-          "/workspace/agent/src/agent/graphql_client"
+          "/workspace/agent/src/agent/graphql_client",
+          "/workspace/node_modules"
         ],
         "terminal.integrated.fontLigatures.enabled": true,
         "workbench.editorLargeFileConfirmation": 200
