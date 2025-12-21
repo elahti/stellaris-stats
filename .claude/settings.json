@@ -55,6 +55,8 @@
       "mcp__context7__get-library-docs",
       "mcp__context7__resolve-library-id",
       "mcp__ide__getDiagnostics",
+      "mcp__plugin_context7_context7__get-library-docs",
+      "mcp__plugin_context7_context7__resolve-library-id",
       "mcp__python_executor__*",
       "mcp__python-executor__run_python_code",
       "Skill(commit)",
