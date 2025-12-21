@@ -10,7 +10,7 @@ from agent.budget_agent import run_budget_analysis
 from agent.graphql_client import Client
 from agent.models import SustainedDropAnalysisResult
 from agent.settings import Settings
-from agent.tools import GRAPHQL_URL, list_saves
+from agent.tools import list_saves
 
 AVAILABLE_MODELS = [
     "anthropic:claude-sonnet-4-5-20250929",
@@ -18,8 +18,8 @@ AVAILABLE_MODELS = [
 ]
 
 
-async def run_list_saves() -> None:
-    client = Client(url=GRAPHQL_URL)
+async def run_list_saves(settings: Settings) -> None:
+    client = Client(url=settings.graphql_url)
     saves = await list_saves(client)
     if not saves:
         print("No save files available.")
@@ -137,7 +137,7 @@ Examples:
     logfire.instrument_httpx()
 
     if args.list_saves:
-        asyncio.run(run_list_saves())
+        asyncio.run(run_list_saves(settings))
     elif args.list_models:
         print("Available models:")
         for model in AVAILABLE_MODELS:

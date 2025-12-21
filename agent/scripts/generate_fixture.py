@@ -17,13 +17,14 @@ from pathlib import Path
 from typing import Any
 
 from agent.graphql_client import Client
-from agent.tools import GRAPHQL_URL
+from agent.settings import Settings
+
+DATE_FORMAT = "%Y-%m-%d"
 
 
 def parse_stellaris_date(date_str: str) -> datetime:
     """Parse Stellaris date format (YYYY-MM-DD or ISO datetime)."""
-    date_str = date_str[:10]
-    return datetime.strptime(date_str, "%Y-%m-%d")
+    return datetime.strptime(date_str[:10], DATE_FORMAT)
 
 
 def filter_gamestates_by_date(
@@ -52,7 +53,8 @@ async def generate_fixture(
     description: str = "",
 ) -> None:
     """Generate a fixture file from the real GraphQL API."""
-    client = Client(url=GRAPHQL_URL)
+    settings = Settings()
+    client = Client(url=settings.graphql_url)
 
     list_saves_result = await client.list_saves()
 
