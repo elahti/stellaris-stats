@@ -4,10 +4,10 @@ import logfire
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
-from agent.budget_agent import budget_agent, build_analysis_prompt
-from agent.evals.mock_client import create_mock_client, load_fixture
-from agent.models import SustainedDropAnalysisResult
-from agent.tools import AgentDeps
+from agent.budget.agent import budget_agent, build_analysis_prompt
+from agent.budget.evals.mock_client import create_mock_client, load_fixture
+from agent.budget.models import SustainedDropAnalysisResult
+from agent.budget.tools import AgentDeps
 
 
 class EvalInputs(TypedDict):

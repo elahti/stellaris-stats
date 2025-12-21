@@ -4,9 +4,9 @@ from typing import Any, cast
 from pydantic_evals import Case, Dataset
 from pydantic_evals.evaluators import Evaluator, IsInstance, MaxDuration
 
-from agent.evals.evaluators.output_quality import NoFalsePositives
-from agent.evals.runner import EvalInputs
-from agent.models import SustainedDropAnalysisResult
+from agent.budget.evals.evaluators.output_quality import NoFalsePositives
+from agent.budget.evals.runner import EvalInputs
+from agent.budget.models import SustainedDropAnalysisResult
 
 FIXTURES_DIR = Path(__file__).parent.parent / "fixtures" / "stable_budget_balance"
 

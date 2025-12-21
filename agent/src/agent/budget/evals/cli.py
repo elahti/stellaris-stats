@@ -4,10 +4,10 @@ import sys
 
 import logfire
 
-from agent.evals.datasets.stable_budget_balance import (
+from agent.budget.evals.datasets.stable_budget_balance import (
     create_stable_budget_balance_dataset,
 )
-from agent.evals.runner import run_evals
+from agent.budget.evals.runner import run_evals
 from agent.settings import Settings
 
 AVAILABLE_DATASETS = {

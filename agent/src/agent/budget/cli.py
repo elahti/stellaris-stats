@@ -6,11 +6,11 @@ import sys
 
 import logfire
 
-from agent.budget_agent import CONSECUTIVE_PERIODS_THRESHOLD, run_budget_analysis
+from agent.budget.agent import CONSECUTIVE_PERIODS_THRESHOLD, run_budget_analysis
+from agent.budget.models import SustainedDropAnalysisResult
+from agent.budget.tools import list_saves
 from agent.graphql_client import Client
-from agent.models import SustainedDropAnalysisResult
 from agent.settings import Settings
-from agent.tools import list_saves
 
 
 async def run_list_saves(settings: Settings) -> None:
