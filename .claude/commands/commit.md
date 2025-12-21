@@ -1,23 +1,23 @@
 ---
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*)
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*), Bash(git checkout:*), Bash(git switch:*)
 description: Create one or more git commits
 model: haiku
 ---
 
 # Git Commit Instructions
 
-Create a one or more git commits.
+Create one or more git commits.
 
-## Branch Policy
+## Workflow
 
-- All modifications in feature branches, not main
-- If on main when committing, create a branch first
-- Use descriptive names: `fix-budget-parser`, `add-planet-resolver`
+1. Run `git status` to check the current branch
+2. **CRITICAL**: If on main/master, STOP and create a feature branch first:
+   - `git checkout -b <branch-name>` (e.g., `refactor-budget-agent`, `fix-parser-bug`)
+   - Never commit directly to main/master
+3. Run `git diff` and `git log --oneline -5` to review changes
+4. Create commit(s) with concise messages in imperative mood
 
-## Commits
+## Commit Rules
 
-- Only commit when explicitly requested
-- Before committing: `git status`, `git diff`, `git log --oneline -5`
-- Concise messages, imperative mood
-- No emojis, no attribution lines, no "Generated with Claude Code", no "Co-Authored-By" lines
-- Split into multiple commits when changes are logically distinct (e.g., refactor + feature, or unrelated fixes)
+- No emojis, no attribution lines, no "Generated with Claude Code", no "Co-Authored-By"
+- Split into multiple commits when changes are logically distinct (e.g., refactor + feature)
