@@ -50,11 +50,21 @@ All commands run from `/workspace`.
 | Lint              | `npm run lint:python`                                                                       |
 | Format            | `npm run format:python`                                                                     |
 | List saves        | `npm run agent:list-saves`                                                                  |
-| Analyze budget    | `npm run agent:analyze -- <filename>`                                                       |
+| List models       | `npm run agent:list-models`                                                                 |
+| Analyze budget    | `npm run agent:analyze -- --save <filename>`                                                |
 | Run evals         | `npm run agent:evals -- --dataset stable_budget_balance`                                     |
 | Generate fixture  | `npm run agent:generate-fixture -- --save <name> --start-date YYYY-MM-DD --end-date YYYY-MM-DD --output <path>` |
 
 Python GraphQL client is generated using ariadne-codegen. Queries are defined in `agent/queries.graphql` and output to `agent/src/agent/graphql_client/`. The generated directory is excluded from ruff and pyright.
+
+## npm Script Guidelines
+
+When adding or modifying npm scripts, require explicit arguments from the user rather than embedding default values in the script. This makes the interface consistent and avoids hidden behavior.
+
+```diff
+- "agent:analyze": "... -- uv run budget-analyzer --save",  # Bad: --save expects implicit arg
++ "agent:analyze": "... -- uv run budget-analyzer",         # Good: user provides --save <name>
+```
 
 ## Code Style
 

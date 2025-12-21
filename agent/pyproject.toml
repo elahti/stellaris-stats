@@ -13,6 +13,8 @@ version = "0.1.0"
 [project.scripts]
 budget-analyzer = "agent.cli:main"
 budget-evals = "agent.evals.cli:main"
+list-models = "agent.constants:list_models_main"
+list-saves = "agent.cli:list_saves_main"
 
 [build-system]
 build-backend = "uv_build"

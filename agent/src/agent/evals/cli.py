@@ -14,11 +14,6 @@ AVAILABLE_DATASETS = {
     "stable_budget_balance": create_stable_budget_balance_dataset,
 }
 
-AVAILABLE_MODELS = [
-    "anthropic:claude-sonnet-4-5-20250929",
-    "openai:gpt-5.2-2025-12-11",
-]
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -29,7 +24,6 @@ Examples:
   budget-evals --dataset stable_budget_balance
   budget-evals --dataset stable_budget_balance --model openai:gpt-5.2-2025-12-11
   budget-evals --list-datasets
-  budget-evals --list-models
         """,
     )
 
@@ -49,11 +43,6 @@ Examples:
         action="store_true",
         help="List available eval datasets",
     )
-    parser.add_argument(
-        "--list-models",
-        action="store_true",
-        help="List available models for evaluation",
-    )
 
     args = parser.parse_args()
 
@@ -61,12 +50,6 @@ Examples:
         print("Available datasets:")
         for name in AVAILABLE_DATASETS:
             print(f"  - {name}")
-        return
-
-    if args.list_models:
-        print("Available models:")
-        for model in AVAILABLE_MODELS:
-            print(f"  - {model}")
         return
 
     if not args.dataset:

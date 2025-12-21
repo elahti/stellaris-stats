@@ -12,11 +12,6 @@ from agent.models import SustainedDropAnalysisResult
 from agent.settings import Settings
 from agent.tools import list_saves
 
-AVAILABLE_MODELS = [
-    "anthropic:claude-sonnet-4-5-20250929",
-    "openai:gpt-5.2-2025-12-11",
-]
-
 
 async def run_list_saves(settings: Settings) -> None:
     client = Client(url=settings.graphql_url)
@@ -89,19 +84,12 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  budget-analyzer --list-saves
-  budget-analyzer --list-models
   budget-analyzer --save commonwealthofman_1251622081
   budget-analyzer --save commonwealthofman_1251622081 --raw
   budget-analyzer --save commonwealthofman_1251622081 --model openai:gpt-5.2-2025-12-11
         """,
     )
 
-    parser.add_argument(
-        "--list-saves",
-        action="store_true",
-        help="List all available save files",
-    )
     parser.add_argument(
         "--save",
         type=str,
@@ -117,36 +105,30 @@ Examples:
         type=str,
         help="Model to use (overrides default agent model)",
     )
-    parser.add_argument(
-        "--list-models",
-        action="store_true",
-        help="List available models for analysis",
-    )
 
     args = parser.parse_args()
 
-    settings = Settings()
+    if args.save:
+        settings = Settings()
 
-    logfire.configure(
-        service_name="stellaris-stats-agent",
-        token=settings.logfire_token,
-        console=logfire.ConsoleOptions(),
-        send_to_logfire=True,
-    )
-    logfire.instrument_pydantic_ai()
-    logfire.instrument_httpx()
+        logfire.configure(
+            service_name="stellaris-stats-agent",
+            token=settings.logfire_token,
+            console=logfire.ConsoleOptions(),
+            send_to_logfire=True,
+        )
+        logfire.instrument_pydantic_ai()
+        logfire.instrument_httpx()
 
-    if args.list_saves:
-        asyncio.run(run_list_saves(settings))
-    elif args.list_models:
-        print("Available models:")
-        for model in AVAILABLE_MODELS:
-            print(f"  - {model}")
-    elif args.save:
         asyncio.run(run_analysis(args.save, raw=args.raw, model=args.model))
     else:
         parser.print_help()
         sys.exit(1)
+
+
+def list_saves_main() -> None:
+    settings = Settings()
+    asyncio.run(run_list_saves(settings))
 
 
 if __name__ == "__main__":
