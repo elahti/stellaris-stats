@@ -15,7 +15,9 @@ EvaluatorType = Evaluator[EvalInputs, SustainedDropAnalysisResult, dict[str, Any
 
 
 def create_stable_budget_balance_dataset() -> Dataset[
-    EvalInputs, SustainedDropAnalysisResult, dict[str, Any],
+    EvalInputs,
+    SustainedDropAnalysisResult,
+    dict[str, Any],
 ]:
     stable_energy_inputs: EvalInputs = {
         "save_filename": "commonwealthofman_1251622081",

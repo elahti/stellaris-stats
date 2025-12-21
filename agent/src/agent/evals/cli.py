@@ -7,13 +7,11 @@ import logfire
 from agent.evals.datasets.stable_budget_balance import (
     create_stable_budget_balance_dataset,
 )
-from agent.evals.datasets.sustained_drops import create_sustained_drops_dataset
 from agent.evals.runner import run_evals
 from agent.settings import Settings
 
 AVAILABLE_DATASETS = {
     "stable_budget_balance": create_stable_budget_balance_dataset,
-    "sustained_drops": create_sustained_drops_dataset,
 }
 
 AVAILABLE_MODELS = [
@@ -29,8 +27,8 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  budget-evals --dataset sustained_drops
-  budget-evals --dataset sustained_drops --model anthropic:claude-haiku-3-5-20241022
+  budget-evals --dataset stable_budget_balance
+  budget-evals --dataset stable_budget_balance --model anthropic:claude-haiku-3-5-20241022
   budget-evals --list-datasets
   budget-evals --list-models
         """,
