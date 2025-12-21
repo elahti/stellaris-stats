@@ -111,7 +111,6 @@ async def get_budget_time_series(
         save_filename=save_filename,
         dates=selected_dates,
         snapshots=snapshots,
-        threshold_consecutive_periods=CONSECUTIVE_PERIODS_THRESHOLD,
     )
 
 

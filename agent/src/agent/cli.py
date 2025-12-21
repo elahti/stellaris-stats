@@ -6,7 +6,7 @@ import sys
 
 import logfire
 
-from agent.budget_agent import run_budget_analysis
+from agent.budget_agent import CONSECUTIVE_PERIODS_THRESHOLD, run_budget_analysis
 from agent.graphql_client import Client
 from agent.models import SustainedDropAnalysisResult
 from agent.settings import Settings
@@ -49,7 +49,7 @@ def print_analysis_result(result: SustainedDropAnalysisResult) -> None:
     print(f"Save: {result.save_filename}")
     print(f"Period: {result.analysis_period_start} to {result.analysis_period_end}")
     print(f"Datapoints: {result.datapoints_analyzed}")
-    print(f"Threshold: {result.threshold_consecutive_periods}+ consecutive periods")
+    print(f"Threshold: {CONSECUTIVE_PERIODS_THRESHOLD}+ consecutive periods")
     print("-" * 60)
     print(f"\nSummary: {result.summary}")
 

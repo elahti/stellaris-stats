@@ -23,7 +23,6 @@ class BudgetTimeSeries(BaseModel):
     save_filename: str
     dates: list[str]
     snapshots: list[BudgetSnapshot]
-    threshold_consecutive_periods: int
 
 
 class ResourceChange(BaseModel):
@@ -72,6 +71,5 @@ class SustainedDropAnalysisResult(BaseModel):
     analysis_period_start: str
     analysis_period_end: str
     datapoints_analyzed: int
-    threshold_consecutive_periods: int
     sustained_drops: list[SustainedDrop]
     summary: str
