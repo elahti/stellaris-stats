@@ -34,11 +34,17 @@ async def run_budget_eval(
     return result.output
 
 
-def create_eval_task(model_name: str | None = None):
+def create_eval_task(
+    model_name: str | None = None,
+    experiment_name: str | None = None,
+):
     async def eval_task(
         inputs: EvalInputs,
     ) -> SustainedDropAnalysisResult:
         return await run_budget_eval(inputs, model_name=model_name)
+
+    if experiment_name:
+        eval_task.__name__ = experiment_name
 
     return eval_task
 
@@ -46,12 +52,13 @@ def create_eval_task(model_name: str | None = None):
 async def run_evals(
     dataset: Dataset[EvalInputs, SustainedDropAnalysisResult, dict[str, Any]],
     model_name: str | None = None,
+    experiment_name: str | None = None,
 ) -> EvaluationReport[EvalInputs, SustainedDropAnalysisResult, dict[str, Any]]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx()
 
-    task = create_eval_task(model_name)
+    task = create_eval_task(model_name, experiment_name)
     report = await dataset.evaluate(task)
 
     report.print(
