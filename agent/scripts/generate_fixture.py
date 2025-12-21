@@ -16,7 +16,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from agent.graphql_client import Client
 from agent.settings import Settings
 
 DATE_FORMAT = "%Y-%m-%d"
@@ -54,7 +53,7 @@ async def generate_fixture(
 ) -> None:
     """Generate a fixture file from the real GraphQL API."""
     settings = Settings()
-    client = Client(url=settings.graphql_url)
+    client = settings.create_graphql_client()
 
     list_saves_result = await client.list_saves()
 

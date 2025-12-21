@@ -9,12 +9,11 @@ import logfire
 from agent.budget_agent.agent import CONSECUTIVE_PERIODS_THRESHOLD, run_budget_analysis
 from agent.budget_agent.models import SustainedDropAnalysisResult
 from agent.budget_agent.tools import list_saves
-from agent.graphql_client import Client
 from agent.settings import Settings
 
 
 async def run_list_saves(settings: Settings) -> None:
-    client = Client(url=settings.graphql_url)
+    client = settings.create_graphql_client()
     saves = await list_saves(client)
     if not saves:
         print("No save files available.")
