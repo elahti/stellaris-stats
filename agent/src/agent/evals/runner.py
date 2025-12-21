@@ -4,7 +4,7 @@ import logfire
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
-from agent.budget_agent.agent import budget_agent, build_analysis_prompt
+from agent.budget_agent.agent import build_analysis_prompt, get_budget_agent
 from agent.budget_agent.models import SustainedDropAnalysisResult
 from agent.budget_agent.tools import AgentDeps
 from agent.evals.mock_client import create_mock_client, load_fixture
@@ -17,13 +17,19 @@ class EvalInputs(TypedDict):
 
 async def run_budget_eval(
     inputs: EvalInputs,
+    model_name: str | None = None,
 ) -> SustainedDropAnalysisResult:
     fixture = load_fixture(inputs["fixture_path"])
     mock_client = create_mock_client(fixture)
     deps = AgentDeps(client=mock_client)
 
     prompt = build_analysis_prompt(inputs["save_filename"])
-    result = await budget_agent.run(prompt, deps=deps)
+    agent = get_budget_agent()
+    if model_name:
+        with agent.override(model=model_name):
+            result = await agent.run(prompt, deps=deps)
+    else:
+        result = await agent.run(prompt, deps=deps)
 
     return result.output
 
@@ -32,10 +38,7 @@ def create_eval_task(model_name: str | None = None):
     async def eval_task(
         inputs: EvalInputs,
     ) -> SustainedDropAnalysisResult:
-        if model_name:
-            with budget_agent.override(model=model_name):
-                return await run_budget_eval(inputs)
-        return await run_budget_eval(inputs)
+        return await run_budget_eval(inputs, model_name=model_name)
 
     return eval_task
 
