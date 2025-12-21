@@ -48,7 +48,7 @@ The game starts on January 1, 2200. You are analyzing the 6 most recent budget s
 
 
 budget_agent = Agent(
-    "anthropic:claude-sonnet-4-5-20250929",
+    "openai:gpt-5.2-2025-12-11",
     deps_type=AgentDeps,
     output_type=NativeOutput(SustainedDropAnalysisResult),
     system_prompt=SYSTEM_PROMPT,
