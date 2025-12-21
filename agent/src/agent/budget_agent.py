@@ -17,8 +17,8 @@ from agent.tools import (
     select_latest_dates,
 )
 
-ANALYSIS_DATAPOINTS = 6
 CONSECUTIVE_PERIODS_THRESHOLD = 4
+ANALYSIS_DATAPOINTS = CONSECUTIVE_PERIODS_THRESHOLD + 2
 
 
 def build_system_prompt() -> str:
