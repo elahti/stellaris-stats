@@ -93,12 +93,24 @@ const runParser = async (logger: Logger) => {
     'Parser initialized',
   )
 
+  let isIterationRunning = false
+
   const parseInterval = setInterval(() => {
+    if (isIterationRunning) {
+      logger.debug(
+        'Skipping parser iteration - previous iteration still running',
+      )
+      return
+    }
+
+    isIterationRunning = true
     void (async () => {
       try {
         await executeParserIteration(pool, ironmanPath, gamestateId, logger)
       } catch (error: unknown) {
         logger.error({ error }, 'Error during parser iteration')
+      } finally {
+        isIterationRunning = false
       }
     })()
   }, config.STELLARIS_STATS_PARSER_INTERVAL)

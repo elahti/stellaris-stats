@@ -74,7 +74,7 @@ type = "datetime.datetime"
 [tool.pyright]
 include                             = ["src", "scripts"]
 exclude                             = ["src/agent/graphql_client", "src/agent/evals/fixtures"]
-pythonVersion                       = "3.13"
+pythonVersion                       = "3.14"
 reportAssertAlwaysTrue              = "error"
 reportCallInDefaultInitializer      = "error"
 reportConstantRedefinition          = "error"
