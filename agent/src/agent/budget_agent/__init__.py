@@ -1,10 +1,10 @@
-from agent.budget.agent import (
+from agent.budget_agent.agent import (
     ANALYSIS_DATAPOINTS,
     CONSECUTIVE_PERIODS_THRESHOLD,
     budget_agent,
     run_budget_analysis,
 )
-from agent.budget.models import (
+from agent.budget_agent.models import (
     BudgetAnalysisResult,
     BudgetChange,
     ResourceChange,

@@ -6,9 +6,9 @@ import sys
 
 import logfire
 
-from agent.budget.agent import CONSECUTIVE_PERIODS_THRESHOLD, run_budget_analysis
-from agent.budget.models import SustainedDropAnalysisResult
-from agent.budget.tools import list_saves
+from agent.budget_agent.agent import CONSECUTIVE_PERIODS_THRESHOLD, run_budget_analysis
+from agent.budget_agent.models import SustainedDropAnalysisResult
+from agent.budget_agent.tools import list_saves
 from agent.graphql_client import Client
 from agent.settings import Settings
 

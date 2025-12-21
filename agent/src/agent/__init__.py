@@ -1,4 +1,4 @@
-from agent.budget.models import (
+from agent.budget_agent.models import (
     BudgetAnalysisResult,
     BudgetChange,
     ResourceChange,

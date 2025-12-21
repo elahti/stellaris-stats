@@ -1,11 +1,11 @@
-from agent.budget.evals.mock_client import (
+from agent.budget_agent.tools import GraphQLClientProtocol
+from agent.evals.mock_client import (
     Fixture,
     MockClient,
     create_mock_client,
     load_fixture,
 )
-from agent.budget.evals.runner import EvalInputs
-from agent.budget.tools import GraphQLClientProtocol
+from agent.evals.runner import EvalInputs
 
 __all__ = [
     "EvalInputs",

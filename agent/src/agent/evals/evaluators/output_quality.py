@@ -7,8 +7,8 @@ from pydantic_evals.evaluators import (
     EvaluatorContext,
 )
 
-from agent.budget.evals.runner import EvalInputs
-from agent.budget.models import SustainedDropAnalysisResult
+from agent.budget_agent.models import SustainedDropAnalysisResult
+from agent.evals.runner import EvalInputs
 
 
 @dataclass

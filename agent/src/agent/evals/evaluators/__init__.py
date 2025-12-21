@@ -1,4 +1,4 @@
-from agent.budget.evals.evaluators.output_quality import (
+from agent.evals.evaluators.output_quality import (
     NoFalsePositives,
 )
 
