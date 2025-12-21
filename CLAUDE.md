@@ -60,7 +60,7 @@ Python GraphQL client is generated using ariadne-codegen. Queries are defined in
 
 **TypeScript**: Strict typing, no `as` casts, no `!` assertions, arrow functions only, ternaries over if/else, use generated Zod schemas for GraphQL data.
 
-**Python**: Full type annotations, PEP 8 naming, context managers for resources, list comprehensions where readable, prefer Pydantic models over Dicts in function signatures.
+**Python**: Full type annotations, PEP 8 naming, context managers for resources, list comprehensions where readable, prefer Pydantic models over Dicts in function signatures, docstrings for classes and protocols.
 
 **Both**: No comments in code, exact dependency versions, run quality checks after changes.
 

@@ -13,6 +13,8 @@ from agent.tools import GraphQLClientProtocol
 
 @dataclass
 class MockClient:
+    """Mock GraphQL client that returns pre-configured responses for testing."""
+
     list_saves_response: ListSaves = field(
         default_factory=lambda: ListSaves(saves=[]),
     )
@@ -35,6 +37,8 @@ class MockClient:
 
 @dataclass
 class Fixture:
+    """Test fixture containing mock GraphQL responses loaded from JSON."""
+
     metadata: dict[str, Any]
     list_saves: ListSaves
     get_dates: dict[str, GetDates]
