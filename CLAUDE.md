@@ -57,6 +57,15 @@ All commands run from `/workspace`.
 
 Python GraphQL client is generated using ariadne-codegen. Queries are defined in `agent/queries.graphql` and output to `agent/src/agent/graphql_client/`. The generated directory is excluded from ruff and pyright.
 
+## npm Script Guidelines
+
+When adding or modifying npm scripts, require explicit arguments from the user rather than embedding default values in the script. This makes the interface consistent and avoids hidden behavior.
+
+```diff
+- "agent:analyze": "... -- uv run budget-analyzer --save",  # Bad: --save expects implicit arg
++ "agent:analyze": "... -- uv run budget-analyzer",         # Good: user provides --save <name>
+```
+
 ## Code Style
 
 **TypeScript**: Strict typing, no `as` casts, no `!` assertions, arrow functions only, ternaries over if/else, use generated Zod schemas for GraphQL data.
