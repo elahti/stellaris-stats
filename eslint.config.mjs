@@ -14,6 +14,7 @@ export default tseslint.config(
   {
     ignores: [
       '**/dist/**',
+      'agent/**',
       'eslint.config.mjs',
       'src/graphql/generated/types.generated.ts',
       'src/graphql/generated/validation.generated.ts',

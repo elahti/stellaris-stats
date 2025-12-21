@@ -1,7 +1,8 @@
 import type { Redis } from 'ioredis'
 import type { KeyValueCache } from '@apollo/utils.keyvaluecache'
+import type { Logger } from 'pino'
 
-const containsNullValues = (value: string): boolean => {
+const containsNullValues = (value: string, logger?: Logger): boolean => {
   try {
     const parsed: unknown = JSON.parse(value)
     if (
@@ -14,7 +15,8 @@ const containsNullValues = (value: string): boolean => {
       return Object.values(parsed.data).some((v) => v === null)
     }
     return false
-  } catch {
+  } catch (error: unknown) {
+    logger?.warn({ error }, 'Failed to parse cache value for null check')
     return false
   }
 }
@@ -22,10 +24,12 @@ const containsNullValues = (value: string): boolean => {
 export class RedisCache implements KeyValueCache {
   private readonly client: Redis
   private readonly prefix: string
+  private readonly logger?: Logger
 
-  constructor(client: Redis, prefix = 'graphql:') {
+  constructor(client: Redis, prefix = 'graphql:', logger?: Logger) {
     this.client = client
     this.prefix = prefix
+    this.logger = logger
   }
 
   async get(key: string): Promise<string | undefined> {
@@ -38,7 +42,8 @@ export class RedisCache implements KeyValueCache {
     value: string,
     options?: { ttl?: number | null },
   ): Promise<void> {
-    if (containsNullValues(value)) {
+    if (containsNullValues(value, this.logger)) {
+      this.logger?.debug({ key }, 'Skipping cache set due to null values')
       return
     }
 
