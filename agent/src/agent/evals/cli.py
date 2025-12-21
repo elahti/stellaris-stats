@@ -1,18 +1,40 @@
 import argparse
 import asyncio
 import sys
+from collections.abc import Callable
+from typing import Any
 
 import logfire
+from pydantic_evals import Dataset
 
+from agent.budget_agent.models import SustainedDropAnalysisResult
+from agent.constants import AVAILABLE_MODELS
 from agent.evals.datasets.stable_budget_balance import (
     create_stable_budget_balance_dataset,
 )
-from agent.evals.runner import run_evals
+from agent.evals.runner import EvalInputs, run_evals
 from agent.settings import Settings
 
-AVAILABLE_DATASETS = {
+DatasetFactory = Callable[
+    [],
+    Dataset[EvalInputs, SustainedDropAnalysisResult, dict[str, Any]],
+]
+
+AVAILABLE_DATASETS: dict[str, DatasetFactory] = {
     "stable_budget_balance": create_stable_budget_balance_dataset,
 }
+
+
+async def run_evals_for_models(
+    dataset_factory: DatasetFactory,
+    models: list[str],
+) -> None:
+    dataset = dataset_factory()
+    for model in models:
+        print(f"\n{'=' * 60}")
+        print(f"Running evals with model: {model}")
+        print("=" * 60)
+        await run_evals(dataset, model_name=model)
 
 
 def main() -> None:
@@ -36,7 +58,7 @@ Examples:
     parser.add_argument(
         "--model",
         type=str,
-        help="Model to use (overrides default agent model)",
+        help="Model to use (if not provided, runs on all available models)",
     )
     parser.add_argument(
         "--list-datasets",
@@ -66,10 +88,12 @@ Examples:
     )
 
     dataset_factory = AVAILABLE_DATASETS[args.dataset]
-    dataset = dataset_factory()
 
-    model_name: str | None = args.model
-    asyncio.run(run_evals(dataset, model_name=model_name))
+    if args.model:
+        dataset = dataset_factory()
+        asyncio.run(run_evals(dataset, model_name=args.model))
+    else:
+        asyncio.run(run_evals_for_models(dataset_factory, AVAILABLE_MODELS))
 
 
 if __name__ == "__main__":

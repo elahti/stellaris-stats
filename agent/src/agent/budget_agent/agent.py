@@ -20,6 +20,8 @@ from agent.budget_agent.tools import (
 CONSECUTIVE_PERIODS_THRESHOLD = 4
 ANALYSIS_DATAPOINTS = CONSECUTIVE_PERIODS_THRESHOLD + 2
 
+_budget_agent: Agent[AgentDeps, SustainedDropAnalysisResult] | None = None
+
 
 def build_system_prompt() -> str:
     return f"""You are a Stellaris game statistics analyst specializing in detecting sustained resource drops.
@@ -53,23 +55,26 @@ When you receive budget time series data:
 The game starts on January 1, 2200. You are analyzing the {ANALYSIS_DATAPOINTS} most recent budget snapshots to detect ongoing resource problems."""
 
 
-budget_agent = Agent(
-    "openai:gpt-5.2-2025-12-11",
-    deps_type=AgentDeps,
-    output_type=NativeOutput(SustainedDropAnalysisResult),
-    system_prompt=build_system_prompt(),
-)
+def get_budget_agent() -> Agent[AgentDeps, SustainedDropAnalysisResult]:
+    global _budget_agent
+    if _budget_agent is None:
+        _budget_agent = Agent(
+            "openai:gpt-5.2-2025-12-11",
+            deps_type=AgentDeps,
+            output_type=NativeOutput(SustainedDropAnalysisResult),
+            system_prompt=build_system_prompt(),
+        )
+        _register_tools(_budget_agent)
+    return _budget_agent
 
 
-@budget_agent.tool
-async def get_available_saves(ctx: RunContext[AgentDeps]) -> list[SaveInfo]:
+async def _get_available_saves(ctx: RunContext[AgentDeps]) -> list[SaveInfo]:
     """Get a list of all available save files that can be analyzed."""
     saves = await list_saves(ctx.deps.client)
     return [SaveInfo(filename=s.filename, name=s.name) for s in saves]
 
 
-@budget_agent.tool
-async def get_budget_time_series(
+async def _get_budget_time_series(
     ctx: RunContext[AgentDeps],
     save_filename: str,
 ) -> BudgetTimeSeries | str:
@@ -114,6 +119,11 @@ async def get_budget_time_series(
     )
 
 
+def _register_tools(agent: Agent[AgentDeps, SustainedDropAnalysisResult]) -> None:
+    agent.tool(_get_available_saves)
+    agent.tool(_get_budget_time_series)
+
+
 def build_analysis_prompt(save_filename: str) -> str:
     return (
         f"Fetch and analyze the budget for save '{save_filename}'. "
@@ -141,7 +151,8 @@ async def run_budget_analysis(
     if deps is None:
         deps = create_deps()
     prompt = build_analysis_prompt(save_filename)
+    agent = get_budget_agent()
     if model_name:
-        with budget_agent.override(model=model_name):
-            return await budget_agent.run(prompt, deps=deps)
-    return await budget_agent.run(prompt, deps=deps)
+        with agent.override(model=model_name):
+            return await agent.run(prompt, deps=deps)
+    return await agent.run(prompt, deps=deps)

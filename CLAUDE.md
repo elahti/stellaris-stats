@@ -74,6 +74,23 @@ When adding or modifying npm scripts, require explicit arguments from the user r
 
 **Both**: No comments in code, exact dependency versions, run quality checks after changes.
 
+### Python Agent Pattern
+
+pydantic-ai agents must be lazily initialized to avoid requiring API keys at import time. This allows utility commands like `list-models` and `--help` to work without credentials.
+
+```python
+_agent: Agent[Deps, Output] | None = None
+
+def get_agent() -> Agent[Deps, Output]:
+    global _agent
+    if _agent is None:
+        _agent = Agent(...)
+        _register_tools(_agent)
+    return _agent
+```
+
+With lazy initialization, `__init__.py` re-exports are safe since importing the module won't trigger agent creation.
+
 ### Quality Checks
 
 After TypeScript changes: `npm run lint:typescript && npm run build && npm run test:ci:typescript`
