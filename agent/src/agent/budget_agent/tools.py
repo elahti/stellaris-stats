@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import Any, Protocol
 
 from agent.graphql_client import (
-    Client,
     GetBudget,
     GetBudgetSaveGamestates,
     GetDates,
@@ -30,13 +29,13 @@ class AgentDeps:
 
 
 def create_deps(
-    client: Client | None = None,
+    client: GraphQLClientProtocol | None = None,
     settings: Settings | None = None,
 ) -> AgentDeps:
     if settings is None:
         settings = Settings()
     if client is None:
-        client = Client(url=settings.graphql_url)
+        client = settings.create_graphql_client()
     return AgentDeps(client=client)
 
 
