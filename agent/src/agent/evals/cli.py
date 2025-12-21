@@ -16,8 +16,7 @@ AVAILABLE_DATASETS = {
 
 AVAILABLE_MODELS = [
     "anthropic:claude-sonnet-4-5-20250929",
-    "anthropic:claude-haiku-3-5-20241022",
-    "anthropic:claude-opus-4-20250514",
+    "openai:gpt-5.2-2025-12-11",
 ]
 
 
@@ -28,7 +27,7 @@ def main() -> None:
         epilog="""
 Examples:
   budget-evals --dataset stable_budget_balance
-  budget-evals --dataset stable_budget_balance --model anthropic:claude-haiku-3-5-20241022
+  budget-evals --dataset stable_budget_balance --model openai:gpt-5.2-2025-12-11
   budget-evals --list-datasets
   budget-evals --list-models
         """,
@@ -75,9 +74,6 @@ Examples:
         sys.exit(1)
 
     settings = Settings()
-    if not settings.has_api_key():
-        print("Error: ANTHROPIC_API_KEY environment variable is not set.")
-        sys.exit(1)
 
     logfire.configure(
         service_name="stellaris-stats-evals",

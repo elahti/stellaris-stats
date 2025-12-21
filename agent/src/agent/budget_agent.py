@@ -125,12 +125,14 @@ def build_analysis_prompt(save_filename: str) -> str:
 async def run_budget_analysis(
     save_filename: str,
     deps: AgentDeps | None = None,
+    model_name: str | None = None,
 ) -> AgentRunResult[SustainedDropAnalysisResult]:
     """Run budget analysis for a specific save file.
 
     Args:
         save_filename: The filename of the save to analyze (without .sav extension).
         deps: Optional dependencies to use. If not provided, creates default deps.
+        model_name: Optional model to use. If not provided, uses the default agent model.
 
     Returns:
         The complete agent run result.
@@ -138,4 +140,7 @@ async def run_budget_analysis(
     if deps is None:
         deps = create_deps()
     prompt = build_analysis_prompt(save_filename)
+    if model_name:
+        with budget_agent.override(model=model_name):
+            return await budget_agent.run(prompt, deps=deps)
     return await budget_agent.run(prompt, deps=deps)
