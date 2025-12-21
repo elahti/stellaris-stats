@@ -25,8 +25,14 @@ AVAILABLE_DATASETS: dict[str, DatasetFactory] = {
 }
 
 
+def build_experiment_name(dataset_name: str, model_name: str) -> str:
+    model_short = model_name.split(":")[-1] if ":" in model_name else model_name
+    return f"{dataset_name}_{model_short}"
+
+
 async def run_evals_for_models(
     dataset_factory: DatasetFactory,
+    dataset_name: str,
     models: list[str],
 ) -> None:
     dataset = dataset_factory()
@@ -34,7 +40,8 @@ async def run_evals_for_models(
         print(f"\n{'=' * 60}")
         print(f"Running evals with model: {model}")
         print("=" * 60)
-        await run_evals(dataset, model_name=model)
+        experiment_name = build_experiment_name(dataset_name, model)
+        await run_evals(dataset, model_name=model, experiment_name=experiment_name)
 
 
 def main() -> None:
@@ -88,12 +95,26 @@ Examples:
     )
 
     dataset_factory = AVAILABLE_DATASETS[args.dataset]
+    dataset_name = args.dataset
 
     if args.model:
         dataset = dataset_factory()
-        asyncio.run(run_evals(dataset, model_name=args.model))
+        experiment_name = build_experiment_name(dataset_name, args.model)
+        asyncio.run(
+            run_evals(
+                dataset,
+                model_name=args.model,
+                experiment_name=experiment_name,
+            ),
+        )
     else:
-        asyncio.run(run_evals_for_models(dataset_factory, AVAILABLE_MODELS))
+        asyncio.run(
+            run_evals_for_models(
+                dataset_factory,
+                dataset_name,
+                AVAILABLE_MODELS,
+            ),
+        )
 
 
 if __name__ == "__main__":
