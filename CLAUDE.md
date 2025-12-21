@@ -51,7 +51,7 @@ All commands run from `/workspace`.
 | Format            | `npm run format:python`                                                                     |
 | List saves        | `npm run agent:list-saves`                                                                  |
 | List models       | `npm run agent:list-models`                                                                 |
-| Analyze budget    | `npm run agent:analyze -- <filename>`                                                       |
+| Analyze budget    | `npm run agent:analyze -- --save <filename>`                                                |
 | Run evals         | `npm run agent:evals -- --dataset stable_budget_balance`                                     |
 | Generate fixture  | `npm run agent:generate-fixture -- --save <name> --start-date YYYY-MM-DD --end-date YYYY-MM-DD --output <path>` |
 
