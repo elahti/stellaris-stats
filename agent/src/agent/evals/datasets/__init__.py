@@ -1,4 +1,4 @@
-from agent.budget.evals.datasets.stable_budget_balance import (
+from agent.evals.datasets.stable_budget_balance import (
     create_stable_budget_balance_dataset,
 )
 

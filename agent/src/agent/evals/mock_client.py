@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from agent.budget.tools import GraphQLClientProtocol
+from agent.budget_agent.tools import GraphQLClientProtocol
 from agent.graphql_client import (
     GetBudget,
     GetDates,

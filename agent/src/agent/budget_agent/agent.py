@@ -1,13 +1,13 @@
 from pydantic_ai import Agent, NativeOutput, RunContext
 from pydantic_ai.agent import AgentRunResult
 
-from agent.budget.models import (
+from agent.budget_agent.models import (
     BudgetSnapshot,
     BudgetTimeSeries,
     SaveInfo,
     SustainedDropAnalysisResult,
 )
-from agent.budget.tools import (
+from agent.budget_agent.tools import (
     AgentDeps,
     create_deps,
     fetch_budget_data,
