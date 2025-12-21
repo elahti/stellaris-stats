@@ -49,6 +49,7 @@ This document lists all dependencies used in the Stellaris Stats project with th
 | Library | Version | Description |
 |---------|---------|-------------|
 | pydantic-ai | 1.32.0 | Python agent framework for building production-grade GenAI applications |
+| pydantic-evals | 1.32.0 | Evaluation framework for testing AI agent behavior |
 | pydantic-settings | 2.12.0 | Settings management using Pydantic |
 | httpx | 0.28.1 | Async HTTP client for Python |
 
