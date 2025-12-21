@@ -4,11 +4,15 @@ import sys
 
 import logfire
 
+from agent.evals.datasets.stable_budget_balance import (
+    create_stable_budget_balance_dataset,
+)
 from agent.evals.datasets.sustained_drops import create_sustained_drops_dataset
 from agent.evals.runner import run_evals
 from agent.settings import Settings
 
 AVAILABLE_DATASETS = {
+    "stable_budget_balance": create_stable_budget_balance_dataset,
     "sustained_drops": create_sustained_drops_dataset,
 }
 
