@@ -49,6 +49,7 @@
       "Bash(uv run ruff check:*)",
       "Bash(uv run:*)",
       "Bash(uv sync:*)",
+      "Bash(uv tree:*)",
       "Bash(xargs ls:*)",
       "mcp__context7__get-library-docs",
       "mcp__context7__resolve-library-id",
