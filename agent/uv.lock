@@ -20,7 +20,9 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "httpx" },
+    { name = "logfire" },
     { name = "pydantic-ai" },
+    { name = "pydantic-evals" },
     { name = "pydantic-settings" },
 ]
 
@@ -34,7 +36,9 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "httpx", specifier = "==0.28.1" },
+    { name = "logfire", specifier = ">=3.0.0" },
     { name = "pydantic-ai", specifier = "==1.32.0" },
+    { name = "pydantic-evals", specifier = "==1.32.0" },
     { name = "pydantic-settings", specifier = "==2.12.0" },
 ]
 

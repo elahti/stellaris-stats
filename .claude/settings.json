@@ -1,4 +1,7 @@
 {
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true
+  },
   "permissions": {
     "allow": [
       "Bash(bun --help:*)",
@@ -40,11 +43,13 @@
       "Bash(npx tsc:*)",
       "Bash(psql:*)",
       "Bash(tree:*)",
+      "Bash(uv add:*)",
       "Bash(uv lock:*)",
       "Bash(uv pip show:*)",
       "Bash(uv run ruff check:*)",
       "Bash(uv run:*)",
       "Bash(uv sync:*)",
+      "Bash(uv tree:*)",
       "Bash(xargs ls:*)",
       "mcp__context7__get-library-docs",
       "mcp__context7__resolve-library-id",
@@ -53,6 +58,7 @@
       "mcp__python-executor__run_python_code",
       "Skill(commit)",
       "Skill(stellaris-stats-game-data-analysis)",
+      "WebFetch(domain:ai.pydantic.dev)",
       "WebFetch(domain:docs.renovatebot.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:hub.docker.com)",

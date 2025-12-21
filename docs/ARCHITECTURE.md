@@ -400,3 +400,34 @@ class BudgetAnalysisResult(BaseModel):
     sudden_changes: list[BudgetChange]
     summary: str
 ```
+
+### Evaluation Framework
+
+The agent includes a pydantic-evals based evaluation framework for testing agent behavior.
+
+#### Components
+
+- **Runner** (`agent/src/agent/evals/runner.py`): Orchestrates evaluation runs with mock GraphQL client
+- **Mock Client** (`agent/src/agent/evals/mock_client.py`): Replaces live GraphQL with fixture data
+- **Evaluators** (`agent/src/agent/evals/evaluators/`): Custom evaluators for output validation
+- **Datasets** (`agent/src/agent/evals/datasets/`): Test cases with inputs and expected outcomes
+- **CLI** (`agent/src/agent/evals/cli.py`): Command-line interface for running evals
+
+#### Available Datasets
+
+- `stable_budget_balance`: Tests that stable resources don't trigger false positive drops
+
+#### Running Evals
+
+```bash
+npm run agent:evals -- --dataset stable_budget_balance
+npm run agent:evals -- --dataset stable_budget_balance --model anthropic:claude-haiku-3-5-20241022
+npm run agent:evals -- --list-datasets
+npm run agent:evals -- --list-models
+```
+
+#### Adding New Datasets
+
+1. Create fixture using `npm run agent:generate-fixture`
+2. Add dataset file in `agent/src/agent/evals/datasets/`
+3. Register in `agent/src/agent/evals/cli.py` AVAILABLE_DATASETS

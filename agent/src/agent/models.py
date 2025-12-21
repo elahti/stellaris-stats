@@ -1,4 +1,28 @@
+from typing import Any
+
 from pydantic import BaseModel
+
+
+class SaveInfo(BaseModel):
+    """Information about an available save file."""
+
+    filename: str
+    name: str
+
+
+class BudgetSnapshot(BaseModel):
+    """A single budget snapshot at a point in time."""
+
+    date: str
+    budget: dict[str, Any]
+
+
+class BudgetTimeSeries(BaseModel):
+    """Time series budget data for analysis."""
+
+    save_filename: str
+    dates: list[str]
+    snapshots: list[BudgetSnapshot]
 
 
 class ResourceChange(BaseModel):
@@ -47,6 +71,5 @@ class SustainedDropAnalysisResult(BaseModel):
     analysis_period_start: str
     analysis_period_end: str
     datapoints_analyzed: int
-    threshold_consecutive_periods: int
     sustained_drops: list[SustainedDrop]
     summary: str

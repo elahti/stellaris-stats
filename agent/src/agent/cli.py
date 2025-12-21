@@ -6,15 +6,20 @@ import sys
 
 import logfire
 
-from agent.budget_agent import run_budget_analysis
+from agent.budget_agent import CONSECUTIVE_PERIODS_THRESHOLD, run_budget_analysis
 from agent.graphql_client import Client
 from agent.models import SustainedDropAnalysisResult
 from agent.settings import Settings
-from agent.tools import GRAPHQL_URL, list_saves
+from agent.tools import list_saves
+
+AVAILABLE_MODELS = [
+    "anthropic:claude-sonnet-4-5-20250929",
+    "openai:gpt-5.2-2025-12-11",
+]
 
 
-async def run_list_saves() -> None:
-    client = Client(url=GRAPHQL_URL)
+async def run_list_saves(settings: Settings) -> None:
+    client = Client(url=settings.graphql_url)
     saves = await list_saves(client)
     if not saves:
         print("No save files available.")
@@ -24,8 +29,13 @@ async def run_list_saves() -> None:
         print(f"  - {save.filename} ({save.name})")
 
 
-async def run_analysis(save_filename: str, *, raw: bool = False) -> None:
-    result = await run_budget_analysis(save_filename)
+async def run_analysis(
+    save_filename: str,
+    *,
+    raw: bool = False,
+    model: str | None = None,
+) -> None:
+    result = await run_budget_analysis(save_filename, model_name=model)
     if raw:
         print(json.dumps(dataclasses.asdict(result), indent=2, default=str))
     else:
@@ -39,7 +49,7 @@ def print_analysis_result(result: SustainedDropAnalysisResult) -> None:
     print(f"Save: {result.save_filename}")
     print(f"Period: {result.analysis_period_start} to {result.analysis_period_end}")
     print(f"Datapoints: {result.datapoints_analyzed}")
-    print(f"Threshold: {result.threshold_consecutive_periods}+ consecutive periods")
+    print(f"Threshold: {CONSECUTIVE_PERIODS_THRESHOLD}+ consecutive periods")
     print("-" * 60)
     print(f"\nSummary: {result.summary}")
 
@@ -80,8 +90,10 @@ def main() -> None:
         epilog="""
 Examples:
   budget-analyzer --list-saves
+  budget-analyzer --list-models
   budget-analyzer --save commonwealthofman_1251622081
   budget-analyzer --save commonwealthofman_1251622081 --raw
+  budget-analyzer --save commonwealthofman_1251622081 --model openai:gpt-5.2-2025-12-11
         """,
     )
 
@@ -100,6 +112,16 @@ Examples:
         action="store_true",
         help="Print raw JSON output instead of formatted report",
     )
+    parser.add_argument(
+        "--model",
+        type=str,
+        help="Model to use (overrides default agent model)",
+    )
+    parser.add_argument(
+        "--list-models",
+        action="store_true",
+        help="List available models for analysis",
+    )
 
     args = parser.parse_args()
 
@@ -114,15 +136,14 @@ Examples:
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx()
 
-    if not settings.has_api_key() and not args.list_saves:
-        print("Error: ANTHROPIC_API_KEY environment variable is not set.")
-        print("Please set it or use dotenvx to load your secrets file.")
-        sys.exit(1)
-
     if args.list_saves:
-        asyncio.run(run_list_saves())
+        asyncio.run(run_list_saves(settings))
+    elif args.list_models:
+        print("Available models:")
+        for model in AVAILABLE_MODELS:
+            print(f"  - {model}")
     elif args.save:
-        asyncio.run(run_analysis(args.save, raw=args.raw))
+        asyncio.run(run_analysis(args.save, raw=args.raw, model=args.model))
     else:
         parser.print_help()
         sys.exit(1)

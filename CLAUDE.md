@@ -42,15 +42,17 @@ All commands run from `/workspace`.
 
 ### Python
 
-| Task              | Command                               |
-| ----------------- | ------------------------------------- |
-| Sync deps         | `cd agent && uv sync`                 |
-| GraphQL codegen   | `npm run graphql:codegen:python`      |
-| Type check        | `npm run typecheck:python`            |
-| Lint              | `npm run lint:python`                 |
-| Format            | `npm run format:python`               |
-| List saves        | `npm run agent:list-saves`            |
-| Analyze budget    | `npm run agent:analyze -- <filename>` |
+| Task              | Command                                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------- |
+| Sync deps         | `cd agent && uv sync`                                                                       |
+| GraphQL codegen   | `npm run graphql:codegen:python`                                                            |
+| Type check        | `npm run typecheck:python`                                                                  |
+| Lint              | `npm run lint:python`                                                                       |
+| Format            | `npm run format:python`                                                                     |
+| List saves        | `npm run agent:list-saves`                                                                  |
+| Analyze budget    | `npm run agent:analyze -- <filename>`                                                       |
+| Run evals         | `npm run agent:evals -- --dataset stable_budget_balance`                                     |
+| Generate fixture  | `npm run agent:generate-fixture -- --save <name> --start-date YYYY-MM-DD --end-date YYYY-MM-DD --output <path>` |
 
 Python GraphQL client is generated using ariadne-codegen. Queries are defined in `agent/queries.graphql` and output to `agent/src/agent/graphql_client/`. The generated directory is excluded from ruff and pyright.
 
@@ -58,7 +60,7 @@ Python GraphQL client is generated using ariadne-codegen. Queries are defined in
 
 **TypeScript**: Strict typing, no `as` casts, no `!` assertions, arrow functions only, ternaries over if/else, use generated Zod schemas for GraphQL data.
 
-**Python**: Full type annotations, PEP 8 naming, context managers for resources, list comprehensions where readable, prefer Pydantic models over Dicts in function signatures.
+**Python**: Full type annotations, PEP 8 naming, context managers for resources, list comprehensions where readable, prefer Pydantic models over Dicts in function signatures, docstrings for classes and protocols.
 
 **Both**: No comments in code, exact dependency versions, run quality checks after changes.
 
@@ -105,5 +107,5 @@ Keep synchronized when changing:
 
 ## Claude-Specific
 
-- Use Context7 MCP tools for library documentation without being asked
+- Use Context7 for library documentation without being asked
 - Prefer async versions of libraries
