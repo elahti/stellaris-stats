@@ -6,5 +6,6 @@
 /**/.env.*.secrets
 /**/dist/
 /**/node_modules/
+/agent/.venv/
 /db-dump-data
 /gamestate-json-data/

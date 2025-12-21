@@ -1,5 +1,6 @@
+import z from 'zod/v4'
 import type { GamestateResolvers } from './types.generated.js'
-import type { Budget, Planet } from './types.generated.js'
+import { BudgetSchema, PlanetSchema } from './validation.generated.js'
 
 export const Gamestate: GamestateResolvers = {
   budget: async (parent, _args, context) => {
@@ -7,7 +8,7 @@ export const Gamestate: GamestateResolvers = {
     const cached = await context.cache.get(cacheKey)
 
     if (cached) {
-      return JSON.parse(cached) as Budget
+      return BudgetSchema().parse(JSON.parse(cached))
     }
 
     const budget = await context.loaders.budget.load(parent.gamestateId)
@@ -22,7 +23,7 @@ export const Gamestate: GamestateResolvers = {
     const cached = await context.cache.get(cacheKey)
 
     if (cached) {
-      return JSON.parse(cached) as Planet[]
+      return z.array(PlanetSchema()).parse(JSON.parse(cached))
     }
 
     const planets = await context.loaders.planets.load(parent.gamestateId)

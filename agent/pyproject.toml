@@ -68,6 +68,9 @@ target_package_path = "src/agent"
 async_client = true
 convert_to_snake_case = true
 
+[tool.ariadne-codegen.scalars.DateTimeISO]
+type = "datetime.datetime"
+
 [tool.pyright]
 include                             = ["src", "scripts"]
 exclude                             = ["src/agent/graphql_client", "src/agent/evals/fixtures"]

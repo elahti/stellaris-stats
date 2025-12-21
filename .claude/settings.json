@@ -32,6 +32,7 @@
       "Bash(npm run db:validate-budget-schema:*)",
       "Bash(npm run format:python:*)",
       "Bash(npm run graphql:codegen:*)",
+      "Bash(npm run graphql:codegen:python:*)",
       "Bash(npm run lint:python:*)",
       "Bash(npm run lint:typescript:*)",
       "Bash(npm run test:ci:typescript:*)",

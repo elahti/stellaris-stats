@@ -27,7 +27,7 @@ const runGraphQLServer = async (logger: Logger) => {
   await runUpMigrations(config, pool, logger)
 
   const redisClient = createRedisClient(config)
-  const cache = new RedisCache(redisClient)
+  const cache = new RedisCache(redisClient, 'graphql:', logger)
 
   logger.info('Redis cache enabled')
   redisClient.on('error', (error: unknown) => {
