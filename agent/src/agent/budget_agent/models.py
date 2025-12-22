@@ -17,12 +17,20 @@ class BudgetSnapshot(BaseModel):
     budget: dict[str, Any]
 
 
+class SnapshotResourceTotals(BaseModel):
+    """Resource totals summed across all budget categories for a single snapshot."""
+
+    date: str
+    totals: dict[str, float]
+
+
 class BudgetTimeSeries(BaseModel):
     """Time series budget data for analysis."""
 
     save_filename: str
     dates: list[str]
     snapshots: list[BudgetSnapshot]
+    resource_totals: list[SnapshotResourceTotals] | None = None
 
 
 class ResourceChange(BaseModel):
@@ -54,22 +62,25 @@ class BudgetAnalysisResult(BaseModel):
     summary: str
 
 
-class SustainedDrop(BaseModel):
-    """A resource that has been negative for multiple consecutive periods."""
+class SuddenDrop(BaseModel):
+    """A sudden drop in a resource between first and last datapoint in analysis window."""
 
-    category_name: str
     resource: str
-    consecutive_low_periods: int
-    values: list[float | None]
-    baseline_value: float
+    start_date: str
+    end_date: str
+    start_value: float
+    end_value: float
+    drop_percent: float
+    drop_absolute: float
 
 
-class SustainedDropAnalysisResult(BaseModel):
-    """Result of analyzing sustained resource drops."""
+class SuddenDropAnalysisResult(BaseModel):
+    """Result of analyzing sudden resource drops."""
 
     save_filename: str
     analysis_period_start: str
     analysis_period_end: str
     datapoints_analyzed: int
-    sustained_drops: list[SustainedDrop]
+    drop_threshold_percent: float
+    sudden_drops: list[SuddenDrop]
     summary: str

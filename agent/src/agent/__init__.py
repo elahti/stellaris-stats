@@ -2,14 +2,14 @@ from agent.budget_agent.models import (
     BudgetAnalysisResult,
     BudgetChange,
     ResourceChange,
-    SustainedDrop,
-    SustainedDropAnalysisResult,
+    SuddenDrop,
+    SuddenDropAnalysisResult,
 )
 
 __all__ = [
     "BudgetAnalysisResult",
     "BudgetChange",
     "ResourceChange",
-    "SustainedDrop",
-    "SustainedDropAnalysisResult",
+    "SuddenDrop",
+    "SuddenDropAnalysisResult",
 ]
