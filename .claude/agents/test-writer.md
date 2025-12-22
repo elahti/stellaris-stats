@@ -240,3 +240,134 @@ Before completing any test work, verify:
 - When test data requirements are complex or ambiguous
 
 Your goal is to create a robust, maintainable test suite that gives developers confidence in their code changes and catches regressions before they reach production.
+
+## Python Testing Patterns
+
+When writing Python tests for the budget agent, follow these patterns:
+
+### Required Imports Pattern
+
+```python
+from pathlib import Path
+
+import pytest
+
+from agent.budget_agent.tools import AgentDeps
+from agent.evals.mock_client import (
+    Fixture,
+    MockClient,
+    create_mock_client,
+    load_fixture,
+)
+```
+
+### Standard Test Structure
+
+```python
+class TestFeatureName:
+    def test_returns_expected_result(self) -> None:
+        # Arrange
+        client = MockClient()
+
+        # Act
+        result = some_function(client)
+
+        # Assert
+        assert result == expected_value
+
+    async def test_async_operation(self) -> None:
+        # Async tests work automatically with asyncio_mode = "auto"
+        client = MockClient()
+        result = await async_function(client)
+        assert result is not None
+```
+
+### Using Shared Fixtures (from conftest.py)
+
+```python
+class TestWithFixtures:
+    def test_uses_sample_fixture(
+        self,
+        sample_fixture: Fixture,
+        mock_client_from_fixture: MockClient,
+    ) -> None:
+        # Fixtures are injected by pytest
+        assert sample_fixture.list_saves is not None
+
+    async def test_async_with_fixture(
+        self,
+        mock_client_from_fixture: MockClient,
+    ) -> None:
+        result = await list_saves(mock_client_from_fixture)
+        assert len(result) > 0
+```
+
+### Mocking Generated Types
+
+When Pydantic models have many required fields, use `model_construct` or MagicMock:
+
+```python
+from typing import cast
+from unittest.mock import MagicMock
+
+from agent.graphql_client import GetBudget, GetBudgetSave
+
+def _create_mock_gamestate(date: datetime) -> GetBudgetSaveGamestates:
+    mock = MagicMock(spec=GetBudgetSaveGamestates)
+    mock.date = date
+    return cast(GetBudgetSaveGamestates, mock)
+
+# Or use model_construct to bypass validation
+budget_data = GetBudget.model_construct(
+    save=GetBudgetSave.model_construct(gamestates=[gs]),
+)
+```
+
+### Testing Evaluators
+
+```python
+from unittest.mock import MagicMock
+
+from agent.budget_agent.models import SuddenDropAnalysisResult
+from agent.evals.evaluators.output_quality import NoResourceDrop
+
+def _create_mock_context(output: SuddenDropAnalysisResult) -> MagicMock:
+    ctx: MagicMock = MagicMock()
+    ctx.output = output
+    return ctx
+
+class TestNoResourceDrop:
+    def test_returns_true_when_no_drops(self) -> None:
+        evaluator = NoResourceDrop(resource="energy")
+        result = SuddenDropAnalysisResult(
+            save_filename="test.sav",
+            analysis_period_start="2200-01-01",
+            analysis_period_end="2200-04-01",
+            datapoints_analyzed=4,
+            drop_threshold_percent=30.0,
+            sudden_drops=[],
+            summary="No drops",
+        )
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is True
+        assert evaluation.reason is not None
+```
+
+### Quality Checks for Python Tests
+
+After making Python test changes:
+
+```bash
+npm run typecheck:python  # Verify type safety
+npm run lint:python       # Check linting
+npm run format:python     # Check formatting
+npm run test:python       # Run tests
+```
+
+Or run all at once:
+
+```bash
+npm run typecheck:python && npm run lint:python && npm run format:python && npm run test:ci:python
+```

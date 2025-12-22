@@ -58,4 +58,6 @@ This document lists all dependencies used in the Stellaris Stats project with th
 | Library | Version | Description |
 |---------|---------|-------------|
 | pyright | 1.1.407 | Static type checker for Python |
-| ruff | 0.14.9 | Fast Python linter and code formatter |
+| pytest | 8.3.5 | Testing framework for Python |
+| pytest-asyncio | 0.25.2 | Async test support for pytest |
+| ruff | 0.14.10 | Fast Python linter and code formatter |

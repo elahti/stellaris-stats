@@ -65,7 +65,9 @@
     "lint:typescript": "eslint .",
     "parser:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/parser/parserMain.ts",
     "prepare": "husky",
+    "test:ci:python": "cd agent && uv run pytest -v --tb=short",
     "test:ci:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test",
+    "test:python": "cd agent && uv run pytest -v",
     "test:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test --watch",
     "typecheck:python": "cd agent && uv run pyright"
   }
