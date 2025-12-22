@@ -3,7 +3,7 @@ dependencies = [
   "httpx==0.28.1",
   "logfire==4.16.0",
   "pydantic-ai==1.37.0",
-  "pydantic-evals==1.32.0",
+  "pydantic-evals==1.37.0",
   "pydantic-settings==2.12.0",
 ]
 name = "agent"
@@ -12,9 +12,9 @@ version = "0.1.0"
 
 [project.scripts]
 budget-analyzer = "agent.budget_agent.cli:main"
-budget-evals = "agent.evals.cli:main"
-list-models = "agent.constants:list_models_main"
-list-saves = "agent.budget_agent.cli:list_saves_main"
+budget-evals    = "agent.evals.cli:main"
+list-models     = "agent.constants:list_models_main"
+list-saves      = "agent.budget_agent.cli:list_saves_main"
 
 [build-system]
 build-backend = "uv_build"
@@ -22,15 +22,18 @@ requires      = ["uv_build==0.9.18"]
 
 [dependency-groups]
 dev = [
-    "ariadne-codegen==0.17.0",
-    "pyright==1.1.407",
-    "ruff==0.14.10",
+  "ariadne-codegen==0.17.0",
+  "pyright==1.1.407",
+  "ruff==0.14.10",
 ]
 
 [tool.ruff]
-line-length    = 88
+exclude = [
+  "src/agent/evals/fixtures",
+  "src/agent/graphql_client",
+]
+line-length = 88
 target-version = "py314"
-exclude        = ["src/agent/graphql_client", "src/agent/evals/fixtures"]
 
 [tool.ruff.lint]
 ignore = [
@@ -61,64 +64,67 @@ quote-style               = "double"
 skip-magic-trailing-comma = false
 
 [tool.ariadne-codegen]
-schema_path = "../graphql/schema.graphql"
-queries_path = "queries.graphql"
-target_package_name = "graphql_client"
-target_package_path = "src/agent"
-async_client = true
+async_client          = true
 convert_to_snake_case = true
+queries_path          = "queries.graphql"
+schema_path           = "../graphql/schema.graphql"
+target_package_name   = "graphql_client"
+target_package_path   = "src/agent"
 
 [tool.ariadne-codegen.scalars.DateTimeISO]
 type = "datetime.datetime"
 
 [tool.pyright]
-include                             = ["src", "scripts"]
-exclude                             = ["src/agent/graphql_client", "src/agent/evals/fixtures"]
-pythonVersion                       = "3.14"
-reportAssertAlwaysTrue              = "error"
-reportCallInDefaultInitializer      = "error"
-reportConstantRedefinition          = "error"
-reportDeprecated                    = "error"
-reportDuplicateImport               = "error"
-reportImplicitOverride              = "error"
-reportImplicitStringConcatenation   = "error"
-reportImportCycles                  = "error"
-reportIncompleteStub                = "error"
-reportInconsistentConstructor       = "error"
-reportInvalidStringEscapeSequence   = "error"
-reportInvalidStubStatement          = "error"
-reportInvalidTypeVarUse             = "error"
-reportMatchNotExhaustive            = "error"
-reportMissingModuleSource           = "warning"
-reportMissingParameterType          = "error"
-reportMissingSuperCall              = "error"
-reportMissingTypeArgument           = "error"
-reportMissingTypeStubs              = "error"
-reportPrivateUsage                  = "error"
-reportPropertyTypeMismatch          = "error"
-reportSelfClsParameterName          = "error"
-reportTypeCommentUsage              = "error"
+exclude = [
+  "src/agent/evals/fixtures",
+  "src/agent/graphql_client",
+]
+include = ["scripts", "src"]
+pythonVersion = "3.14"
+reportAssertAlwaysTrue = "error"
+reportCallInDefaultInitializer = "error"
+reportConstantRedefinition = "error"
+reportDeprecated = "error"
+reportDuplicateImport = "error"
+reportImplicitOverride = "error"
+reportImplicitStringConcatenation = "error"
+reportImportCycles = "error"
+reportIncompleteStub = "error"
+reportInconsistentConstructor = "error"
+reportInvalidStringEscapeSequence = "error"
+reportInvalidStubStatement = "error"
+reportInvalidTypeVarUse = "error"
+reportMatchNotExhaustive = "error"
+reportMissingModuleSource = "warning"
+reportMissingParameterType = "error"
+reportMissingSuperCall = "error"
+reportMissingTypeArgument = "error"
+reportMissingTypeStubs = "error"
+reportPrivateUsage = "error"
+reportPropertyTypeMismatch = "error"
+reportSelfClsParameterName = "error"
+reportTypeCommentUsage = "error"
 reportUninitializedInstanceVariable = "error"
-reportUnknownArgumentType           = "error"
-reportUnknownLambdaType             = "error"
-reportUnknownMemberType             = "error"
-reportUnknownParameterType          = "error"
-reportUnknownVariableType           = "error"
-reportUnnecessaryCast               = "error"
-reportUnnecessaryComparison         = "error"
-reportUnnecessaryContains           = "error"
-reportUnnecessaryIsInstance         = "error"
-reportUnnecessaryTypeIgnoreComment  = "error"
-reportUnreachable                   = "error"
-reportUnsupportedDunderAll          = "error"
-reportUntypedBaseClass              = "error"
-reportUntypedClassDecorator         = "error"
-reportUntypedFunctionDecorator      = "error"
-reportUntypedNamedTuple             = "error"
-reportUnusedClass                   = "error"
-reportUnusedExpression              = "error"
-reportUnusedFunction                = "error"
-reportUnusedImport                  = "error"
-reportUnusedVariable                = "error"
-reportWildcardImportFromLibrary     = "error"
-typeCheckingMode                    = "strict"
+reportUnknownArgumentType = "error"
+reportUnknownLambdaType = "error"
+reportUnknownMemberType = "error"
+reportUnknownParameterType = "error"
+reportUnknownVariableType = "error"
+reportUnnecessaryCast = "error"
+reportUnnecessaryComparison = "error"
+reportUnnecessaryContains = "error"
+reportUnnecessaryIsInstance = "error"
+reportUnnecessaryTypeIgnoreComment = "error"
+reportUnreachable = "error"
+reportUnsupportedDunderAll = "error"
+reportUntypedBaseClass = "error"
+reportUntypedClassDecorator = "error"
+reportUntypedFunctionDecorator = "error"
+reportUntypedNamedTuple = "error"
+reportUnusedClass = "error"
+reportUnusedExpression = "error"
+reportUnusedFunction = "error"
+reportUnusedImport = "error"
+reportUnusedVariable = "error"
+reportWildcardImportFromLibrary = "error"
+typeCheckingMode = "strict"
