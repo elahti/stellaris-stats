@@ -17,6 +17,7 @@
       "Bash(git diff:*)",
       "Bash(git log:*)",
       "Bash(git status:*)",
+      "Bash(grep:*)",
       "Bash(jq:*)",
       "Bash(ls:*)",
       "Bash(node --version:*)",
