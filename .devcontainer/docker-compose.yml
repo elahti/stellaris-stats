@@ -30,7 +30,7 @@ services:
       - local-share-uv:/home/vscode/.local/share/uv
 
   db:
-    image: postgres:18
+    image: postgres:18@sha256:38d5c9d522037d8bf0864c9068e4df2f8a60127c6489ab06f98fdeda535560f9
     container_name: stellaris-stats_db
     env_file:
       - .env.db
@@ -40,7 +40,7 @@ services:
       - db-data:/var/lib/postgresql
 
   db-test:
-    image: postgres:18
+    image: postgres:18@sha256:38d5c9d522037d8bf0864c9068e4df2f8a60127c6489ab06f98fdeda535560f9
     container_name: stellaris-stats_db-test
     env_file:
       - .env.db.test
@@ -50,7 +50,7 @@ services:
       - db-test-data:/var/lib/postgresql
 
   redis:
-    image: redis:8.4-alpine
+    image: redis:8.4-alpine@sha256:6cbef353e480a8a6e7f10ec545f13d7d3fa85a212cdcc5ffaf5a1c818b9d3798
     container_name: stellaris-stats_redis
     command: redis-server --appendonly yes --appendfsync everysec
     networks:
@@ -59,7 +59,7 @@ services:
       - redis-data:/data
 
   apollo-mcp-server:
-    image: ghcr.io/apollographql/apollo-mcp-server:v1.3.0
+    image: ghcr.io/apollographql/apollo-mcp-server:v1.3.0@sha256:a78a66c637236d2d72b1ff1fa34a0c7c7f7d2a84b372a2c54bd2eb13655a3dc1
     container_name: stellaris-stats_apollo-mcp-server
     command: ['/apollo-mcp-server.yaml']
     networks:
@@ -76,7 +76,7 @@ services:
       - ALLOWED_ORIGINS=http://localhost:6274
       - DANGEROUSLY_OMIT_AUTH=true
       - HOST=0.0.0.0
-    image: ghcr.io/modelcontextprotocol/inspector:latest
+    image: ghcr.io/modelcontextprotocol/inspector:latest@sha256:d4fda7b69cb8ae4cd9d3ac5b24bea59defc0555b59f90c9b5197c92968f65af1
     networks:
       - stellaris-stats-apollo-mcp-server-network
       - stellaris-stats-mcp-run-python-network
@@ -99,7 +99,7 @@ services:
     container_name: stellaris-stats_grafana
     env_file:
       - .env.grafana
-    image: grafana/grafana:12.4.0-19877932531
+    image: grafana/grafana:12.4.0-19877932531@sha256:e27f65e36eded1507053188f316075e2369c0425c88e9dfc2f7d24e25c6f75af
     networks:
       - stellaris-stats-grafana-network
       - stellaris-stats_prometheus-network
@@ -113,7 +113,7 @@ services:
     env_file:
       - .env.librechat
       - .env.librechat.secrets
-    image: librechat/librechat:v0.8.1-rc2
+    image: librechat/librechat:v0.8.1-rc2@sha256:168c522cb1eaab789dc61cd8e8a2639f8c6c847ccfc22ae0c29bf5a382650464
     networks:
       - stellaris-stats-apollo-mcp-server-network
       - stellaris-stats-librechat-network
@@ -129,7 +129,7 @@ services:
 
   librechat-mongo:
     container_name: stellaris-stats_librechat-mongo
-    image: mongo:8.2.2-noble
+    image: mongo:8.2.2-noble@sha256:0094e1002b7bf122754e8822f103802429b59db70bffce6e1714efa573637c88
     networks:
       - stellaris-stats-librechat-mongo-network
     volumes:
@@ -139,14 +139,14 @@ services:
     container_name: stellaris-stats_librechat-metrics
     env_file:
       - .env.librechat-metrics
-    image: ghcr.io/virtuos/librechat_exporter:2.1.0
+    image: ghcr.io/virtuos/librechat_exporter:2.1.0@sha256:868e92f859f54554206772b863b9f6a5d2357e75334265a4a1918a242a3a724f
     networks:
       - stellaris-stats-librechat-metrics-network
       - stellaris-stats-librechat-mongo-network
 
   prometheus:
     container_name: stellaris-stats_prometheus
-    image: prom/prometheus:v3.8.0
+    image: prom/prometheus:v3.8.0@sha256:d936808bdea528155c0154a922cd42fd75716b8bb7ba302641350f9f3eaeba09
     networks:
       - stellaris-stats-librechat-metrics-network
       - stellaris-stats_prometheus-network

@@ -1,7 +1,7 @@
 [project]
 dependencies = [
   "httpx==0.28.1",
-  "logfire>=3.0.0",
+  "logfire==4.16.0",
   "pydantic-ai==1.32.0",
   "pydantic-evals==1.32.0",
   "pydantic-settings==2.12.0",
