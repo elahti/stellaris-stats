@@ -5,7 +5,8 @@ from agent.budget_agent.models import (
     BudgetSnapshot,
     BudgetTimeSeries,
     SaveInfo,
-    SustainedDropAnalysisResult,
+    SnapshotResourceTotals,
+    SuddenDropAnalysisResult,
 )
 from agent.budget_agent.tools import (
     AgentDeps,
@@ -17,51 +18,96 @@ from agent.budget_agent.tools import (
     select_latest_dates,
 )
 
-CONSECUTIVE_PERIODS_THRESHOLD = 4
-ANALYSIS_DATAPOINTS = CONSECUTIVE_PERIODS_THRESHOLD + 2
+DROP_THRESHOLD_PERCENT = 30.0
+ANALYSIS_DATAPOINTS = 4
 
-_budget_agent: Agent[AgentDeps, SustainedDropAnalysisResult] | None = None
+RESOURCE_FIELDS = [
+    "energy",
+    "minerals",
+    "alloys",
+    "food",
+    "consumerGoods",
+    "influence",
+    "unity",
+    "trade",
+    "physicsResearch",
+    "societyResearch",
+    "engineeringResearch",
+    "exoticGases",
+    "rareCrystals",
+    "volatileMotes",
+    "srDarkMatter",
+    "srLivingMetal",
+    "srZro",
+    "nanites",
+    "minorArtifacts",
+    "astralThreads",
+]
+
+
+def sum_resources_for_snapshot(snapshot: BudgetSnapshot) -> dict[str, float]:
+    """Sum each resource across all budget categories for a single snapshot."""
+    totals: dict[str, float] = dict.fromkeys(RESOURCE_FIELDS, 0.0)
+
+    for category_data in snapshot.budget.values():
+        if category_data is None:
+            continue
+        for resource in RESOURCE_FIELDS:
+            value = category_data.get(resource)
+            if value is not None:
+                totals[resource] += value
+
+    return totals
+
+
+_budget_agent: Agent[AgentDeps, SuddenDropAnalysisResult] | None = None
 
 
 def build_system_prompt() -> str:
-    return f"""You are a Stellaris game statistics analyst specializing in detecting sustained resource drops.
+    return f"""You are a Stellaris game statistics analyst specializing in detecting sudden resource drops.
 
-Your task is to identify resources that have been consistently low or dropping over multiple consecutive time periods.
+Your task is to identify resources that have experienced a significant sudden drop between the first and last datapoints in the analysis window.
 
 ## Workflow
 1. If no save is specified, use get_available_saves to list available saves
-2. Use get_budget_time_series to fetch the latest {ANALYSIS_DATAPOINTS} budget snapshots
-3. Analyze the time series data to identify sustained drops
+2. Use get_budget_time_series to fetch the latest {ANALYSIS_DATAPOINTS} budget snapshots with summed resource totals
+3. Analyze the resource totals to identify sudden drops
 
 ## Analysis Instructions
-When you receive budget time series data:
+When you receive budget time series data with resource_totals:
 
-1. For each resource in the balance categories, examine the {ANALYSIS_DATAPOINTS} values over time
-2. Identify "sustained drops" where:
-   - The resource balance has been NEGATIVE (< 0) for {CONSECUTIVE_PERIODS_THRESHOLD} or more consecutive RECENT periods
-   - Only look at the most recent periods (if last {CONSECUTIVE_PERIODS_THRESHOLD}+ values are negative, it's a sustained drop)
-3. Focus only on DROPS (negative balances), not spikes (positive changes)
-4. Ignore resources that:
-   - Have been at 0 throughout the series
-   - Are occasionally negative but recover
-   - Have only recently started dropping (< {CONSECUTIVE_PERIODS_THRESHOLD} consecutive periods)
+1. The resource_totals contain each resource SUMMED ACROSS ALL budget categories for each snapshot
+2. Compare the FIRST snapshot (oldest, D1) directly to the LAST snapshot (newest, D4)
+3. For each resource, calculate the percentage drop from D1 to D4
+4. A "sudden drop" is when a resource drops by {DROP_THRESHOLD_PERCENT}% or more from D1 to D4
+5. Only flag DROPS (negative changes), not increases
 
-## Sustained Drop Detection Logic
-- Compare each resource's values across the {ANALYSIS_DATAPOINTS} datapoints (ordered oldest to newest)
-- A sustained drop is when the last {CONSECUTIVE_PERIODS_THRESHOLD}, {CONSECUTIVE_PERIODS_THRESHOLD + 1}, or all {ANALYSIS_DATAPOINTS} values are negative
-- The severity is determined by how many consecutive periods and how negative
+## Sudden Drop Detection Logic
+- For each resource, compare value at D1 (first/oldest) with value at D4 (last/newest)
+- Calculate: drop_percent = ((D1_value - D4_value) / abs(D1_value)) * 100
+- If drop_percent >= {DROP_THRESHOLD_PERCENT}, it's a sudden drop
+- Handle edge cases:
+  - If D1 value is 0 or very close to 0, skip percentage calculation
+  - If both values are 0, no drop
+  - Negative to more negative is NOT a drop (getting worse but in same direction)
+
+## Important Considerations
+- Focus on NET balance changes (the totals are already net of income and expenses)
+- A resource going from +100 to +70 is a 30% drop
+- A resource going from -100 to -130 is NOT a drop (getting worse but in same direction)
+- A resource going from +100 to -50 is a significant drop
 
 ## Context
-The game starts on January 1, 2200. You are analyzing the {ANALYSIS_DATAPOINTS} most recent budget snapshots to detect ongoing resource problems."""
+The game starts on January 1, 2200. You are analyzing the {ANALYSIS_DATAPOINTS} most recent budget snapshots to detect sudden resource problems."""
 
 
-def get_budget_agent() -> Agent[AgentDeps, SustainedDropAnalysisResult]:
+def get_budget_agent() -> Agent[AgentDeps, SuddenDropAnalysisResult]:
     global _budget_agent
     if _budget_agent is None:
         _budget_agent = Agent(
             "openai:gpt-5.2-2025-12-11",
             deps_type=AgentDeps,
-            output_type=NativeOutput(SustainedDropAnalysisResult),
+            output_type=NativeOutput(SuddenDropAnalysisResult),
             system_prompt=build_system_prompt(),
         )
         _register_tools(_budget_agent)
@@ -78,10 +124,10 @@ async def _get_budget_time_series(
     ctx: RunContext[AgentDeps],
     save_filename: str,
 ) -> BudgetTimeSeries | str:
-    """Fetch budget time series data for the latest datapoints.
+    """Fetch budget time series data with summed resource totals for the latest datapoints.
 
-    Returns budget balance data for the most recent dates to analyze trends.
-    You must analyze this data to identify sustained resource drops.
+    Returns budget balance data with resource totals summed across all categories.
+    Use the resource_totals to identify sudden drops by comparing D1 (first) to D4 (last).
 
     Args:
         ctx: The run context containing dependencies.
@@ -112,14 +158,23 @@ async def _get_budget_time_series(
         for gs in gamestates
     ]
 
+    resource_totals = [
+        SnapshotResourceTotals(
+            date=snapshot.date,
+            totals=sum_resources_for_snapshot(snapshot),
+        )
+        for snapshot in snapshots
+    ]
+
     return BudgetTimeSeries(
         save_filename=save_filename,
         dates=selected_dates,
         snapshots=snapshots,
+        resource_totals=resource_totals,
     )
 
 
-def _register_tools(agent: Agent[AgentDeps, SustainedDropAnalysisResult]) -> None:
+def _register_tools(agent: Agent[AgentDeps, SuddenDropAnalysisResult]) -> None:
     agent.tool(_get_available_saves)
     agent.tool(_get_budget_time_series)
 
@@ -127,9 +182,9 @@ def _register_tools(agent: Agent[AgentDeps, SustainedDropAnalysisResult]) -> Non
 def build_analysis_prompt(save_filename: str) -> str:
     return (
         f"Fetch and analyze the budget for save '{save_filename}'. "
-        f"Use get_budget_time_series to get the latest {ANALYSIS_DATAPOINTS} budget snapshots, then analyze them. "
-        f"Identify any resources with sustained negative balances ({CONSECUTIVE_PERIODS_THRESHOLD}+ consecutive periods). "
-        f"Return the analysis result with a summary of sustained drops."
+        f"Use get_budget_time_series to get the latest {ANALYSIS_DATAPOINTS} budget snapshots with summed resource totals. "
+        f"Compare the first (D1) and last (D4) datapoints to identify any resources with sudden drops of {DROP_THRESHOLD_PERCENT}% or more. "
+        f"Return the analysis result with a summary of sudden drops found."
     )
 
 
@@ -137,7 +192,7 @@ async def run_budget_analysis(
     save_filename: str,
     deps: AgentDeps | None = None,
     model_name: str | None = None,
-) -> AgentRunResult[SustainedDropAnalysisResult]:
+) -> AgentRunResult[SuddenDropAnalysisResult]:
     """Run budget analysis for a specific save file.
 
     Args:

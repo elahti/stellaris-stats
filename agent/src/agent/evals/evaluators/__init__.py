@@ -1,7 +1,7 @@
 from agent.evals.evaluators.output_quality import (
-    NoFalsePositives,
+    NoResourceDrop,
 )
 
 __all__ = [
-    "NoFalsePositives",
+    "NoResourceDrop",
 ]

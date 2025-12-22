@@ -7,7 +7,7 @@ from typing import Any
 import logfire
 from pydantic_evals import Dataset
 
-from agent.budget_agent.models import SustainedDropAnalysisResult
+from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.constants import AVAILABLE_MODELS
 from agent.evals.datasets.stable_budget_balance import (
     create_stable_budget_balance_dataset,
@@ -17,7 +17,7 @@ from agent.settings import Settings
 
 DatasetFactory = Callable[
     [],
-    Dataset[EvalInputs, SustainedDropAnalysisResult, dict[str, Any]],
+    Dataset[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
 ]
 
 AVAILABLE_DATASETS: dict[str, DatasetFactory] = {

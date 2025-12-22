@@ -5,7 +5,7 @@ from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
 from agent.budget_agent.agent import build_analysis_prompt, get_budget_agent
-from agent.budget_agent.models import SustainedDropAnalysisResult
+from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.budget_agent.tools import AgentDeps
 from agent.evals.mock_client import create_mock_client, load_fixture
 
@@ -18,7 +18,7 @@ class EvalInputs(TypedDict):
 async def run_budget_eval(
     inputs: EvalInputs,
     model_name: str | None = None,
-) -> SustainedDropAnalysisResult:
+) -> SuddenDropAnalysisResult:
     fixture = load_fixture(inputs["fixture_path"])
     mock_client = create_mock_client(fixture)
     deps = AgentDeps(client=mock_client)
@@ -40,7 +40,7 @@ def create_eval_task(
 ):
     async def eval_task(
         inputs: EvalInputs,
-    ) -> SustainedDropAnalysisResult:
+    ) -> SuddenDropAnalysisResult:
         return await run_budget_eval(inputs, model_name=model_name)
 
     if experiment_name:
@@ -50,10 +50,10 @@ def create_eval_task(
 
 
 async def run_evals(
-    dataset: Dataset[EvalInputs, SustainedDropAnalysisResult, dict[str, Any]],
+    dataset: Dataset[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
     model_name: str | None = None,
     experiment_name: str | None = None,
-) -> EvaluationReport[EvalInputs, SustainedDropAnalysisResult, dict[str, Any]]:
+) -> EvaluationReport[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx()

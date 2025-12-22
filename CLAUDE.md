@@ -130,7 +130,7 @@ Keep synchronized when changing:
 
 **Parser**: Interval-based ZIP extraction → Jomini parsing → PostgreSQL JSONB. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#parser-system).
 
-**Budget Agent**: pydantic-ai agent comparing budget snapshots ~1 year apart. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#budget-analysis-agent).
+**Budget Agent**: pydantic-ai agent detecting sudden resource drops (30%+ over 4 datapoints). See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#budget-analysis-agent).
 
 ## Claude-Specific
 

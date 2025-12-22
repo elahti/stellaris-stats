@@ -1,9 +1,11 @@
 from agent.budget_agent.agent import (
     ANALYSIS_DATAPOINTS,
-    CONSECUTIVE_PERIODS_THRESHOLD,
+    DROP_THRESHOLD_PERCENT,
+    RESOURCE_FIELDS,
     build_analysis_prompt,
     get_budget_agent,
     run_budget_analysis,
+    sum_resources_for_snapshot,
 )
 from agent.budget_agent.models import (
     BudgetAnalysisResult,
@@ -12,8 +14,9 @@ from agent.budget_agent.models import (
     BudgetTimeSeries,
     ResourceChange,
     SaveInfo,
-    SustainedDrop,
-    SustainedDropAnalysisResult,
+    SnapshotResourceTotals,
+    SuddenDrop,
+    SuddenDropAnalysisResult,
 )
 from agent.budget_agent.tools import (
     AgentDeps,
@@ -23,7 +26,8 @@ from agent.budget_agent.tools import (
 
 __all__ = [
     "ANALYSIS_DATAPOINTS",
-    "CONSECUTIVE_PERIODS_THRESHOLD",
+    "DROP_THRESHOLD_PERCENT",
+    "RESOURCE_FIELDS",
     "AgentDeps",
     "BudgetAnalysisResult",
     "BudgetChange",
@@ -32,10 +36,12 @@ __all__ = [
     "GraphQLClientProtocol",
     "ResourceChange",
     "SaveInfo",
-    "SustainedDrop",
-    "SustainedDropAnalysisResult",
+    "SnapshotResourceTotals",
+    "SuddenDrop",
+    "SuddenDropAnalysisResult",
     "build_analysis_prompt",
     "create_deps",
     "get_budget_agent",
     "run_budget_analysis",
+    "sum_resources_for_snapshot",
 ]

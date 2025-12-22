@@ -7,32 +7,66 @@ from pydantic_evals.evaluators import (
     EvaluatorContext,
 )
 
-from agent.budget_agent.models import SustainedDropAnalysisResult
+from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.evals.runner import EvalInputs
 
 
 @dataclass
-class NoFalsePositives(
-    Evaluator[EvalInputs, SustainedDropAnalysisResult, dict[str, Any]],
+class NoResourceDrop(
+    Evaluator[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
 ):
-    healthy_resources: list[str]
+    resource: str
 
     @override
     def evaluate(
         self,
-        ctx: EvaluatorContext[EvalInputs, SustainedDropAnalysisResult, dict[str, Any]],
+        ctx: EvaluatorContext[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
     ) -> EvaluationReason:
         output = ctx.output
-        detected_resources = {drop.resource for drop in output.sustained_drops}
+        drops = [drop for drop in output.sudden_drops if drop.resource == self.resource]
 
-        false_positives = [r for r in self.healthy_resources if r in detected_resources]
-        if false_positives:
+        if drops:
+            drop = drops[0]
             return EvaluationReason(
                 value=False,
-                reason=f"False positives detected for healthy resources: {false_positives}",
+                reason=f"{self.resource} drop detected: {drop.drop_percent:.1f}% from {drop.start_value:.2f} to {drop.end_value:.2f}",
             )
 
         return EvaluationReason(
             value=True,
-            reason=f"No false positives. Healthy resources correctly not flagged: {self.healthy_resources}",
+            reason=f"No {self.resource} drops detected",
+        )
+
+
+@dataclass
+class ResourceDrop(
+    Evaluator[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
+):
+    resource: str
+    min_drop_percent: float
+
+    @override
+    def evaluate(
+        self,
+        ctx: EvaluatorContext[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
+    ) -> EvaluationReason:
+        output = ctx.output
+        drops = [drop for drop in output.sudden_drops if drop.resource == self.resource]
+
+        if not drops:
+            return EvaluationReason(
+                value=False,
+                reason=f"No {self.resource} drop detected, expected drop >= {self.min_drop_percent:.1f}%",
+            )
+
+        drop = drops[0]
+        if drop.drop_percent >= self.min_drop_percent:
+            return EvaluationReason(
+                value=True,
+                reason=f"{self.resource} drop detected: {drop.drop_percent:.1f}% (>= {self.min_drop_percent:.1f}%)",
+            )
+
+        return EvaluationReason(
+            value=False,
+            reason=f"{self.resource} drop {drop.drop_percent:.1f}% is below expected {self.min_drop_percent:.1f}%",
         )

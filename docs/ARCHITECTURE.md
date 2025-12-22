@@ -362,42 +362,43 @@ CREATE TABLE gamestate (
 
 ## Budget Analysis Agent
 
-The budget analysis agent is a Python-based AI agent that analyzes Stellaris empire budget data to identify sudden changes in resource production.
+The budget analysis agent is a Python-based AI agent that analyzes Stellaris empire budget data to detect sudden resource drops.
 
 ### Agent Architecture
 
 #### Components
 
-- **Budget Agent** (`agent/src/agent/budget_agent.py`): Main agent using Claude Sonnet 4 model
-- **Tools** (`agent/src/agent/tools.py`): GraphQL data fetching and analysis functions
-- **Models** (`agent/src/agent/models.py`): Pydantic models for structured outputs
+- **Budget Agent** (`agent/src/agent/budget_agent/agent.py`): Main agent with sudden drop detection
+- **Tools** (`agent/src/agent/budget_agent/tools.py`): GraphQL data fetching and analysis functions
+- **Models** (`agent/src/agent/budget_agent/models.py`): Pydantic models for structured outputs
 - **CLI** (`agent/src/agent/cli.py`): Command-line interface entry point
 
 #### Data Flow
 
-1. User invokes CLI with save filename and optional threshold
-2. Agent fetches available dates from GraphQL API
-3. Finds comparison dates (latest vs ~1 year prior)
-4. Fetches budget balance data for both dates
-5. Compares all budget categories and resources
-6. Returns structured result with changes exceeding threshold
+1. User invokes CLI with save filename
+2. Agent fetches the 4 most recent budget snapshots from GraphQL API
+3. For each snapshot, sums resource values across all budget categories
+4. Compares resource totals between first (D1) and last (D4) snapshots
+5. Flags resources with 30%+ drops as sudden drops
+6. Returns structured result with detected sudden drops
 
 #### Configuration
 
-- **Default Threshold**: 15% change triggers detection
-- **Comparison Scope**: Latest date vs approximately 1 year prior
-- **Model**: `anthropic:claude-sonnet-4-5-20250929`
+- **Drop Threshold**: 30% drop triggers detection
+- **Analysis Window**: 4 most recent datapoints (D1 to D4 comparison)
+- **Model**: `openai:gpt-5.2-2025-12-11`
 - **API Key**: `ANTHROPIC_API_KEY` or `STELLARIS_STATS_ANTHROPIC_API_KEY` environment variable (loaded via dotenvx from `.env.stellaris-stats.secrets`)
 
 #### Structured Output
 
 ```python
-class BudgetAnalysisResult(BaseModel):
+class SuddenDropAnalysisResult(BaseModel):
     save_filename: str
-    previous_date: str
-    current_date: str
-    threshold_percent: float
-    sudden_changes: list[BudgetChange]
+    analysis_period_start: str
+    analysis_period_end: str
+    datapoints_analyzed: int
+    drop_threshold_percent: float
+    sudden_drops: list[SuddenDrop]
     summary: str
 ```
 
