@@ -24,6 +24,8 @@ requires      = ["uv_build==0.9.18"]
 dev = [
   "ariadne-codegen==0.17.0",
   "pyright==1.1.407",
+  "pytest==8.3.5",
+  "pytest-asyncio==0.25.2",
   "ruff==0.14.10",
 ]
 
@@ -79,7 +81,7 @@ exclude = [
   "src/agent/evals/fixtures",
   "src/agent/graphql_client",
 ]
-include = ["scripts", "src"]
+include = ["scripts", "src", "tests"]
 pythonVersion = "3.14"
 reportAssertAlwaysTrue = "error"
 reportCallInDefaultInitializer = "error"
@@ -128,3 +130,9 @@ reportUnusedImport = "error"
 reportUnusedVariable = "error"
 reportWildcardImportFromLibrary = "error"
 typeCheckingMode = "strict"
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"
+asyncio_mode = "auto"
+filterwarnings = ["error", "ignore::DeprecationWarning"]
+testpaths = ["tests"]

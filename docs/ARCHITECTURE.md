@@ -432,3 +432,52 @@ npm run agent:evals -- --list-models
 1. Create fixture using `npm run agent:generate-fixture`
 2. Add dataset file in `agent/src/agent/evals/datasets/`
 3. Register in `agent/src/agent/evals/cli.py` AVAILABLE_DATASETS
+
+### Python Unit Testing
+
+The Python agent includes pytest-based unit tests for testing business logic without requiring API keys or network access.
+
+#### Test Structure
+
+- **Location**: `agent/tests/`
+- **Framework**: pytest with pytest-asyncio for async support
+- **Command**: `npm run test:python` (verbose) or `npm run test:ci:python` (CI mode)
+
+#### Test Files
+
+| File | Purpose |
+|------|---------|
+| `test_tools.py` | Pure function tests: `select_latest_dates()`, `get_gamestates_for_dates()` |
+| `test_agent_functions.py` | Agent logic: `sum_resources_for_snapshot()`, prompt builders |
+| `test_models.py` | Pydantic model validation |
+| `test_mock_client.py` | MockClient and fixture loading tests |
+| `test_evaluators.py` | NoResourceDrop/ResourceDrop evaluator logic |
+| `test_tools_async.py` | Async functions: `get_available_dates()`, `list_saves()` |
+
+#### Configuration
+
+**pytest.ini_options in `agent/pyproject.toml`:**
+```toml
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"
+asyncio_mode = "auto"
+filterwarnings = ["error", "ignore::DeprecationWarning"]
+testpaths = ["tests"]
+```
+
+#### Shared Fixtures (`agent/tests/conftest.py`)
+
+- `empty_mock_client`: Empty MockClient instance
+- `sample_fixture_path`: Path to stable_energy_balance.json
+- `sample_fixture`: Loaded Fixture from JSON
+- `mock_client_from_fixture`: MockClient populated with fixture data
+- `agent_deps`: AgentDeps with mock client
+
+#### Mocking Strategy
+
+Uses existing mock infrastructure from evals:
+- `MockClient`: Dataclass-based mock implementing `GraphQLClientProtocol`
+- `load_fixture()`: Loads JSON fixtures with GraphQL response data
+- `create_mock_client()`: Creates MockClient from loaded fixture
+
+This approach allows testing agent tools and logic without network calls or API keys.

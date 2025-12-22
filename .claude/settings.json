@@ -35,6 +35,7 @@
       "Bash(npm run graphql:codegen:python:*)",
       "Bash(npm run lint:python:*)",
       "Bash(npm run lint:typescript:*)",
+      "Bash(npm run test:ci:python:*)",
       "Bash(npm run test:ci:typescript:*)",
       "Bash(npm run typecheck:python:*)",
       "Bash(npm test:*)",
