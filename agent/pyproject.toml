@@ -24,7 +24,7 @@ requires      = ["uv_build==0.9.17"]
 dev = [
     "ariadne-codegen==0.17.0",
     "pyright==1.1.407",
-    "ruff==0.14.9",
+    "ruff==0.14.10",
 ]
 
 [tool.ruff]
