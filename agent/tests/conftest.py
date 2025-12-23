@@ -20,7 +20,7 @@ def empty_mock_client() -> MockClient:
 
 @pytest.fixture
 def sample_fixture_path() -> Path:
-    return FIXTURES_DIR / "stable_budget_balance" / "stable_energy_balance.json"
+    return FIXTURES_DIR / "sudden_drop_detection" / "stable_energy_balance.json"
 
 
 @pytest.fixture
