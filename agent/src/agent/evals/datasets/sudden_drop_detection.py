@@ -19,22 +19,22 @@ def create_sudden_drop_detection_dataset() -> Dataset[
     SuddenDropAnalysisResult,
     dict[str, Any],
 ]:
-    stable_energy_inputs: EvalInputs = {
+    trade_drop_inputs: EvalInputs = {
         "save_filename": "commonwealthofman_1251622081",
-        "fixture_path": str(FIXTURES_DIR / "stable_energy_balance.json"),
+        "fixture_path": str(FIXTURES_DIR / "trade_drop_only.json"),
     }
 
-    sudden_energy_drop_inputs: EvalInputs = {
+    energy_and_alloys_drop_inputs: EvalInputs = {
         "save_filename": "commonwealthofman_1251622081",
-        "fixture_path": str(FIXTURES_DIR / "sudden_energy_drop.json"),
+        "fixture_path": str(FIXTURES_DIR / "energy_and_alloys_drop.json"),
     }
 
     cases: list[CaseType] = [
         Case(
-            name="stable_energy_balance",
-            inputs=stable_energy_inputs,
+            name="trade_drop_only",
+            inputs=trade_drop_inputs,
             metadata={
-                "description": "Stable energy balance dataset with no sudden drops",
+                "description": "Dataset with 100% trade drop, all other resources stable",
             },
             evaluators=(
                 NoResourceDrop(resource="alloys"),
@@ -60,13 +60,13 @@ def create_sudden_drop_detection_dataset() -> Dataset[
             ),
         ),
         Case(
-            name="sudden_energy_drop",
-            inputs=sudden_energy_drop_inputs,
+            name="energy_and_alloys_drop",
+            inputs=energy_and_alloys_drop_inputs,
             metadata={
-                "description": "Dataset with a sudden energy drop that should be detected",
+                "description": "Dataset with 30%+ drops in energy and alloys",
             },
             evaluators=(
-                NoResourceDrop(resource="alloys"),
+                ResourceDrop(resource="alloys", min_drop_percent=30.0),
                 NoResourceDrop(resource="astralThreads"),
                 NoResourceDrop(resource="consumerGoods"),
                 ResourceDrop(resource="energy", min_drop_percent=30.0),
@@ -85,7 +85,7 @@ def create_sudden_drop_detection_dataset() -> Dataset[
                 NoResourceDrop(resource="srZro"),
                 NoResourceDrop(resource="unity"),
                 NoResourceDrop(resource="volatileMotes"),
-                ResourceDrop(resource="trade", min_drop_percent=100.0),
+                NoResourceDrop(resource="trade"),
             ),
         ),
     ]
