@@ -3,6 +3,7 @@ AVAILABLE_MODELS = [
     "anthropic:claude-sonnet-4-5-20250929",
     "openai-responses:gpt-5.2-2025-12-11",
     "openai-responses:gpt-5-mini-2025-08-07",
+    "openai-responses:gpt-5-nano-2025-08-07",
     "openai-responses:gpt-5.1-codex-max",
 ]
 
