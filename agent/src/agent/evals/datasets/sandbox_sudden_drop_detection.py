@@ -1,0 +1,102 @@
+from pathlib import Path
+from typing import Any, cast
+
+from pydantic_evals import Case, Dataset
+from pydantic_evals.evaluators import Evaluator, IsInstance, MaxDuration
+
+from agent.budget_agent.models import SuddenDropAnalysisResult
+from agent.evals.evaluators.output_quality import NoResourceDrop, ResourceDrop
+from agent.evals.sandbox_runner import SandboxEvalInputs
+
+FIXTURES_DIR = Path(__file__).parent.parent / "fixtures" / "sudden_drop_detection"
+
+CaseType = Case[SandboxEvalInputs, SuddenDropAnalysisResult, dict[str, Any]]
+EvaluatorType = Evaluator[SandboxEvalInputs, SuddenDropAnalysisResult, dict[str, Any]]
+
+
+def create_sandbox_sudden_drop_detection_dataset() -> Dataset[
+    SandboxEvalInputs,
+    SuddenDropAnalysisResult,
+    dict[str, Any],
+]:
+    trade_drop_inputs: SandboxEvalInputs = {
+        "save_filename": "commonwealthofman_1251622081",
+        "fixture_path": str(FIXTURES_DIR / "trade_drop_only.json"),
+    }
+
+    energy_and_alloys_drop_inputs: SandboxEvalInputs = {
+        "save_filename": "commonwealthofman_1251622081",
+        "fixture_path": str(FIXTURES_DIR / "energy_and_alloys_drop.json"),
+    }
+
+    cases: list[CaseType] = [
+        Case(
+            name="trade_drop_only",
+            inputs=trade_drop_inputs,
+            metadata={
+                "description": "Dataset with 100% trade drop, all other resources stable",
+            },
+            evaluators=(
+                NoResourceDrop(resource="alloys"),
+                NoResourceDrop(resource="astralThreads"),
+                NoResourceDrop(resource="consumerGoods"),
+                NoResourceDrop(resource="energy"),
+                NoResourceDrop(resource="engineeringResearch"),
+                NoResourceDrop(resource="exoticGases"),
+                NoResourceDrop(resource="food"),
+                NoResourceDrop(resource="influence"),
+                NoResourceDrop(resource="minerals"),
+                NoResourceDrop(resource="minorArtifacts"),
+                NoResourceDrop(resource="nanites"),
+                NoResourceDrop(resource="physicsResearch"),
+                NoResourceDrop(resource="rareCrystals"),
+                NoResourceDrop(resource="societyResearch"),
+                NoResourceDrop(resource="srDarkMatter"),
+                NoResourceDrop(resource="srLivingMetal"),
+                NoResourceDrop(resource="srZro"),
+                NoResourceDrop(resource="unity"),
+                NoResourceDrop(resource="volatileMotes"),
+                ResourceDrop(resource="trade", min_drop_percent=100.0),
+            ),
+        ),
+        Case(
+            name="energy_and_alloys_drop",
+            inputs=energy_and_alloys_drop_inputs,
+            metadata={
+                "description": "Dataset with 30%+ drops in energy and alloys",
+            },
+            evaluators=(
+                ResourceDrop(resource="alloys", min_drop_percent=30.0),
+                NoResourceDrop(resource="astralThreads"),
+                NoResourceDrop(resource="consumerGoods"),
+                ResourceDrop(resource="energy", min_drop_percent=30.0),
+                NoResourceDrop(resource="engineeringResearch"),
+                NoResourceDrop(resource="exoticGases"),
+                NoResourceDrop(resource="food"),
+                NoResourceDrop(resource="influence"),
+                NoResourceDrop(resource="minerals"),
+                NoResourceDrop(resource="minorArtifacts"),
+                NoResourceDrop(resource="nanites"),
+                NoResourceDrop(resource="physicsResearch"),
+                NoResourceDrop(resource="rareCrystals"),
+                NoResourceDrop(resource="societyResearch"),
+                NoResourceDrop(resource="srDarkMatter"),
+                NoResourceDrop(resource="srLivingMetal"),
+                NoResourceDrop(resource="srZro"),
+                NoResourceDrop(resource="unity"),
+                NoResourceDrop(resource="volatileMotes"),
+                NoResourceDrop(resource="trade"),
+            ),
+        ),
+    ]
+
+    global_evaluators: tuple[EvaluatorType, ...] = (
+        cast(EvaluatorType, IsInstance(type_name="SuddenDropAnalysisResult")),
+        cast(EvaluatorType, MaxDuration(seconds=180.0)),
+    )
+
+    return Dataset(
+        name="sandbox_sudden_drop_detection",
+        cases=cases,
+        evaluators=global_evaluators,
+    )

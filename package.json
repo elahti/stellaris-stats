@@ -47,6 +47,7 @@
   "scripts": {
     "agent:analyze": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run budget-analyzer",
     "agent:evals": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run budget-evals",
+    "agent:sandbox-analyze": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run sandbox-budget-analyzer",
     "agent:generate-fixture": "cd agent && uv run python scripts/generate_fixture.py",
     "agent:list-models": "cd agent && uv run list-models",
     "agent:list-saves": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run list-saves",

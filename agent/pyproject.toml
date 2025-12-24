@@ -11,10 +11,11 @@ requires-python = "==3.14.2"
 version = "0.1.0"
 
 [project.scripts]
-budget-analyzer = "agent.budget_agent.cli:main"
-budget-evals    = "agent.evals.cli:main"
-list-models     = "agent.constants:list_models_main"
-list-saves      = "agent.budget_agent.cli:list_saves_main"
+budget-analyzer         = "agent.budget_agent.cli:main"
+budget-evals            = "agent.evals.cli:main"
+list-models             = "agent.constants:list_models_main"
+list-saves              = "agent.budget_agent.cli:list_saves_main"
+sandbox-budget-analyzer = "agent.sandbox_budget_agent.cli:main"
 
 [build-system]
 build-backend = "uv_build"
