@@ -25,7 +25,7 @@
       "Bash(npm info:*)",
       "Bash(npm install:*)",
       "Bash(npm outdated:*)",
-      "Bash(npm run agent:analyze:*)",
+      "Bash(npm run agent:evals:*)",
       "Bash(npm run agent:list-models:*)",
       "Bash(npm run agent:list-saves:*)",
       "Bash(npm run build:*)",
