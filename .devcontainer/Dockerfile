@@ -93,4 +93,4 @@ WORKDIR /app
 
 ENTRYPOINT ["uv", "run", "mcp-run-python"]
 EXPOSE 4002
-CMD ["--port=4002", "--verbose", "--deps", "requests", "streamable-http-stateless"]
+CMD ["--port=4002", "--verbose", "--deps", "requests,httpx", "streamable-http-stateless"]
