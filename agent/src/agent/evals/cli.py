@@ -9,8 +9,8 @@ from pydantic_evals import Dataset
 
 from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.constants import AVAILABLE_MODELS
-from agent.evals.datasets.stable_budget_balance import (
-    create_stable_budget_balance_dataset,
+from agent.evals.datasets.sudden_drop_detection import (
+    create_sudden_drop_detection_dataset,
 )
 from agent.evals.runner import EvalInputs, run_evals
 from agent.settings import Settings
@@ -21,7 +21,7 @@ DatasetFactory = Callable[
 ]
 
 AVAILABLE_DATASETS: dict[str, DatasetFactory] = {
-    "stable_budget_balance": create_stable_budget_balance_dataset,
+    "sudden_drop_detection": create_sudden_drop_detection_dataset,
 }
 
 
@@ -50,8 +50,8 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  budget-evals --dataset stable_budget_balance
-  budget-evals --dataset stable_budget_balance --model openai:gpt-5.2-2025-12-11
+  budget-evals --dataset sudden_drop_detection
+  budget-evals --dataset sudden_drop_detection --model openai:gpt-5.2-2025-12-11
   budget-evals --list-datasets
         """,
     )

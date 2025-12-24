@@ -416,13 +416,13 @@ The agent includes a pydantic-evals based evaluation framework for testing agent
 
 #### Available Datasets
 
-- `stable_budget_balance`: Tests that stable resources don't trigger false positive drops
+- `sudden_drop_detection`: Tests detection of sudden resource drops and absence of false positives
 
 #### Running Evals
 
 ```bash
-npm run agent:evals -- --dataset stable_budget_balance
-npm run agent:evals -- --dataset stable_budget_balance --model anthropic:claude-haiku-3-5-20241022
+npm run agent:evals -- --dataset sudden_drop_detection
+npm run agent:evals -- --dataset sudden_drop_detection --model anthropic:claude-haiku-3-5-20241022
 npm run agent:evals -- --list-datasets
 npm run agent:evals -- --list-models
 ```

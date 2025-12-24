@@ -8,28 +8,33 @@ from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.evals.evaluators.output_quality import NoResourceDrop, ResourceDrop
 from agent.evals.runner import EvalInputs
 
-FIXTURES_DIR = Path(__file__).parent.parent / "fixtures" / "stable_budget_balance"
+FIXTURES_DIR = Path(__file__).parent.parent / "fixtures" / "sudden_drop_detection"
 
 CaseType = Case[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]]
 EvaluatorType = Evaluator[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]]
 
 
-def create_stable_budget_balance_dataset() -> Dataset[
+def create_sudden_drop_detection_dataset() -> Dataset[
     EvalInputs,
     SuddenDropAnalysisResult,
     dict[str, Any],
 ]:
-    stable_energy_inputs: EvalInputs = {
+    trade_drop_inputs: EvalInputs = {
         "save_filename": "commonwealthofman_1251622081",
-        "fixture_path": str(FIXTURES_DIR / "stable_energy_balance.json"),
+        "fixture_path": str(FIXTURES_DIR / "trade_drop_only.json"),
+    }
+
+    energy_and_alloys_drop_inputs: EvalInputs = {
+        "save_filename": "commonwealthofman_1251622081",
+        "fixture_path": str(FIXTURES_DIR / "energy_and_alloys_drop.json"),
     }
 
     cases: list[CaseType] = [
         Case(
-            name="stable_energy_balance",
-            inputs=stable_energy_inputs,
+            name="trade_drop_only",
+            inputs=trade_drop_inputs,
             metadata={
-                "description": "Stable energy balance dataset with no sudden drops",
+                "description": "Dataset with 100% trade drop, all other resources stable",
             },
             evaluators=(
                 NoResourceDrop(resource="alloys"),
@@ -54,6 +59,35 @@ def create_stable_budget_balance_dataset() -> Dataset[
                 ResourceDrop(resource="trade", min_drop_percent=100.0),
             ),
         ),
+        Case(
+            name="energy_and_alloys_drop",
+            inputs=energy_and_alloys_drop_inputs,
+            metadata={
+                "description": "Dataset with 30%+ drops in energy and alloys",
+            },
+            evaluators=(
+                ResourceDrop(resource="alloys", min_drop_percent=30.0),
+                NoResourceDrop(resource="astralThreads"),
+                NoResourceDrop(resource="consumerGoods"),
+                ResourceDrop(resource="energy", min_drop_percent=30.0),
+                NoResourceDrop(resource="engineeringResearch"),
+                NoResourceDrop(resource="exoticGases"),
+                NoResourceDrop(resource="food"),
+                NoResourceDrop(resource="influence"),
+                NoResourceDrop(resource="minerals"),
+                NoResourceDrop(resource="minorArtifacts"),
+                NoResourceDrop(resource="nanites"),
+                NoResourceDrop(resource="physicsResearch"),
+                NoResourceDrop(resource="rareCrystals"),
+                NoResourceDrop(resource="societyResearch"),
+                NoResourceDrop(resource="srDarkMatter"),
+                NoResourceDrop(resource="srLivingMetal"),
+                NoResourceDrop(resource="srZro"),
+                NoResourceDrop(resource="unity"),
+                NoResourceDrop(resource="volatileMotes"),
+                NoResourceDrop(resource="trade"),
+            ),
+        ),
     ]
 
     global_evaluators: tuple[EvaluatorType, ...] = (
@@ -62,7 +96,7 @@ def create_stable_budget_balance_dataset() -> Dataset[
     )
 
     return Dataset(
-        name="stable_budget_balance_eval",
+        name="sudden_drop_detection",
         cases=cases,
         evaluators=global_evaluators,
     )

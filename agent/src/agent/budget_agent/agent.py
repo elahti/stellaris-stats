@@ -66,36 +66,40 @@ _budget_agent: Agent[AgentDeps, SuddenDropAnalysisResult] | None = None
 def build_system_prompt() -> str:
     return f"""You are a Stellaris game statistics analyst specializing in detecting sudden resource drops.
 
-Your task is to identify resources that have experienced a significant sudden drop between the first and last datapoints in the analysis window.
+Your task is to identify resources that have experienced a significant sudden drop between any two consecutive datapoints in the analysis window.
 
 ## Workflow
 1. If no save is specified, use get_available_saves to list available saves
 2. Use get_budget_time_series to fetch the latest {ANALYSIS_DATAPOINTS} budget snapshots with summed resource totals
-3. Analyze the resource totals to identify sudden drops
+3. Analyze the resource totals to identify sudden drops between consecutive snapshots
 
 ## Analysis Instructions
 When you receive budget time series data with resource_totals:
 
 1. The resource_totals contain each resource SUMMED ACROSS ALL budget categories for each snapshot
-2. Compare the FIRST snapshot (oldest, D1) directly to the LAST snapshot (newest, D4)
-3. For each resource, calculate the percentage drop from D1 to D4
-4. A "sudden drop" is when a resource drops by {DROP_THRESHOLD_PERCENT}% or more from D1 to D4
+2. Compare CONSECUTIVE snapshots: D1→D2, D2→D3, D3→D4
+3. For each resource, calculate the percentage drop between each consecutive pair
+4. A "sudden drop" is when a resource drops by {DROP_THRESHOLD_PERCENT}% or more between any two consecutive snapshots
 5. Only flag DROPS (negative changes), not increases
 
 ## Sudden Drop Detection Logic
-- For each resource, compare value at D1 (first/oldest) with value at D4 (last/newest)
-- Calculate: drop_percent = ((D1_value - D4_value) / abs(D1_value)) * 100
-- If drop_percent >= {DROP_THRESHOLD_PERCENT}, it's a sudden drop
-- Handle edge cases:
-  - If D1 value is 0 or very close to 0, skip percentage calculation
-  - If both values are 0, no drop
-  - Negative to more negative is NOT a drop (getting worse but in same direction)
+- For each resource, compare values between consecutive snapshots (D1→D2, D2→D3, D3→D4)
+- Calculate: drop_percent = ((earlier_value - later_value) / abs(earlier_value)) * 100
+- A drop is ONLY when the later value is LESS than the earlier value (positive drop_absolute)
+- If drop_percent >= {DROP_THRESHOLD_PERCENT} for ANY consecutive pair, it's a sudden drop
+- Report the specific dates where the drop occurred (start_date and end_date of that pair)
+
+## Edge Cases
+- If earlier value is 0 or very close to 0, skip that resource
+- If both values are 0, no drop
+- Negative to more negative is NOT a drop (e.g., -100 to -130)
 
 ## Important Considerations
 - Focus on NET balance changes (the totals are already net of income and expenses)
 - A resource going from +100 to +70 is a 30% drop
 - A resource going from -100 to -130 is NOT a drop (getting worse but in same direction)
 - A resource going from +100 to -50 is a significant drop
+- A drop that later recovers is STILL a sudden drop (report when it happened)
 
 ## Context
 The game starts on January 1, 2200. You are analyzing the {ANALYSIS_DATAPOINTS} most recent budget snapshots to detect sudden resource problems."""
@@ -183,7 +187,7 @@ def build_analysis_prompt(save_filename: str) -> str:
     return (
         f"Fetch and analyze the budget for save '{save_filename}'. "
         f"Use get_budget_time_series to get the latest {ANALYSIS_DATAPOINTS} budget snapshots with summed resource totals. "
-        f"Compare the first (D1) and last (D4) datapoints to identify any resources with sudden drops of {DROP_THRESHOLD_PERCENT}% or more. "
+        f"Compare consecutive datapoints (D1→D2, D2→D3, D3→D4) to identify any resources with sudden drops of {DROP_THRESHOLD_PERCENT}% or more. "
         f"Return the analysis result with a summary of sudden drops found."
     )
 
