@@ -1,3 +1,5 @@
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from typing import Any, TypedDict
 
 import logfire
@@ -5,8 +7,17 @@ from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
 from agent.budget_agent.models import SuddenDropAnalysisResult
-from agent.evals.mock_client import load_fixture
-from agent.evals.mock_graphql_server import start_mock_graphql_server
+from agent.evals.fixture_loader import load_fixture
+from agent.evals.server_manager import (
+    GraphQLServerProcess,
+    start_graphql_server,
+    stop_graphql_server,
+)
+from agent.evals.test_database import (
+    TestDatabaseContext,
+    create_test_database,
+    destroy_test_database,
+)
 from agent.sandbox_budget_agent.agent import (
     SandboxAgentDeps,
     get_mcp_server,
@@ -21,6 +32,26 @@ class SandboxEvalInputs(TypedDict):
     fixture_path: str
 
 
+@asynccontextmanager
+async def eval_environment(
+    fixture_path: str,
+    settings: Settings | None = None,
+) -> AsyncIterator[tuple[TestDatabaseContext, GraphQLServerProcess]]:
+    if settings is None:
+        settings = Settings()
+
+    db_ctx = await create_test_database(settings)
+    try:
+        await load_fixture(db_ctx.pool, fixture_path)
+        server = await start_graphql_server(db_ctx)
+        try:
+            yield db_ctx, server
+        finally:
+            await stop_graphql_server(server)
+    finally:
+        await destroy_test_database(db_ctx, settings)
+
+
 async def run_sandbox_budget_eval(
     inputs: SandboxEvalInputs,
     model_name: str | None = None,
@@ -29,18 +60,20 @@ async def run_sandbox_budget_eval(
     if settings is None:
         settings = Settings()
 
-    fixture = load_fixture(inputs["fixture_path"])
+    async with eval_environment(
+        inputs["fixture_path"],
+        settings,
+    ) as (_db_ctx, server):
+        if settings.stellaris_stats_eval_graphql_server_host:
+            graphql_url = (
+                f"http://{settings.stellaris_stats_eval_graphql_server_host}"
+                f":{server.port}"
+            )
+        else:
+            graphql_url = server.url
 
-    async with start_mock_graphql_server(
-        fixture,
-        host="0.0.0.0",
-    ) as mock_server:
-        mock_graphql_url = (
-            f"http://{settings.eval_mock_graphql_host}:{mock_server.port}"
-        )
-
-        deps = SandboxAgentDeps(graphql_url=mock_graphql_url)
-        prompt = build_analysis_prompt(inputs["save_filename"], mock_graphql_url)
+        deps = SandboxAgentDeps(graphql_url=graphql_url)
+        prompt = build_analysis_prompt(inputs["save_filename"], graphql_url)
 
         agent = get_sandbox_budget_agent(settings)
         mcp_server = get_mcp_server(settings)

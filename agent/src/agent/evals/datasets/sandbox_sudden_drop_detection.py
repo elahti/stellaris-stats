@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import Any, cast
 
 from pydantic_evals import Case, Dataset
@@ -7,8 +6,6 @@ from pydantic_evals.evaluators import Evaluator, IsInstance, MaxDuration
 from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.evals.evaluators.output_quality import NoResourceDrop, ResourceDrop
 from agent.evals.sandbox_runner import SandboxEvalInputs
-
-FIXTURES_DIR = Path(__file__).parent.parent / "fixtures" / "sudden_drop_detection"
 
 CaseType = Case[SandboxEvalInputs, SuddenDropAnalysisResult, dict[str, Any]]
 EvaluatorType = Evaluator[SandboxEvalInputs, SuddenDropAnalysisResult, dict[str, Any]]
@@ -19,14 +16,14 @@ def create_sandbox_sudden_drop_detection_dataset() -> Dataset[
     SuddenDropAnalysisResult,
     dict[str, Any],
 ]:
-    _trade_drop_inputs: SandboxEvalInputs = {
+    trade_drop_inputs: SandboxEvalInputs = {
         "save_filename": "commonwealthofman_1251622081",
-        "fixture_path": str(FIXTURES_DIR / "trade_drop_only.json"),
+        "fixture_path": "sudden_drop_detection/trade_drop_only.sql",
     }
 
     energy_and_alloys_drop_inputs: SandboxEvalInputs = {
         "save_filename": "commonwealthofman_1251622081",
-        "fixture_path": str(FIXTURES_DIR / "energy_and_alloys_drop.json"),
+        "fixture_path": "sudden_drop_detection/energy_and_alloys_drop.sql",
     }
 
     cases: list[CaseType] = [

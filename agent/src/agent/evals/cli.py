@@ -50,6 +50,7 @@ async def run_evals_for_models(
     dataset_factory: DatasetFactory,
     dataset_name: str,
     models: list[str],
+    settings: Settings,
 ) -> None:
     dataset = dataset_factory()
     for model in models:
@@ -57,7 +58,12 @@ async def run_evals_for_models(
         print(f"Running evals with model: {model}")
         print("=" * 60)
         experiment_name = build_experiment_name(dataset_name, model)
-        await run_evals(dataset, model_name=model, experiment_name=experiment_name)
+        await run_evals(
+            dataset,
+            model_name=model,
+            experiment_name=experiment_name,
+            settings=settings,
+        )
 
 
 async def run_sandbox_evals_for_models(
@@ -171,6 +177,7 @@ Examples:
                     dataset,
                     model_name=args.model,
                     experiment_name=experiment_name,
+                    settings=settings,
                 ),
             )
         else:
@@ -179,6 +186,7 @@ Examples:
                     dataset_factory,
                     dataset_name,
                     AVAILABLE_MODELS,
+                    settings,
                 ),
             )
 
