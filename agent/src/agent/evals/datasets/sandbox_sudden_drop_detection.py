@@ -19,7 +19,7 @@ def create_sandbox_sudden_drop_detection_dataset() -> Dataset[
     SuddenDropAnalysisResult,
     dict[str, Any],
 ]:
-    trade_drop_inputs: SandboxEvalInputs = {
+    _trade_drop_inputs: SandboxEvalInputs = {
         "save_filename": "commonwealthofman_1251622081",
         "fixture_path": str(FIXTURES_DIR / "trade_drop_only.json"),
     }

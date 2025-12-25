@@ -75,11 +75,16 @@ class MockGraphQLServer:
                 status = HTTPStatus.METHOD_NOT_ALLOWED
 
             response = self._build_response(status, response_body)
-            writer.write(response.encode("utf-8"))
+            writer.write(response)
             await writer.drain()
+        except Exception:
+            pass
         finally:
-            writer.close()
-            await writer.wait_closed()
+            try:
+                writer.close()
+                await writer.wait_closed()
+            except Exception:
+                pass
 
     def _handle_graphql_request(self, body: bytes) -> str:
         try:
@@ -134,16 +139,17 @@ class MockGraphQLServer:
 
         return {"errors": [{"message": f"Unrecognized query: {query[:100]}"}]}
 
-    def _build_response(self, status: HTTPStatus, body: str) -> str:
-        headers = [
+    def _build_response(self, status: HTTPStatus, body: str) -> bytes:
+        body_bytes = body.encode("utf-8")
+        headers = "\r\n".join([
             f"HTTP/1.1 {status.value} {status.phrase}",
-            "Content-Type: application/json",
-            f"Content-Length: {len(body)}",
+            "Content-Type: application/json; charset=utf-8",
+            f"Content-Length: {len(body_bytes)}",
             "Connection: close",
             "",
-            body,
-        ]
-        return "\r\n".join(headers)
+            "",
+        ])
+        return headers.encode("utf-8") + body_bytes
 
 
 def find_free_port() -> int:
