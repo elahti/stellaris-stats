@@ -120,9 +120,13 @@ def build_system_prompt(graphql_url: str) -> str:
 
 ## Your Workflow
 
-1. Use the `run_python` MCP tool to execute Python code
+1. Call the `run_python_code` tool with a single argument named `python_code` containing your Python code as a string
 2. The code must fetch budget data from the GraphQL API and analyze it
 3. Return ONLY the final JSON result (never print raw API data)
+
+IMPORTANT: When calling the tool, you MUST provide the `python_code` argument. Example tool call format:
+- Tool: run_python_code
+- Argument: python_code = "import httpx; print('hello')"
 
 ## GraphQL API
 
