@@ -2,11 +2,8 @@ import pytest
 from pydantic import ValidationError
 
 from agent.budget_agent.models import (
-    BudgetAnalysisResult,
-    BudgetChange,
     BudgetSnapshot,
     BudgetTimeSeries,
-    ResourceChange,
     SaveInfo,
     SnapshotResourceTotals,
     SuddenDrop,
@@ -101,50 +98,6 @@ class TestBudgetTimeSeries:
         )
         assert series.resource_totals is not None
         assert len(series.resource_totals) == 1
-
-
-class TestResourceChange:
-    def test_creates_with_all_fields(self) -> None:
-        change = ResourceChange(
-            resource="energy",
-            previous_value=100.0,
-            current_value=70.0,
-            change_absolute=-30.0,
-            change_percent=-30.0,
-        )
-        assert change.resource == "energy"
-        assert change.change_percent == -30.0
-
-
-class TestBudgetChange:
-    def test_creates_with_changes(self) -> None:
-        change = BudgetChange(
-            category_type="income",
-            category_name="Trade",
-            changes=[
-                ResourceChange(
-                    resource="energy",
-                    previous_value=100.0,
-                    current_value=50.0,
-                    change_absolute=-50.0,
-                    change_percent=-50.0,
-                ),
-            ],
-        )
-        assert len(change.changes) == 1
-
-
-class TestBudgetAnalysisResult:
-    def test_creates_with_empty_changes(self) -> None:
-        result = BudgetAnalysisResult(
-            save_filename="test.sav",
-            previous_date="2200-01-01",
-            current_date="2200-02-01",
-            threshold_percent=30.0,
-            sudden_changes=[],
-            summary="No changes detected",
-        )
-        assert len(result.sudden_changes) == 0
 
 
 class TestSuddenDrop:
