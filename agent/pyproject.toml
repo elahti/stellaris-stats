@@ -1,5 +1,6 @@
 [project]
 dependencies = [
+  "asyncpg==0.30.0",
   "httpx==0.28.1",
   "logfire==4.16.0",
   "pydantic-ai==1.37.0",
@@ -24,6 +25,7 @@ requires      = ["uv_build==0.9.18"]
 [dependency-groups]
 dev = [
   "ariadne-codegen==0.17.0",
+  "asyncpg-stubs==0.30.0",
   "pyright==1.1.407",
   "pytest==8.3.5",
   "pytest-asyncio==0.25.2",
