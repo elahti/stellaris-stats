@@ -60,32 +60,36 @@ async def run_sandbox_budget_eval(
     if settings is None:
         settings = Settings()
 
-    async with eval_environment(
-        inputs["fixture_path"],
-        settings,
-    ) as (_db_ctx, server):
-        if settings.stellaris_stats_eval_graphql_server_host:
-            graphql_url = (
-                f"http://{settings.stellaris_stats_eval_graphql_server_host}"
-                f":{server.port}"
-            )
-        else:
-            graphql_url = server.url
-
-        deps = SandboxAgentDeps(graphql_url=graphql_url)
-        prompt = build_analysis_prompt(inputs["save_filename"], graphql_url)
-
-        agent = get_sandbox_budget_agent(settings)
-        mcp_server = get_mcp_server(settings)
-
-        async with mcp_server:
-            if model_name:
-                with agent.override(model=model_name):
-                    result = await agent.run(prompt, deps=deps)
+    try:
+        async with eval_environment(
+            inputs["fixture_path"],
+            settings,
+        ) as (_db_ctx, server):
+            if settings.stellaris_stats_eval_graphql_server_host:
+                graphql_url = (
+                    f"http://{settings.stellaris_stats_eval_graphql_server_host}"
+                    f":{server.port}"
+                )
             else:
-                result = await agent.run(prompt, deps=deps)
+                graphql_url = server.url
 
-        return result.output
+            deps = SandboxAgentDeps(graphql_url=graphql_url)
+            prompt = build_analysis_prompt(inputs["save_filename"], graphql_url)
+
+            agent = get_sandbox_budget_agent(settings)
+            mcp_server = get_mcp_server(settings)
+
+            async with mcp_server:
+                if model_name:
+                    with agent.override(model=model_name):
+                        result = await agent.run(prompt, deps=deps)
+                else:
+                    result = await agent.run(prompt, deps=deps)
+
+            return result.output
+    except Exception as e:
+        logfire.error(f"Sandbox eval failed: {e!r}")
+        raise
 
 
 def create_sandbox_eval_task(

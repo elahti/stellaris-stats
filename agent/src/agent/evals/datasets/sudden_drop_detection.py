@@ -1,14 +1,13 @@
-from typing import Any, cast
+from typing import Any
 
 from pydantic_evals import Case, Dataset
-from pydantic_evals.evaluators import Evaluator, IsInstance, MaxDuration
+from pydantic_evals.evaluators import IsInstance, MaxDuration
 
 from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.evals.evaluators.output_quality import NoResourceDrop, ResourceDrop
 from agent.evals.runner import EvalInputs
 
 CaseType = Case[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]]
-EvaluatorType = Evaluator[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]]
 
 
 def create_sudden_drop_detection_dataset() -> Dataset[
@@ -87,9 +86,9 @@ def create_sudden_drop_detection_dataset() -> Dataset[
         ),
     ]
 
-    global_evaluators: tuple[EvaluatorType, ...] = (
-        cast(EvaluatorType, IsInstance(type_name="SuddenDropAnalysisResult")),
-        cast(EvaluatorType, MaxDuration(seconds=120.0)),
+    global_evaluators = (
+        IsInstance(type_name="SuddenDropAnalysisResult"),
+        MaxDuration(seconds=120.0),
     )
 
     return Dataset(
