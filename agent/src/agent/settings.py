@@ -19,11 +19,38 @@ class Settings(BaseSettings):
     logfire_token: str | None = None
     stellaris_stats_graphql_server_host: str = "devcontainer"
     stellaris_stats_graphql_server_port: int = 4000
+    stellaris_stats_python_sandbox_url: str | None = None
+
+    # Production database config (for fixture generation)
+    stellaris_stats_db_host: str | None = None
+    stellaris_stats_db_port: int = 5432
+    stellaris_stats_db_name: str | None = None
+    stellaris_stats_db_user: str | None = None
+    stellaris_stats_db_password: str | None = None
+
+    # Test database config (for evals)
+    stellaris_test_db_host: str | None = None
+    stellaris_test_db_port: int = 5432
+    stellaris_test_db_user: str | None = None
+    stellaris_test_db_password: str | None = None
+    stellaris_test_db_admin_database: str | None = None
+
+    # Eval GraphQL server host (for sandbox to reach the test server)
+    stellaris_stats_eval_graphql_server_host: str | None = None
 
     @property
     def graphql_url(self) -> str:
         """Build the GraphQL server URL from host and port settings."""
         return f"http://{self.stellaris_stats_graphql_server_host}:{self.stellaris_stats_graphql_server_port}"
+
+    @property
+    def sandbox_url(self) -> str:
+        """Get the Python sandbox MCP server URL."""
+        if self.stellaris_stats_python_sandbox_url is None:
+            raise ValueError(
+                "STELLARIS_STATS_PYTHON_SANDBOX_URL environment variable not set",
+            )
+        return self.stellaris_stats_python_sandbox_url
 
     def create_graphql_client(self) -> Client:
         """Create a GraphQL client with appropriate timeout configuration."""

@@ -144,7 +144,9 @@ class TestResourceDrop:
         assert evaluation.reason is not None
         assert "below expected" in evaluation.reason
 
-    def test_uses_first_drop_when_multiple_drops_for_same_resource(self) -> None:
+    def test_uses_max_qualifying_drop_when_multiple_drops_for_same_resource(
+        self,
+    ) -> None:
         evaluator = ResourceDrop(resource="energy", min_drop_percent=30.0)
         drop1 = _create_drop("energy", 50.0)
         drop2 = _create_drop("energy", 80.0)
@@ -154,4 +156,16 @@ class TestResourceDrop:
         evaluation = evaluator.evaluate(ctx)
         assert evaluation.value is True
         assert evaluation.reason is not None
-        assert "50.0%" in evaluation.reason
+        assert "80.0%" in evaluation.reason
+
+    def test_passes_when_later_drop_meets_threshold(self) -> None:
+        evaluator = ResourceDrop(resource="energy", min_drop_percent=100.0)
+        drop1 = _create_drop("energy", 31.7)
+        drop2 = _create_drop("energy", 110.8)
+        result = _create_result_with_drops([drop1, drop2])
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is True
+        assert evaluation.reason is not None
+        assert "110.8%" in evaluation.reason

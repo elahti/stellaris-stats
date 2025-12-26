@@ -19,6 +19,7 @@ name = "agent"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "asyncpg" },
     { name = "httpx" },
     { name = "logfire" },
     { name = "pydantic-ai" },
@@ -29,6 +30,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "ariadne-codegen" },
+    { name = "asyncpg-stubs" },
     { name = "pyright" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
@@ -37,6 +39,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "asyncpg", specifier = "==0.30.0" },
     { name = "httpx", specifier = "==0.28.1" },
     { name = "logfire", specifier = "==4.16.0" },
     { name = "pydantic-ai", specifier = "==1.37.0" },
@@ -47,6 +50,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "ariadne-codegen", specifier = "==0.17.0" },
+    { name = "asyncpg-stubs", specifier = "==0.30.0" },
     { name = "pyright", specifier = "==1.1.407" },
     { name = "pytest", specifier = "==8.3.5" },
     { name = "pytest-asyncio", specifier = "==0.25.2" },
@@ -191,6 +195,25 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/20/f1/e4a7b6b8c88fc787249c17a785ed66802d03085dc1e31c20dffcc9cd1636/ariadne_codegen-0.17.0.tar.gz", hash = "sha256:cbda41be0adae25cddc978d8d14cc48c3da6ef7ddf7bcd6af6ecb94ed374cf46", size = 67232, upload-time = "2025-12-06T19:42:38.853Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/71/9b/c75f8916d3cafca76dc6dd17175ec2296e42b4a6fc0caaaca44f1a29df1f/ariadne_codegen-0.17.0-py3-none-any.whl", hash = "sha256:49a62a8a8bf8eb9213204d85ab5cd3f1342cc5c130e89c5f3ac28f976a50e0a5", size = 96506, upload-time = "2025-12-06T19:42:37.189Z" },
+]
+
+[[package]]
+name = "asyncpg"
+version = "0.30.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/2f/4c/7c991e080e106d854809030d8584e15b2e996e26f16aee6d757e387bc17d/asyncpg-0.30.0.tar.gz", hash = "sha256:c551e9928ab6707602f44811817f82ba3c446e018bfe1d3abecc8ba5f3eac851", size = 957746, upload-time = "2024-10-20T00:30:41.127Z" }
+
+[[package]]
+name = "asyncpg-stubs"
+version = "0.30.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "asyncpg" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/92/fb/08e27995b5444c888d58040203a2a73b9151855e267d171b3aff69033e7d/asyncpg_stubs-0.30.0.tar.gz", hash = "sha256:8bfe20f1b1e24a19674152ec9abbcc2df72c01e78af696f44fc275d56fe335ba", size = 20946, upload-time = "2024-11-04T16:30:05.227Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/db/92/fb8ba4baca7f02ae627ad1f3b84fff8c550c93bd71fd7f993e6792d5718e/asyncpg_stubs-0.30.0-py3-none-any.whl", hash = "sha256:1eac258c10fc45a781729913a2fcfba775888bed160ae47f55fe0964d639e9cd", size = 26816, upload-time = "2024-11-04T16:30:03.877Z" },
 ]
 
 [[package]]

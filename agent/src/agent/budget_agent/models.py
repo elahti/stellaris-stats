@@ -1,6 +1,9 @@
-from typing import Any
+from collections.abc import Mapping
 
 from pydantic import BaseModel
+
+BudgetEntryData = Mapping[str, float | None]
+BudgetCategoryData = Mapping[str, BudgetEntryData | None]
 
 
 class SaveInfo(BaseModel):
@@ -14,7 +17,7 @@ class BudgetSnapshot(BaseModel):
     """A single budget snapshot at a point in time."""
 
     date: str
-    budget: dict[str, Any]
+    budget: BudgetCategoryData
 
 
 class SnapshotResourceTotals(BaseModel):
@@ -31,35 +34,6 @@ class BudgetTimeSeries(BaseModel):
     dates: list[str]
     snapshots: list[BudgetSnapshot]
     resource_totals: list[SnapshotResourceTotals] | None = None
-
-
-class ResourceChange(BaseModel):
-    """A change in a specific resource between two time periods."""
-
-    resource: str
-    previous_value: float
-    current_value: float
-    change_absolute: float
-    change_percent: float
-
-
-class BudgetChange(BaseModel):
-    """A detected sudden change in a budget category."""
-
-    category_type: str
-    category_name: str
-    changes: list[ResourceChange]
-
-
-class BudgetAnalysisResult(BaseModel):
-    """Result of analyzing budget changes between two dates."""
-
-    save_filename: str
-    previous_date: str
-    current_date: str
-    threshold_percent: float
-    sudden_changes: list[BudgetChange]
-    summary: str
 
 
 class SuddenDrop(BaseModel):

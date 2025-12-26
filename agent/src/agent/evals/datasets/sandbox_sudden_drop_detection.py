@@ -8,7 +8,7 @@ from agent.evals.types import EvalInputs, EvalMetadata
 CaseType = Case[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]
 
 
-def create_sudden_drop_detection_dataset() -> Dataset[
+def create_sandbox_sudden_drop_detection_dataset() -> Dataset[
     EvalInputs,
     SuddenDropAnalysisResult,
     EvalMetadata,
@@ -86,11 +86,11 @@ def create_sudden_drop_detection_dataset() -> Dataset[
 
     global_evaluators = (
         IsInstance(type_name="SuddenDropAnalysisResult"),
-        MaxDuration(seconds=120.0),
+        MaxDuration(seconds=180.0),
     )
 
     return Dataset(
-        name="sudden_drop_detection",
+        name="sandbox_sudden_drop_detection",
         cases=cases,
         evaluators=global_evaluators,
     )

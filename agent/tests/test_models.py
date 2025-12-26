@@ -2,11 +2,8 @@ import pytest
 from pydantic import ValidationError
 
 from agent.budget_agent.models import (
-    BudgetAnalysisResult,
-    BudgetChange,
     BudgetSnapshot,
     BudgetTimeSeries,
-    ResourceChange,
     SaveInfo,
     SnapshotResourceTotals,
     SuddenDrop,
@@ -22,11 +19,11 @@ class TestSaveInfo:
 
     def test_requires_filename(self) -> None:
         with pytest.raises(ValidationError):
-            SaveInfo(name="Test Empire")  # type: ignore[call-arg]
+            SaveInfo(**{"name": "Test Empire"})
 
     def test_requires_name(self) -> None:
         with pytest.raises(ValidationError):
-            SaveInfo(filename="test.sav")  # type: ignore[call-arg]
+            SaveInfo(**{"filename": "test.sav"})
 
     def test_allows_empty_strings(self) -> None:
         save = SaveInfo(filename="", name="")
@@ -41,20 +38,22 @@ class TestBudgetSnapshot:
         assert snapshot.budget == {}
 
     def test_accepts_nested_budget_structure(self) -> None:
-        budget = {
+        budget: dict[str, dict[str, float | None] | None] = {
             "income": {"energy": 100.0, "minerals": 50.0},
             "expenses": {"energy": -30.0},
         }
         snapshot = BudgetSnapshot(date="2200-01-01", budget=budget)
-        assert snapshot.budget["income"]["energy"] == 100.0
+        income = snapshot.budget["income"]
+        assert income is not None
+        assert income["energy"] == 100.0
 
     def test_requires_date(self) -> None:
         with pytest.raises(ValidationError):
-            BudgetSnapshot(budget={})  # type: ignore[call-arg]
+            BudgetSnapshot.model_validate({"budget": {}})
 
     def test_requires_budget(self) -> None:
         with pytest.raises(ValidationError):
-            BudgetSnapshot(date="2200-01-01")  # type: ignore[call-arg]
+            BudgetSnapshot.model_validate({"date": "2200-01-01"})
 
 
 class TestSnapshotResourceTotals:
@@ -101,50 +100,6 @@ class TestBudgetTimeSeries:
         )
         assert series.resource_totals is not None
         assert len(series.resource_totals) == 1
-
-
-class TestResourceChange:
-    def test_creates_with_all_fields(self) -> None:
-        change = ResourceChange(
-            resource="energy",
-            previous_value=100.0,
-            current_value=70.0,
-            change_absolute=-30.0,
-            change_percent=-30.0,
-        )
-        assert change.resource == "energy"
-        assert change.change_percent == -30.0
-
-
-class TestBudgetChange:
-    def test_creates_with_changes(self) -> None:
-        change = BudgetChange(
-            category_type="income",
-            category_name="Trade",
-            changes=[
-                ResourceChange(
-                    resource="energy",
-                    previous_value=100.0,
-                    current_value=50.0,
-                    change_absolute=-50.0,
-                    change_percent=-50.0,
-                ),
-            ],
-        )
-        assert len(change.changes) == 1
-
-
-class TestBudgetAnalysisResult:
-    def test_creates_with_empty_changes(self) -> None:
-        result = BudgetAnalysisResult(
-            save_filename="test.sav",
-            previous_date="2200-01-01",
-            current_date="2200-02-01",
-            threshold_percent=30.0,
-            sudden_changes=[],
-            summary="No changes detected",
-        )
-        assert len(result.sudden_changes) == 0
 
 
 class TestSuddenDrop:

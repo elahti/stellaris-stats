@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, override
+from typing import override
 
 from pydantic_evals.evaluators import (
     EvaluationReason,
@@ -8,19 +8,21 @@ from pydantic_evals.evaluators import (
 )
 
 from agent.budget_agent.models import SuddenDropAnalysisResult
-from agent.evals.runner import EvalInputs
+from agent.evals.types import EvalInputs, EvalMetadata
 
 
 @dataclass
 class NoResourceDrop(
-    Evaluator[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
+    Evaluator[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
 ):
+    """Evaluator that asserts a specific resource has no sudden drops."""
+
     resource: str
 
     @override
     def evaluate(
         self,
-        ctx: EvaluatorContext[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
+        ctx: EvaluatorContext[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
     ) -> EvaluationReason:
         output = ctx.output
         drops = [drop for drop in output.sudden_drops if drop.resource == self.resource]
@@ -40,15 +42,17 @@ class NoResourceDrop(
 
 @dataclass
 class ResourceDrop(
-    Evaluator[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
+    Evaluator[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
 ):
+    """Evaluator that asserts a specific resource has a drop meeting the minimum threshold."""
+
     resource: str
     min_drop_percent: float
 
     @override
     def evaluate(
         self,
-        ctx: EvaluatorContext[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
+        ctx: EvaluatorContext[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
     ) -> EvaluationReason:
         output = ctx.output
         drops = [drop for drop in output.sudden_drops if drop.resource == self.resource]
@@ -59,14 +63,16 @@ class ResourceDrop(
                 reason=f"No {self.resource} drop detected, expected drop >= {self.min_drop_percent:.1f}%",
             )
 
-        drop = drops[0]
-        if drop.drop_percent >= self.min_drop_percent:
+        qualifying_drops = [d for d in drops if d.drop_percent >= self.min_drop_percent]
+        if qualifying_drops:
+            max_drop = max(qualifying_drops, key=lambda d: d.drop_percent)
             return EvaluationReason(
                 value=True,
-                reason=f"{self.resource} drop detected: {drop.drop_percent:.1f}% (>= {self.min_drop_percent:.1f}%)",
+                reason=f"{self.resource} drop detected: {max_drop.drop_percent:.1f}% (>= {self.min_drop_percent:.1f}%)",
             )
 
+        max_drop = max(drops, key=lambda d: d.drop_percent)
         return EvaluationReason(
             value=False,
-            reason=f"{self.resource} drop {drop.drop_percent:.1f}% is below expected {self.min_drop_percent:.1f}%",
+            reason=f"{self.resource} max drop {max_drop.drop_percent:.1f}% is below expected {self.min_drop_percent:.1f}%",
         )

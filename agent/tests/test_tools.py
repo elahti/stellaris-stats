@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import cast
 from unittest.mock import MagicMock
 
 from agent.budget_agent.tools import (
@@ -50,10 +49,10 @@ class TestSelectLatestDates:
         assert result == ["c", "d", "e"]
 
 
-def _create_mock_gamestate(date: datetime) -> GetBudgetSaveGamestates:
+def _create_mock_gamestate(date: datetime) -> MagicMock:
     mock = MagicMock(spec=GetBudgetSaveGamestates)
     mock.date = date
-    return cast(GetBudgetSaveGamestates, mock)
+    return mock
 
 
 class TestGetGamestatesForDates:
