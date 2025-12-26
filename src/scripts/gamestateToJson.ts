@@ -1,5 +1,6 @@
 import { access, mkdir, readdir, unlink, writeFile } from 'fs/promises'
 import { Jomini } from 'jomini'
+import { z } from 'zod/v4'
 import { getLogger } from '../logger.js'
 import { readGamestateData } from '../parser/gamestateReader.js'
 import { getParserOptions } from '../parser/parserOptions.js'
@@ -12,7 +13,10 @@ const main = async () => {
   }
   const { gamestateId, ironmanPath } = parserOptions
   const gamestateData = await readGamestateData(ironmanPath)
-  const outputDir = `/workspace/gamestate-json-data/${gamestateId}`
+  const parsed = (await Jomini.initialize()).parseText(gamestateData)
+  const date = z.coerce.date().parse(parsed.date)
+  const dateStr = date.toISOString().split('T')[0]
+  const outputDir = `/workspace/gamestate-json-data/gamestate/${gamestateId}/${dateStr}`
 
   let directoryExists = false
   try {
@@ -33,7 +37,6 @@ const main = async () => {
     }
   }
 
-  const parsed = (await Jomini.initialize()).parseText(gamestateData)
   for (const [key, value] of Object.entries(parsed)) {
     const filePath = `${outputDir}/${key}.json`
     await writeFile(filePath, JSON.stringify(value, null, 2))
