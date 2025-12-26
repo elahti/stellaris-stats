@@ -92,6 +92,46 @@ class TestNoResourceDrop:
         assert "100.00" in evaluation.reason
         assert "50.00" in evaluation.reason
 
+    def test_uses_first_drop_when_multiple_drops_for_same_resource(self) -> None:
+        evaluator = NoResourceDrop(resource="energy")
+        drop1 = _create_drop("energy", 40.0)
+        drop2 = _create_drop("energy", 80.0)
+        result = _create_result_with_drops([drop1, drop2])
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is False
+        assert evaluation.reason is not None
+        assert "40.0%" in evaluation.reason
+
+    def test_returns_false_for_small_drop(self) -> None:
+        evaluator = NoResourceDrop(resource="energy")
+        drop = _create_drop("energy", 0.1)
+        result = _create_result_with_drops([drop])
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is False
+
+    def test_handles_negative_end_value(self) -> None:
+        evaluator = NoResourceDrop(resource="energy")
+        drop = SuddenDrop(
+            resource="energy",
+            start_date="2200-01-01",
+            end_date="2200-04-01",
+            start_value=50.0,
+            end_value=-25.0,
+            drop_percent=150.0,
+            drop_absolute=75.0,
+        )
+        result = _create_result_with_drops([drop])
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is False
+        assert evaluation.reason is not None
+        assert "150.0%" in evaluation.reason
+
 
 class TestResourceDrop:
     def test_returns_false_when_no_drop_detected(self) -> None:
@@ -158,7 +198,7 @@ class TestResourceDrop:
         assert evaluation.reason is not None
         assert "80.0%" in evaluation.reason
 
-    def test_passes_when_later_drop_meets_threshold(self) -> None:
+    def test_passes_when_max_drop_exceeds_threshold_regardless_of_order(self) -> None:
         evaluator = ResourceDrop(resource="energy", min_drop_percent=100.0)
         drop1 = _create_drop("energy", 31.7)
         drop2 = _create_drop("energy", 110.8)
@@ -169,3 +209,68 @@ class TestResourceDrop:
         assert evaluation.value is True
         assert evaluation.reason is not None
         assert "110.8%" in evaluation.reason
+
+    def test_reports_max_drop_when_all_below_threshold(self) -> None:
+        evaluator = ResourceDrop(resource="energy", min_drop_percent=50.0)
+        drop1 = _create_drop("energy", 20.0)
+        drop2 = _create_drop("energy", 40.0)
+        drop3 = _create_drop("energy", 30.0)
+        result = _create_result_with_drops([drop1, drop2, drop3])
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is False
+        assert evaluation.reason is not None
+        assert "40.0%" in evaluation.reason
+        assert "below expected" in evaluation.reason
+
+    def test_handles_drop_over_100_percent(self) -> None:
+        evaluator = ResourceDrop(resource="trade", min_drop_percent=100.0)
+        drop = SuddenDrop(
+            resource="trade",
+            start_date="2200-01-01",
+            end_date="2200-04-01",
+            start_value=100.0,
+            end_value=-50.0,
+            drop_percent=150.0,
+            drop_absolute=150.0,
+        )
+        result = _create_result_with_drops([drop])
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is True
+        assert evaluation.reason is not None
+        assert "150.0%" in evaluation.reason
+
+    def test_handles_very_small_threshold(self) -> None:
+        evaluator = ResourceDrop(resource="energy", min_drop_percent=0.01)
+        drop = _create_drop("energy", 0.01)
+        result = _create_result_with_drops([drop])
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is True
+
+    def test_reason_includes_threshold_in_no_drop_message(self) -> None:
+        evaluator = ResourceDrop(resource="minerals", min_drop_percent=45.5)
+        result = _create_result_with_drops([])
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is False
+        assert evaluation.reason is not None
+        assert "45.5%" in evaluation.reason
+
+    def test_ignores_drops_for_other_resources_even_if_large(self) -> None:
+        evaluator = ResourceDrop(resource="energy", min_drop_percent=30.0)
+        large_other_drop = _create_drop("minerals", 99.0)
+        small_target_drop = _create_drop("energy", 25.0)
+        result = _create_result_with_drops([large_other_drop, small_target_drop])
+        ctx = _create_mock_context(result)
+
+        evaluation = evaluator.evaluate(ctx)
+        assert evaluation.value is False
+        assert evaluation.reason is not None
+        assert "energy" in evaluation.reason
+        assert "25.0%" in evaluation.reason
