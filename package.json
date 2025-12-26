@@ -63,7 +63,6 @@
     "format:python": "cd agent && uv run ruff format",
     "gamestateToJson:run": "tsx src/scripts/gamestateToJson.ts",
     "graphql-server:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch --include 'src/graphql/**/*' src/graphql/graphqlServerMain.ts",
-    "graphql-server:test": "npx tsx src/graphql/testGraphQLServerMain.ts",
     "graphql:codegen": "npm run graphql:codegen:typescript && npm run graphql:codegen:python",
     "graphql:codegen:python": "cd agent && uv run ariadne-codegen",
     "graphql:codegen:typescript": "graphql-codegen --config codegen.yml && prettier -w src/graphql/generated",
