@@ -41,6 +41,10 @@
     "*.{js,ts}": [
       "prettier --write",
       "eslint"
+    ],
+    "agent/**/*.py": [
+      "bash -c 'cd agent && files=(); for f; do files+=(\"${f#agent/}\"); done; uv run ruff format \"${files[@]}\"' _",
+      "bash -c 'cd agent && files=(); for f; do files+=(\"${f#agent/}\"); done; uv run ruff check \"${files[@]}\"' _"
     ]
   },
   "name": "stellaris-stats",
