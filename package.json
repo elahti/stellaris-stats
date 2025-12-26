@@ -61,7 +61,7 @@
     "db:restore": "dotenvx run -f .env.stellaris-stats -- sh -c 'PGPASSWORD=$STELLARIS_STATS_DB_PASSWORD zcat /workspace/db-dump-data/\"$1\" | psql -h $STELLARIS_STATS_DB_HOST -U $STELLARIS_STATS_DB_USER -d $STELLARIS_STATS_DB_NAME' --",
     "db:validate-budget-schema": "dotenvx run -f .env.stellaris-stats --strict -- tsx src/scripts/validateBudgetSchema.ts",
     "format:python": "cd agent && uv run ruff format",
-    "gamestateToJson:run": "tsx src/scripts/gamestateToJson.ts",
+    "gamestateToJson:run": "dotenvx run -f .env.stellaris-stats --strict -- tsx src/scripts/gamestateToJson.ts",
     "graphql-server:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch --include 'src/graphql/**/*' src/graphql/graphqlServerMain.ts",
     "graphql:codegen": "npm run graphql:codegen:typescript && npm run graphql:codegen:python",
     "graphql:codegen:python": "cd agent && uv run ariadne-codegen",

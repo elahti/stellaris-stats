@@ -6,13 +6,13 @@ import { z } from 'zod/v4'
 export const getParserOptions = async (logger: Logger) => {
   const program = new Command()
 
-  program.option('-l, --list', 'List all gamestate IDs')
-  program.option('-g, --gamestateId <id>', 'Gamestate ID')
+  program.option('--list-saves', 'List all gamestate IDs')
+  program.option('--gamestate <id>', 'Gamestate ID')
   program.parse()
 
   const options = program.opts()
 
-  if (options.list) {
+  if (options.listSaves) {
     const entries = await readdir('/stellaris-data', { withFileTypes: true })
     const directories = entries
       .filter((entry) => entry.isDirectory())
@@ -24,11 +24,11 @@ export const getParserOptions = async (logger: Logger) => {
     return
   }
 
-  if (!options.gamestateId) {
-    throw new Error('Either -l or -g option is required')
+  if (!options.gamestate) {
+    throw new Error('Either --list-saves or --gamestate option is required')
   }
 
-  const gamestateId = z.string().parse(options.gamestateId)
+  const gamestateId = z.string().parse(options.gamestate)
   const ironmanPath = `/stellaris-data/${gamestateId}/ironman.sav`
 
   try {
