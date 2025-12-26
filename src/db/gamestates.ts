@@ -95,3 +95,31 @@ export const insertGamestate = (
     () => client.query(insertGamestateQuery, [saveId, date, data]),
     GamestateByMonthRow,
   )
+
+const getGamestateDataQuery = `
+SELECT
+  g.data AS data
+FROM
+  gamestate g
+  JOIN save s ON g.save_id = s.save_id
+WHERE
+  s.filename = $1
+  AND DATE_TRUNC('month', g.date) = DATE_TRUNC('month', $2::timestamp)
+LIMIT 1
+`
+
+const GamestateDataRow = z.object({
+  data: z.record(z.string(), z.unknown()),
+})
+
+export const getGamestateData = async (
+  client: PoolClient,
+  filename: string,
+  date: Date,
+): Promise<Record<string, unknown> | undefined> => {
+  const rows = await selectRows(
+    () => client.query(getGamestateDataQuery, [filename, date]),
+    GamestateDataRow,
+  )
+  return rows[0]?.data
+}
