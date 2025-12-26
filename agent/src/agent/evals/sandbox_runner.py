@@ -3,6 +3,8 @@ from contextlib import asynccontextmanager
 from typing import Any, TypedDict
 
 import logfire
+from pydantic_ai import Agent, NativeOutput
+from pydantic_ai.mcp import MCPServerStreamableHTTP
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
@@ -18,12 +20,11 @@ from agent.evals.test_database import (
     create_test_database,
     destroy_test_database,
 )
-from agent.sandbox_budget_agent.agent import (
-    SandboxAgentDeps,
-    get_mcp_server,
-    get_sandbox_budget_agent,
+from agent.sandbox_budget_agent.agent import SandboxAgentDeps
+from agent.sandbox_budget_agent.prompts import (
+    build_analysis_prompt,
+    build_system_prompt,
 )
-from agent.sandbox_budget_agent.prompts import build_analysis_prompt
 from agent.settings import Settings
 
 
@@ -52,6 +53,19 @@ async def eval_environment(
         await destroy_test_database(db_ctx, settings)
 
 
+def _create_eval_agent(
+    mcp_server: MCPServerStreamableHTTP,
+    graphql_url: str,
+) -> Agent[SandboxAgentDeps, SuddenDropAnalysisResult]:
+    return Agent(
+        "openai:gpt-5.2-2025-12-11",
+        deps_type=SandboxAgentDeps,
+        output_type=NativeOutput(SuddenDropAnalysisResult),
+        system_prompt=build_system_prompt(graphql_url),
+        toolsets=[mcp_server],
+    )
+
+
 async def run_sandbox_budget_eval(
     inputs: SandboxEvalInputs,
     model_name: str | None = None,
@@ -76,8 +90,8 @@ async def run_sandbox_budget_eval(
             deps = SandboxAgentDeps(graphql_url=graphql_url)
             prompt = build_analysis_prompt(inputs["save_filename"], graphql_url)
 
-            agent = get_sandbox_budget_agent(settings)
-            mcp_server = get_mcp_server(settings)
+            mcp_server = MCPServerStreamableHTTP(settings.sandbox_url)
+            agent = _create_eval_agent(mcp_server, graphql_url)
 
             async with mcp_server:
                 if model_name:
