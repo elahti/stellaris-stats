@@ -419,22 +419,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.popCategoryWorkers",
+              "selector": "budget.income.popCategoryWorkers.alloys",
               "text": "Worker Pops",
               "type": "number"
             },
             {
-              "selector": "budget.income.popFactions",
+              "selector": "budget.income.popFactions.alloys",
               "text": "Factions",
               "type": "number"
             },
             {
-              "selector": "budget.income.shipComponents",
+              "selector": "budget.income.shipComponents.alloys",
               "text": "Ship Components",
               "type": "number"
             },
             {
-              "selector": "budget.income.ships",
+              "selector": "budget.income.ships.alloys",
               "text": "Ships",
               "type": "number"
             },
@@ -444,22 +444,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseBuildings",
+              "selector": "budget.income.starbaseBuildings.alloys",
               "text": "Starbase Buildings",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseModules",
+              "selector": "budget.income.starbaseModules.alloys",
               "text": "Starbase Modules",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbases",
+              "selector": "budget.income.starbases.alloys",
               "text": "Starbases",
               "type": "number"
             },
             {
-              "selector": "budget.income.stationGatherers",
+              "selector": "budget.income.stationGatherers.alloys",
               "text": "Station Gatherers",
               "type": "number"
             },
@@ -474,12 +474,12 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.stationResearchers",
+              "selector": "budget.income.stationResearchers.alloys",
               "text": "Station Researchers",
               "type": "number"
             },
             {
-              "selector": "budget.income.tradePolicy",
+              "selector": "budget.income.tradePolicy.alloys",
               "text": "Trade Policy",
               "type": "number"
             }
@@ -921,22 +921,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.popCategoryWorkers",
+              "selector": "budget.expenses.popCategoryWorkers.alloys",
               "text": "Worker Pops",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.popFactions",
+              "selector": "budget.expenses.popFactions.alloys",
               "text": "Factions",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.shipComponents",
+              "selector": "budget.expenses.shipComponents.alloys",
               "text": "Ship Components",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.ships",
+              "selector": "budget.expenses.ships.alloys",
               "text": "Ships",
               "type": "number"
             },
@@ -946,22 +946,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbaseBuildings",
+              "selector": "budget.expenses.starbaseBuildings.alloys",
               "text": "Starbase Buildings",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbaseModules",
+              "selector": "budget.expenses.starbaseModules.alloys",
               "text": "Starbase Modules",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbases",
+              "selector": "budget.expenses.starbases.alloys",
               "text": "Starbases",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.stationGatherers",
+              "selector": "budget.expenses.stationGatherers.alloys",
               "text": "Station Gatherers",
               "type": "number"
             },
@@ -976,12 +976,12 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.stationResearchers",
+              "selector": "budget.expenses.stationResearchers.alloys",
               "text": "Station Researchers",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.tradePolicy",
+              "selector": "budget.expenses.tradePolicy.alloys",
               "text": "Trade Policy",
               "type": "number"
             }

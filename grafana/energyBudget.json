@@ -419,22 +419,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.popCategoryWorkers",
+              "selector": "budget.income.popCategoryWorkers.energy",
               "text": "Worker Pops",
               "type": "number"
             },
             {
-              "selector": "budget.income.popFactions",
+              "selector": "budget.income.popFactions.energy",
               "text": "Factions",
               "type": "number"
             },
             {
-              "selector": "budget.income.shipComponents",
+              "selector": "budget.income.shipComponents.energy",
               "text": "Ship Components",
               "type": "number"
             },
             {
-              "selector": "budget.income.ships",
+              "selector": "budget.income.ships.energy",
               "text": "Ships",
               "type": "number"
             },
@@ -444,22 +444,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseBuildings",
+              "selector": "budget.income.starbaseBuildings.energy",
               "text": "Starbase Buildings",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseModules",
+              "selector": "budget.income.starbaseModules.energy",
               "text": "Starbase Modules",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbases",
+              "selector": "budget.income.starbases.energy",
               "text": "Starbases",
               "type": "number"
             },
             {
-              "selector": "budget.income.stationGatherers",
+              "selector": "budget.income.stationGatherers.energy",
               "text": "Station Gatherers",
               "type": "number"
             },
@@ -474,12 +474,12 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.stationResearchers",
+              "selector": "budget.income.stationResearchers.energy",
               "text": "Station Researchers",
               "type": "number"
             },
             {
-              "selector": "budget.income.tradePolicy",
+              "selector": "budget.income.tradePolicy.energy",
               "text": "Trade Policy",
               "type": "number"
             }
@@ -921,22 +921,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.popCategoryWorkers",
+              "selector": "budget.expenses.popCategoryWorkers.energy",
               "text": "Worker Pops",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.popFactions",
+              "selector": "budget.expenses.popFactions.energy",
               "text": "Factions",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.shipComponents",
+              "selector": "budget.expenses.shipComponents.energy",
               "text": "Ship Components",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.ships",
+              "selector": "budget.expenses.ships.energy",
               "text": "Ships",
               "type": "number"
             },
@@ -946,22 +946,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbaseBuildings",
+              "selector": "budget.expenses.starbaseBuildings.energy",
               "text": "Starbase Buildings",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbaseModules",
+              "selector": "budget.expenses.starbaseModules.energy",
               "text": "Starbase Modules",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbases",
+              "selector": "budget.expenses.starbases.energy",
               "text": "Starbases",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.stationGatherers",
+              "selector": "budget.expenses.stationGatherers.energy",
               "text": "Station Gatherers",
               "type": "number"
             },
@@ -976,12 +976,12 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.stationResearchers",
+              "selector": "budget.expenses.stationResearchers.energy",
               "text": "Station Researchers",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.tradePolicy",
+              "selector": "budget.expenses.tradePolicy.energy",
               "text": "Trade Policy",
               "type": "number"
             }
