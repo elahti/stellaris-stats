@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, override
+from typing import override
 
 from pydantic_evals.evaluators import (
     EvaluationReason,
@@ -8,18 +8,21 @@ from pydantic_evals.evaluators import (
 )
 
 from agent.budget_agent.models import SuddenDropAnalysisResult
+from agent.evals.types import EvalInputs, EvalMetadata
 
 
 @dataclass
 class NoResourceDrop(
-    Evaluator[Any, SuddenDropAnalysisResult, dict[str, Any]],
+    Evaluator[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
 ):
+    """Evaluator that asserts a specific resource has no sudden drops."""
+
     resource: str
 
     @override
     def evaluate(
         self,
-        ctx: EvaluatorContext[Any, SuddenDropAnalysisResult, dict[str, Any]],
+        ctx: EvaluatorContext[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
     ) -> EvaluationReason:
         output = ctx.output
         drops = [drop for drop in output.sudden_drops if drop.resource == self.resource]
@@ -39,15 +42,17 @@ class NoResourceDrop(
 
 @dataclass
 class ResourceDrop(
-    Evaluator[Any, SuddenDropAnalysisResult, dict[str, Any]],
+    Evaluator[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
 ):
+    """Evaluator that asserts a specific resource has a drop meeting the minimum threshold."""
+
     resource: str
     min_drop_percent: float
 
     @override
     def evaluate(
         self,
-        ctx: EvaluatorContext[Any, SuddenDropAnalysisResult, dict[str, Any]],
+        ctx: EvaluatorContext[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
     ) -> EvaluationReason:
         output = ctx.output
         drops = [drop for drop in output.sudden_drops if drop.resource == self.resource]

@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import Any
 
 from agent.graphql_client import (
     GetBudget,
@@ -22,11 +21,11 @@ class MockClient:
         default_factory=lambda: {},
     )
 
-    async def list_saves(self, **_kwargs: Any) -> ListSaves:
+    async def list_saves(self, **_kwargs: object) -> ListSaves:
         return self.list_saves_response
 
-    async def get_dates(self, filename: str, **_kwargs: Any) -> GetDates:
+    async def get_dates(self, filename: str, **_kwargs: object) -> GetDates:
         return self.get_dates_responses.get(filename, GetDates(save=None))
 
-    async def get_budget(self, filename: str, **_kwargs: Any) -> GetBudget:
+    async def get_budget(self, filename: str, **_kwargs: object) -> GetBudget:
         return self.get_budget_responses.get(filename, GetBudget(save=None))

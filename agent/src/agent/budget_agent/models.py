@@ -1,6 +1,9 @@
-from typing import Any
+from collections.abc import Mapping
 
 from pydantic import BaseModel
+
+BudgetEntryData = Mapping[str, float | None]
+BudgetCategoryData = Mapping[str, BudgetEntryData | None]
 
 
 class SaveInfo(BaseModel):
@@ -14,7 +17,7 @@ class BudgetSnapshot(BaseModel):
     """A single budget snapshot at a point in time."""
 
     date: str
-    budget: dict[str, Any]
+    budget: BudgetCategoryData
 
 
 class SnapshotResourceTotals(BaseModel):

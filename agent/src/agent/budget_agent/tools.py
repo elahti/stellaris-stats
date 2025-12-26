@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Protocol
+from typing import Protocol
 
 from agent.graphql_client import (
     GetBudget,
@@ -14,11 +14,11 @@ from agent.settings import Settings
 class GraphQLClientProtocol(Protocol):
     """Protocol defining the subset of GraphQL client methods used by the agent."""
 
-    async def list_saves(self, **kwargs: Any) -> ListSaves: ...
+    async def list_saves(self, **kwargs: object) -> ListSaves: ...
 
-    async def get_dates(self, filename: str, **kwargs: Any) -> GetDates: ...
+    async def get_dates(self, filename: str, **kwargs: object) -> GetDates: ...
 
-    async def get_budget(self, filename: str, **kwargs: Any) -> GetBudget: ...
+    async def get_budget(self, filename: str, **kwargs: object) -> GetBudget: ...
 
 
 @dataclass

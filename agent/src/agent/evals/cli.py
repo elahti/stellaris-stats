@@ -2,7 +2,6 @@ import argparse
 import asyncio
 import sys
 from collections.abc import Callable
-from typing import Any
 
 import logfire
 from pydantic_evals import Dataset
@@ -15,28 +14,21 @@ from agent.evals.datasets.sandbox_sudden_drop_detection import (
 from agent.evals.datasets.sudden_drop_detection import (
     create_sudden_drop_detection_dataset,
 )
-from agent.evals.runner import EvalInputs, run_evals
-from agent.evals.sandbox_runner import (
-    SandboxEvalInputs,
-    run_sandbox_evals,
-)
+from agent.evals.runner import run_evals
+from agent.evals.sandbox_runner import run_sandbox_evals
+from agent.evals.types import EvalInputs, EvalMetadata
 from agent.settings import Settings
 
 DatasetFactory = Callable[
     [],
-    Dataset[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
-]
-
-SandboxDatasetFactory = Callable[
-    [],
-    Dataset[SandboxEvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
+    Dataset[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
 ]
 
 AVAILABLE_DATASETS: dict[str, DatasetFactory] = {
     "sudden_drop_detection": create_sudden_drop_detection_dataset,
 }
 
-SANDBOX_DATASETS: dict[str, SandboxDatasetFactory] = {
+SANDBOX_DATASETS: dict[str, DatasetFactory] = {
     "sandbox_sudden_drop_detection": create_sandbox_sudden_drop_detection_dataset,
 }
 
@@ -67,7 +59,7 @@ async def run_evals_for_models(
 
 
 async def run_sandbox_evals_for_models(
-    dataset_factory: SandboxDatasetFactory,
+    dataset_factory: DatasetFactory,
     dataset_name: str,
     models: list[str],
     settings: Settings,

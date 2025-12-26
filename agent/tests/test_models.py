@@ -19,11 +19,11 @@ class TestSaveInfo:
 
     def test_requires_filename(self) -> None:
         with pytest.raises(ValidationError):
-            SaveInfo(name="Test Empire")  # type: ignore[call-arg]
+            SaveInfo(**{"name": "Test Empire"})
 
     def test_requires_name(self) -> None:
         with pytest.raises(ValidationError):
-            SaveInfo(filename="test.sav")  # type: ignore[call-arg]
+            SaveInfo(**{"filename": "test.sav"})
 
     def test_allows_empty_strings(self) -> None:
         save = SaveInfo(filename="", name="")
@@ -38,20 +38,22 @@ class TestBudgetSnapshot:
         assert snapshot.budget == {}
 
     def test_accepts_nested_budget_structure(self) -> None:
-        budget = {
+        budget: dict[str, dict[str, float | None] | None] = {
             "income": {"energy": 100.0, "minerals": 50.0},
             "expenses": {"energy": -30.0},
         }
         snapshot = BudgetSnapshot(date="2200-01-01", budget=budget)
-        assert snapshot.budget["income"]["energy"] == 100.0
+        income = snapshot.budget["income"]
+        assert income is not None
+        assert income["energy"] == 100.0
 
     def test_requires_date(self) -> None:
         with pytest.raises(ValidationError):
-            BudgetSnapshot(budget={})  # type: ignore[call-arg]
+            BudgetSnapshot.model_validate({"budget": {}})
 
     def test_requires_budget(self) -> None:
         with pytest.raises(ValidationError):
-            BudgetSnapshot(date="2200-01-01")  # type: ignore[call-arg]
+            BudgetSnapshot.model_validate({"date": "2200-01-01"})
 
 
 class TestSnapshotResourceTotals:

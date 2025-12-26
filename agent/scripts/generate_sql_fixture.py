@@ -15,7 +15,6 @@ import argparse
 import asyncio
 from datetime import datetime
 from pathlib import Path
-from typing import Any
 
 import asyncpg
 
@@ -91,7 +90,7 @@ def generate_sql_statements(
     lines.append("")
 
     lines.append("-- Budget data")
-    gamestate_dates: dict[Any, datetime] = {
+    gamestate_dates: dict[int, datetime] = {
         gs["gamestate_id"]: gs["date"] for gs in gamestates
     }
 

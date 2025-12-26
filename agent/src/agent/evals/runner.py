@@ -1,5 +1,3 @@
-from typing import Any, TypedDict
-
 import logfire
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
@@ -10,12 +8,8 @@ from agent.budget_agent.tools import AgentDeps
 from agent.evals.fixture_loader import load_fixture
 from agent.evals.server_manager import start_graphql_server, stop_graphql_server
 from agent.evals.test_database import create_test_database, destroy_test_database
+from agent.evals.types import EvalInputs, EvalMetadata, EvalTask
 from agent.settings import Settings
-
-
-class EvalInputs(TypedDict):
-    save_filename: str
-    fixture_path: str
 
 
 async def run_budget_eval(
@@ -54,7 +48,9 @@ def create_eval_task(
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-):
+) -> EvalTask:
+    """Create an evaluation task function with the specified configuration."""
+
     async def eval_task(
         inputs: EvalInputs,
     ) -> SuddenDropAnalysisResult:
@@ -67,11 +63,11 @@ def create_eval_task(
 
 
 async def run_evals(
-    dataset: Dataset[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
+    dataset: Dataset[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-) -> EvaluationReport[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]]:
+) -> EvaluationReport[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx()

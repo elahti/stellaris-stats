@@ -1,6 +1,5 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import Any, TypedDict
 
 import logfire
 from pydantic_ai import Agent, NativeOutput
@@ -20,17 +19,13 @@ from agent.evals.test_database import (
     create_test_database,
     destroy_test_database,
 )
+from agent.evals.types import EvalInputs, EvalMetadata, EvalTask
 from agent.sandbox_budget_agent.agent import SandboxAgentDeps
 from agent.sandbox_budget_agent.prompts import (
     build_analysis_prompt,
     build_system_prompt,
 )
 from agent.settings import Settings
-
-
-class SandboxEvalInputs(TypedDict):
-    save_filename: str
-    fixture_path: str
 
 
 @asynccontextmanager
@@ -67,7 +62,7 @@ def _create_eval_agent(
 
 
 async def run_sandbox_budget_eval(
-    inputs: SandboxEvalInputs,
+    inputs: EvalInputs,
     model_name: str | None = None,
     settings: Settings | None = None,
 ) -> SuddenDropAnalysisResult:
@@ -110,9 +105,11 @@ def create_sandbox_eval_task(
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-):
+) -> EvalTask:
+    """Create a sandbox evaluation task function with the specified configuration."""
+
     async def eval_task(
-        inputs: SandboxEvalInputs,
+        inputs: EvalInputs,
     ) -> SuddenDropAnalysisResult:
         return await run_sandbox_budget_eval(
             inputs,
@@ -127,11 +124,11 @@ def create_sandbox_eval_task(
 
 
 async def run_sandbox_evals(
-    dataset: Dataset[SandboxEvalInputs, SuddenDropAnalysisResult, dict[str, Any]],
+    dataset: Dataset[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-) -> EvaluationReport[SandboxEvalInputs, SuddenDropAnalysisResult, dict[str, Any]]:
+) -> EvaluationReport[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx()

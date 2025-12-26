@@ -1,19 +1,17 @@
-from typing import Any
-
 from pydantic_evals import Case, Dataset
 from pydantic_evals.evaluators import IsInstance, MaxDuration
 
 from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.evals.evaluators.output_quality import NoResourceDrop, ResourceDrop
-from agent.evals.runner import EvalInputs
+from agent.evals.types import EvalInputs, EvalMetadata
 
-CaseType = Case[EvalInputs, SuddenDropAnalysisResult, dict[str, Any]]
+CaseType = Case[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]
 
 
 def create_sudden_drop_detection_dataset() -> Dataset[
     EvalInputs,
     SuddenDropAnalysisResult,
-    dict[str, Any],
+    EvalMetadata,
 ]:
     trade_drop_inputs: EvalInputs = {
         "save_filename": "commonwealthofman_1251622081",
