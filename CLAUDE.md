@@ -21,7 +21,6 @@ grafana/                # Dashboard configurations (see grafana/README.md)
 tests/                  # Test files, utils, fixtures
 docs/                   # Detailed documentation
   ARCHITECTURE.md       # Caching, testing, parser details
-  LIBRARIES.md          # Dependency versions
 ```
 
 ## Commands
@@ -121,19 +120,8 @@ Column name mapping: `snake_case` (DB) → `camelCase` (GraphQL) via `selectRows
 Keep synchronized when changing:
 
 - Commands → Update Commands section
-- Dependencies → Update `docs/LIBRARIES.md`
 - Architecture → Update `docs/ARCHITECTURE.md`
 - Grafana → Update `grafana/README.md`
-
-## Architecture Summary
-
-**Caching**: Three-tier (Response → Field → DataLoader) using Redis. No TTL for immutable game data. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#graphql-caching-system).
-
-**Testing**: Database-per-test isolation with Bun runner. Use `test-writer` agent for new tests. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#testing-framework).
-
-**Parser**: Interval-based ZIP extraction → Jomini parsing → PostgreSQL JSONB. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#parser-system).
-
-**Budget Agent**: pydantic-ai agent detecting sudden resource drops (30%+ over 4 datapoints). See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#budget-analysis-agent).
 
 ## Claude-Specific
 
