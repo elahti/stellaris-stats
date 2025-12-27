@@ -63,8 +63,8 @@ Python GraphQL client is generated using ariadne-codegen. Queries are defined in
 When adding or modifying npm scripts, require explicit arguments from the user rather than embedding default values in the script. This makes the interface consistent and avoids hidden behavior.
 
 ```diff
-- "agent:analyze": "... -- uv run budget-analyzer --save",  # Bad: --save expects implicit arg
-+ "agent:analyze": "... -- uv run budget-analyzer",         # Good: user provides --save <name>
+- "agent:analyze": "... -- uv run agent analyze --save",  # Bad: --save expects implicit arg
++ "agent:analyze": "... -- uv run agent analyze",         # Good: user provides --save <name>
 ```
 
 ## Code Style

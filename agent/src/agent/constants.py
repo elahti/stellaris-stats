@@ -6,9 +6,3 @@ AVAILABLE_MODELS = [
     "openai-responses:gpt-5-nano-2025-08-07",
     "openai-responses:gpt-5.1-codex-max",
 ]
-
-
-def list_models_main() -> None:
-    print("Available models:")
-    for model in AVAILABLE_MODELS:
-        print(f"  - {model}")
