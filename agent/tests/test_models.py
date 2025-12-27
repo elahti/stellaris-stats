@@ -6,9 +6,8 @@ from agent.budget_agent.models import (
     BudgetTimeSeries,
     SaveInfo,
     SnapshotResourceTotals,
-    SuddenDrop,
-    SuddenDropAnalysisResult,
 )
+from agent.models import SuddenDrop, SuddenDropAnalysisResult
 
 
 class TestSaveInfo:

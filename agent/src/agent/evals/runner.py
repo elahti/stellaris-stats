@@ -3,12 +3,12 @@ from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
 from agent.budget_agent.agent import build_analysis_prompt, get_budget_agent
-from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.budget_agent.tools import AgentDeps
 from agent.evals.fixture_loader import load_fixture
 from agent.evals.server_manager import start_graphql_server, stop_graphql_server
 from agent.evals.test_database import create_test_database, destroy_test_database
 from agent.evals.types import EvalInputs, EvalMetadata, EvalTask
+from agent.models import SuddenDropAnalysisResult
 from agent.settings import Settings
 
 

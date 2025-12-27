@@ -6,7 +6,6 @@ from collections.abc import Callable
 import logfire
 from pydantic_evals import Dataset
 
-from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.constants import AVAILABLE_MODELS
 from agent.evals.datasets.sandbox_sudden_drop_detection import (
     create_sandbox_sudden_drop_detection_dataset,
@@ -17,6 +16,7 @@ from agent.evals.datasets.sudden_drop_detection import (
 from agent.evals.runner import run_evals
 from agent.evals.sandbox_runner import run_sandbox_evals
 from agent.evals.types import EvalInputs, EvalMetadata
+from agent.models import SuddenDropAnalysisResult
 from agent.settings import Settings
 
 DatasetFactory = Callable[

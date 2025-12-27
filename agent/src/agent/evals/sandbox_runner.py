@@ -7,7 +7,6 @@ from pydantic_ai.mcp import MCPServerStreamableHTTP
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
-from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.evals.fixture_loader import load_fixture
 from agent.evals.server_manager import (
     GraphQLServerProcess,
@@ -20,6 +19,7 @@ from agent.evals.test_database import (
     destroy_test_database,
 )
 from agent.evals.types import EvalInputs, EvalMetadata, EvalTask
+from agent.models import SuddenDropAnalysisResult
 from agent.sandbox_budget_agent.agent import SandboxAgentDeps
 from agent.sandbox_budget_agent.prompts import (
     build_analysis_prompt,

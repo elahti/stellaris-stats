@@ -1,4 +1,4 @@
-from agent.budget_agent.models import (
+from agent.models import (
     SuddenDrop,
     SuddenDropAnalysisResult,
 )

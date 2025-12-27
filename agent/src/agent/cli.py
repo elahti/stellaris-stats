@@ -11,9 +11,9 @@ from agent.budget_agent.agent import (
     DROP_THRESHOLD_PERCENT,
     run_budget_analysis,
 )
-from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.budget_agent.tools import list_saves
 from agent.constants import AVAILABLE_MODELS
+from agent.models import SuddenDropAnalysisResult
 from agent.sandbox_budget_agent.agent import run_sandbox_budget_analysis
 from agent.settings import Settings
 

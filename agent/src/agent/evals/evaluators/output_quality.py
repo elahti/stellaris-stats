@@ -7,8 +7,8 @@ from pydantic_evals.evaluators import (
     EvaluatorContext,
 )
 
-from agent.budget_agent.models import SuddenDropAnalysisResult
 from agent.evals.types import EvalInputs, EvalMetadata
+from agent.models import SuddenDropAnalysisResult
 
 
 @dataclass
