@@ -12,14 +12,13 @@ from agent.budget_agent.models import (
     BudgetTimeSeries,
     SaveInfo,
     SnapshotResourceTotals,
-    SuddenDrop,
-    SuddenDropAnalysisResult,
 )
 from agent.budget_agent.tools import (
     AgentDeps,
     GraphQLClientProtocol,
     create_deps,
 )
+from agent.models import SuddenDrop, SuddenDropAnalysisResult
 
 __all__ = [
     "ANALYSIS_DATAPOINTS",

@@ -1,7 +1,7 @@
 from collections.abc import Awaitable, Callable
 from typing import TypedDict
 
-from agent.budget_agent.models import SuddenDropAnalysisResult
+from agent.models import SuddenDropAnalysisResult
 
 
 class EvalInputs(TypedDict):

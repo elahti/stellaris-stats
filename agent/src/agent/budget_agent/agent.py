@@ -6,7 +6,6 @@ from agent.budget_agent.models import (
     BudgetTimeSeries,
     SaveInfo,
     SnapshotResourceTotals,
-    SuddenDropAnalysisResult,
 )
 from agent.budget_agent.tools import (
     AgentDeps,
@@ -17,6 +16,7 @@ from agent.budget_agent.tools import (
     list_saves,
     select_latest_dates,
 )
+from agent.models import SuddenDropAnalysisResult
 
 DROP_THRESHOLD_PERCENT = 30.0
 ANALYSIS_DATAPOINTS = 4

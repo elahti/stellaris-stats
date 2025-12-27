@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from pydantic_ai import Agent, NativeOutput
 from pydantic_ai.mcp import MCPServerStreamableHTTP
 
-from agent.budget_agent.models import SuddenDropAnalysisResult
+from agent.models import SuddenDropAnalysisResult
 from agent.sandbox_budget_agent.prompts import (
     build_analysis_prompt,
     build_system_prompt,

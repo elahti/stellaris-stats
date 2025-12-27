@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock
 
-from agent.budget_agent.models import SuddenDrop, SuddenDropAnalysisResult
 from agent.evals.evaluators.output_quality import NoResourceDrop, ResourceDrop
+from agent.models import SuddenDrop, SuddenDropAnalysisResult
 
 
 def _create_mock_context(
