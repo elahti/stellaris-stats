@@ -419,22 +419,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.popCategoryWorkers",
+              "selector": "budget.income.popCategoryWorkers.trade",
               "text": "Worker Pops",
               "type": "number"
             },
             {
-              "selector": "budget.income.popFactions",
+              "selector": "budget.income.popFactions.trade",
               "text": "Factions",
               "type": "number"
             },
             {
-              "selector": "budget.income.shipComponents",
+              "selector": "budget.income.shipComponents.trade",
               "text": "Ship Components",
               "type": "number"
             },
             {
-              "selector": "budget.income.ships",
+              "selector": "budget.income.ships.trade",
               "text": "Ships",
               "type": "number"
             },
@@ -444,22 +444,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseBuildings",
+              "selector": "budget.income.starbaseBuildings.trade",
               "text": "Starbase Buildings",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseModules",
+              "selector": "budget.income.starbaseModules.trade",
               "text": "Starbase Modules",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbases",
+              "selector": "budget.income.starbases.trade",
               "text": "Starbases",
               "type": "number"
             },
             {
-              "selector": "budget.income.stationGatherers",
+              "selector": "budget.income.stationGatherers.trade",
               "text": "Station Gatherers",
               "type": "number"
             },
@@ -474,12 +474,12 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.stationResearchers",
+              "selector": "budget.income.stationResearchers.trade",
               "text": "Station Researchers",
               "type": "number"
             },
             {
-              "selector": "budget.income.tradePolicy",
+              "selector": "budget.income.tradePolicy.trade",
               "text": "Trade Policy",
               "type": "number"
             }
@@ -921,22 +921,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.popCategoryWorkers",
+              "selector": "budget.expenses.popCategoryWorkers.trade",
               "text": "Worker Pops",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.popFactions",
+              "selector": "budget.expenses.popFactions.trade",
               "text": "Factions",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.shipComponents",
+              "selector": "budget.expenses.shipComponents.trade",
               "text": "Ship Components",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.ships",
+              "selector": "budget.expenses.ships.trade",
               "text": "Ships",
               "type": "number"
             },
@@ -946,22 +946,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbaseBuildings",
+              "selector": "budget.expenses.starbaseBuildings.trade",
               "text": "Starbase Buildings",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbaseModules",
+              "selector": "budget.expenses.starbaseModules.trade",
               "text": "Starbase Modules",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbases",
+              "selector": "budget.expenses.starbases.trade",
               "text": "Starbases",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.stationGatherers",
+              "selector": "budget.expenses.stationGatherers.trade",
               "text": "Station Gatherers",
               "type": "number"
             },
@@ -976,12 +976,12 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.stationResearchers",
+              "selector": "budget.expenses.stationResearchers.trade",
               "text": "Station Researchers",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.tradePolicy",
+              "selector": "budget.expenses.tradePolicy.trade",
               "text": "Trade Policy",
               "type": "number"
             }

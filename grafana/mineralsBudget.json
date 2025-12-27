@@ -419,22 +419,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.popCategoryWorkers",
+              "selector": "budget.income.popCategoryWorkers.minerals",
               "text": "Worker Pops",
               "type": "number"
             },
             {
-              "selector": "budget.income.popFactions",
+              "selector": "budget.income.popFactions.minerals",
               "text": "Factions",
               "type": "number"
             },
             {
-              "selector": "budget.income.shipComponents",
+              "selector": "budget.income.shipComponents.minerals",
               "text": "Ship Components",
               "type": "number"
             },
             {
-              "selector": "budget.income.ships",
+              "selector": "budget.income.ships.minerals",
               "text": "Ships",
               "type": "number"
             },
@@ -444,22 +444,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseBuildings",
+              "selector": "budget.income.starbaseBuildings.minerals",
               "text": "Starbase Buildings",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbaseModules",
+              "selector": "budget.income.starbaseModules.minerals",
               "text": "Starbase Modules",
               "type": "number"
             },
             {
-              "selector": "budget.income.starbases",
+              "selector": "budget.income.starbases.minerals",
               "text": "Starbases",
               "type": "number"
             },
             {
-              "selector": "budget.income.stationGatherers",
+              "selector": "budget.income.stationGatherers.minerals",
               "text": "Station Gatherers",
               "type": "number"
             },
@@ -474,12 +474,12 @@
               "type": "number"
             },
             {
-              "selector": "budget.income.stationResearchers",
+              "selector": "budget.income.stationResearchers.minerals",
               "text": "Station Researchers",
               "type": "number"
             },
             {
-              "selector": "budget.income.tradePolicy",
+              "selector": "budget.income.tradePolicy.minerals",
               "text": "Trade Policy",
               "type": "number"
             }
@@ -921,22 +921,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.popCategoryWorkers",
+              "selector": "budget.expenses.popCategoryWorkers.minerals",
               "text": "Worker Pops",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.popFactions",
+              "selector": "budget.expenses.popFactions.minerals",
               "text": "Factions",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.shipComponents",
+              "selector": "budget.expenses.shipComponents.minerals",
               "text": "Ship Components",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.ships",
+              "selector": "budget.expenses.ships.minerals",
               "text": "Ships",
               "type": "number"
             },
@@ -946,22 +946,22 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbaseBuildings",
+              "selector": "budget.expenses.starbaseBuildings.minerals",
               "text": "Starbase Buildings",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbaseModules",
+              "selector": "budget.expenses.starbaseModules.minerals",
               "text": "Starbase Modules",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.starbases",
+              "selector": "budget.expenses.starbases.minerals",
               "text": "Starbases",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.stationGatherers",
+              "selector": "budget.expenses.stationGatherers.minerals",
               "text": "Station Gatherers",
               "type": "number"
             },
@@ -976,12 +976,12 @@
               "type": "number"
             },
             {
-              "selector": "budget.expenses.stationResearchers",
+              "selector": "budget.expenses.stationResearchers.minerals",
               "text": "Station Researchers",
               "type": "number"
             },
             {
-              "selector": "budget.expenses.tradePolicy",
+              "selector": "budget.expenses.tradePolicy.minerals",
               "text": "Trade Policy",
               "type": "number"
             }
