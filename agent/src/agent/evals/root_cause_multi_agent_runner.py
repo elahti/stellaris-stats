@@ -19,7 +19,9 @@ from agent.evals.test_database import (
 )
 from agent.evals.types import EvalInputs, EvalMetadata, EvalTask
 from agent.models import MultiAgentAnalysisResult
-from agent.multi_agent.orchestrator import run_multi_agent_analysis
+from agent.root_cause_multi_agent.orchestrator import (
+    run_root_cause_multi_agent_orchestration,
+)
 from agent.settings import Settings
 
 
@@ -43,7 +45,7 @@ async def eval_environment(
         await destroy_test_database(db_ctx, settings)
 
 
-async def run_multi_agent_eval(
+async def run_root_cause_multi_agent_eval(
     inputs: EvalInputs,
     model_name: str | None = None,
     model_settings: ModelSettings | None = None,
@@ -73,7 +75,7 @@ async def run_multi_agent_eval(
                 stellaris_stats_graphql_server_port=int(graphql_url.split(":")[-1]),
             )
 
-            return await run_multi_agent_analysis(
+            return await run_root_cause_multi_agent_orchestration(
                 save_filename=inputs["save_filename"],
                 settings=eval_settings,
                 model_name=model_name,
@@ -81,11 +83,11 @@ async def run_multi_agent_eval(
                 parallel_root_cause=False,
             )
     except Exception as e:
-        logfire.error(f"Multi-agent eval failed: {e!r}")
+        logfire.error(f"Root cause multi-agent eval failed: {e!r}")
         raise
 
 
-def create_multi_agent_eval_task(
+def create_root_cause_multi_agent_eval_task(
     model_name: str | None = None,
     model_settings: ModelSettings | None = None,
     experiment_name: str | None = None,
@@ -94,7 +96,7 @@ def create_multi_agent_eval_task(
     async def eval_task(
         inputs: EvalInputs,
     ) -> MultiAgentAnalysisResult:
-        return await run_multi_agent_eval(
+        return await run_root_cause_multi_agent_eval(
             inputs,
             model_name=model_name,
             model_settings=model_settings,
@@ -107,7 +109,7 @@ def create_multi_agent_eval_task(
     return eval_task
 
 
-async def run_multi_agent_evals(
+async def run_root_cause_multi_agent_evals(
     dataset: Dataset[EvalInputs, MultiAgentAnalysisResult, EvalMetadata],
     model_name: str | None = None,
     experiment_name: str | None = None,
@@ -118,7 +120,7 @@ async def run_multi_agent_evals(
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx()
 
-    task = create_multi_agent_eval_task(
+    task = create_root_cause_multi_agent_eval_task(
         model_name,
         model_settings,
         experiment_name,

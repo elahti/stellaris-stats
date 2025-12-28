@@ -11,14 +11,14 @@ from agent.constants import AVAILABLE_MODELS
 from agent.evals.datasets.native_budget_agent import (
     create_native_budget_agent_dataset,
 )
+from agent.evals.datasets.root_cause_drop_detection import (
+    create_root_cause_drop_detection_dataset,
+)
 from agent.evals.datasets.sandbox_drop_detection import (
     create_sandbox_drop_detection_dataset,
 )
-from agent.evals.datasets.sudden_drop_detection import (
-    create_sudden_drop_detection_dataset,
-)
-from agent.evals.multi_agent_runner import run_multi_agent_evals
 from agent.evals.native_budget_agent_runner import run_native_budget_agent_evals
+from agent.evals.root_cause_multi_agent_runner import run_root_cause_multi_agent_evals
 from agent.evals.sandbox_drop_detection_runner import run_sandbox_drop_detection_evals
 from agent.settings import Settings
 from agent.thinking_settings import THINKING_LEVELS, ThinkingLevel, get_model_settings
@@ -31,9 +31,9 @@ class DatasetConfig:
 
 
 AVAILABLE_DATASETS: dict[str, DatasetConfig] = {
-    "multi_agent_drop_detection": DatasetConfig(
-        create=create_sudden_drop_detection_dataset,
-        runner=run_multi_agent_evals,
+    "root_cause_multi_agent_drop_detection": DatasetConfig(
+        create=create_root_cause_drop_detection_dataset,
+        runner=run_root_cause_multi_agent_evals,
     ),
     "native_budget_agent": DatasetConfig(
         create=create_native_budget_agent_dataset,
@@ -93,7 +93,7 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  budget-evals --dataset multi_agent_drop_detection --thinking off
+  budget-evals --dataset root_cause_multi_agent_drop_detection --thinking off
   budget-evals --dataset native_budget_agent --model openai-responses:gpt-5.2-2025-12-11 --thinking medium
   budget-evals --dataset sandbox_drop_detection --thinking high
   budget-evals --list-datasets

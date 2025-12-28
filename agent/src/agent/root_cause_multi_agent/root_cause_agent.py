@@ -8,7 +8,7 @@ from pydantic_ai.mcp import MCPServerStreamableHTTP
 from pydantic_ai.settings import ModelSettings
 
 from agent.models import RootCauseAnalysisResult, SuddenDrop
-from agent.multi_agent.root_cause_prompts import (
+from agent.root_cause_multi_agent.root_cause_prompts import (
     build_root_cause_analysis_prompt,
     build_root_cause_system_prompt,
 )
