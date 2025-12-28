@@ -19,6 +19,7 @@ from agent.evals.datasets.sandbox_drop_detection import (
 )
 from agent.evals.native_budget_agent_runner import run_native_budget_agent_evals
 from agent.evals.root_cause_multi_agent_runner import run_root_cause_multi_agent_evals
+from agent.evals.root_cause_single_agent_runner import run_root_cause_single_agent_evals
 from agent.evals.sandbox_drop_detection_runner import run_sandbox_drop_detection_evals
 from agent.settings import Settings
 from agent.thinking_settings import THINKING_LEVELS, ThinkingLevel, get_model_settings
@@ -34,6 +35,10 @@ AVAILABLE_DATASETS: dict[str, DatasetConfig] = {
     "root_cause_multi_agent_drop_detection": DatasetConfig(
         create=create_root_cause_drop_detection_dataset,
         runner=run_root_cause_multi_agent_evals,
+    ),
+    "root_cause_single_agent_drop_detection": DatasetConfig(
+        create=create_root_cause_drop_detection_dataset,
+        runner=run_root_cause_single_agent_evals,
     ),
     "native_budget_agent": DatasetConfig(
         create=create_native_budget_agent_dataset,
@@ -94,6 +99,7 @@ def main() -> None:
         epilog="""
 Examples:
   budget-evals --dataset root_cause_multi_agent_drop_detection --thinking off
+  budget-evals --dataset root_cause_single_agent_drop_detection --thinking off
   budget-evals --dataset native_budget_agent --model openai-responses:gpt-5.2-2025-12-11 --thinking medium
   budget-evals --dataset sandbox_drop_detection --thinking high
   budget-evals --list-datasets
