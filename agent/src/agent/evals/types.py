@@ -1,7 +1,7 @@
 from collections.abc import Awaitable, Callable
 from typing import TypedDict
 
-from agent.models import SuddenDropAnalysisResult
+from agent.models import MultiAgentAnalysisResult, SuddenDropAnalysisResult
 
 
 class EvalInputs(TypedDict):
@@ -17,4 +17,5 @@ class EvalMetadata(TypedDict):
     description: str
 
 
-EvalTask = Callable[[EvalInputs], Awaitable[SuddenDropAnalysisResult]]
+EvalTask = Callable[[EvalInputs], Awaitable[MultiAgentAnalysisResult]]
+LegacyEvalTask = Callable[[EvalInputs], Awaitable[SuddenDropAnalysisResult]]

@@ -2,20 +2,18 @@ from pydantic_evals import Case, Dataset
 from pydantic_evals.evaluators import IsInstance
 
 from agent.evals.evaluators.output_quality import (
-    HasTopContributor,
     NoResourceDrop,
     ResourceDrop,
-    RootCauseAnalyzed,
 )
 from agent.evals.types import EvalInputs, EvalMetadata
-from agent.models import MultiAgentAnalysisResult
+from agent.models import SuddenDropAnalysisResult
 
-CaseType = Case[EvalInputs, MultiAgentAnalysisResult, EvalMetadata]
+CaseType = Case[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]
 
 
-def create_sudden_drop_detection_dataset() -> Dataset[
+def create_sandbox_drop_detection_dataset() -> Dataset[
     EvalInputs,
-    MultiAgentAnalysisResult,
+    SuddenDropAnalysisResult,
     EvalMetadata,
 ]:
     trade_drop_inputs: EvalInputs = {
@@ -56,8 +54,6 @@ def create_sudden_drop_detection_dataset() -> Dataset[
                 NoResourceDrop(resource="unity"),
                 NoResourceDrop(resource="volatileMotes"),
                 ResourceDrop(resource="trade", min_drop_percent=100.0),
-                RootCauseAnalyzed(resource="trade"),
-                HasTopContributor(resource="trade", category="tradePolicy"),
             ),
         ),
         Case(
@@ -87,18 +83,14 @@ def create_sudden_drop_detection_dataset() -> Dataset[
                 NoResourceDrop(resource="unity"),
                 NoResourceDrop(resource="volatileMotes"),
                 NoResourceDrop(resource="trade"),
-                RootCauseAnalyzed(resource="energy"),
-                RootCauseAnalyzed(resource="alloys"),
-                HasTopContributor(resource="energy", category="shipComponents"),
-                HasTopContributor(resource="alloys", category="planetMetallurgists"),
             ),
         ),
     ]
 
-    global_evaluators = (IsInstance(type_name="MultiAgentAnalysisResult"),)
+    global_evaluators = (IsInstance(type_name="SuddenDropAnalysisResult"),)
 
     return Dataset(
-        name="multi_agent_drop_detection",
+        name="sandbox_drop_detection",
         cases=cases,
         evaluators=global_evaluators,
     )

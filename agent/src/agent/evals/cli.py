@@ -1,35 +1,46 @@
 import argparse
 import asyncio
 import sys
-from collections.abc import Callable
+from dataclasses import dataclass
+from typing import Any
 
 import logfire
-from pydantic_evals import Dataset
 
 from agent.constants import AVAILABLE_MODELS
-from agent.evals.datasets.sandbox_sudden_drop_detection import (
-    create_sandbox_sudden_drop_detection_dataset,
+from agent.evals.datasets.native_budget_agent import (
+    create_native_budget_agent_dataset,
+)
+from agent.evals.datasets.sandbox_drop_detection import (
+    create_sandbox_drop_detection_dataset,
 )
 from agent.evals.datasets.sudden_drop_detection import (
     create_sudden_drop_detection_dataset,
 )
-from agent.evals.runner import run_evals
-from agent.evals.sandbox_runner import run_sandbox_evals
-from agent.evals.types import EvalInputs, EvalMetadata
-from agent.models import SuddenDropAnalysisResult
+from agent.evals.multi_agent_runner import run_multi_agent_evals
+from agent.evals.native_budget_agent_runner import run_native_budget_agent_evals
+from agent.evals.sandbox_drop_detection_runner import run_sandbox_drop_detection_evals
 from agent.settings import Settings
 
-DatasetFactory = Callable[
-    [],
-    Dataset[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
-]
 
-AVAILABLE_DATASETS: dict[str, DatasetFactory] = {
-    "sudden_drop_detection": create_sudden_drop_detection_dataset,
-}
+@dataclass
+class DatasetConfig:
+    create: Any
+    runner: Any
 
-SANDBOX_DATASETS: dict[str, DatasetFactory] = {
-    "sandbox_sudden_drop_detection": create_sandbox_sudden_drop_detection_dataset,
+
+AVAILABLE_DATASETS: dict[str, DatasetConfig] = {
+    "multi_agent_drop_detection": DatasetConfig(
+        create=create_sudden_drop_detection_dataset,
+        runner=run_multi_agent_evals,
+    ),
+    "native_budget_agent": DatasetConfig(
+        create=create_native_budget_agent_dataset,
+        runner=run_native_budget_agent_evals,
+    ),
+    "sandbox_drop_detection": DatasetConfig(
+        create=create_sandbox_drop_detection_dataset,
+        runner=run_sandbox_drop_detection_evals,
+    ),
 }
 
 
@@ -39,56 +50,35 @@ def build_experiment_name(dataset_name: str, model_name: str) -> str:
 
 
 async def run_evals_for_models(
-    dataset_factory: DatasetFactory,
     dataset_name: str,
     models: list[str],
     settings: Settings,
 ) -> None:
-    dataset = dataset_factory()
+    config = AVAILABLE_DATASETS[dataset_name]
+    dataset = config.create()
+    runner = config.runner
     for model in models:
         print(f"\n{'=' * 60}")
         print(f"Running evals with model: {model}")
         print("=" * 60)
         experiment_name = build_experiment_name(dataset_name, model)
-        await run_evals(
+        await runner(
             dataset,
-            model_name=model,
-            experiment_name=experiment_name,
-            settings=settings,
-        )
-
-
-async def run_sandbox_evals_for_models(
-    dataset_factory: DatasetFactory,
-    dataset_name: str,
-    models: list[str],
-    settings: Settings,
-) -> None:
-    dataset = dataset_factory()
-    for model in models:
-        print(f"\n{'=' * 60}")
-        print(f"Running sandbox evals with model: {model}")
-        print("=" * 60)
-        experiment_name = build_experiment_name(dataset_name, model)
-        await run_sandbox_evals(
-            dataset,
-            model_name=model,
-            experiment_name=experiment_name,
-            settings=settings,
+            model,
+            experiment_name,
+            settings,
         )
 
 
 def main() -> None:
-    all_datasets = list(AVAILABLE_DATASETS.keys()) + list(SANDBOX_DATASETS.keys())
-
     parser = argparse.ArgumentParser(
         description="Run pydantic-ai evals for the budget agent",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  budget-evals --dataset sudden_drop_detection
-  budget-evals --dataset sandbox_sudden_drop_detection
-  budget-evals --dataset sudden_drop_detection --model openai:gpt-5.2-2025-12-11
+  budget-evals --dataset multi_agent_drop_detection
+  budget-evals --dataset native_budget_agent --model openai:gpt-5.2-2025-12-11
+  budget-evals --dataset sandbox_drop_detection
   budget-evals --list-datasets
         """,
     )
@@ -96,7 +86,7 @@ Examples:
     parser.add_argument(
         "--dataset",
         type=str,
-        choices=all_datasets,
+        choices=list(AVAILABLE_DATASETS.keys()),
         help="Name of the eval dataset to run",
     )
     parser.add_argument(
@@ -116,9 +106,6 @@ Examples:
         print("Available datasets:")
         for name in AVAILABLE_DATASETS:
             print(f"  - {name}")
-        print("\nSandbox datasets:")
-        for name in SANDBOX_DATASETS:
-            print(f"  - {name}")
         return
 
     if not args.dataset:
@@ -135,52 +122,27 @@ Examples:
     )
 
     dataset_name = args.dataset
-    is_sandbox = dataset_name in SANDBOX_DATASETS
+    config = AVAILABLE_DATASETS[dataset_name]
 
-    if is_sandbox:
-        sandbox_factory = SANDBOX_DATASETS[dataset_name]
-        if args.model:
-            dataset = sandbox_factory()
-            experiment_name = build_experiment_name(dataset_name, args.model)
-            asyncio.run(
-                run_sandbox_evals(
-                    dataset,
-                    model_name=args.model,
-                    experiment_name=experiment_name,
-                    settings=settings,
-                ),
-            )
-        else:
-            asyncio.run(
-                run_sandbox_evals_for_models(
-                    sandbox_factory,
-                    dataset_name,
-                    AVAILABLE_MODELS,
-                    settings,
-                ),
-            )
+    if args.model:
+        dataset = config.create()
+        experiment_name = build_experiment_name(dataset_name, args.model)
+        asyncio.run(
+            config.runner(
+                dataset,
+                args.model,
+                experiment_name,
+                settings,
+            ),
+        )
     else:
-        dataset_factory = AVAILABLE_DATASETS[dataset_name]
-        if args.model:
-            dataset = dataset_factory()
-            experiment_name = build_experiment_name(dataset_name, args.model)
-            asyncio.run(
-                run_evals(
-                    dataset,
-                    model_name=args.model,
-                    experiment_name=experiment_name,
-                    settings=settings,
-                ),
-            )
-        else:
-            asyncio.run(
-                run_evals_for_models(
-                    dataset_factory,
-                    dataset_name,
-                    AVAILABLE_MODELS,
-                    settings,
-                ),
-            )
+        asyncio.run(
+            run_evals_for_models(
+                dataset_name,
+                AVAILABLE_MODELS,
+                settings,
+            ),
+        )
 
 
 if __name__ == "__main__":
