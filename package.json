@@ -29,11 +29,23 @@
     "eslint-plugin-n": "17.23.1",
     "eslint-plugin-prettier": "5.5.4",
     "graphql-codegen-typescript-validation-schema": "0.18.1",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7",
     "pino-pretty": "13.1.3",
     "prettier": "3.7.4",
     "tsx": "4.21.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.50.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint"
+    ],
+    "agent/**/*.py": [
+      "bash -c 'cd agent && files=(); for f; do files+=(\"${f#agent/}\"); done; uv run ruff format \"${files[@]}\"' _",
+      "bash -c 'cd agent && files=(); for f; do files+=(\"${f#agent/}\"); done; uv run ruff check \"${files[@]}\"' _"
+    ]
   },
   "name": "stellaris-stats",
   "scripts": {
@@ -42,7 +54,6 @@
     "agent:generate-fixture": "cd agent && dotenvx run -f ../.env.stellaris-stats -- uv run python scripts/generate_sql_fixture.py",
     "agent:list-models": "cd agent && uv run agent list-models",
     "agent:list-saves": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run agent list-saves",
-    "agent:sandbox-analyze": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run agent analyze --sandbox",
     "build": "npm run graphql:codegen && tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json",
     "db:connect": "dotenvx run -f .env.stellaris-stats --strict -- sh -c 'PGPASSWORD=\"$STELLARIS_STATS_DB_PASSWORD\" psql -h \"$STELLARIS_STATS_DB_HOST\" -p \"$STELLARIS_STATS_DB_PORT\" -U \"$STELLARIS_STATS_DB_USER\" \"$STELLARIS_STATS_DB_NAME\"'",
     "db:dump": "dotenvx run -f .env.stellaris-stats -- sh -c 'PGPASSWORD=$STELLARIS_STATS_DB_PASSWORD pg_dump --clean -h $STELLARIS_STATS_DB_HOST -U $STELLARIS_STATS_DB_USER -d $STELLARIS_STATS_DB_NAME | gzip > /workspace/db-dump-data/db-dump-$(date +%Y-%m-%d-%H-%M-%S).sql.gz'",
@@ -57,6 +68,7 @@
     "lint:python": "cd agent && uv run ruff check",
     "lint:typescript": "eslint .",
     "parser:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/parser/parserMain.ts",
+    "prepare": "husky",
     "test:ci:python": "cd agent && uv run pytest -v --tb=short",
     "test:ci:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test",
     "test:python": "cd agent && uv run pytest -v",
