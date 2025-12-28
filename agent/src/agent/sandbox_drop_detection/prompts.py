@@ -166,7 +166,7 @@ query GetBudget($filename: String!) {{
 
 1. Fetch the latest {ANALYSIS_DATAPOINTS} gamestates by date
 2. For each gamestate, sum each resource across ALL budget categories
-3. Compare CONSECUTIVE snapshots: D1→D2, D2→D3, D3→D4
+3. Compare CONSECUTIVE snapshots: D1->D2, D2->D3, D3->D4
 4. Flag resources where drop_percent >= {DROP_THRESHOLD_PERCENT}%
 
 ### Drop Calculation
