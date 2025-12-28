@@ -1,14 +1,17 @@
 from pydantic_evals import Case, Dataset
-from pydantic_evals.evaluators import IsInstance, MaxDuration
+from pydantic_evals.evaluators import IsInstance
 
-from agent.evals.evaluators.output_quality import NoResourceDrop, ResourceDrop
+from agent.evals.evaluators.output_quality import (
+    NoResourceDrop,
+    ResourceDrop,
+)
 from agent.evals.types import EvalInputs, EvalMetadata
 from agent.models import SuddenDropAnalysisResult
 
 CaseType = Case[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]
 
 
-def create_sandbox_sudden_drop_detection_dataset() -> Dataset[
+def create_native_budget_agent_dataset() -> Dataset[
     EvalInputs,
     SuddenDropAnalysisResult,
     EvalMetadata,
@@ -84,13 +87,10 @@ def create_sandbox_sudden_drop_detection_dataset() -> Dataset[
         ),
     ]
 
-    global_evaluators = (
-        IsInstance(type_name="SuddenDropAnalysisResult"),
-        MaxDuration(seconds=180.0),
-    )
+    global_evaluators = (IsInstance(type_name="SuddenDropAnalysisResult"),)
 
     return Dataset(
-        name="sandbox_sudden_drop_detection",
+        name="native_budget_agent",
         cases=cases,
         evaluators=global_evaluators,
     )

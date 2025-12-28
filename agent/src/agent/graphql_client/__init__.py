@@ -98,6 +98,14 @@ from .get_budget import (
     GetBudgetSaveGamestatesBudgetBalance,
 )
 from .get_dates import GetDates, GetDatesSave, GetDatesSaveGamestates
+from .get_income_expenses import (
+    GetIncomeExpenses,
+    GetIncomeExpensesSave,
+    GetIncomeExpensesSaveGamestates,
+    GetIncomeExpensesSaveGamestatesBudget,
+    GetIncomeExpensesSaveGamestatesBudgetExpenses,
+    GetIncomeExpensesSaveGamestatesBudgetIncome,
+)
 from .list_saves import ListSaves, ListSavesSaves
 
 __all__ = [
@@ -190,6 +198,12 @@ __all__ = [
     "GetDates",
     "GetDatesSave",
     "GetDatesSaveGamestates",
+    "GetIncomeExpenses",
+    "GetIncomeExpensesSave",
+    "GetIncomeExpensesSaveGamestates",
+    "GetIncomeExpensesSaveGamestatesBudget",
+    "GetIncomeExpensesSaveGamestatesBudgetExpenses",
+    "GetIncomeExpensesSaveGamestatesBudgetIncome",
     "GraphQLClientError",
     "GraphQLClientGraphQLError",
     "GraphQLClientGraphQLMultiError",

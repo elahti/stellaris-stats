@@ -416,13 +416,13 @@ The agent includes a pydantic-evals based evaluation framework for testing agent
 
 #### Available Datasets
 
-- `sudden_drop_detection`: Tests detection of sudden resource drops and absence of false positives
+- `multi_agent_drop_detection`: Tests multi-agent workflow for detecting sudden resource drops and root cause analysis
 
 #### Running Evals
 
 ```bash
-npm run agent:evals -- --dataset sudden_drop_detection
-npm run agent:evals -- --dataset sudden_drop_detection --model anthropic:claude-haiku-3-5-20241022
+npm run agent:evals -- --dataset multi_agent_drop_detection
+npm run agent:evals -- --dataset multi_agent_drop_detection --model anthropic:claude-haiku-3-5-20241022
 npm run agent:evals -- --list-datasets
 npm run agent:evals -- --list-models
 ```

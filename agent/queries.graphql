@@ -276,3 +276,19 @@ query GetBudget($filename: String!) {
     }
   }
 }
+
+query GetIncomeExpenses($filename: String!) {
+  save(filename: $filename) {
+    gamestates {
+      date
+      budget {
+        income {
+          ...BudgetCategoryFields
+        }
+        expenses {
+          ...BudgetCategoryFields
+        }
+      }
+    }
+  }
+}

@@ -1,25 +1,31 @@
 from unittest.mock import MagicMock
 
 from agent.evals.evaluators.output_quality import NoResourceDrop, ResourceDrop
-from agent.models import SuddenDrop, SuddenDropAnalysisResult
+from agent.models import MultiAgentAnalysisResult, SuddenDrop, SuddenDropWithRootCause
 
 
 def _create_mock_context(
-    output: SuddenDropAnalysisResult,
+    output: MultiAgentAnalysisResult,
 ) -> MagicMock:
     ctx: MagicMock = MagicMock()
     ctx.output = output
     return ctx
 
 
-def _create_result_with_drops(drops: list[SuddenDrop]) -> SuddenDropAnalysisResult:
-    return SuddenDropAnalysisResult(
+def _create_result_with_drops(drops: list[SuddenDrop]) -> MultiAgentAnalysisResult:
+    drops_with_causes = [
+        SuddenDropWithRootCause(drop=drop, root_cause=None, analysis_error=None)
+        for drop in drops
+    ]
+    return MultiAgentAnalysisResult(
         save_filename="test.sav",
         analysis_period_start="2200-01-01",
         analysis_period_end="2200-04-01",
         datapoints_analyzed=4,
         drop_threshold_percent=30.0,
-        sudden_drops=drops,
+        drops_with_root_causes=drops_with_causes,
+        total_drops_detected=len(drops),
+        successful_root_cause_analyses=0,
         summary="Test result",
     )
 

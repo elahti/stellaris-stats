@@ -1,13 +1,14 @@
 from pydantic_ai import Agent, NativeOutput, RunContext
 from pydantic_ai.agent import AgentRunResult
 
-from agent.budget_agent.models import (
+from agent.models import SuddenDropAnalysisResult
+from agent.native_budget_agent.models import (
     BudgetSnapshot,
     BudgetTimeSeries,
     SaveInfo,
     SnapshotResourceTotals,
 )
-from agent.budget_agent.tools import (
+from agent.native_budget_agent.tools import (
     AgentDeps,
     create_deps,
     fetch_budget_data,
@@ -16,7 +17,6 @@ from agent.budget_agent.tools import (
     list_saves,
     select_latest_dates,
 )
-from agent.models import SuddenDropAnalysisResult
 
 DROP_THRESHOLD_PERCENT = 30.0
 ANALYSIS_DATAPOINTS = 4
@@ -60,7 +60,7 @@ def sum_resources_for_snapshot(snapshot: BudgetSnapshot) -> dict[str, float]:
     return totals
 
 
-_budget_agent: Agent[AgentDeps, SuddenDropAnalysisResult] | None = None
+_native_budget_agent: Agent[AgentDeps, SuddenDropAnalysisResult] | None = None
 
 
 def build_system_prompt() -> str:
@@ -77,13 +77,13 @@ Your task is to identify resources that have experienced a significant sudden dr
 When you receive budget time series data with resource_totals:
 
 1. The resource_totals contain each resource SUMMED ACROSS ALL budget categories for each snapshot
-2. Compare CONSECUTIVE snapshots: D1→D2, D2→D3, D3→D4
+2. Compare CONSECUTIVE snapshots: D1->D2, D2->D3, D3->D4
 3. For each resource, calculate the percentage drop between each consecutive pair
 4. A "sudden drop" is when a resource drops by {DROP_THRESHOLD_PERCENT}% or more between any two consecutive snapshots
 5. Only flag DROPS (negative changes), not increases
 
 ## Sudden Drop Detection Logic
-- For each resource, compare values between consecutive snapshots (D1→D2, D2→D3, D3→D4)
+- For each resource, compare values between consecutive snapshots (D1->D2, D2->D3, D3->D4)
 - Calculate: drop_percent = ((earlier_value - later_value) / abs(earlier_value)) * 100
 - A drop is ONLY when the later value is LESS than the earlier value (positive drop_absolute)
 - If drop_percent >= {DROP_THRESHOLD_PERCENT} for ANY consecutive pair, it's a sudden drop
@@ -105,17 +105,17 @@ When you receive budget time series data with resource_totals:
 The game starts on January 1, 2200. You are analyzing the {ANALYSIS_DATAPOINTS} most recent budget snapshots to detect sudden resource problems."""
 
 
-def get_budget_agent() -> Agent[AgentDeps, SuddenDropAnalysisResult]:
-    global _budget_agent
-    if _budget_agent is None:
-        _budget_agent = Agent(
+def get_native_budget_agent() -> Agent[AgentDeps, SuddenDropAnalysisResult]:
+    global _native_budget_agent
+    if _native_budget_agent is None:
+        _native_budget_agent = Agent(
             "openai:gpt-5.2-2025-12-11",
             deps_type=AgentDeps,
             output_type=NativeOutput(SuddenDropAnalysisResult),
             system_prompt=build_system_prompt(),
         )
-        _register_tools(_budget_agent)
-    return _budget_agent
+        _register_tools(_native_budget_agent)
+    return _native_budget_agent
 
 
 async def _get_available_saves(ctx: RunContext[AgentDeps]) -> list[SaveInfo]:
@@ -187,12 +187,12 @@ def build_analysis_prompt(save_filename: str) -> str:
     return (
         f"Fetch and analyze the budget for save '{save_filename}'. "
         f"Use get_budget_time_series to get the latest {ANALYSIS_DATAPOINTS} budget snapshots with summed resource totals. "
-        f"Compare consecutive datapoints (D1→D2, D2→D3, D3→D4) to identify any resources with sudden drops of {DROP_THRESHOLD_PERCENT}% or more. "
+        f"Compare consecutive datapoints (D1->D2, D2->D3, D3->D4) to identify any resources with sudden drops of {DROP_THRESHOLD_PERCENT}% or more. "
         f"Return the analysis result with a summary of sudden drops found."
     )
 
 
-async def run_budget_analysis(
+async def run_native_budget_analysis(
     save_filename: str,
     deps: AgentDeps | None = None,
     model_name: str | None = None,
@@ -210,7 +210,7 @@ async def run_budget_analysis(
     if deps is None:
         deps = create_deps()
     prompt = build_analysis_prompt(save_filename)
-    agent = get_budget_agent()
+    agent = get_native_budget_agent()
     if model_name:
         with agent.override(model=model_name):
             return await agent.run(prompt, deps=deps)

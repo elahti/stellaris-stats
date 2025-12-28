@@ -2,8 +2,6 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 import logfire
-from pydantic_ai import Agent, NativeOutput
-from pydantic_ai.mcp import MCPServerStreamableHTTP
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
@@ -19,12 +17,8 @@ from agent.evals.test_database import (
     destroy_test_database,
 )
 from agent.evals.types import EvalInputs, EvalMetadata, EvalTask
-from agent.models import SuddenDropAnalysisResult
-from agent.sandbox_budget_agent.agent import SandboxAgentDeps
-from agent.sandbox_budget_agent.prompts import (
-    build_analysis_prompt,
-    build_system_prompt,
-)
+from agent.models import MultiAgentAnalysisResult
+from agent.multi_agent.orchestrator import run_multi_agent_analysis
 from agent.settings import Settings
 
 
@@ -48,24 +42,11 @@ async def eval_environment(
         await destroy_test_database(db_ctx, settings)
 
 
-def _create_eval_agent(
-    mcp_server: MCPServerStreamableHTTP,
-    graphql_url: str,
-) -> Agent[SandboxAgentDeps, SuddenDropAnalysisResult]:
-    return Agent(
-        "openai:gpt-5.2-2025-12-11",
-        deps_type=SandboxAgentDeps,
-        output_type=NativeOutput(SuddenDropAnalysisResult),
-        system_prompt=build_system_prompt(graphql_url),
-        toolsets=[mcp_server],
-    )
-
-
-async def run_sandbox_budget_eval(
+async def run_multi_agent_eval(
     inputs: EvalInputs,
     model_name: str | None = None,
     settings: Settings | None = None,
-) -> SuddenDropAnalysisResult:
+) -> MultiAgentAnalysisResult:
     if settings is None:
         settings = Settings()
 
@@ -82,36 +63,34 @@ async def run_sandbox_budget_eval(
             else:
                 graphql_url = server.url
 
-            deps = SandboxAgentDeps(graphql_url=graphql_url)
-            prompt = build_analysis_prompt(inputs["save_filename"], graphql_url)
+            eval_settings = Settings(
+                stellaris_stats_python_sandbox_url=settings.sandbox_url,
+                stellaris_stats_graphql_server_host=graphql_url.split("://")[1].split(
+                    ":",
+                )[0],
+                stellaris_stats_graphql_server_port=int(graphql_url.split(":")[-1]),
+            )
 
-            mcp_server = MCPServerStreamableHTTP(settings.sandbox_url)
-            agent = _create_eval_agent(mcp_server, graphql_url)
-
-            async with mcp_server:
-                if model_name:
-                    with agent.override(model=model_name):
-                        result = await agent.run(prompt, deps=deps)
-                else:
-                    result = await agent.run(prompt, deps=deps)
-
-            return result.output
+            return await run_multi_agent_analysis(
+                save_filename=inputs["save_filename"],
+                settings=eval_settings,
+                model_name=model_name,
+                parallel_root_cause=False,
+            )
     except Exception as e:
-        logfire.error(f"Sandbox eval failed: {e!r}")
+        logfire.error(f"Multi-agent eval failed: {e!r}")
         raise
 
 
-def create_sandbox_eval_task(
+def create_multi_agent_eval_task(
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
 ) -> EvalTask:
-    """Create a sandbox evaluation task function with the specified configuration."""
-
     async def eval_task(
         inputs: EvalInputs,
-    ) -> SuddenDropAnalysisResult:
-        return await run_sandbox_budget_eval(
+    ) -> MultiAgentAnalysisResult:
+        return await run_multi_agent_eval(
             inputs,
             model_name=model_name,
             settings=settings,
@@ -123,18 +102,19 @@ def create_sandbox_eval_task(
     return eval_task
 
 
-async def run_sandbox_evals(
-    dataset: Dataset[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
+async def run_multi_agent_evals(
+    dataset: Dataset[EvalInputs, MultiAgentAnalysisResult, EvalMetadata],
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-) -> EvaluationReport[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]:
+) -> EvaluationReport[EvalInputs, MultiAgentAnalysisResult, EvalMetadata]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx()
 
-    task = create_sandbox_eval_task(model_name, experiment_name, settings)
-    report = await dataset.evaluate(task)
+    task = create_multi_agent_eval_task(model_name, experiment_name, settings)
+    # Run sequentially to avoid MCP server cancel scope issues with concurrent tasks
+    report = await dataset.evaluate(task, max_concurrency=1)
 
     report.print(
         include_input=True,

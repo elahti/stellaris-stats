@@ -49,6 +49,8 @@ RUN apt update \
 ENV NVM_DIR=/usr/local/share/nvm
 COPY --from=nvm $NVM_DIR $NVM_DIR
 
+RUN git config --system core.checkStat minimal
+
 USER vscode
 
 RUN mkdir -p /home/vscode/.local/bin
@@ -78,8 +80,8 @@ RUN apt update \
   && rm -rf /var/lib/apt/lists/*
 RUN git clone --no-checkout https://github.com/pydantic/mcp-run-python.git /app \
   && cd /app \
-  && git fetch --depth 1 origin ff3ebcff1b94fe103c8af560459da9308bee62f5 \
-  && git checkout ff3ebcff1b94fe103c8af560459da9308bee62f5
+  && git fetch --depth 1 origin 5ee2eea318725f78c22417e6f8a8374a5c9684ec \
+  && git checkout 5ee2eea318725f78c22417e6f8a8374a5c9684ec
 
 WORKDIR /app
 

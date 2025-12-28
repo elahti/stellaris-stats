@@ -2,17 +2,16 @@
 # Source: queries.graphql
 
 from datetime import datetime
-from typing import Optional
 
 from .base_model import BaseModel
 
 
 class GetDates(BaseModel):
-    save: Optional["GetDatesSave"]
+    save: GetDatesSave | None
 
 
 class GetDatesSave(BaseModel):
-    gamestates: list["GetDatesSaveGamestates"]
+    gamestates: list[GetDatesSaveGamestates]
 
 
 class GetDatesSaveGamestates(BaseModel):
