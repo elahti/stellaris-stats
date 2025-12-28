@@ -5,7 +5,7 @@ from .base_model import BaseModel
 
 
 class ListSaves(BaseModel):
-    saves: list["ListSavesSaves"]
+    saves: list[ListSavesSaves]
 
 
 class ListSavesSaves(BaseModel):

@@ -6,6 +6,7 @@ from typing import Any
 from .async_base_client import AsyncBaseClient
 from .get_budget import GetBudget
 from .get_dates import GetDates
+from .get_income_expenses import GetIncomeExpenses
 from .list_saves import ListSaves
 
 
@@ -23,11 +24,11 @@ class Client(AsyncBaseClient):
                 name
               }
             }
-            """
+            """,
         )
         variables: dict[str, object] = {}
         response = await self.execute(
-            query=query, operation_name="ListSaves", variables=variables, **kwargs
+            query=query, operation_name="ListSaves", variables=variables, **kwargs,
         )
         data = self.get_data(response)
         return ListSaves.model_validate(data)
@@ -42,11 +43,11 @@ class Client(AsyncBaseClient):
                 }
               }
             }
-            """
+            """,
         )
         variables: dict[str, object] = {"filename": filename}
         response = await self.execute(
-            query=query, operation_name="GetDates", variables=variables, **kwargs
+            query=query, operation_name="GetDates", variables=variables, **kwargs,
         )
         data = self.get_data(response)
         return GetDates.model_validate(data)
@@ -317,11 +318,294 @@ class Client(AsyncBaseClient):
               unity
               volatileMotes
             }
-            """
+            """,
         )
         variables: dict[str, object] = {"filename": filename}
         response = await self.execute(
-            query=query, operation_name="GetBudget", variables=variables, **kwargs
+            query=query, operation_name="GetBudget", variables=variables, **kwargs,
         )
         data = self.get_data(response)
         return GetBudget.model_validate(data)
+
+    async def get_income_expenses(
+        self, filename: str, **kwargs: Any,
+    ) -> GetIncomeExpenses:
+        query = gql(
+            """
+            query GetIncomeExpenses($filename: String!) {
+              save(filename: $filename) {
+                gamestates {
+                  date
+                  budget {
+                    income {
+                      ...BudgetCategoryFields
+                    }
+                    expenses {
+                      ...BudgetCategoryFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment BudgetCategoryFields on BudgetCategory {
+              armies {
+                ...BudgetEntryFields
+              }
+              colonies {
+                ...BudgetEntryFields
+              }
+              commercialPacts {
+                ...BudgetEntryFields
+              }
+              countryAgendas {
+                ...BudgetEntryFields
+              }
+              countryBase {
+                ...BudgetEntryFields
+              }
+              countryCivics {
+                ...BudgetEntryFields
+              }
+              countryDessanu {
+                ...BudgetEntryFields
+              }
+              countryEthic {
+                ...BudgetEntryFields
+              }
+              countryPowerProjection {
+                ...BudgetEntryFields
+              }
+              countryRuler {
+                ...BudgetEntryFields
+              }
+              edicts {
+                ...BudgetEntryFields
+              }
+              leaderCommanders {
+                ...BudgetEntryFields
+              }
+              leaderOfficials {
+                ...BudgetEntryFields
+              }
+              leaderScientists {
+                ...BudgetEntryFields
+              }
+              megastructures {
+                ...BudgetEntryFields
+              }
+              megastructuresGrandArchive {
+                ...BudgetEntryFields
+              }
+              megastructuresHabitat {
+                ...BudgetEntryFields
+              }
+              megastructuresHyperRelay {
+                ...BudgetEntryFields
+              }
+              migrationPacts {
+                ...BudgetEntryFields
+              }
+              none {
+                ...BudgetEntryFields
+              }
+              orbitalMiningDeposits {
+                ...BudgetEntryFields
+              }
+              orbitalResearchDeposits {
+                ...BudgetEntryFields
+              }
+              overlordSubsidy {
+                ...BudgetEntryFields
+              }
+              planetArtisans {
+                ...BudgetEntryFields
+              }
+              planetBiologists {
+                ...BudgetEntryFields
+              }
+              planetBuildings {
+                ...BudgetEntryFields
+              }
+              planetBuildingsCloneVats {
+                ...BudgetEntryFields
+              }
+              planetBuildingsHabCapital {
+                ...BudgetEntryFields
+              }
+              planetBuildingsStormTech {
+                ...BudgetEntryFields
+              }
+              planetBuildingsStrongholds {
+                ...BudgetEntryFields
+              }
+              planetBureaucrats {
+                ...BudgetEntryFields
+              }
+              planetCivilians {
+                ...BudgetEntryFields
+              }
+              planetClerks {
+                ...BudgetEntryFields
+              }
+              planetDeposits {
+                ...BudgetEntryFields
+              }
+              planetDistricts {
+                ...BudgetEntryFields
+              }
+              planetDistrictsCities {
+                ...BudgetEntryFields
+              }
+              planetDistrictsFarming {
+                ...BudgetEntryFields
+              }
+              planetDistrictsGenerator {
+                ...BudgetEntryFields
+              }
+              planetDistrictsHab {
+                ...BudgetEntryFields
+              }
+              planetDistrictsMining {
+                ...BudgetEntryFields
+              }
+              planetDoctors {
+                ...BudgetEntryFields
+              }
+              planetEnergyThralls {
+                ...BudgetEntryFields
+              }
+              planetEngineers {
+                ...BudgetEntryFields
+              }
+              planetEntertainers {
+                ...BudgetEntryFields
+              }
+              planetFarmers {
+                ...BudgetEntryFields
+              }
+              planetJobs {
+                ...BudgetEntryFields
+              }
+              planetJobsProductive {
+                ...BudgetEntryFields
+              }
+              planetMaintenanceDrones {
+                ...BudgetEntryFields
+              }
+              planetMetallurgists {
+                ...BudgetEntryFields
+              }
+              planetMiners {
+                ...BudgetEntryFields
+              }
+              planetPhysicists {
+                ...BudgetEntryFields
+              }
+              planetPoliticians {
+                ...BudgetEntryFields
+              }
+              planetPopAssemblers {
+                ...BudgetEntryFields
+              }
+              planetPops {
+                ...BudgetEntryFields
+              }
+              planetResourceDeficit {
+                ...BudgetEntryFields
+              }
+              planetSrMiners {
+                ...BudgetEntryFields
+              }
+              planetTechnician {
+                ...BudgetEntryFields
+              }
+              planetTraders {
+                ...BudgetEntryFields
+              }
+              popCategoryCivilians {
+                ...BudgetEntryFields
+              }
+              popCategoryDrones {
+                ...BudgetEntryFields
+              }
+              popCategoryRulers {
+                ...BudgetEntryFields
+              }
+              popCategorySpecialists {
+                ...BudgetEntryFields
+              }
+              popCategoryWorkers {
+                ...BudgetEntryFields
+              }
+              popFactions {
+                ...BudgetEntryFields
+              }
+              shipComponents {
+                ...BudgetEntryFields
+              }
+              ships {
+                ...BudgetEntryFields
+              }
+              situations {
+                ...BudgetEntryFields
+              }
+              starbaseBuildings {
+                ...BudgetEntryFields
+              }
+              starbaseModules {
+                ...BudgetEntryFields
+              }
+              starbases {
+                ...BudgetEntryFields
+              }
+              stationGatherers {
+                ...BudgetEntryFields
+              }
+              stationObserverMissions {
+                ...BudgetEntryFields
+              }
+              stationObservers {
+                ...BudgetEntryFields
+              }
+              stationResearchers {
+                ...BudgetEntryFields
+              }
+              tradePolicy {
+                ...BudgetEntryFields
+              }
+            }
+
+            fragment BudgetEntryFields on BudgetEntry {
+              alloys
+              astralThreads
+              consumerGoods
+              energy
+              engineeringResearch
+              exoticGases
+              food
+              influence
+              minerals
+              minorArtifacts
+              nanites
+              physicsResearch
+              rareCrystals
+              societyResearch
+              srDarkMatter
+              srLivingMetal
+              srZro
+              trade
+              unity
+              volatileMotes
+            }
+            """,
+        )
+        variables: dict[str, object] = {"filename": filename}
+        response = await self.execute(
+            query=query,
+            operation_name="GetIncomeExpenses",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return GetIncomeExpenses.model_validate(data)
