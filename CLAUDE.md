@@ -102,7 +102,6 @@ After Python changes: `npm run typecheck:python && npm run lint:python && npm ru
 
 - Never force push, hard reset, or skip hooks unless requested
 - Never amend other developers' commits
-- Pre-commit hooks run automatically (expected)
 
 ## GraphQL Schema Changes
 
