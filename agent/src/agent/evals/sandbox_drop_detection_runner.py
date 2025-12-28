@@ -2,6 +2,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 import logfire
+from pydantic_ai.settings import ModelSettings
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
@@ -45,6 +46,7 @@ async def eval_environment(
 async def run_sandbox_drop_detection_eval(
     inputs: EvalInputs,
     model_name: str | None = None,
+    model_settings: ModelSettings | None = None,
     settings: Settings | None = None,
 ) -> SuddenDropAnalysisResult:
     if settings is None:
@@ -74,6 +76,7 @@ async def run_sandbox_drop_detection_eval(
             result = await run_sandbox_drop_detection_analysis(
                 save_filename=inputs["save_filename"],
                 model_name=model_name,
+                model_settings=model_settings,
                 settings=eval_settings,
             )
             return result.output
@@ -84,6 +87,7 @@ async def run_sandbox_drop_detection_eval(
 
 def create_sandbox_drop_detection_eval_task(
     model_name: str | None = None,
+    model_settings: ModelSettings | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
 ) -> LegacyEvalTask:
@@ -93,6 +97,7 @@ def create_sandbox_drop_detection_eval_task(
         return await run_sandbox_drop_detection_eval(
             inputs,
             model_name=model_name,
+            model_settings=model_settings,
             settings=settings,
         )
 
@@ -107,6 +112,7 @@ async def run_sandbox_drop_detection_evals(
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
+    model_settings: ModelSettings | None = None,
 ) -> EvaluationReport[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
@@ -114,6 +120,7 @@ async def run_sandbox_drop_detection_evals(
 
     task = create_sandbox_drop_detection_eval_task(
         model_name,
+        model_settings,
         experiment_name,
         settings,
     )

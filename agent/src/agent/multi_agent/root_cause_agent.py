@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from pydantic_ai import Agent, NativeOutput
 from pydantic_ai.mcp import MCPServerStreamableHTTP
+from pydantic_ai.settings import ModelSettings
 
 from agent.models import RootCauseAnalysisResult, SuddenDrop
 from agent.multi_agent.root_cause_prompts import (
@@ -49,6 +50,7 @@ async def run_root_cause_analysis(
     mcp_server: MCPServerStreamableHTTP,
     deps: RootCauseAgentDeps | None = None,
     model_name: str | None = None,
+    model_settings: ModelSettings | None = None,
     settings: Settings | None = None,
 ) -> AgentRunResult[RootCauseAnalysisResult]:
     if settings is None:
@@ -61,5 +63,5 @@ async def run_root_cause_analysis(
 
     if model_name:
         with agent.override(model=model_name):
-            return await agent.run(prompt, deps=deps)
-    return await agent.run(prompt, deps=deps)
+            return await agent.run(prompt, deps=deps, model_settings=model_settings)
+    return await agent.run(prompt, deps=deps, model_settings=model_settings)

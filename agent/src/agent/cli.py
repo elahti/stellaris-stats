@@ -9,6 +9,7 @@ from agent.constants import AVAILABLE_MODELS
 from agent.models import MultiAgentAnalysisResult
 from agent.multi_agent.agent import run_sandbox_budget_analysis
 from agent.settings import Settings
+from agent.thinking_settings import THINKING_LEVELS, ThinkingLevel, get_model_settings
 
 
 def print_analysis_result(result: MultiAgentAnalysisResult) -> None:
@@ -103,10 +104,15 @@ async def run_analysis_async(
     raw: bool = False,
     model: str | None = None,
     parallel: bool = False,
+    thinking: ThinkingLevel,
 ) -> None:
+    effective_model = model if model else "openai-responses:gpt-5.2-2025-12-11"
+    model_settings = get_model_settings(effective_model, thinking)
+
     result = await run_sandbox_budget_analysis(
         save_filename,
         model_name=model,
+        model_settings=model_settings,
         parallel_root_cause=parallel,
     )
     if raw:
@@ -125,6 +131,7 @@ def cmd_analyze(args: argparse.Namespace) -> None:
             raw=args.raw,
             model=args.model,
             parallel=parallel,
+            thinking=args.thinking,
         ),
     )
 
@@ -155,10 +162,10 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  agent analyze --save commonwealthofman_1251622081
-  agent analyze --save commonwealthofman_1251622081 --raw
-  agent analyze --save commonwealthofman_1251622081 --model openai:gpt-5.2-2025-12-11
-  agent analyze --save commonwealthofman_1251622081 --parallel
+  agent analyze --save commonwealthofman_1251622081 --thinking off
+  agent analyze --save commonwealthofman_1251622081 --thinking high --raw
+  agent analyze --save commonwealthofman_1251622081 --thinking medium --model openai-responses:gpt-5.2-2025-12-11
+  agent analyze --save commonwealthofman_1251622081 --thinking high --parallel
         """,
     )
     analyze_parser.add_argument(
@@ -181,6 +188,13 @@ Examples:
         "--parallel",
         action="store_true",
         help="Run root cause analyses in parallel",
+    )
+    analyze_parser.add_argument(
+        "--thinking",
+        type=str,
+        choices=THINKING_LEVELS,
+        required=True,
+        help="Thinking/reasoning effort level",
     )
     analyze_parser.set_defaults(func=cmd_analyze)
 

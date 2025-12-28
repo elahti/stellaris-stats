@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 from pydantic_ai import Agent, NativeOutput
 from pydantic_ai.mcp import MCPServerStreamableHTTP
+from pydantic_ai.settings import ModelSettings
 
 from agent.models import (
     MultiAgentAnalysisResult,
@@ -56,6 +57,7 @@ async def analyze_single_drop(
     mcp_server: MCPServerStreamableHTTP,
     settings: Settings,
     model_name: str | None = None,
+    model_settings: ModelSettings | None = None,
 ) -> SuddenDropWithRootCause:
     try:
         result = await run_root_cause_analysis(
@@ -64,6 +66,7 @@ async def analyze_single_drop(
             mcp_server=mcp_server,
             deps=create_root_cause_deps(settings),
             model_name=model_name,
+            model_settings=model_settings,
             settings=settings,
         )
         return SuddenDropWithRootCause(
@@ -83,6 +86,7 @@ async def run_multi_agent_analysis(
     save_filename: str,
     settings: Settings | None = None,
     model_name: str | None = None,
+    model_settings: ModelSettings | None = None,
     parallel_root_cause: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
@@ -99,9 +103,17 @@ async def run_multi_agent_analysis(
 
         if model_name:
             with agent.override(model=model_name):
-                drop_result = await agent.run(prompt, deps=deps)
+                drop_result = await agent.run(
+                    prompt,
+                    deps=deps,
+                    model_settings=model_settings,
+                )
         else:
-            drop_result = await agent.run(prompt, deps=deps)
+            drop_result = await agent.run(
+                prompt,
+                deps=deps,
+                model_settings=model_settings,
+            )
 
         drop_analysis = drop_result.output
 
@@ -120,6 +132,7 @@ async def run_multi_agent_analysis(
                         mcp_server=mcp_server,
                         settings=settings,
                         model_name=model_name,
+                        model_settings=model_settings,
                     )
                     for drop in drop_analysis.sudden_drops
                 ]
@@ -132,6 +145,7 @@ async def run_multi_agent_analysis(
                         mcp_server=mcp_server,
                         settings=settings,
                         model_name=model_name,
+                        model_settings=model_settings,
                     )
                     drops_with_causes.append(result)
 
