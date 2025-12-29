@@ -13,11 +13,11 @@ from agent.models import (
     SuddenDropAnalysisResult,
     SuddenDropWithRootCause,
 )
-from agent.multi_agent.prompts import (
+from agent.root_cause_multi_agent.prompts import (
     build_analysis_prompt,
     build_system_prompt,
 )
-from agent.multi_agent.root_cause_agent import (
+from agent.root_cause_multi_agent.root_cause_agent import (
     create_root_cause_deps,
     get_root_cause_agent,
     run_root_cause_analysis,
@@ -26,29 +26,29 @@ from agent.settings import Settings
 
 
 @dataclass
-class SandboxAgentDeps:
+class RootCauseMultiAgentDeps:
     graphql_url: str
 
 
 def get_drop_detection_agent(
     mcp_server: MCPServerStreamableHTTP,
     settings: Settings | None = None,
-) -> Agent[SandboxAgentDeps, SuddenDropAnalysisResult]:
+) -> Agent[RootCauseMultiAgentDeps, SuddenDropAnalysisResult]:
     if settings is None:
         settings = Settings()
     return Agent(
         "openai:gpt-5.2-2025-12-11",
-        deps_type=SandboxAgentDeps,
+        deps_type=RootCauseMultiAgentDeps,
         output_type=NativeOutput(SuddenDropAnalysisResult),
         system_prompt=build_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
     )
 
 
-def create_deps(settings: Settings | None = None) -> SandboxAgentDeps:
+def create_deps(settings: Settings | None = None) -> RootCauseMultiAgentDeps:
     if settings is None:
         settings = Settings()
-    return SandboxAgentDeps(graphql_url=settings.graphql_url)
+    return RootCauseMultiAgentDeps(graphql_url=settings.graphql_url)
 
 
 async def analyze_single_drop(
@@ -82,7 +82,7 @@ async def analyze_single_drop(
         )
 
 
-async def run_multi_agent_analysis(
+async def run_root_cause_multi_agent_orchestration(
     save_filename: str,
     settings: Settings | None = None,
     model_name: str | None = None,

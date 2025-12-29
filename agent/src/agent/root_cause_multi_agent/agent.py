@@ -3,21 +3,21 @@ from __future__ import annotations
 from pydantic_ai.settings import ModelSettings
 
 from agent.models import MultiAgentAnalysisResult
-from agent.multi_agent.orchestrator import (
-    SandboxAgentDeps,
+from agent.root_cause_multi_agent.orchestrator import (
+    RootCauseMultiAgentDeps,
     create_deps,
-    run_multi_agent_analysis,
+    run_root_cause_multi_agent_orchestration,
 )
 from agent.settings import Settings
 
 __all__ = [
-    "SandboxAgentDeps",
+    "RootCauseMultiAgentDeps",
     "create_deps",
-    "run_sandbox_budget_analysis",
+    "run_root_cause_multi_agent_analysis",
 ]
 
 
-async def run_sandbox_budget_analysis(
+async def run_root_cause_multi_agent_analysis(
     save_filename: str,
     model_name: str | None = None,
     model_settings: ModelSettings | None = None,
@@ -26,7 +26,7 @@ async def run_sandbox_budget_analysis(
 ) -> MultiAgentAnalysisResult:
     if settings is None:
         settings = Settings()
-    return await run_multi_agent_analysis(
+    return await run_root_cause_multi_agent_orchestration(
         save_filename=save_filename,
         settings=settings,
         model_name=model_name,

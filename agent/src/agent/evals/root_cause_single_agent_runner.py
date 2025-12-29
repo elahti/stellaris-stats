@@ -1,0 +1,141 @@
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
+import logfire
+from pydantic_ai.settings import ModelSettings
+from pydantic_evals import Dataset
+from pydantic_evals.reporting import EvaluationReport
+
+from agent.evals.fixture_loader import load_fixture
+from agent.evals.server_manager import (
+    GraphQLServerProcess,
+    start_graphql_server,
+    stop_graphql_server,
+)
+from agent.evals.test_database import (
+    TestDatabaseContext,
+    create_test_database,
+    destroy_test_database,
+)
+from agent.evals.types import EvalInputs, EvalMetadata, EvalTask
+from agent.models import MultiAgentAnalysisResult
+from agent.root_cause_single_agent.agent import (
+    run_root_cause_single_agent_analysis,
+)
+from agent.settings import Settings
+
+
+@asynccontextmanager
+async def eval_environment(
+    fixture_path: str,
+    settings: Settings | None = None,
+) -> AsyncIterator[tuple[TestDatabaseContext, GraphQLServerProcess]]:
+    if settings is None:
+        settings = Settings()
+
+    db_ctx = await create_test_database(settings)
+    try:
+        await load_fixture(db_ctx.pool, fixture_path)
+        server = await start_graphql_server(db_ctx)
+        try:
+            yield db_ctx, server
+        finally:
+            await stop_graphql_server(server)
+    finally:
+        await destroy_test_database(db_ctx, settings)
+
+
+async def run_root_cause_single_agent_eval(
+    inputs: EvalInputs,
+    model_name: str | None = None,
+    model_settings: ModelSettings | None = None,
+    settings: Settings | None = None,
+) -> MultiAgentAnalysisResult:
+    if settings is None:
+        settings = Settings()
+
+    try:
+        async with eval_environment(
+            inputs["fixture_path"],
+            settings,
+        ) as (_db_ctx, server):
+            if settings.stellaris_stats_eval_graphql_server_host:
+                graphql_url = (
+                    f"http://{settings.stellaris_stats_eval_graphql_server_host}"
+                    f":{server.port}"
+                )
+            else:
+                graphql_url = server.url
+
+            eval_settings = Settings(
+                stellaris_stats_python_sandbox_url=settings.sandbox_url,
+                stellaris_stats_graphql_server_host=graphql_url.split("://")[1].split(
+                    ":",
+                )[0],
+                stellaris_stats_graphql_server_port=int(graphql_url.split(":")[-1]),
+            )
+
+            return await run_root_cause_single_agent_analysis(
+                save_filename=inputs["save_filename"],
+                settings=eval_settings,
+                model_name=model_name,
+                model_settings=model_settings,
+            )
+    except Exception as e:
+        logfire.error(f"Root cause single-agent eval failed: {e!r}")
+        raise
+
+
+def create_root_cause_single_agent_eval_task(
+    model_name: str | None = None,
+    model_settings: ModelSettings | None = None,
+    experiment_name: str | None = None,
+    settings: Settings | None = None,
+) -> EvalTask:
+    async def eval_task(
+        inputs: EvalInputs,
+    ) -> MultiAgentAnalysisResult:
+        return await run_root_cause_single_agent_eval(
+            inputs,
+            model_name=model_name,
+            model_settings=model_settings,
+            settings=settings,
+        )
+
+    if experiment_name:
+        eval_task.__name__ = experiment_name
+
+    return eval_task
+
+
+async def run_root_cause_single_agent_evals(
+    dataset: Dataset[EvalInputs, MultiAgentAnalysisResult, EvalMetadata],
+    model_name: str | None = None,
+    experiment_name: str | None = None,
+    settings: Settings | None = None,
+    model_settings: ModelSettings | None = None,
+) -> EvaluationReport[EvalInputs, MultiAgentAnalysisResult, EvalMetadata]:
+    logfire.configure(send_to_logfire="if-token-present")
+    logfire.instrument_pydantic_ai()
+    logfire.instrument_httpx()
+
+    task = create_root_cause_single_agent_eval_task(
+        model_name,
+        model_settings,
+        experiment_name,
+        settings,
+    )
+    # Run sequentially to avoid MCP server cancel scope issues with concurrent tasks
+    report = await dataset.evaluate(task, max_concurrency=1)
+
+    report.print(
+        include_input=True,
+        include_output=True,
+        include_durations=True,
+    )
+
+    averages = report.averages()
+    if averages and averages.assertions is not None:
+        print(f"\nOverall pass rate: {averages.assertions:.2%}")
+
+    return report

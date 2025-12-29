@@ -7,7 +7,7 @@ import logfire
 
 from agent.constants import AVAILABLE_MODELS
 from agent.models import MultiAgentAnalysisResult
-from agent.multi_agent.agent import run_sandbox_budget_analysis
+from agent.root_cause_multi_agent.agent import run_root_cause_multi_agent_analysis
 from agent.settings import Settings
 from agent.thinking_settings import THINKING_LEVELS, ThinkingLevel, get_model_settings
 
@@ -109,7 +109,7 @@ async def run_analysis_async(
     effective_model = model if model else "openai-responses:gpt-5.2-2025-12-11"
     model_settings = get_model_settings(effective_model, thinking)
 
-    result = await run_sandbox_budget_analysis(
+    result = await run_root_cause_multi_agent_analysis(
         save_filename,
         model_name=model,
         model_settings=model_settings,

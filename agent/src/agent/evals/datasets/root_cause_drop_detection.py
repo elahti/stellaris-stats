@@ -13,7 +13,7 @@ from agent.models import MultiAgentAnalysisResult
 CaseType = Case[EvalInputs, MultiAgentAnalysisResult, EvalMetadata]
 
 
-def create_sudden_drop_detection_dataset() -> Dataset[
+def create_root_cause_drop_detection_dataset() -> Dataset[
     EvalInputs,
     MultiAgentAnalysisResult,
     EvalMetadata,
@@ -98,7 +98,7 @@ def create_sudden_drop_detection_dataset() -> Dataset[
     global_evaluators = (IsInstance(type_name="MultiAgentAnalysisResult"),)
 
     return Dataset(
-        name="multi_agent_drop_detection",
+        name="root_cause_drop_detection",
         cases=cases,
         evaluators=global_evaluators,
     )
