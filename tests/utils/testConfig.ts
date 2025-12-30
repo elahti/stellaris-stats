@@ -20,16 +20,16 @@ export type TestRedisConfig = z.infer<typeof TestRedisConfig>
 
 export const getTestDbAdminConfig = (): TestDbAdminConfig =>
   TestDbAdminConfig.parse({
-    host: process.env.STELLARIS_TEST_DB_HOST,
-    port: process.env.STELLARIS_TEST_DB_PORT,
-    user: process.env.STELLARIS_TEST_DB_USER,
-    password: process.env.STELLARIS_TEST_DB_PASSWORD,
-    adminDatabase: process.env.STELLARIS_TEST_DB_ADMIN_DATABASE,
+    host: process.env.STELLARIS_STATS_DB_HOST,
+    port: process.env.STELLARIS_STATS_DB_PORT,
+    user: process.env.STELLARIS_STATS_DB_USER,
+    password: process.env.STELLARIS_STATS_DB_PASSWORD,
+    adminDatabase: process.env.STELLARIS_STATS_DB_NAME,
   })
 
 export const getTestRedisConfig = (): TestRedisConfig =>
   TestRedisConfig.parse({
-    host: process.env.STELLARIS_TEST_REDIS_HOST,
-    port: process.env.STELLARIS_TEST_REDIS_PORT,
-    db: process.env.STELLARIS_TEST_REDIS_DB,
+    host: process.env.STELLARIS_STATS_REDIS_HOST,
+    port: process.env.STELLARIS_STATS_REDIS_PORT,
+    db: process.env.STELLARIS_STATS_REDIS_DB,
   })

@@ -7,7 +7,7 @@ from uuid import uuid4
 
 import asyncpg
 
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 
 
 @dataclass
@@ -24,27 +24,16 @@ async def create_test_database(
     settings: Settings | None = None,
 ) -> TestDatabaseContext:
     if settings is None:
-        settings = Settings()
-
-    if settings.stellaris_test_db_host is None:
-        raise ValueError("STELLARIS_TEST_DB_HOST environment variable not set")
-    if settings.stellaris_test_db_user is None:
-        raise ValueError("STELLARIS_TEST_DB_USER environment variable not set")
-    if settings.stellaris_test_db_password is None:
-        raise ValueError("STELLARIS_TEST_DB_PASSWORD environment variable not set")
-    if settings.stellaris_test_db_admin_database is None:
-        raise ValueError(
-            "STELLARIS_TEST_DB_ADMIN_DATABASE environment variable not set",
-        )
+        settings = get_settings()
 
     db_name = f"stellaris_test_{uuid4().hex}"
 
     admin_conn = await asyncpg.connect(
-        host=settings.stellaris_test_db_host,
-        port=settings.stellaris_test_db_port,
-        user=settings.stellaris_test_db_user,
-        password=settings.stellaris_test_db_password,
-        database=settings.stellaris_test_db_admin_database,
+        host=settings.stellaris_stats_db_host,
+        port=settings.stellaris_stats_db_port,
+        user=settings.stellaris_stats_db_user,
+        password=settings.stellaris_stats_db_password,
+        database=settings.stellaris_stats_db_name,
     )
 
     try:
@@ -54,17 +43,17 @@ async def create_test_database(
 
     await _run_migrations(
         db_name=db_name,
-        host=settings.stellaris_test_db_host,
-        port=settings.stellaris_test_db_port,
-        user=settings.stellaris_test_db_user,
-        password=settings.stellaris_test_db_password,
+        host=settings.stellaris_stats_db_host,
+        port=settings.stellaris_stats_db_port,
+        user=settings.stellaris_stats_db_user,
+        password=settings.stellaris_stats_db_password,
     )
 
     pool = await asyncpg.create_pool(
-        host=settings.stellaris_test_db_host,
-        port=settings.stellaris_test_db_port,
-        user=settings.stellaris_test_db_user,
-        password=settings.stellaris_test_db_password,
+        host=settings.stellaris_stats_db_host,
+        port=settings.stellaris_stats_db_port,
+        user=settings.stellaris_stats_db_user,
+        password=settings.stellaris_stats_db_password,
         database=db_name,
         min_size=1,
         max_size=10,
@@ -75,10 +64,10 @@ async def create_test_database(
     return TestDatabaseContext(
         pool=pool,
         db_name=db_name,
-        host=settings.stellaris_test_db_host,
-        port=settings.stellaris_test_db_port,
-        user=settings.stellaris_test_db_user,
-        password=settings.stellaris_test_db_password,
+        host=settings.stellaris_stats_db_host,
+        port=settings.stellaris_stats_db_port,
+        user=settings.stellaris_stats_db_user,
+        password=settings.stellaris_stats_db_password,
     )
 
 
@@ -87,16 +76,16 @@ async def destroy_test_database(
     settings: Settings | None = None,
 ) -> None:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
 
     await ctx.pool.close()
 
     admin_conn = await asyncpg.connect(
-        host=settings.stellaris_test_db_host,
-        port=settings.stellaris_test_db_port,
-        user=settings.stellaris_test_db_user,
-        password=settings.stellaris_test_db_password,
-        database=settings.stellaris_test_db_admin_database,
+        host=settings.stellaris_stats_db_host,
+        port=settings.stellaris_stats_db_port,
+        user=settings.stellaris_stats_db_user,
+        password=settings.stellaris_stats_db_password,
+        database=settings.stellaris_stats_db_name,
     )
 
     try:

@@ -24,11 +24,11 @@ class Client(AsyncBaseClient):
                 name
               }
             }
-            """,
+            """
         )
         variables: dict[str, object] = {}
         response = await self.execute(
-            query=query, operation_name="ListSaves", variables=variables, **kwargs,
+            query=query, operation_name="ListSaves", variables=variables, **kwargs
         )
         data = self.get_data(response)
         return ListSaves.model_validate(data)
@@ -43,11 +43,11 @@ class Client(AsyncBaseClient):
                 }
               }
             }
-            """,
+            """
         )
         variables: dict[str, object] = {"filename": filename}
         response = await self.execute(
-            query=query, operation_name="GetDates", variables=variables, **kwargs,
+            query=query, operation_name="GetDates", variables=variables, **kwargs
         )
         data = self.get_data(response)
         return GetDates.model_validate(data)
@@ -318,17 +318,17 @@ class Client(AsyncBaseClient):
               unity
               volatileMotes
             }
-            """,
+            """
         )
         variables: dict[str, object] = {"filename": filename}
         response = await self.execute(
-            query=query, operation_name="GetBudget", variables=variables, **kwargs,
+            query=query, operation_name="GetBudget", variables=variables, **kwargs
         )
         data = self.get_data(response)
         return GetBudget.model_validate(data)
 
     async def get_income_expenses(
-        self, filename: str, **kwargs: Any,
+        self, filename: str, **kwargs: Any
     ) -> GetIncomeExpenses:
         query = gql(
             """
@@ -598,14 +598,14 @@ class Client(AsyncBaseClient):
               unity
               volatileMotes
             }
-            """,
+            """
         )
         variables: dict[str, object] = {"filename": filename}
         response = await self.execute(
             query=query,
             operation_name="GetIncomeExpenses",
             variables=variables,
-            **kwargs,
+            **kwargs
         )
         data = self.get_data(response)
         return GetIncomeExpenses.model_validate(data)

@@ -21,7 +21,7 @@ from agent.evals.native_budget_agent_runner import run_native_budget_agent_evals
 from agent.evals.root_cause_multi_agent_runner import run_root_cause_multi_agent_evals
 from agent.evals.root_cause_single_agent_runner import run_root_cause_single_agent_evals
 from agent.evals.sandbox_drop_detection_runner import run_sandbox_drop_detection_evals
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 from agent.thinking_settings import THINKING_LEVELS, ThinkingLevel, get_model_settings
 
 
@@ -142,7 +142,7 @@ Examples:
         parser.print_help()
         sys.exit(1)
 
-    settings = Settings()
+    settings = get_settings()
 
     logfire.configure(
         service_name="stellaris-stats-evals",

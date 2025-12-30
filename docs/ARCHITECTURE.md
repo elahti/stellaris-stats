@@ -91,7 +91,7 @@ The project uses end-to-end integration testing with complete database isolation
 - **Database Naming**: `stellaris_test_{uuid}` with hyphens replaced by underscores
 - **Lifecycle**: Created in `beforeEach`, destroyed in `afterEach`
 - **Migrations**: Automatically run on each test database using `node-pg-migrate`
-- **Test Database Service**: Separate `db-test` PostgreSQL container in docker-compose
+- **Test Database Service**: Separate `db-evals` PostgreSQL container in docker-compose
 
 #### Test Infrastructure Components
 
@@ -175,28 +175,28 @@ In-memory Redis implementation:
 
 ### Test Configuration
 
-**Environment File**: `.devcontainer/.env.db.test`
+**Environment File**: `.env.stellaris-stats.evals`
 
 ```bash
-STELLARIS_TEST_DB_HOST=db-test
-STELLARIS_TEST_DB_PORT=5432
-STELLARIS_TEST_DB_USER=stellaris_test
-STELLARIS_TEST_DB_PASSWORD=stellaris_test
-STELLARIS_TEST_DB_ADMIN_DATABASE=stellaris_test_admin
+STELLARIS_STATS_DB_HOST=db-evals
+STELLARIS_STATS_DB_PORT=5432
+STELLARIS_STATS_DB_NAME=stellaris_test_admin
+STELLARIS_STATS_DB_USER=stellaris_test
+STELLARIS_STATS_DB_PASSWORD=stellaris_test
 ```
 
 **Docker Compose**: Separate test database service
 
 ```yaml
-db-test:
+db-evals:
   image: postgres:18
-  container_name: stellaris-stats_db-test
+  container_name: stellaris-stats_db-evals
   env_file:
-    - .env.db.test
+    - .env.db.evals
   networks:
-    - stellaris-stats-db-test-network
+    - stellaris-stats-db-evals-network
   volumes:
-    - db-test-data:/var/lib/postgresql
+    - db-evals-data:/var/lib/postgresql
 ```
 
 ### Key Implementation Details

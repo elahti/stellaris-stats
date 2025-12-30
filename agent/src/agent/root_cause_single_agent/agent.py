@@ -11,7 +11,7 @@ from agent.root_cause_single_agent.prompts import (
     build_analysis_prompt,
     build_system_prompt,
 )
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 
 
 @dataclass
@@ -29,7 +29,7 @@ def get_single_agent(
     global _single_agent
     if _single_agent is None:
         if settings is None:
-            settings = Settings()
+            settings = get_settings()
         _single_agent = Agent(
             "openai:gpt-5.2-2025-12-11",
             deps_type=RootCauseSingleAgentDeps,
@@ -42,7 +42,7 @@ def get_single_agent(
 
 def create_deps(settings: Settings | None = None) -> RootCauseSingleAgentDeps:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     return RootCauseSingleAgentDeps(graphql_url=settings.graphql_url)
 
 
@@ -53,7 +53,7 @@ async def run_root_cause_single_agent_analysis(
     model_settings: ModelSettings | None = None,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
 
     # Create a fresh MCP server for each analysis run to avoid stale connection issues
     mcp_server = MCPServerStreamableHTTP(settings.sandbox_url)

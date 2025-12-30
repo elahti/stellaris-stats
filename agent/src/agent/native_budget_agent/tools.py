@@ -8,7 +8,7 @@ from agent.graphql_client import (
     ListSaves,
     ListSavesSaves,
 )
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 
 
 class GraphQLClientProtocol(Protocol):
@@ -33,7 +33,7 @@ def create_deps(
     settings: Settings | None = None,
 ) -> AgentDeps:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     if client is None:
         client = settings.create_graphql_client()
     return AgentDeps(client=client)
