@@ -70,9 +70,6 @@ COPY --chown=vscode:vscode .devcontainer/.zshrc $HOME/.zshrc
 
 FROM python:3.14-slim-bookworm@sha256:e8a1ad81a9fef9dc56372fb49b50818cac71f5fae238b21d7738d73ccae8f803 AS pydantic-mcp-run-python
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.21@sha256:15f68a476b768083505fe1dbfcc998344d0135f0ca1b8465c4760b323904f05a /uv /uvx /bin/
-COPY --from=docker.io/denoland/deno:bin-2.5.6@sha256:2f5f9d651af33c337767c423a340f76df35e35ff8ff4734210237b9c6fed94c7 /deno /bin
-
 RUN apt update \
   && apt install -y \
     git \
@@ -82,6 +79,9 @@ RUN git clone --no-checkout https://github.com/pydantic/mcp-run-python.git /app 
   && cd /app \
   && git fetch --depth 1 origin 5ee2eea318725f78c22417e6f8a8374a5c9684ec \
   && git checkout 5ee2eea318725f78c22417e6f8a8374a5c9684ec
+
+COPY --from=ghcr.io/astral-sh/uv:0.9.21@sha256:15f68a476b768083505fe1dbfcc998344d0135f0ca1b8465c4760b323904f05a /uv /uvx /bin/
+COPY --from=docker.io/denoland/deno:bin-2.5.6@sha256:2f5f9d651af33c337767c423a340f76df35e35ff8ff4734210237b9c6fed94c7 /deno /bin
 
 WORKDIR /app
 
