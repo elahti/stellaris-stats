@@ -7,6 +7,7 @@ from pydantic_ai import Agent, NativeOutput
 from pydantic_ai.mcp import MCPServerStreamableHTTP
 from pydantic_ai.settings import ModelSettings
 
+from agent.constants import DEFAULT_MODEL, get_model
 from agent.models import SuddenDropAnalysisResult
 from agent.sandbox_drop_detection.prompts import (
     build_analysis_prompt,
@@ -30,7 +31,7 @@ def get_sandbox_drop_detection_agent(
     if settings is None:
         settings = get_settings()
     return Agent(
-        "openai:gpt-5.2-2025-12-11",
+        get_model(DEFAULT_MODEL),
         deps_type=SandboxDropDetectionDeps,
         output_type=NativeOutput(SuddenDropAnalysisResult),
         system_prompt=build_system_prompt(settings.graphql_url),
@@ -64,6 +65,6 @@ async def run_sandbox_drop_detection_analysis(
     async with mcp_server:
         agent = get_sandbox_drop_detection_agent(mcp_server, settings)
         if model_name:
-            with agent.override(model=model_name):
+            with agent.override(model=get_model(model_name)):
                 return await agent.run(prompt, deps=deps, model_settings=model_settings)
         return await agent.run(prompt, deps=deps, model_settings=model_settings)

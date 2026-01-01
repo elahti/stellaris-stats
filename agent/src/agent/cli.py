@@ -5,7 +5,7 @@ import sys
 
 import logfire
 
-from agent.constants import AVAILABLE_MODELS
+from agent.constants import DEFAULT_MODEL, get_model_names
 from agent.models import MultiAgentAnalysisResult
 from agent.root_cause_multi_agent.agent import run_root_cause_multi_agent_analysis
 from agent.settings import Settings, get_settings
@@ -102,17 +102,12 @@ async def run_analysis_async(
     save_filename: str,
     *,
     raw: bool = False,
-    model: str | None = None,
     parallel: bool = False,
     thinking: ThinkingLevel,
 ) -> None:
-    effective_model = model if model else "openai-responses:gpt-5.2-2025-12-11"
-    model_settings = get_model_settings(effective_model, thinking)
-
     result = await run_root_cause_multi_agent_analysis(
         save_filename,
-        model_name=model,
-        model_settings=model_settings,
+        model_settings=get_model_settings(DEFAULT_MODEL, thinking),
         parallel_root_cause=parallel,
     )
     if raw:
@@ -129,7 +124,6 @@ def cmd_analyze(args: argparse.Namespace) -> None:
         run_analysis_async(
             args.save,
             raw=args.raw,
-            model=args.model,
             parallel=parallel,
             thinking=args.thinking,
         ),
@@ -145,7 +139,7 @@ def cmd_list_saves(args: argparse.Namespace) -> None:
 def cmd_list_models(args: argparse.Namespace) -> None:
     del args
     print("Available models:")
-    for model in AVAILABLE_MODELS:
+    for model in get_model_names():
         print(f"  - {model}")
 
 
@@ -164,7 +158,6 @@ def main() -> None:
 Examples:
   agent analyze --save commonwealthofman_1251622081 --thinking off
   agent analyze --save commonwealthofman_1251622081 --thinking high --raw
-  agent analyze --save commonwealthofman_1251622081 --thinking medium --model openai-responses:gpt-5.2-2025-12-11
   agent analyze --save commonwealthofman_1251622081 --thinking high --parallel
         """,
     )
@@ -178,11 +171,6 @@ Examples:
         "--raw",
         action="store_true",
         help="Print raw JSON output instead of formatted report",
-    )
-    analyze_parser.add_argument(
-        "--model",
-        type=str,
-        help="Model to use (overrides default agent model)",
     )
     analyze_parser.add_argument(
         "--parallel",

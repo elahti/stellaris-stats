@@ -1,6 +1,7 @@
 from pydantic_ai import Agent, NativeOutput, RunContext
 from pydantic_ai.agent import AgentRunResult
 
+from agent.constants import DEFAULT_MODEL, get_model
 from agent.models import SuddenDropAnalysisResult
 from agent.native_budget_agent.models import (
     BudgetSnapshot,
@@ -109,7 +110,7 @@ def get_native_budget_agent() -> Agent[AgentDeps, SuddenDropAnalysisResult]:
     global _native_budget_agent
     if _native_budget_agent is None:
         _native_budget_agent = Agent(
-            "openai:gpt-5.2-2025-12-11",
+            get_model(DEFAULT_MODEL),
             deps_type=AgentDeps,
             output_type=NativeOutput(SuddenDropAnalysisResult),
             system_prompt=build_system_prompt(),
@@ -212,6 +213,6 @@ async def run_native_budget_analysis(
     prompt = build_analysis_prompt(save_filename)
     agent = get_native_budget_agent()
     if model_name:
-        with agent.override(model=model_name):
+        with agent.override(model=get_model(model_name)):
             return await agent.run(prompt, deps=deps)
     return await agent.run(prompt, deps=deps)

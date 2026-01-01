@@ -7,7 +7,7 @@ from typing import Any
 import logfire
 from pydantic_ai.settings import ModelSettings
 
-from agent.constants import AVAILABLE_MODELS
+from agent.constants import get_model_names
 from agent.evals.datasets.native_budget_agent import (
     create_native_budget_agent_dataset,
 )
@@ -115,6 +115,7 @@ Examples:
     parser.add_argument(
         "--model",
         type=str,
+        choices=get_model_names(),
         help="Model to use (if not provided, runs on all available models)",
     )
     parser.add_argument(
@@ -172,7 +173,7 @@ Examples:
         asyncio.run(
             run_evals_for_models(
                 dataset_name,
-                AVAILABLE_MODELS,
+                get_model_names(),
                 settings,
                 thinking=thinking,
             ),

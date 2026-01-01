@@ -7,6 +7,7 @@ from pydantic_ai import Agent, NativeOutput
 from pydantic_ai.mcp import MCPServerStreamableHTTP
 from pydantic_ai.settings import ModelSettings
 
+from agent.constants import DEFAULT_MODEL, get_model
 from agent.models import RootCauseAnalysisResult, SuddenDrop
 from agent.root_cause_multi_agent.root_cause_prompts import (
     build_root_cause_analysis_prompt,
@@ -30,7 +31,7 @@ def get_root_cause_agent(
     if settings is None:
         settings = get_settings()
     return Agent(
-        "openai:gpt-5.2-2025-12-11",
+        get_model(DEFAULT_MODEL),
         deps_type=RootCauseAgentDeps,
         output_type=NativeOutput(RootCauseAnalysisResult),
         system_prompt=build_root_cause_system_prompt(settings.graphql_url),
@@ -62,6 +63,6 @@ async def run_root_cause_analysis(
     agent = get_root_cause_agent(mcp_server, settings)
 
     if model_name:
-        with agent.override(model=model_name):
+        with agent.override(model=get_model(model_name)):
             return await agent.run(prompt, deps=deps, model_settings=model_settings)
     return await agent.run(prompt, deps=deps, model_settings=model_settings)
