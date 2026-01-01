@@ -6,6 +6,7 @@ from pydantic_ai.settings import ModelSettings
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
+from agent.constants import DEFAULT_MODEL
 from agent.evals.fixture_loader import load_fixture
 from agent.evals.server_manager import (
     GraphQLServerProcess,
@@ -21,7 +22,7 @@ from agent.evals.types import EvalInputs, EvalMetadata, LegacyEvalTask
 from agent.models import SuddenDropAnalysisResult
 from agent.native_budget_agent.agent import (
     build_analysis_prompt,
-    get_native_budget_agent,
+    create_native_budget_agent,
 )
 from agent.native_budget_agent.tools import create_deps
 from agent.settings import Settings, get_settings
@@ -85,21 +86,14 @@ async def run_native_budget_eval(
             deps = create_deps(client=client, settings=eval_settings)
 
             prompt = build_analysis_prompt(inputs["save_filename"])
-            agent = get_native_budget_agent()
+            actual_model = model_name or DEFAULT_MODEL
+            agent = create_native_budget_agent(actual_model)
 
-            if model_name:
-                with agent.override(model=model_name):
-                    result = await agent.run(
-                        prompt,
-                        deps=deps,
-                        model_settings=model_settings,
-                    )
-            else:
-                result = await agent.run(
-                    prompt,
-                    deps=deps,
-                    model_settings=model_settings,
-                )
+            result = await agent.run(
+                prompt,
+                deps=deps,
+                model_settings=model_settings,
+            )
 
             return result.output
     except Exception as e:

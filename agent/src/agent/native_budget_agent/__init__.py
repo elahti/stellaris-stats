@@ -4,7 +4,7 @@ from agent.native_budget_agent.agent import (
     DROP_THRESHOLD_PERCENT,
     RESOURCE_FIELDS,
     build_analysis_prompt,
-    get_native_budget_agent,
+    create_native_budget_agent,
     run_native_budget_analysis,
     sum_resources_for_snapshot,
 )
@@ -34,7 +34,7 @@ __all__ = [
     "SuddenDropAnalysisResult",
     "build_analysis_prompt",
     "create_deps",
-    "get_native_budget_agent",
+    "create_native_budget_agent",
     "run_native_budget_analysis",
     "sum_resources_for_snapshot",
 ]
