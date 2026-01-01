@@ -5,6 +5,7 @@
 /**/.env.*.secrets
 /**/dist/
 /**/node_modules/
+/agent/.coverage
 /agent/.venv/
 /db-dump-data
 /gamestate-json-data/
