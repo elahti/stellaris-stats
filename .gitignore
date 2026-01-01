@@ -1,5 +1,4 @@
 /.claude/settings.local.json
-/.devcontainer/.env.db
 /.env.keys
 /*.code-workspace
 /**/__pycache__/

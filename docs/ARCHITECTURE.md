@@ -91,7 +91,7 @@ The project uses end-to-end integration testing with complete database isolation
 - **Database Naming**: `stellaris_test_{uuid}` with hyphens replaced by underscores
 - **Lifecycle**: Created in `beforeEach`, destroyed in `afterEach`
 - **Migrations**: Automatically run on each test database using `node-pg-migrate`
-- **Test Database Service**: Separate `db-evals` PostgreSQL container in docker-compose
+- **Database Services**: Separate PostgreSQL containers in docker-compose: `db-tests` for TypeScript tests, `db-evals` for Python evals
 
 #### Test Infrastructure Components
 
@@ -175,28 +175,53 @@ In-memory Redis implementation:
 
 ### Test Configuration
 
-**Environment File**: `.env.stellaris-stats.evals`
+**Environment Files**: Separate env files for tests and evals
 
+| File | Purpose | Database Service |
+|------|---------|------------------|
+| `.env.stellaris-stats.tests` | TypeScript tests | `db-tests` |
+| `.env.stellaris-stats.evals` | Python evals | `db-evals` |
+
+**TypeScript Tests** (`.env.stellaris-stats.tests`):
+```bash
+STELLARIS_STATS_DB_HOST=db-tests
+STELLARIS_STATS_DB_PORT=5432
+STELLARIS_STATS_DB_NAME=stellaris_tests
+STELLARIS_STATS_DB_USER=stellaris_tests
+STELLARIS_STATS_DB_PASSWORD=stellaris_tests_password
+```
+
+**Python Evals** (`.env.stellaris-stats.evals`):
 ```bash
 STELLARIS_STATS_DB_HOST=db-evals
 STELLARIS_STATS_DB_PORT=5432
-STELLARIS_STATS_DB_NAME=stellaris_test_admin
-STELLARIS_STATS_DB_USER=stellaris_test
-STELLARIS_STATS_DB_PASSWORD=stellaris_test
+STELLARIS_STATS_DB_NAME=stellaris_evals
+STELLARIS_STATS_DB_USER=stellaris_evals
+STELLARIS_STATS_DB_PASSWORD=stellaris_evals_password
 ```
 
-**Docker Compose**: Separate test database service
+**Docker Compose**: Separate database services with inline credentials (no persistent volumes - test databases are ephemeral)
 
 ```yaml
+db-tests:
+  image: postgres:18
+  container_name: stellaris-stats_db-tests
+  environment:
+    POSTGRES_DB: stellaris_tests
+    POSTGRES_USER: stellaris_tests
+    POSTGRES_PASSWORD: stellaris_tests_password
+  networks:
+    - stellaris-stats-db-tests-network
+
 db-evals:
   image: postgres:18
   container_name: stellaris-stats_db-evals
-  env_file:
-    - .env.db.evals
+  environment:
+    POSTGRES_DB: stellaris_evals
+    POSTGRES_USER: stellaris_evals
+    POSTGRES_PASSWORD: stellaris_evals_password
   networks:
     - stellaris-stats-db-evals-network
-  volumes:
-    - db-evals-data:/var/lib/postgresql
 ```
 
 ### Key Implementation Details
