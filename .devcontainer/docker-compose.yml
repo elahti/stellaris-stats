@@ -9,6 +9,7 @@ services:
     networks:
       - stellaris-stats-db-network
       - stellaris-stats-db-evals-network
+      - stellaris-stats-db-tests-network
       - stellaris-stats-apollo-mcp-server-network
       - stellaris-stats-librechat-network
       - stellaris-stats-librechat-metrics-network
@@ -32,8 +33,10 @@ services:
   db:
     image: postgres:18@sha256:bfe50b2b0ddd9b55eadedd066fe24c7c6fe06626185b73358c480ea37868024d
     container_name: stellaris-stats_db
-    env_file:
-      - .env.db
+    environment:
+      POSTGRES_DB: stellaris_stats
+      POSTGRES_USER: stellaris
+      POSTGRES_PASSWORD: stellaris
     networks:
       - stellaris-stats-db-network
     volumes:
@@ -42,12 +45,22 @@ services:
   db-evals:
     image: postgres:18@sha256:bfe50b2b0ddd9b55eadedd066fe24c7c6fe06626185b73358c480ea37868024d
     container_name: stellaris-stats_db-evals
-    env_file:
-      - .env.db.evals
+    environment:
+      POSTGRES_DB: stellaris_evals
+      POSTGRES_USER: stellaris_evals
+      POSTGRES_PASSWORD: stellaris_evals_password
     networks:
       - stellaris-stats-db-evals-network
-    volumes:
-      - db-evals-data:/var/lib/postgresql
+
+  db-tests:
+    image: postgres:18@sha256:bfe50b2b0ddd9b55eadedd066fe24c7c6fe06626185b73358c480ea37868024d
+    container_name: stellaris-stats_db-tests
+    environment:
+      POSTGRES_DB: stellaris_tests
+      POSTGRES_USER: stellaris_tests
+      POSTGRES_PASSWORD: stellaris_tests_password
+    networks:
+      - stellaris-stats-db-tests-network
 
   redis:
     image: redis:8.4-alpine@sha256:6cbef353e480a8a6e7f10ec545f13d7d3fa85a212cdcc5ffaf5a1c818b9d3798
@@ -166,6 +179,9 @@ networks:
   stellaris-stats-db-evals-network:
     driver: bridge
     name: stellaris-stats_db-evals-network
+  stellaris-stats-db-tests-network:
+    driver: bridge
+    name: stellaris-stats_db-tests-network
   stellaris-stats-librechat-network:
     driver: bridge
     name: stellaris-stats_librechat-network
@@ -195,8 +211,6 @@ volumes:
     name: stellaris-stats_claude-json
   db-data:
     name: stellaris-stats_db-data
-  db-evals-data:
-    name: stellaris-stats_db-evals-data
   db-dump-data:
     name: stellaris-stats_db-dump-data
   gamestate-json-data:
