@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from pydantic_ai import Agent, NativeOutput
+from pydantic_ai import Agent
 from pydantic_ai.mcp import MCPServerStreamableHTTP
 from pydantic_ai.settings import ModelSettings
 
-from agent.constants import DEFAULT_MODEL, get_model
+from agent.constants import DEFAULT_MODEL, get_model, wrap_output_type
 from agent.models import MultiAgentAnalysisResult
 from agent.root_cause_single_agent.prompts import (
     build_analysis_prompt,
@@ -20,25 +20,20 @@ class RootCauseSingleAgentDeps:
     graphql_url: str
 
 
-_single_agent: Agent[RootCauseSingleAgentDeps, MultiAgentAnalysisResult] | None = None
-
-
 def get_single_agent(
     mcp_server: MCPServerStreamableHTTP,
+    model_name: str,
     settings: Settings | None = None,
 ) -> Agent[RootCauseSingleAgentDeps, MultiAgentAnalysisResult]:
-    global _single_agent
-    if _single_agent is None:
-        if settings is None:
-            settings = get_settings()
-        _single_agent = Agent(
-            get_model(DEFAULT_MODEL),
-            deps_type=RootCauseSingleAgentDeps,
-            output_type=NativeOutput(MultiAgentAnalysisResult),
-            system_prompt=build_system_prompt(settings.graphql_url),
-            toolsets=[mcp_server],
-        )
-    return _single_agent
+    if settings is None:
+        settings = get_settings()
+    return Agent(
+        get_model(model_name),
+        deps_type=RootCauseSingleAgentDeps,
+        output_type=wrap_output_type(MultiAgentAnalysisResult, model_name),
+        system_prompt=build_system_prompt(settings.graphql_url),
+        toolsets=[mcp_server],
+    )
 
 
 def create_deps(settings: Settings | None = None) -> RootCauseSingleAgentDeps:
@@ -56,6 +51,8 @@ async def run_root_cause_single_agent_analysis(
     if settings is None:
         settings = get_settings()
 
+    actual_model = model_name or DEFAULT_MODEL
+
     # Create a fresh MCP server for each analysis run to avoid stale connection issues
     mcp_server = MCPServerStreamableHTTP(settings.sandbox_url)
 
@@ -63,20 +60,12 @@ async def run_root_cause_single_agent_analysis(
         # Run single agent that does both drop detection and root cause analysis
         deps = create_deps(settings)
         prompt = build_analysis_prompt(save_filename, deps.graphql_url)
-        agent = get_single_agent(mcp_server, settings)
+        agent = get_single_agent(mcp_server, actual_model, settings)
 
-        if model_name:
-            with agent.override(model=get_model(model_name)):
-                result = await agent.run(
-                    prompt,
-                    deps=deps,
-                    model_settings=model_settings,
-                )
-        else:
-            result = await agent.run(
-                prompt,
-                deps=deps,
-                model_settings=model_settings,
-            )
+        result = await agent.run(
+            prompt,
+            deps=deps,
+            model_settings=model_settings,
+        )
 
         return result.output

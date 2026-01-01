@@ -1,7 +1,7 @@
-from pydantic_ai import Agent, NativeOutput, RunContext
+from pydantic_ai import Agent, RunContext
 from pydantic_ai.agent import AgentRunResult
 
-from agent.constants import DEFAULT_MODEL, get_model
+from agent.constants import DEFAULT_MODEL, get_model, wrap_output_type
 from agent.models import SuddenDropAnalysisResult
 from agent.native_budget_agent.models import (
     BudgetSnapshot,
@@ -61,9 +61,6 @@ def sum_resources_for_snapshot(snapshot: BudgetSnapshot) -> dict[str, float]:
     return totals
 
 
-_native_budget_agent: Agent[AgentDeps, SuddenDropAnalysisResult] | None = None
-
-
 def build_system_prompt() -> str:
     return f"""You are a Stellaris game statistics analyst specializing in detecting sudden resource drops.
 
@@ -106,17 +103,17 @@ When you receive budget time series data with resource_totals:
 The game starts on January 1, 2200. You are analyzing the {ANALYSIS_DATAPOINTS} most recent budget snapshots to detect sudden resource problems."""
 
 
-def get_native_budget_agent() -> Agent[AgentDeps, SuddenDropAnalysisResult]:
-    global _native_budget_agent
-    if _native_budget_agent is None:
-        _native_budget_agent = Agent(
-            get_model(DEFAULT_MODEL),
-            deps_type=AgentDeps,
-            output_type=NativeOutput(SuddenDropAnalysisResult),
-            system_prompt=build_system_prompt(),
-        )
-        _register_tools(_native_budget_agent)
-    return _native_budget_agent
+def create_native_budget_agent(
+    model_name: str,
+) -> Agent[AgentDeps, SuddenDropAnalysisResult]:
+    agent: Agent[AgentDeps, SuddenDropAnalysisResult] = Agent(
+        get_model(model_name),
+        deps_type=AgentDeps,
+        output_type=wrap_output_type(SuddenDropAnalysisResult, model_name),
+        system_prompt=build_system_prompt(),
+    )
+    _register_tools(agent)
+    return agent
 
 
 async def _get_available_saves(ctx: RunContext[AgentDeps]) -> list[SaveInfo]:
@@ -203,7 +200,7 @@ async def run_native_budget_analysis(
     Args:
         save_filename: The filename of the save to analyze (without .sav extension).
         deps: Optional dependencies to use. If not provided, creates default deps.
-        model_name: Optional model to use. If not provided, uses the default agent model.
+        model_name: Optional model to use. If not provided, uses the default model.
 
     Returns:
         The complete agent run result.
@@ -211,8 +208,6 @@ async def run_native_budget_analysis(
     if deps is None:
         deps = create_deps()
     prompt = build_analysis_prompt(save_filename)
-    agent = get_native_budget_agent()
-    if model_name:
-        with agent.override(model=get_model(model_name)):
-            return await agent.run(prompt, deps=deps)
+    actual_model = model_name or DEFAULT_MODEL
+    agent = create_native_budget_agent(actual_model)
     return await agent.run(prompt, deps=deps)
