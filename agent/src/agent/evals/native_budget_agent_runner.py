@@ -24,7 +24,7 @@ from agent.native_budget_agent.agent import (
     get_native_budget_agent,
 )
 from agent.native_budget_agent.tools import create_deps
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 
 
 @asynccontextmanager
@@ -33,7 +33,7 @@ async def eval_environment(
     settings: Settings | None = None,
 ) -> AsyncIterator[tuple[TestDatabaseContext, GraphQLServerProcess]]:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
 
     db_ctx = await create_test_database(settings)
     try:
@@ -54,7 +54,7 @@ async def run_native_budget_eval(
     settings: Settings | None = None,
 ) -> SuddenDropAnalysisResult:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
 
     try:
         async with eval_environment(
@@ -70,11 +70,15 @@ async def run_native_budget_eval(
                 graphql_url = server.url
 
             # Create a custom GraphQL client pointing to the test server
-            eval_settings = Settings(
-                stellaris_stats_graphql_server_host=graphql_url.split("://")[1].split(
-                    ":",
-                )[0],
-                stellaris_stats_graphql_server_port=int(graphql_url.split(":")[-1]),
+            eval_settings = settings.model_copy(
+                update={
+                    "stellaris_stats_graphql_server_host": graphql_url.split("://")[
+                        1
+                    ].split(":")[0],
+                    "stellaris_stats_graphql_server_port": int(
+                        graphql_url.split(":")[-1],
+                    ),
+                },
             )
 
             client = eval_settings.create_graphql_client()

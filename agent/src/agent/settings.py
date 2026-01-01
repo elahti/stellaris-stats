@@ -14,29 +14,23 @@ GRAPHQL_TIMEOUT_SECONDS = 180.0
 class Settings(BaseSettings):
     """Configuration settings loaded from environment variables."""
 
-    anthropic_api_key: str | None = None
-    openai_api_key: str | None = None
-    logfire_token: str | None = None
-    stellaris_stats_graphql_server_host: str = "devcontainer"
-    stellaris_stats_graphql_server_port: int = 4000
-    stellaris_stats_python_sandbox_url: str | None = None
+    anthropic_api_key: str
+    openai_api_key: str
+    logfire_token: str
+    stellaris_stats_graphql_server_host: str
+    stellaris_stats_graphql_server_port: int
+    stellaris_stats_python_sandbox_url: str
 
-    # Production database config (for fixture generation)
-    stellaris_stats_db_host: str | None = None
-    stellaris_stats_db_port: int = 5432
-    stellaris_stats_db_name: str | None = None
-    stellaris_stats_db_user: str | None = None
-    stellaris_stats_db_password: str | None = None
-
-    # Test database config (for evals)
-    stellaris_test_db_host: str | None = None
-    stellaris_test_db_port: int = 5432
-    stellaris_test_db_user: str | None = None
-    stellaris_test_db_password: str | None = None
-    stellaris_test_db_admin_database: str | None = None
+    # Database config (production or evals, injected via dotenvx)
+    stellaris_stats_db_host: str
+    stellaris_stats_db_port: int
+    stellaris_stats_db_name: str
+    stellaris_stats_db_user: str
+    stellaris_stats_db_password: str
 
     # Eval GraphQL server host (for sandbox to reach the test server)
-    stellaris_stats_eval_graphql_server_host: str | None = None
+    # Optional: only needed when running evals
+    stellaris_stats_eval_graphql_server_host: str = ""
 
     @property
     def graphql_url(self) -> str:
@@ -46,10 +40,6 @@ class Settings(BaseSettings):
     @property
     def sandbox_url(self) -> str:
         """Get the Python sandbox MCP server URL."""
-        if self.stellaris_stats_python_sandbox_url is None:
-            raise ValueError(
-                "STELLARIS_STATS_PYTHON_SANDBOX_URL environment variable not set",
-            )
         return self.stellaris_stats_python_sandbox_url
 
     def create_graphql_client(self) -> Client:
@@ -58,3 +48,8 @@ class Settings(BaseSettings):
 
         http_client = httpx.AsyncClient(timeout=httpx.Timeout(GRAPHQL_TIMEOUT_SECONDS))
         return Client(url=self.graphql_url, http_client=http_client)
+
+
+def get_settings() -> Settings:
+    """Create Settings instance populated from environment variables."""
+    return Settings()  # type: ignore[call-arg]

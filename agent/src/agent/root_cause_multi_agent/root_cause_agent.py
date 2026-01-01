@@ -12,7 +12,7 @@ from agent.root_cause_multi_agent.root_cause_prompts import (
     build_root_cause_analysis_prompt,
     build_root_cause_system_prompt,
 )
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 
 if TYPE_CHECKING:
     from pydantic_ai.agent import AgentRunResult
@@ -28,7 +28,7 @@ def get_root_cause_agent(
     settings: Settings | None = None,
 ) -> Agent[RootCauseAgentDeps, RootCauseAnalysisResult]:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     return Agent(
         "openai:gpt-5.2-2025-12-11",
         deps_type=RootCauseAgentDeps,
@@ -40,7 +40,7 @@ def get_root_cause_agent(
 
 def create_root_cause_deps(settings: Settings | None = None) -> RootCauseAgentDeps:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     return RootCauseAgentDeps(graphql_url=settings.graphql_url)
 
 
@@ -54,7 +54,7 @@ async def run_root_cause_analysis(
     settings: Settings | None = None,
 ) -> AgentRunResult[RootCauseAnalysisResult]:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     if deps is None:
         deps = create_root_cause_deps(settings)
 

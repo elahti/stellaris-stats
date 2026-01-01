@@ -8,7 +8,7 @@ services:
     container_name: stellaris-stats_devcontainer
     networks:
       - stellaris-stats-db-network
-      - stellaris-stats-db-test-network
+      - stellaris-stats-db-evals-network
       - stellaris-stats-apollo-mcp-server-network
       - stellaris-stats-librechat-network
       - stellaris-stats-librechat-metrics-network
@@ -39,15 +39,15 @@ services:
     volumes:
       - db-data:/var/lib/postgresql
 
-  db-test:
+  db-evals:
     image: postgres:18@sha256:38d5c9d522037d8bf0864c9068e4df2f8a60127c6489ab06f98fdeda535560f9
-    container_name: stellaris-stats_db-test
+    container_name: stellaris-stats_db-evals
     env_file:
-      - .env.db.test
+      - .env.db.evals
     networks:
-      - stellaris-stats-db-test-network
+      - stellaris-stats-db-evals-network
     volumes:
-      - db-test-data:/var/lib/postgresql
+      - db-evals-data:/var/lib/postgresql
 
   redis:
     image: redis:8.4-alpine@sha256:6cbef353e480a8a6e7f10ec545f13d7d3fa85a212cdcc5ffaf5a1c818b9d3798
@@ -163,9 +163,9 @@ networks:
   stellaris-stats-db-network:
     driver: bridge
     name: stellaris-stats_db-network
-  stellaris-stats-db-test-network:
+  stellaris-stats-db-evals-network:
     driver: bridge
-    name: stellaris-stats_db-test-network
+    name: stellaris-stats_db-evals-network
   stellaris-stats-librechat-network:
     driver: bridge
     name: stellaris-stats_librechat-network
@@ -195,8 +195,8 @@ volumes:
     name: stellaris-stats_claude-json
   db-data:
     name: stellaris-stats_db-data
-  db-test-data:
-    name: stellaris-stats_db-test-data
+  db-evals-data:
+    name: stellaris-stats_db-evals-data
   db-dump-data:
     name: stellaris-stats_db-dump-data
   gamestate-json-data:

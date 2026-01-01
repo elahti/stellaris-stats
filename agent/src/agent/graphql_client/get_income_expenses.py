@@ -2,27 +2,28 @@
 # Source: queries.graphql
 
 from datetime import datetime
+from typing import Optional
 
 from .base_model import BaseModel
 from .fragments import BudgetCategoryFields
 
 
 class GetIncomeExpenses(BaseModel):
-    save: GetIncomeExpensesSave | None
+    save: Optional["GetIncomeExpensesSave"]
 
 
 class GetIncomeExpensesSave(BaseModel):
-    gamestates: list[GetIncomeExpensesSaveGamestates]
+    gamestates: list["GetIncomeExpensesSaveGamestates"]
 
 
 class GetIncomeExpensesSaveGamestates(BaseModel):
     date: datetime
-    budget: GetIncomeExpensesSaveGamestatesBudget
+    budget: "GetIncomeExpensesSaveGamestatesBudget"
 
 
 class GetIncomeExpensesSaveGamestatesBudget(BaseModel):
-    income: GetIncomeExpensesSaveGamestatesBudgetIncome
-    expenses: GetIncomeExpensesSaveGamestatesBudgetExpenses
+    income: "GetIncomeExpensesSaveGamestatesBudgetIncome"
+    expenses: "GetIncomeExpensesSaveGamestatesBudgetExpenses"
 
 
 class GetIncomeExpensesSaveGamestatesBudgetIncome(BudgetCategoryFields):

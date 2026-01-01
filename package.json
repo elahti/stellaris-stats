@@ -50,7 +50,7 @@
   "name": "stellaris-stats",
   "scripts": {
     "agent:analyze": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run agent analyze",
-    "agent:evals": "cd agent && dotenvx run -f ../.devcontainer/.env.db.test -f ../.env.stellaris-stats -f ../.env.stellaris-stats.secrets -- uv run budget-evals",
+    "agent:evals": "cd agent && dotenvx run -f ../.env.stellaris-stats -f ../.env.stellaris-stats.evals -f ../.env.stellaris-stats.secrets -- uv run budget-evals",
     "agent:generate-fixture": "cd agent && dotenvx run -f ../.env.stellaris-stats -- uv run python scripts/generate_sql_fixture.py",
     "agent:list-models": "cd agent && uv run agent list-models",
     "agent:list-saves": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run agent list-saves",
@@ -70,9 +70,9 @@
     "parser:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/parser/parserMain.ts",
     "prepare": "husky",
     "test:ci:python": "cd agent && uv run pytest -v --tb=short",
-    "test:ci:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test",
+    "test:ci:typescript": "dotenvx run -f .env.stellaris-stats.evals -- bun test",
     "test:python": "cd agent && uv run pytest -v",
-    "test:typescript": "dotenvx run -f .devcontainer/.env.db.test -- bun test --watch",
+    "test:typescript": "dotenvx run -f .env.stellaris-stats.evals -- bun test --watch",
     "typecheck:python": "cd agent && uv run pyright"
   }
 }

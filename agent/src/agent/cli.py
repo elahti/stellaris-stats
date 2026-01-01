@@ -8,7 +8,7 @@ import logfire
 from agent.constants import AVAILABLE_MODELS
 from agent.models import MultiAgentAnalysisResult
 from agent.root_cause_multi_agent.agent import run_root_cause_multi_agent_analysis
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 from agent.thinking_settings import THINKING_LEVELS, ThinkingLevel, get_model_settings
 
 
@@ -122,7 +122,7 @@ async def run_analysis_async(
 
 
 def cmd_analyze(args: argparse.Namespace) -> None:
-    settings = Settings()
+    settings = get_settings()
     configure_logfire(settings)
     parallel = getattr(args, "parallel", False)
     asyncio.run(
@@ -138,7 +138,7 @@ def cmd_analyze(args: argparse.Namespace) -> None:
 
 def cmd_list_saves(args: argparse.Namespace) -> None:
     del args
-    settings = Settings()
+    settings = get_settings()
     asyncio.run(run_list_saves_async(settings))
 
 

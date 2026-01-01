@@ -73,14 +73,14 @@ jobs:
           - 6379:6379
 
     env:
-      STELLARIS_TEST_DB_HOST: localhost
-      STELLARIS_TEST_DB_PORT: 5432
-      STELLARIS_TEST_DB_USER: stellaris_test
-      STELLARIS_TEST_DB_PASSWORD: stellaris_test
-      STELLARIS_TEST_DB_ADMIN_DATABASE: stellaris_test_admin
-      STELLARIS_TEST_REDIS_HOST: localhost
-      STELLARIS_TEST_REDIS_PORT: 6379
-      STELLARIS_TEST_REDIS_DB: 0
+      STELLARIS_STATS_DB_HOST: localhost
+      STELLARIS_STATS_DB_PORT: 5432
+      STELLARIS_STATS_DB_USER: stellaris_test
+      STELLARIS_STATS_DB_PASSWORD: stellaris_test
+      STELLARIS_STATS_DB_NAME: stellaris_test_admin
+      STELLARIS_STATS_REDIS_HOST: localhost
+      STELLARIS_STATS_REDIS_PORT: 6379
+      STELLARIS_STATS_REDIS_DB: 0
 
     steps:
       - name: Checkout code
@@ -105,25 +105,6 @@ jobs:
 
       - name: Run tests
         run: npm run test:ci:typescript
-
-  build-python:
-    name: Build Python
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7
-
-      - name: Setup Python
-        run: uv python install
-
-      - name: Install dependencies
-        run: cd agent && uv sync
-
-      - name: Run Python codegen
-        run: npm run graphql:codegen:python
 
   lint-python:
     name: Lint Python

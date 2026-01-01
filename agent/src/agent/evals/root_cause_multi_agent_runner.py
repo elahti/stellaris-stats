@@ -22,7 +22,7 @@ from agent.models import MultiAgentAnalysisResult
 from agent.root_cause_multi_agent.orchestrator import (
     run_root_cause_multi_agent_orchestration,
 )
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 
 
 @asynccontextmanager
@@ -31,7 +31,7 @@ async def eval_environment(
     settings: Settings | None = None,
 ) -> AsyncIterator[tuple[TestDatabaseContext, GraphQLServerProcess]]:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
 
     db_ctx = await create_test_database(settings)
     try:
@@ -52,7 +52,7 @@ async def run_root_cause_multi_agent_eval(
     settings: Settings | None = None,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
 
     try:
         async with eval_environment(
@@ -67,12 +67,15 @@ async def run_root_cause_multi_agent_eval(
             else:
                 graphql_url = server.url
 
-            eval_settings = Settings(
-                stellaris_stats_python_sandbox_url=settings.sandbox_url,
-                stellaris_stats_graphql_server_host=graphql_url.split("://")[1].split(
-                    ":",
-                )[0],
-                stellaris_stats_graphql_server_port=int(graphql_url.split(":")[-1]),
+            eval_settings = settings.model_copy(
+                update={
+                    "stellaris_stats_graphql_server_host": graphql_url.split("://")[
+                        1
+                    ].split(":")[0],
+                    "stellaris_stats_graphql_server_port": int(
+                        graphql_url.split(":")[-1],
+                    ),
+                },
             )
 
             return await run_root_cause_multi_agent_orchestration(

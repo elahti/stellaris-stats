@@ -8,7 +8,7 @@ from agent.root_cause_multi_agent.orchestrator import (
     create_deps,
     run_root_cause_multi_agent_orchestration,
 )
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 
 __all__ = [
     "RootCauseMultiAgentDeps",
@@ -25,7 +25,7 @@ async def run_root_cause_multi_agent_analysis(
     parallel_root_cause: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     return await run_root_cause_multi_agent_orchestration(
         save_filename=save_filename,
         settings=settings,

@@ -12,7 +12,7 @@ from agent.sandbox_drop_detection.prompts import (
     build_analysis_prompt,
     build_system_prompt,
 )
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 
 if TYPE_CHECKING:
     from pydantic_ai.agent import AgentRunResult
@@ -28,7 +28,7 @@ def get_sandbox_drop_detection_agent(
     settings: Settings | None = None,
 ) -> Agent[SandboxDropDetectionDeps, SuddenDropAnalysisResult]:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     return Agent(
         "openai:gpt-5.2-2025-12-11",
         deps_type=SandboxDropDetectionDeps,
@@ -40,7 +40,7 @@ def get_sandbox_drop_detection_agent(
 
 def create_deps(settings: Settings | None = None) -> SandboxDropDetectionDeps:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     return SandboxDropDetectionDeps(graphql_url=settings.graphql_url)
 
 
@@ -52,7 +52,7 @@ async def run_sandbox_drop_detection_analysis(
     settings: Settings | None = None,
 ) -> AgentRunResult[SuddenDropAnalysisResult]:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     if deps is None:
         deps = create_deps(settings)
 

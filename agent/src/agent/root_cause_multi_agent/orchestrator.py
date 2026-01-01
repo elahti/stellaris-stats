@@ -22,7 +22,7 @@ from agent.root_cause_multi_agent.root_cause_agent import (
     get_root_cause_agent,
     run_root_cause_analysis,
 )
-from agent.settings import Settings
+from agent.settings import Settings, get_settings
 
 
 @dataclass
@@ -35,7 +35,7 @@ def get_drop_detection_agent(
     settings: Settings | None = None,
 ) -> Agent[RootCauseMultiAgentDeps, SuddenDropAnalysisResult]:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     return Agent(
         "openai:gpt-5.2-2025-12-11",
         deps_type=RootCauseMultiAgentDeps,
@@ -47,7 +47,7 @@ def get_drop_detection_agent(
 
 def create_deps(settings: Settings | None = None) -> RootCauseMultiAgentDeps:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
     return RootCauseMultiAgentDeps(graphql_url=settings.graphql_url)
 
 
@@ -90,7 +90,7 @@ async def run_root_cause_multi_agent_orchestration(
     parallel_root_cause: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
-        settings = Settings()
+        settings = get_settings()
 
     # Create a fresh MCP server for each analysis run to avoid stale connection issues
     mcp_server = MCPServerStreamableHTTP(settings.sandbox_url)

@@ -18,7 +18,7 @@ from pathlib import Path
 
 import asyncpg
 
-from agent.settings import Settings
+from agent.settings import get_settings
 
 BUDGET_ENTRY_COLUMNS = [
     "energy",
@@ -122,16 +122,7 @@ async def generate_sql_fixture(
     output_path: str,
     description: str = "",
 ) -> None:
-    settings = Settings()
-
-    if settings.stellaris_stats_db_host is None:
-        raise ValueError("STELLARIS_STATS_DB_HOST environment variable not set")
-    if settings.stellaris_stats_db_name is None:
-        raise ValueError("STELLARIS_STATS_DB_NAME environment variable not set")
-    if settings.stellaris_stats_db_user is None:
-        raise ValueError("STELLARIS_STATS_DB_USER environment variable not set")
-    if settings.stellaris_stats_db_password is None:
-        raise ValueError("STELLARIS_STATS_DB_PASSWORD environment variable not set")
+    settings = get_settings()
 
     start_dt = datetime.fromisoformat(start_date)
     end_dt = datetime.fromisoformat(end_date)
