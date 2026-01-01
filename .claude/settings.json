@@ -9,6 +9,7 @@
       "Bash(bun test --help:*)",
       "Bash(bun test:*)",
       "Bash(cat:*)",
+      "Bash(curl:*)",
       "Bash(dotenvx run -f .env.stellaris-stats.evals -- bun test:*)",
       "Bash(find:*)",
       "Bash(git add:*)",
