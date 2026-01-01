@@ -209,31 +209,3 @@ class HasTopContributor(
             value=True,
             reason=f"Category '{self.category}' found in top contributors for {self.resource}{type_info}",
         )
-
-
-@dataclass
-class NoRootCause(
-    Evaluator[EvalInputs, Any, EvalMetadata],
-):
-    """Evaluator that asserts no root cause exists for a resource (no drop detected)."""
-
-    resource: str
-
-    @override
-    def evaluate(
-        self,
-        ctx: EvaluatorContext[EvalInputs, Any, EvalMetadata],
-    ) -> EvaluationReason:
-        output = ctx.output
-        dwc = _find_drop_with_root_cause(output, self.resource)
-
-        if dwc is not None:
-            return EvaluationReason(
-                value=False,
-                reason=f"Root cause entry found for {self.resource}, expected none",
-            )
-
-        return EvaluationReason(
-            value=True,
-            reason=f"No root cause entry for {self.resource} as expected",
-        )

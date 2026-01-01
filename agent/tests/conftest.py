@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Any
 
 import pytest
 
@@ -59,14 +58,3 @@ def agent_deps(empty_mock_client: MockClient) -> AgentDeps:
 @pytest.fixture
 def agent_deps_with_saves(mock_client_with_saves: MockClient) -> AgentDeps:
     return AgentDeps(client=mock_client_with_saves)
-
-
-def create_mock_client(
-    saves: list[dict[str, Any]] | None = None,
-    budgets: dict[str, Any] | None = None,
-    dates: dict[str, Any] | None = None,
-) -> MockClient:
-    client = MockClient()
-    if saves:
-        client.saves = [ListSavesSaves(**s) for s in saves]
-    return client

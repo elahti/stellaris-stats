@@ -1,7 +1,6 @@
 from agent.evals.evaluators.output_quality import (
     HasTopContributor,
     NoResourceDrop,
-    NoRootCause,
     ResourceDrop,
     RootCauseAnalyzed,
 )
@@ -9,7 +8,6 @@ from agent.evals.evaluators.output_quality import (
 __all__ = [
     "HasTopContributor",
     "NoResourceDrop",
-    "NoRootCause",
     "ResourceDrop",
     "RootCauseAnalyzed",
 ]
