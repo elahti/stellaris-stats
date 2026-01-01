@@ -65,7 +65,9 @@ class TestBuildRootCauseAnalysisPrompt:
     def test_contains_drop_resource(self) -> None:
         drop = _create_sample_drop("energy")
         prompt = build_root_cause_analysis_prompt(
-            drop, "test.sav", "http://example.com",
+            drop,
+            "test.sav",
+            "http://example.com",
         )
         assert "energy" in prompt
 
@@ -81,7 +83,9 @@ class TestBuildRootCauseAnalysisPrompt:
     def test_contains_drop_dates(self) -> None:
         drop = _create_sample_drop("energy")
         prompt = build_root_cause_analysis_prompt(
-            drop, "test.sav", "http://example.com",
+            drop,
+            "test.sav",
+            "http://example.com",
         )
 
         assert drop.start_date in prompt
@@ -90,7 +94,9 @@ class TestBuildRootCauseAnalysisPrompt:
     def test_contains_drop_values(self) -> None:
         drop = _create_sample_drop("energy")
         prompt = build_root_cause_analysis_prompt(
-            drop, "test.sav", "http://example.com",
+            drop,
+            "test.sav",
+            "http://example.com",
         )
 
         assert f"{drop.drop_percent:.1f}%" in prompt
@@ -104,7 +110,9 @@ class TestBuildRootCauseAnalysisPrompt:
     def test_contains_instructions(self) -> None:
         drop = _create_sample_drop("energy")
         prompt = build_root_cause_analysis_prompt(
-            drop, "test.sav", "http://example.com",
+            drop,
+            "test.sav",
+            "http://example.com",
         )
 
         assert "income" in prompt.lower()
