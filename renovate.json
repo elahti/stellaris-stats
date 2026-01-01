@@ -7,7 +7,14 @@
     "customManagers:dockerfileVersions"
   ],
   "labels": ["dependencies"],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "packageRules": [
+    {
+      "groupName": "pydantic packages",
+      "matchPackageNames": ["/^pydantic.*/"]
+    },
     {
       "groupName": "dev dependencies",
       "matchDepTypes": ["devDependencies"]
