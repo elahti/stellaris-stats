@@ -7,6 +7,7 @@ from pydantic_ai import Agent, NativeOutput
 from pydantic_ai.mcp import MCPServerStreamableHTTP
 from pydantic_ai.settings import ModelSettings
 
+from agent.constants import DEFAULT_MODEL, get_model
 from agent.models import (
     MultiAgentAnalysisResult,
     SuddenDrop,
@@ -37,7 +38,7 @@ def get_drop_detection_agent(
     if settings is None:
         settings = get_settings()
     return Agent(
-        "openai:gpt-5.2-2025-12-11",
+        get_model(DEFAULT_MODEL),
         deps_type=RootCauseMultiAgentDeps,
         output_type=NativeOutput(SuddenDropAnalysisResult),
         system_prompt=build_system_prompt(settings.graphql_url),
@@ -102,7 +103,7 @@ async def run_root_cause_multi_agent_orchestration(
         agent = get_drop_detection_agent(mcp_server, settings)
 
         if model_name:
-            with agent.override(model=model_name):
+            with agent.override(model=get_model(model_name)):
                 drop_result = await agent.run(
                     prompt,
                     deps=deps,
