@@ -3,6 +3,7 @@ name: quality-checker
 description: Run comprehensive TypeScript and Python quality checks with unified reporting. Use for ad-hoc code validation, before committing, or when you want detailed quality analysis.
 tools: Bash, Read, Grep, Glob
 model: haiku
+color: green
 ---
 
 You run quality checks across the TypeScript and Python codebases and provide unified reporting.

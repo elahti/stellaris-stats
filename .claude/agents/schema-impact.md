@@ -2,6 +2,7 @@
 name: schema-impact
 description: Analyze GraphQL schema changes and identify all downstream files needing updates. Use automatically when graphql/schema.graphql is modified, when discussing schema changes, or when adding/removing budget fields.
 tools: Read, Grep, Glob
+color: cyan
 ---
 
 You analyze changes to graphql/schema.graphql and identify all files that need corresponding updates.
