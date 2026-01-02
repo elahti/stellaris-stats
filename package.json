@@ -37,11 +37,11 @@
   },
   "name": "stellaris-stats",
   "scripts": {
-    "agent:analyze": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run agent analyze",
+    "agent:analyze": "cd agent && dotenvx run -f ../.env.stellaris-stats -f ../.env.stellaris-stats.secrets -- uv run agent analyze",
     "agent:evals": "cd agent && dotenvx run -f ../.env.stellaris-stats -f ../.env.stellaris-stats.evals -f ../.env.stellaris-stats.secrets -- uv run budget-evals",
     "agent:generate-fixture": "cd agent && dotenvx run -f ../.env.stellaris-stats -- uv run python scripts/generate_sql_fixture.py",
     "agent:list-models": "cd agent && uv run agent list-models",
-    "agent:list-saves": "cd agent && dotenvx run -f ../.env.stellaris-stats.secrets -- uv run agent list-saves",
+    "agent:list-saves": "cd agent && dotenvx run -f ../.env.stellaris-stats -f ../.env.stellaris-stats.secrets -- uv run agent list-saves",
     "build": "npm run graphql:codegen && tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json",
     "db:connect": "dotenvx run -f .env.stellaris-stats --strict -- sh -c 'PGPASSWORD=\"$STELLARIS_STATS_DB_PASSWORD\" psql -h \"$STELLARIS_STATS_DB_HOST\" -p \"$STELLARIS_STATS_DB_PORT\" -U \"$STELLARIS_STATS_DB_USER\" \"$STELLARIS_STATS_DB_NAME\"'",
     "db:dump": "dotenvx run -f .env.stellaris-stats -- sh -c 'PGPASSWORD=$STELLARIS_STATS_DB_PASSWORD pg_dump --clean -h $STELLARIS_STATS_DB_HOST -U $STELLARIS_STATS_DB_USER -d $STELLARIS_STATS_DB_NAME | gzip > /workspace/db-dump-data/db-dump-$(date +%Y-%m-%d-%H-%M-%S).sql.gz'",
