@@ -29,6 +29,13 @@ export type Scalars = {
   DateTimeISO: { input: Date; output: Date }
 }
 
+export type AllPlanetCoordinate = {
+  planetId: Scalars['String']['output']
+  systemId?: Maybe<Scalars['Int']['output']>
+  x: Scalars['Float']['output']
+  y: Scalars['Float']['output']
+}
+
 export type Budget = {
   balance: BudgetCategory
   expenses: BudgetCategory
@@ -153,6 +160,7 @@ export type DiplomaticRelation = {
   hasContact: Scalars['Boolean']['output']
   isHostile: Scalars['Boolean']['output']
   opinion?: Maybe<Scalars['Float']['output']>
+  opinionModifiers: Array<OpinionModifier>
   targetCountryId: Scalars['String']['output']
   targetEmpireName?: Maybe<Scalars['String']['output']>
   threat?: Maybe<Scalars['Float']['output']>
@@ -168,10 +176,12 @@ export type Empire = {
   militaryPower?: Maybe<Scalars['Float']['output']>
   name: Scalars['String']['output']
   ownedPlanetCount: Scalars['Int']['output']
+  ownedPlanetIds: Array<Scalars['Int']['output']>
   techPower?: Maybe<Scalars['Float']['output']>
 }
 
 export type Gamestate = {
+  allPlanetCoordinates: Array<AllPlanetCoordinate>
   budget: Budget
   date: Scalars['DateTimeISO']['output']
   diplomaticRelations: Array<DiplomaticRelation>
@@ -179,6 +189,11 @@ export type Gamestate = {
   gamestateId: Scalars['Int']['output']
   planets: Array<Planet>
   playerEmpire?: Maybe<Empire>
+}
+
+export type OpinionModifier = {
+  modifierType: Scalars['String']['output']
+  value: Scalars['Float']['output']
 }
 
 export type Planet = {
@@ -224,6 +239,18 @@ export const definedNonNullAnySchema = z
   .refine((v) => isDefinedNonNullAny(v))
 
 export const CacheControlScopeSchema = z.enum(CacheControlScope)
+
+export function AllPlanetCoordinateSchema(): z.ZodObject<
+  Properties<AllPlanetCoordinate>
+> {
+  return z.object({
+    __typename: z.literal('AllPlanetCoordinate').optional(),
+    planetId: z.string(),
+    systemId: z.number().nullish(),
+    x: z.number(),
+    y: z.number(),
+  })
+}
 
 export function BudgetSchema(): z.ZodObject<Properties<Budget>> {
   return z.object({
@@ -362,6 +389,7 @@ export function DiplomaticRelationSchema(): z.ZodObject<
     hasContact: z.boolean(),
     isHostile: z.boolean(),
     opinion: z.number().nullish(),
+    opinionModifiers: z.array(z.lazy(() => OpinionModifierSchema())),
     targetCountryId: z.string(),
     targetEmpireName: z.string().nullish(),
     threat: z.number().nullish(),
@@ -380,6 +408,7 @@ export function EmpireSchema(): z.ZodObject<Properties<Empire>> {
     militaryPower: z.number().nullish(),
     name: z.string(),
     ownedPlanetCount: z.number(),
+    ownedPlanetIds: z.array(z.number()),
     techPower: z.number().nullish(),
   })
 }
@@ -387,6 +416,7 @@ export function EmpireSchema(): z.ZodObject<Properties<Empire>> {
 export function GamestateSchema(): z.ZodObject<Properties<Gamestate>> {
   return z.object({
     __typename: z.literal('Gamestate').optional(),
+    allPlanetCoordinates: z.array(z.lazy(() => AllPlanetCoordinateSchema())),
     budget: z.lazy(() => BudgetSchema()),
     date: z.date(),
     diplomaticRelations: z.array(z.lazy(() => DiplomaticRelationSchema())),
@@ -394,6 +424,16 @@ export function GamestateSchema(): z.ZodObject<Properties<Gamestate>> {
     gamestateId: z.number(),
     planets: z.array(z.lazy(() => PlanetSchema())),
     playerEmpire: z.lazy(() => EmpireSchema().nullish()),
+  })
+}
+
+export function OpinionModifierSchema(): z.ZodObject<
+  Properties<OpinionModifier>
+> {
+  return z.object({
+    __typename: z.literal('OpinionModifier').optional(),
+    modifierType: z.string(),
+    value: z.number(),
   })
 }
 

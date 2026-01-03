@@ -1,4 +1,5 @@
 import { PoolClient } from 'pg'
+import { createAllPlanetCoordinatesLoader } from './allPlanetCoordinatesLoader.js'
 import { createBudgetLoader } from './budgetLoader.js'
 import { createDiplomaticRelationsLoader } from './diplomaticRelationLoader.js'
 import {
@@ -15,6 +16,7 @@ export const createDataLoaders = (client: PoolClient) => ({
   empires: createEmpiresLoader(client),
   playerEmpire: createPlayerEmpireLoader(client),
   diplomaticRelations: createDiplomaticRelationsLoader(client),
+  allPlanetCoordinates: createAllPlanetCoordinatesLoader(client),
 })
 
 export type DataLoaders = ReturnType<typeof createDataLoaders>

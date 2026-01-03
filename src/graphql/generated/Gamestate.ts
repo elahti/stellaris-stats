@@ -1,5 +1,6 @@
 import type { GamestateResolvers } from './types.generated.js'
 import {
+  AllPlanetCoordinate,
   Budget,
   DiplomaticRelation,
   Empire,
@@ -85,5 +86,22 @@ export const Gamestate: GamestateResolvers = {
     await context.cache.set(cacheKey, JSON.stringify(relations))
 
     return relations
+  },
+
+  allPlanetCoordinates: async (parent, _args, context) => {
+    const cacheKey = `allPlanetCoordinates:gamestateId:${parent.gamestateId}`
+    const cached = await context.cache.get(cacheKey)
+
+    if (cached) {
+      return JSON.parse(cached) as AllPlanetCoordinate[]
+    }
+
+    const coordinates = await context.loaders.allPlanetCoordinates.load(
+      parent.gamestateId,
+    )
+
+    await context.cache.set(cacheKey, JSON.stringify(coordinates))
+
+    return coordinates
   },
 }
