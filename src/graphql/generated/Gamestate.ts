@@ -1,5 +1,10 @@
 import type { GamestateResolvers } from './types.generated.js'
-import { Budget, Planet } from './validation.generated.js'
+import {
+  Budget,
+  DiplomaticRelation,
+  Empire,
+  Planet,
+} from './validation.generated.js'
 
 export const Gamestate: GamestateResolvers = {
   budget: async (parent, _args, context) => {
@@ -30,5 +35,55 @@ export const Gamestate: GamestateResolvers = {
     await context.cache.set(cacheKey, JSON.stringify(planets))
 
     return planets
+  },
+
+  empires: async (parent, _args, context) => {
+    const cacheKey = `empires:gamestateId:${parent.gamestateId}`
+    const cached = await context.cache.get(cacheKey)
+
+    if (cached) {
+      return JSON.parse(cached) as Empire[]
+    }
+
+    const empires = await context.loaders.empires.load(parent.gamestateId)
+
+    await context.cache.set(cacheKey, JSON.stringify(empires))
+
+    return empires
+  },
+
+  playerEmpire: async (parent, _args, context) => {
+    const cacheKey = `playerEmpire:gamestateId:${parent.gamestateId}`
+    const cached = await context.cache.get(cacheKey)
+
+    if (cached) {
+      const parsed = JSON.parse(cached) as Empire | null
+      return parsed
+    }
+
+    const playerEmpire = await context.loaders.playerEmpire.load(
+      parent.gamestateId,
+    )
+
+    await context.cache.set(cacheKey, JSON.stringify(playerEmpire))
+
+    return playerEmpire
+  },
+
+  diplomaticRelations: async (parent, _args, context) => {
+    const cacheKey = `diplomaticRelations:gamestateId:${parent.gamestateId}`
+    const cached = await context.cache.get(cacheKey)
+
+    if (cached) {
+      return JSON.parse(cached) as DiplomaticRelation[]
+    }
+
+    const relations = await context.loaders.diplomaticRelations.load(
+      parent.gamestateId,
+    )
+
+    await context.cache.set(cacheKey, JSON.stringify(relations))
+
+    return relations
   },
 }

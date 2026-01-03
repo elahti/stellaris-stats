@@ -126,3 +126,11 @@ Keep synchronized when changing:
 
 - Use Context7 for library documentation without being asked
 - Prefer async versions of libraries
+
+## MCP Python Executor
+
+The `run_python_code` tool runs Python in a sandboxed environment:
+
+- **No filesystem access**: Cannot read or write files
+- **Available libraries**: `requests`, `httpx` (plus Python 3.14 standard library)
+- **Use case**: Quick calculations, data transformations, API calls within the sandbox

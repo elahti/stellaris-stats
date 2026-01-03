@@ -12,23 +12,29 @@ SELECT
   JSONB_AGG(
     JSONB_BUILD_OBJECT(
       'planet_name',
-      planet_data -> 'name' ->> 'key',
+      planet_extract.planet_data -> 'name' ->> 'key',
       'planet_id',
-      planet_id,
+      planet_extract.planet_id,
       'profits',
       JSONB_BUILD_OBJECT(
         'income',
-        planet_data -> 'produces',
+        planet_extract.planet_data -> 'produces',
         'expenses',
-        planet_data -> 'upkeep',
+        planet_extract.planet_data -> 'upkeep',
         'balance',
-        planet_data -> 'profits'
-      )
+        planet_extract.planet_data -> 'profits'
+      ),
+      'coordinate',
+      CASE
+        WHEN pc.planet_id IS NOT NULL
+        THEN JSONB_BUILD_OBJECT('x', pc.x, 'y', pc.y, 'system_id', pc.system_id)
+        ELSE NULL
+      END
     )
   ) AS planets
 FROM
-  gamestate g,
-  LATERAL (
+  gamestate g
+  CROSS JOIN LATERAL (
     SELECT
       key AS planet_id,
       value AS planet_data
@@ -42,6 +48,8 @@ FROM
           )
       )
   ) AS planet_extract
+  LEFT JOIN planet_coordinate pc
+    ON pc.gamestate_id = g.gamestate_id AND pc.planet_id = planet_extract.planet_id
 WHERE
   g.gamestate_id = ANY($1)
 GROUP BY
