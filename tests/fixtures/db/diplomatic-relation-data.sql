@@ -26,6 +26,18 @@ VALUES
   ((SELECT gamestate_id FROM gamestate g JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'diplomacy-test.sav' AND g.date = '2200-01-01T00:00:00Z'), '0', '2', -500, -10, 80, true, 50, true, true),
   ((SELECT gamestate_id FROM gamestate g JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'diplomacy-test.sav' AND g.date = '2200-01-01T00:00:00Z'), '0', '3', 0, 0, 0, false, 9999, false, false);
 
+-- Opinion modifiers for friendly relation
+INSERT INTO opinion_modifier (diplomatic_relation_id, modifier_type, value)
+VALUES
+  ((SELECT diplomatic_relation_id FROM diplomatic_relation dr JOIN gamestate g ON dr.gamestate_id = g.gamestate_id JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'diplomacy-test.sav' AND dr.target_country_id = '1'), 'alliance', 50.0),
+  ((SELECT diplomatic_relation_id FROM diplomatic_relation dr JOIN gamestate g ON dr.gamestate_id = g.gamestate_id JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'diplomacy-test.sav' AND dr.target_country_id = '1'), 'trade_deal', 25.0);
+
+-- Opinion modifiers for hostile relation
+INSERT INTO opinion_modifier (diplomatic_relation_id, modifier_type, value)
+VALUES
+  ((SELECT diplomatic_relation_id FROM diplomatic_relation dr JOIN gamestate g ON dr.gamestate_id = g.gamestate_id JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'diplomacy-test.sav' AND dr.target_country_id = '2'), 'border_friction', -30.0),
+  ((SELECT diplomatic_relation_id FROM diplomatic_relation dr JOIN gamestate g ON dr.gamestate_id = g.gamestate_id JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'diplomacy-test.sav' AND dr.target_country_id = '2'), 'war_enemy', -200.0);
+
 -- Save without relations (for testing empty result)
 INSERT INTO save (filename, name) VALUES ('no-relations.sav', 'No Relations Save');
 INSERT INTO gamestate (save_id, date, data)

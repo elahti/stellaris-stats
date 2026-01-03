@@ -202,4 +202,129 @@ describe('GraphQL Schema', () => {
       expect(schemaSDL).toContain('scalar DateTimeISO')
     })
   })
+
+  describe('DiplomaticRelation Type', () => {
+    const schema = buildSchema(schemaSDL)
+
+    it('defines DiplomaticRelation type', () => {
+      const diplomaticRelationType = schema.getType('DiplomaticRelation')
+      expect(diplomaticRelationType).toBeDefined()
+    })
+
+    it('has required fields', () => {
+      const diplomaticRelationType = schema.getType('DiplomaticRelation') as
+        | import('graphql').GraphQLObjectType
+        | undefined
+      const fields = diplomaticRelationType?.getFields()
+
+      expect(fields?.targetCountryId).toBeDefined()
+      expect(fields?.targetEmpireName).toBeDefined()
+      expect(fields?.opinion).toBeDefined()
+      expect(fields?.trust).toBeDefined()
+      expect(fields?.threat).toBeDefined()
+      expect(fields?.isHostile).toBeDefined()
+      expect(fields?.borderRange).toBeDefined()
+      expect(fields?.hasContact).toBeDefined()
+      expect(fields?.hasCommunications).toBeDefined()
+      expect(fields?.opinionModifiers).toBeDefined()
+    })
+
+    it('uses cacheControl directive', () => {
+      expect(schemaSDL).toContain('type DiplomaticRelation @cacheControl')
+    })
+  })
+
+  describe('OpinionModifier Type', () => {
+    const schema = buildSchema(schemaSDL)
+
+    it('defines OpinionModifier type', () => {
+      const opinionModifierType = schema.getType('OpinionModifier')
+      expect(opinionModifierType).toBeDefined()
+    })
+
+    it('has required fields', () => {
+      const opinionModifierType = schema.getType('OpinionModifier') as
+        | import('graphql').GraphQLObjectType
+        | undefined
+      const fields = opinionModifierType?.getFields()
+
+      expect(fields?.modifierType).toBeDefined()
+      expect(fields?.value).toBeDefined()
+    })
+  })
+
+  describe('AllPlanetCoordinate Type', () => {
+    const schema = buildSchema(schemaSDL)
+
+    it('defines AllPlanetCoordinate type', () => {
+      const allPlanetCoordinateType = schema.getType('AllPlanetCoordinate')
+      expect(allPlanetCoordinateType).toBeDefined()
+    })
+
+    it('has required fields', () => {
+      const allPlanetCoordinateType = schema.getType('AllPlanetCoordinate') as
+        | import('graphql').GraphQLObjectType
+        | undefined
+      const fields = allPlanetCoordinateType?.getFields()
+
+      expect(fields?.planetId).toBeDefined()
+      expect(fields?.x).toBeDefined()
+      expect(fields?.y).toBeDefined()
+      expect(fields?.systemId).toBeDefined()
+    })
+  })
+
+  describe('Empire Type', () => {
+    const schema = buildSchema(schemaSDL)
+
+    it('defines Empire type', () => {
+      const empireType = schema.getType('Empire')
+      expect(empireType).toBeDefined()
+    })
+
+    it('has required fields', () => {
+      const empireType = schema.getType('Empire') as
+        | import('graphql').GraphQLObjectType
+        | undefined
+      const fields = empireType?.getFields()
+
+      expect(fields?.countryId).toBeDefined()
+      expect(fields?.name).toBeDefined()
+      expect(fields?.isPlayer).toBeDefined()
+      expect(fields?.capitalPlanetId).toBeDefined()
+      expect(fields?.ownedPlanetCount).toBeDefined()
+      expect(fields?.ownedPlanetIds).toBeDefined()
+      expect(fields?.controlledPlanetCount).toBeDefined()
+      expect(fields?.militaryPower).toBeDefined()
+      expect(fields?.economyPower).toBeDefined()
+      expect(fields?.techPower).toBeDefined()
+    })
+  })
+
+  describe('Gamestate Neighbor Analysis Fields', () => {
+    const schema = buildSchema(schemaSDL)
+    const gamestateType = schema.getType('Gamestate') as
+      | import('graphql').GraphQLObjectType
+      | undefined
+
+    it('has diplomaticRelations field', () => {
+      const fields = gamestateType?.getFields()
+      expect(fields?.diplomaticRelations).toBeDefined()
+    })
+
+    it('has allPlanetCoordinates field', () => {
+      const fields = gamestateType?.getFields()
+      expect(fields?.allPlanetCoordinates).toBeDefined()
+    })
+
+    it('has empires field', () => {
+      const fields = gamestateType?.getFields()
+      expect(fields?.empires).toBeDefined()
+    })
+
+    it('has playerEmpire field', () => {
+      const fields = gamestateType?.getFields()
+      expect(fields?.playerEmpire).toBeDefined()
+    })
+  })
 })

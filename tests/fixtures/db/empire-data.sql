@@ -31,6 +31,15 @@ INSERT INTO empire (gamestate_id, country_id, name, is_player, capital_planet_id
 VALUES
   ((SELECT gamestate_id FROM gamestate g JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'empire-test.sav' AND g.date = '2200-02-01T00:00:00Z'), '0', 'Human Empire', true, 7, 6, 30, 1800.0, 2500.0, 1000.0);
 
+-- Empire planet ownership for gamestate 1
+INSERT INTO empire_planet (gamestate_id, country_id, planet_id)
+VALUES
+  ((SELECT gamestate_id FROM gamestate g JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'empire-test.sav' AND g.date = '2200-01-01T00:00:00Z'), '0', 7),
+  ((SELECT gamestate_id FROM gamestate g JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'empire-test.sav' AND g.date = '2200-01-01T00:00:00Z'), '0', 8),
+  ((SELECT gamestate_id FROM gamestate g JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'empire-test.sav' AND g.date = '2200-01-01T00:00:00Z'), '0', 9),
+  ((SELECT gamestate_id FROM gamestate g JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'empire-test.sav' AND g.date = '2200-01-01T00:00:00Z'), '1', 12),
+  ((SELECT gamestate_id FROM gamestate g JOIN save s ON g.save_id = s.save_id WHERE s.filename = 'empire-test.sav' AND g.date = '2200-01-01T00:00:00Z'), '1', 13);
+
 -- Save without empires (for testing empty result)
 INSERT INTO save (filename, name) VALUES ('no-empires.sav', 'No Empires Save');
 INSERT INTO gamestate (save_id, date, data)
