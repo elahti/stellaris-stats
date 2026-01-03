@@ -31,6 +31,8 @@ AnalysisResultTuple = tuple[DetectedNeighbor, OpinionAnalysisResult | None, str 
 
 @dataclass
 class NeighborMultiAgentDeps:
+    """Dependencies for the multi-agent neighbor analysis orchestration."""
+
     graphql_url: str
 
 
@@ -191,7 +193,7 @@ async def run_neighbor_multi_agent_orchestration(
                             opinion=None,
                             trust=None,
                             threat=None,
-                            is_hostile=False,
+                            is_hostile=None,
                             opinion_modifiers=[],
                         ),
                     )

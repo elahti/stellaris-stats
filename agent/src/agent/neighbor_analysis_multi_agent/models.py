@@ -4,6 +4,8 @@ from agent.neighbor_analysis import FindingSeverity, OpinionModifier
 
 
 class DetectedNeighbor(BaseModel):
+    """A neighbor detected by the neighbor detection agent."""
+
     country_id: str
     name: str
     min_distance: float
@@ -11,6 +13,8 @@ class DetectedNeighbor(BaseModel):
 
 
 class NeighborDetectionResult(BaseModel):
+    """Result from the neighbor detection phase including all detected neighbors."""
+
     save_filename: str
     analysis_date: str
     player_empire_name: str
@@ -19,12 +23,16 @@ class NeighborDetectionResult(BaseModel):
 
 
 class NeighborFinding(BaseModel):
+    """A finding from analyzing a specific neighbor's diplomatic relations."""
+
     finding_type: str
     description: str
     severity: FindingSeverity
 
 
 class OpinionAnalysisResult(BaseModel):
+    """Result from analyzing a neighbor's opinion and diplomatic status."""
+
     country_id: str
     name: str
     opinion: float | None

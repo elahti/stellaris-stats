@@ -16,6 +16,8 @@ from agent.settings import Settings, get_settings
 
 @dataclass
 class NeighborSingleAgentDeps:
+    """Dependencies for the neighbor analysis single agent."""
+
     graphql_url: str
 
 
@@ -41,6 +43,10 @@ def create_deps(settings: Settings | None = None) -> NeighborSingleAgentDeps:
     return NeighborSingleAgentDeps(graphql_url=settings.graphql_url)
 
 
+class NeighborAnalysisError(Exception):
+    """Raised when neighbor analysis fails."""
+
+
 async def run_neighbor_single_agent_analysis(
     save_filename: str,
     settings: Settings | None = None,
@@ -53,14 +59,19 @@ async def run_neighbor_single_agent_analysis(
 
     mcp_server = MCPServerStreamableHTTP(settings.sandbox_url)
 
-    async with mcp_server:
-        deps = create_deps(settings)
-        prompt = build_analysis_prompt(save_filename, deps.graphql_url)
-        agent = get_single_agent(mcp_server, actual_model, settings)
+    try:
+        async with mcp_server:
+            deps = create_deps(settings)
+            prompt = build_analysis_prompt(save_filename, deps.graphql_url)
+            agent = get_single_agent(mcp_server, actual_model, settings)
 
-        result = await agent.run(
-            prompt,
-            deps=deps,
-        )
+            result = await agent.run(
+                prompt,
+                deps=deps,
+            )
 
-        return result.output
+            return result.output
+    except Exception as e:
+        raise NeighborAnalysisError(
+            f"Failed to analyze neighbors for save '{save_filename}': {e}",
+        ) from e

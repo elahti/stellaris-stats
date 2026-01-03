@@ -1,4 +1,5 @@
 from .agent import (
+    NeighborAnalysisError,
     NeighborSingleAgentDeps,
     create_deps,
     get_single_agent,
@@ -7,6 +8,7 @@ from .agent import (
 from .prompts import build_analysis_prompt, build_system_prompt
 
 __all__ = [
+    "NeighborAnalysisError",
     "NeighborSingleAgentDeps",
     "build_analysis_prompt",
     "build_system_prompt",

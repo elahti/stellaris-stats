@@ -215,14 +215,18 @@ def cmd_analyze_neighbors(args: argparse.Namespace) -> None:
     settings = get_settings()
     configure_logfire(settings)
     parallel = getattr(args, "parallel", False)
-    asyncio.run(
-        run_neighbor_analysis_async(
-            args.save,
-            raw=args.raw,
-            agent_type=args.agent_type,
-            parallel=parallel,
-        ),
-    )
+    try:
+        asyncio.run(
+            run_neighbor_analysis_async(
+                args.save,
+                raw=args.raw,
+                agent_type=args.agent_type,
+                parallel=parallel,
+            ),
+        )
+    except Exception as e:
+        print(f"Error analyzing neighbors: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 def cmd_list_saves(args: argparse.Namespace) -> None:
