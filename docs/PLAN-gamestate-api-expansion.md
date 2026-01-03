@@ -108,7 +108,7 @@ Extend planet data with coordinates.
 
 ### Phase 1: Database Tables
 
-#### Migration: `XXXXXXX_create-empire.sql`
+#### Migration 1: `XXXXXXX_create-empire.sql`
 
 ```sql
 CREATE TABLE empire (
@@ -131,7 +131,7 @@ CREATE INDEX idx_empire_gamestate ON empire(gamestate_id);
 CREATE INDEX idx_empire_is_player ON empire(gamestate_id, is_player);
 ```
 
-#### Migration: `XXXXXXX_create-diplomatic-relation.sql`
+#### Migration 2: `XXXXXXX_create-diplomatic-relation.sql`
 
 ```sql
 CREATE TABLE diplomatic_relation (
@@ -154,7 +154,7 @@ CREATE INDEX idx_diplomatic_relation_gamestate ON diplomatic_relation(gamestate_
 CREATE INDEX idx_diplomatic_relation_source ON diplomatic_relation(gamestate_id, source_country_id);
 ```
 
-#### Migration: `XXXXXXX_add-planet-coordinates.sql`
+#### Migration 3: `XXXXXXX_create-planet-coordinate.sql`
 
 ```sql
 CREATE TABLE planet_coordinate (
@@ -169,6 +169,269 @@ CREATE TABLE planet_coordinate (
 );
 
 CREATE INDEX idx_planet_coordinate_gamestate ON planet_coordinate(gamestate_id);
+```
+
+---
+
+### Phase 1b: Data Population Migrations
+
+Following the pattern from `migrations/1764966260250_populate-budget-tables.ts`, create TypeScript migrations to populate the new tables with data from existing gamestates.
+
+#### Migration 4: `XXXXXXX_populate-empire-tables.ts`
+
+```typescript
+import { MigrationBuilder } from 'node-pg-migrate'
+import { z } from 'zod/v4'
+
+// Schema for name field parsing
+const NameSchema = z.union([
+  z.object({
+    key: z.string(),
+    variables: z.array(z.object({
+      key: z.union([z.string(), z.number()]),
+      value: z.object({ key: z.string() }).optional(),
+    })).optional(),
+  }),
+  z.string(),
+])
+
+const CountrySchema = z.object({
+  name: NameSchema.optional(),
+  capital: z.number().optional(),
+  owned_planets: z.array(z.number()).optional(),
+  controlled_planets: z.array(z.number()).optional(),
+  military_power: z.number().optional(),
+  economy_power: z.number().optional(),
+  tech_power: z.number().optional(),
+})
+
+const GamestateRowSchema = z.object({
+  gamestate_id: z.number(),
+  player_country_id: z.string().nullable(),
+  country_data: z.record(z.string(), CountrySchema).nullable(),
+})
+
+// Query to extract empire data from JSONB
+const getGamestatesQuery = `
+SELECT
+  gamestate_id,
+  data -> 'player' -> 0 ->> 'country' AS player_country_id,
+  data -> 'country' AS country_data
+FROM
+  gamestate
+WHERE
+  data -> 'country' IS NOT NULL
+`
+
+const insertEmpireQuery = `
+INSERT INTO empire (
+  gamestate_id, country_id, name, is_player,
+  capital_planet_id, owned_planet_count, controlled_planet_count,
+  military_power, economy_power, tech_power
+)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+`
+
+// Helper to extract display name from localization format
+const extractDisplayName = (nameData: unknown): string => {
+  if (!nameData) return 'Unknown'
+  if (typeof nameData === 'string') return nameData
+  if (typeof nameData === 'object' && 'key' in nameData) {
+    const obj = nameData as { key: string; variables?: Array<{ value?: { key: string } }> }
+    let name = obj.key
+
+    // Handle template format with variables
+    if (obj.variables && name === '%ADJECTIVE%') {
+      const parts = obj.variables
+        .map(v => v.value?.key ?? '')
+        .filter(Boolean)
+      name = parts.join(' ')
+    }
+
+    // Strip common prefixes
+    for (const prefix of ['EMPIRE_DESIGN_', 'NAME_', 'SPEC_']) {
+      if (name.startsWith(prefix)) {
+        name = name.slice(prefix.length)
+      }
+    }
+    return name.replace(/_/g, ' ')
+  }
+  return 'Unknown'
+}
+
+export const up = async (pgm: MigrationBuilder): Promise<void> => {
+  const result = await pgm.db.query(getGamestatesQuery)
+  const rows = z.array(GamestateRowSchema).parse(result.rows)
+
+  for (const row of rows) {
+    if (!row.country_data) continue
+
+    for (const [countryId, country] of Object.entries(row.country_data)) {
+      // Skip non-object entries
+      if (typeof country !== 'object' || !country) continue
+
+      const isPlayer = countryId === row.player_country_id
+      const name = extractDisplayName(country.name)
+
+      await pgm.db.query(insertEmpireQuery, [
+        row.gamestate_id,
+        countryId,
+        name,
+        isPlayer,
+        country.capital ?? null,
+        country.owned_planets?.length ?? 0,
+        country.controlled_planets?.length ?? 0,
+        country.military_power ?? null,
+        country.economy_power ?? null,
+        country.tech_power ?? null,
+      ])
+    }
+  }
+}
+
+export const down = (_pgm: MigrationBuilder): void => {
+  throw new Error('Down migration not implemented')
+}
+```
+
+#### Migration 5: `XXXXXXX_populate-diplomatic-relation-tables.ts`
+
+```typescript
+import { MigrationBuilder } from 'node-pg-migrate'
+import { z } from 'zod/v4'
+
+const RelationSchema = z.object({
+  country: z.number(),
+  relation_current: z.number().optional(),
+  trust: z.number().optional(),
+  threat: z.number().optional(),
+  hostile: z.boolean().optional(),
+  border_range: z.number().optional(),
+  contact: z.boolean().optional(),
+  communications: z.boolean().optional(),
+})
+
+const GamestateRowSchema = z.object({
+  gamestate_id: z.number(),
+  player_country_id: z.string().nullable(),
+  relations_data: z.array(z.object({ value: RelationSchema })).nullable(),
+})
+
+// Query to extract player's diplomatic relations
+const getGamestatesQuery = `
+SELECT
+  gamestate_id,
+  data -> 'player' -> 0 ->> 'country' AS player_country_id,
+  data -> 'country' -> (data -> 'player' -> 0 ->> 'country') -> 'relations_manager' -> 'relation' AS relations_data
+FROM
+  gamestate
+WHERE
+  data -> 'country' -> (data -> 'player' -> 0 ->> 'country') -> 'relations_manager' -> 'relation' IS NOT NULL
+`
+
+const insertRelationQuery = `
+INSERT INTO diplomatic_relation (
+  gamestate_id, source_country_id, target_country_id,
+  opinion, trust, threat, is_hostile, border_range,
+  has_contact, has_communications
+)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+`
+
+export const up = async (pgm: MigrationBuilder): Promise<void> => {
+  const result = await pgm.db.query(getGamestatesQuery)
+  const rows = z.array(GamestateRowSchema).parse(result.rows)
+
+  for (const row of rows) {
+    if (!row.relations_data || !row.player_country_id) continue
+
+    for (const relationWrapper of row.relations_data) {
+      const relation = relationWrapper.value
+
+      await pgm.db.query(insertRelationQuery, [
+        row.gamestate_id,
+        row.player_country_id,
+        String(relation.country),
+        relation.relation_current ?? null,
+        relation.trust ?? null,
+        relation.threat ?? null,
+        relation.hostile ?? false,
+        relation.border_range ?? null,
+        relation.contact ?? false,
+        relation.communications ?? false,
+      ])
+    }
+  }
+}
+
+export const down = (_pgm: MigrationBuilder): void => {
+  throw new Error('Down migration not implemented')
+}
+```
+
+#### Migration 6: `XXXXXXX_populate-planet-coordinate-tables.ts`
+
+```typescript
+import { MigrationBuilder } from 'node-pg-migrate'
+import { z } from 'zod/v4'
+
+const CoordinateSchema = z.object({
+  x: z.number(),
+  y: z.number(),
+  origin: z.number().optional(),
+})
+
+const PlanetSchema = z.object({
+  coordinate: CoordinateSchema.optional(),
+})
+
+const GamestateRowSchema = z.object({
+  gamestate_id: z.number(),
+  planets_data: z.record(z.string(), PlanetSchema).nullable(),
+})
+
+// Query to extract all planets with coordinates
+const getGamestatesQuery = `
+SELECT
+  gamestate_id,
+  data -> 'planets' -> 'planet' AS planets_data
+FROM
+  gamestate
+WHERE
+  data -> 'planets' -> 'planet' IS NOT NULL
+`
+
+const insertCoordinateQuery = `
+INSERT INTO planet_coordinate (gamestate_id, planet_id, x, y, system_id)
+VALUES ($1, $2, $3, $4, $5)
+`
+
+export const up = async (pgm: MigrationBuilder): Promise<void> => {
+  const result = await pgm.db.query(getGamestatesQuery)
+  const rows = z.array(GamestateRowSchema).parse(result.rows)
+
+  for (const row of rows) {
+    if (!row.planets_data) continue
+
+    for (const [planetId, planet] of Object.entries(row.planets_data)) {
+      if (!planet?.coordinate) continue
+
+      const coord = planet.coordinate
+
+      await pgm.db.query(insertCoordinateQuery, [
+        row.gamestate_id,
+        planetId,
+        coord.x,
+        coord.y,
+        coord.origin ?? null,
+      ])
+    }
+  }
+}
+
+export const down = (_pgm: MigrationBuilder): void => {
+  throw new Error('Down migration not implemented')
+}
 ```
 
 ---
@@ -345,13 +608,21 @@ Add resolver for `coordinate` field.
 
 ## File Changes Summary
 
+### Migration Files
+
+| File | Action | Description |
+|------|--------|-------------|
+| `migrations/XXXXXXX_create-empire.sql` | Create | Empire table schema |
+| `migrations/XXXXXXX_create-diplomatic-relation.sql` | Create | Diplomatic relations table schema |
+| `migrations/XXXXXXX_create-planet-coordinate.sql` | Create | Planet coordinates table schema |
+| `migrations/XXXXXXX_populate-empire-tables.ts` | Create | Backfill empire data from existing gamestates |
+| `migrations/XXXXXXX_populate-diplomatic-relation-tables.ts` | Create | Backfill relation data from existing gamestates |
+| `migrations/XXXXXXX_populate-planet-coordinate-tables.ts` | Create | Backfill coordinate data from existing gamestates |
+
 ### Source Files
 
 | File | Action | Description |
 |------|--------|-------------|
-| `migrations/XXXXXXX_create-empire.sql` | Create | Empire table |
-| `migrations/XXXXXXX_create-diplomatic-relation.sql` | Create | Diplomatic relations table |
-| `migrations/XXXXXXX_add-planet-coordinates.sql` | Create | Planet coordinates table |
 | `src/parser/empirePopulator.ts` | Create | Extract & insert empire data |
 | `src/parser/diplomaticRelationPopulator.ts` | Create | Extract & insert relations |
 | `src/parser/planetCoordinatePopulator.ts` | Create | Extract & insert coordinates |
@@ -386,6 +657,7 @@ Add resolver for `coordinate` field.
 
 | File | Action | Description |
 |------|--------|-------------|
+| `tests/parser/fixtures/basic-gamestate` | ✓ Modified | Added planets, empires, relations, coordinates |
 | `tests/fixtures/db/empire-data.sql` | Create | Empire test data |
 | `tests/fixtures/db/diplomatic-relation-data.sql` | Create | Relation test data |
 | `tests/fixtures/db/planet-coordinate-data.sql` | Create | Coordinate test data |
@@ -670,7 +942,37 @@ describe('Planet Coordinate Query', () => {
 })
 ```
 
-#### 7.5 Test Fixtures
+#### 7.5 Parser Test Fixture Update
+
+The `tests/parser/fixtures/basic-gamestate` fixture has been updated to include real Stellaris data structures for testing the parser on the new data types:
+
+**Added structures:**
+
+- **planets section**: Contains 3 planets (IDs 7, 351, 500) with:
+  - Name in simple format (`key="NAME_Sol"`)
+  - Coordinate with x, y, origin fields
+  - Production data (produces, upkeep, profits)
+  - Controller assignments
+
+- **Country 0** (player empire):
+  - `name` with simple key format (`key="EMPIRE_DESIGN_humans2"`)
+  - `owned_planets` array `{7 351}`
+  - `controlled_planets` array `{7 351}`
+  - `relations_manager.relation` with contact, border_range, trust, opinion fields
+  - Full budget data (existing)
+
+- **Country 1** (AI empire):
+  - `name` with template format (`key="%ADJECTIVE%"` with variables)
+  - `owned_planets` and `controlled_planets` arrays
+  - `relations_manager.relation` with relation back to country 0
+
+This allows testing of:
+- Coordinate extraction from planet data
+- Empire name parsing (both simple and template formats)
+- owned_planets/controlled_planets extraction
+- Diplomatic relations parsing from relations_manager
+
+#### 7.6 SQL Test Fixtures
 
 Create SQL fixtures in `tests/fixtures/db/`:
 
@@ -727,7 +1029,7 @@ INSERT INTO planet_coordinate (gamestate_id, planet_id, x, y, system_id) VALUES
   (300, '25', 0.0, 0.0, 1);
 ```
 
-#### 7.6 Name Extraction Helper Tests
+#### 7.7 Name Extraction Helper Tests
 
 ##### `tests/parser/nameExtractor.test.ts`
 
@@ -777,6 +1079,7 @@ describe('Name Extractor', () => {
 
 | Fixture File | Purpose |
 |--------------|---------|
+| `tests/parser/fixtures/basic-gamestate` | Updated with planets, empires, relations, coordinates data |
 | `tests/fixtures/db/empire-data.sql` | Empire table test data |
 | `tests/fixtures/db/diplomatic-relation-data.sql` | Relation table test data |
 | `tests/fixtures/db/planet-coordinate-data.sql` | Coordinate table test data |
@@ -787,19 +1090,25 @@ describe('Name Extractor', () => {
 
 | Component | New Files | Modified Files | Complexity |
 |-----------|-----------|----------------|------------|
-| Migrations | 3 | 0 | Low |
+| Schema migrations (SQL) | 3 | 0 | Low |
+| Data migrations (TS) | 3 | 0 | Medium (JSONB queries) |
 | Populators | 4 | 1 | Medium (name parsing) |
 | DB Functions | 3 | 0 | Low |
 | DataLoaders | 3 | 1 | Low |
 | Schema/Resolvers | 0 | 3 | Low |
 | Tests | 7 | 2 | Medium |
-| Fixtures | 3 | 0 | Low |
-| **Total** | **23** | **7** | |
+| Fixtures | 3 | 1 | Low |
+| **Total** | **26** | **8** | |
 
 ### Summary
 
+- **New migration files**: 6 (3 SQL schema + 3 TypeScript data population)
 - **New source files**: 13
 - **New test files**: 7
 - **New fixture files**: 3
-- **Modified files**: 7
+- **Modified files**: 8 (includes parser test fixture already updated)
 - **Approximate test count**: ~85 tests
+
+### Already Completed
+
+- ✓ `tests/parser/fixtures/basic-gamestate` - Updated with planets section, empire data with name formats, relations_manager, owned_planets, controlled_planets, and coordinates

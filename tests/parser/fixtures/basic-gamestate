@@ -4,17 +4,142 @@ name="Commonwealth of Man"
 date="2311.11.18"
 player=
 {
-	
+
 	{
 		name="unknown"
 		country=0
 	}
- 
+
+}
+planets=
+{
+	planet=
+	{
+		7=
+		{
+			name=
+			{
+				key="NAME_Sol"
+			}
+			planet_class="pc_continental"
+			coordinate=
+			{
+				x=0
+				y=0
+				origin=268
+			}
+			planet_size=16
+			controller=0
+			produces=
+			{
+				energy=100
+				minerals=50
+				food=25
+			}
+			upkeep=
+			{
+				energy=10
+			}
+			profits=
+			{
+				energy=90
+				minerals=50
+				food=25
+			}
+		}
+		351=
+		{
+			name=
+			{
+				key="Colony Alpha"
+			}
+			planet_class="pc_arid"
+			coordinate=
+			{
+				x=-41.6772
+				y=-43.1676
+				origin=269
+			}
+			planet_size=20
+			controller=0
+			produces=
+			{
+				energy=75
+				minerals=100
+			}
+			upkeep=
+			{
+				energy=15
+				minerals=10
+			}
+			profits=
+			{
+				energy=60
+				minerals=90
+			}
+		}
+		500=
+		{
+			name=
+			{
+				key="NAME_Xandar"
+			}
+			planet_class="pc_ocean"
+			coordinate=
+			{
+				x=120.5
+				y=85.3
+				origin=270
+			}
+			planet_size=18
+			controller=1
+			produces=
+			{
+				energy=80
+				food=120
+			}
+			upkeep=
+			{
+				energy=20
+			}
+			profits=
+			{
+				energy=60
+				food=120
+			}
+		}
+	}
 }
 country=
 {
 	0=
 	{
+		name=
+		{
+			key="EMPIRE_DESIGN_humans2"
+		}
+		owned_planets=
+		{
+			7 351
+		}
+		controlled_planets=
+		{
+			7 351
+		}
+		relations_manager=
+		{
+			relation=
+			{
+				owner=0
+				country=1
+				contact=yes
+				border_range=354
+				threat=0
+				trust=50
+				communications=yes
+				relation_current=25
+			}
+		}
 		budget=
 		{
 			current_month=
@@ -607,6 +732,46 @@ country=
 				{
 				}
 			}
-    }
-  }
+		}
+	}
+	1=
+	{
+		name=
+		{
+			key="%ADJECTIVE%"
+			variables=
+			{
+				{
+					key="adjective"
+					value=
+					{
+						key="SPEC_Xandarite"
+					}
+				}
+			}
+		}
+		owned_planets=
+		{
+			500
+		}
+		controlled_planets=
+		{
+			500
+		}
+		relations_manager=
+		{
+			relation=
+			{
+				owner=1
+				country=0
+				contact=yes
+				hostile=no
+				border_range=354
+				threat=0
+				trust=50
+				communications=yes
+				relation_current=25
+			}
+		}
+	}
 }
