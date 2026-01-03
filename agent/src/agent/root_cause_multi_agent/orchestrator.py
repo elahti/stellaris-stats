@@ -5,7 +5,6 @@ from dataclasses import dataclass
 
 from pydantic_ai import Agent
 from pydantic_ai.mcp import MCPServerStreamableHTTP
-from pydantic_ai.settings import ModelSettings
 
 from agent.constants import DEFAULT_MODEL, get_model, wrap_output_type
 from agent.models import (
@@ -34,18 +33,13 @@ def get_drop_detection_agent(
     mcp_server: MCPServerStreamableHTTP,
     model_name: str,
     settings: Settings | None = None,
-    thinking_enabled: bool = False,
 ) -> Agent[RootCauseMultiAgentDeps, SuddenDropAnalysisResult]:
     if settings is None:
         settings = get_settings()
     return Agent(
         get_model(model_name),
         deps_type=RootCauseMultiAgentDeps,
-        output_type=wrap_output_type(
-            SuddenDropAnalysisResult,
-            model_name,
-            thinking_enabled,
-        ),
+        output_type=wrap_output_type(SuddenDropAnalysisResult),
         system_prompt=build_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
     )
@@ -63,8 +57,6 @@ async def analyze_single_drop(
     mcp_server: MCPServerStreamableHTTP,
     settings: Settings,
     model_name: str | None = None,
-    model_settings: ModelSettings | None = None,
-    thinking_enabled: bool = False,
 ) -> SuddenDropWithRootCause:
     try:
         result = await run_root_cause_analysis(
@@ -73,9 +65,7 @@ async def analyze_single_drop(
             mcp_server=mcp_server,
             deps=create_root_cause_deps(settings),
             model_name=model_name,
-            model_settings=model_settings,
             settings=settings,
-            thinking_enabled=thinking_enabled,
         )
         return SuddenDropWithRootCause(
             drop=drop,
@@ -94,9 +84,7 @@ async def run_root_cause_multi_agent_orchestration(
     save_filename: str,
     settings: Settings | None = None,
     model_name: str | None = None,
-    model_settings: ModelSettings | None = None,
     parallel_root_cause: bool = False,
-    thinking_enabled: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -114,13 +102,11 @@ async def run_root_cause_multi_agent_orchestration(
             mcp_server,
             actual_model,
             settings,
-            thinking_enabled,
         )
 
         drop_result = await agent.run(
             prompt,
             deps=deps,
-            model_settings=model_settings,
         )
 
         drop_analysis = drop_result.output
@@ -137,8 +123,6 @@ async def run_root_cause_multi_agent_orchestration(
                         mcp_server=mcp_server,
                         settings=settings,
                         model_name=model_name,
-                        model_settings=model_settings,
-                        thinking_enabled=thinking_enabled,
                     )
                     for drop in drop_analysis.sudden_drops
                 ]
@@ -151,8 +135,6 @@ async def run_root_cause_multi_agent_orchestration(
                         mcp_server=mcp_server,
                         settings=settings,
                         model_name=model_name,
-                        model_settings=model_settings,
-                        thinking_enabled=thinking_enabled,
                     )
                     drops_with_causes.append(result)
 

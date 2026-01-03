@@ -2,7 +2,6 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 import logfire
-from pydantic_ai.settings import ModelSettings
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
@@ -51,9 +50,7 @@ async def eval_environment(
 async def run_native_budget_eval(
     inputs: EvalInputs,
     model_name: str | None = None,
-    model_settings: ModelSettings | None = None,
     settings: Settings | None = None,
-    thinking_enabled: bool = False,
 ) -> SuddenDropAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -88,12 +85,11 @@ async def run_native_budget_eval(
 
             prompt = build_analysis_prompt(inputs["save_filename"])
             actual_model = model_name or DEFAULT_MODEL
-            agent = create_native_budget_agent(actual_model, thinking_enabled)
+            agent = create_native_budget_agent(actual_model)
 
             result = await agent.run(
                 prompt,
                 deps=deps,
-                model_settings=model_settings,
             )
 
             return result.output
@@ -104,10 +100,8 @@ async def run_native_budget_eval(
 
 def create_native_budget_agent_eval_task(
     model_name: str | None = None,
-    model_settings: ModelSettings | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-    thinking_enabled: bool = False,
 ) -> LegacyEvalTask:
     async def eval_task(
         inputs: EvalInputs,
@@ -115,9 +109,7 @@ def create_native_budget_agent_eval_task(
         return await run_native_budget_eval(
             inputs,
             model_name=model_name,
-            model_settings=model_settings,
             settings=settings,
-            thinking_enabled=thinking_enabled,
         )
 
     if experiment_name:
@@ -131,8 +123,6 @@ async def run_native_budget_agent_evals(
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-    model_settings: ModelSettings | None = None,
-    thinking_enabled: bool = False,
 ) -> EvaluationReport[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
@@ -140,10 +130,8 @@ async def run_native_budget_agent_evals(
 
     task = create_native_budget_agent_eval_task(
         model_name,
-        model_settings,
         experiment_name,
         settings,
-        thinking_enabled,
     )
     report = await dataset.evaluate(task)
 
