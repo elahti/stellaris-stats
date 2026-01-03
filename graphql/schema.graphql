@@ -145,11 +145,11 @@ type Empire @cacheControl {
 type DiplomaticRelation @cacheControl {
   targetCountryId: String!
   targetEmpireName: String
-  opinion: Int
-  trust: Int
-  threat: Int
+  opinion: Float
+  trust: Float
+  threat: Float
   isHostile: Boolean!
-  borderRange: Int
+  borderRange: Float
   hasContact: Boolean!
   hasCommunications: Boolean!
 }

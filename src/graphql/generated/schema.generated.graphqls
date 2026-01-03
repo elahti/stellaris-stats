@@ -124,15 +124,15 @@ type Coordinate {
 scalar DateTimeISO
 
 type DiplomaticRelation {
-  borderRange: Int
+  borderRange: Float
   hasCommunications: Boolean!
   hasContact: Boolean!
   isHostile: Boolean!
-  opinion: Int
+  opinion: Float
   targetCountryId: String!
   targetEmpireName: String
-  threat: Int
-  trust: Int
+  threat: Float
+  trust: Float
 }
 
 type Empire {

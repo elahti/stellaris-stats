@@ -148,15 +148,15 @@ export type Coordinate = {
 }
 
 export type DiplomaticRelation = {
-  borderRange?: Maybe<Scalars['Int']['output']>
+  borderRange?: Maybe<Scalars['Float']['output']>
   hasCommunications: Scalars['Boolean']['output']
   hasContact: Scalars['Boolean']['output']
   isHostile: Scalars['Boolean']['output']
-  opinion?: Maybe<Scalars['Int']['output']>
+  opinion?: Maybe<Scalars['Float']['output']>
   targetCountryId: Scalars['String']['output']
   targetEmpireName?: Maybe<Scalars['String']['output']>
-  threat?: Maybe<Scalars['Int']['output']>
-  trust?: Maybe<Scalars['Int']['output']>
+  threat?: Maybe<Scalars['Float']['output']>
+  trust?: Maybe<Scalars['Float']['output']>
 }
 
 export type Empire = {

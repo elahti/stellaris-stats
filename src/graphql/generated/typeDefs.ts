@@ -1254,21 +1254,21 @@ export const typeDefs = {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'opinion' },
           arguments: [],
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
           directives: [],
         },
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'trust' },
           arguments: [],
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
           directives: [],
         },
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'threat' },
           arguments: [],
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
           directives: [],
         },
         {
@@ -1288,7 +1288,7 @@ export const typeDefs = {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'borderRange' },
           arguments: [],
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
           directives: [],
         },
         {

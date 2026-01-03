@@ -161,15 +161,15 @@ export type Coordinate = {
 
 export type DiplomaticRelation = {
   __typename?: 'DiplomaticRelation'
-  borderRange?: Maybe<Scalars['Int']['output']>
+  borderRange?: Maybe<Scalars['Float']['output']>
   hasCommunications: Scalars['Boolean']['output']
   hasContact: Scalars['Boolean']['output']
   isHostile: Scalars['Boolean']['output']
-  opinion?: Maybe<Scalars['Int']['output']>
+  opinion?: Maybe<Scalars['Float']['output']>
   targetCountryId: Scalars['String']['output']
   targetEmpireName?: Maybe<Scalars['String']['output']>
-  threat?: Maybe<Scalars['Int']['output']>
-  trust?: Maybe<Scalars['Int']['output']>
+  threat?: Maybe<Scalars['Float']['output']>
+  trust?: Maybe<Scalars['Float']['output']>
 }
 
 export type Empire = {
@@ -885,7 +885,11 @@ export type DiplomaticRelationResolvers<
   ParentType extends ResolversParentTypes['DiplomaticRelation'] =
     ResolversParentTypes['DiplomaticRelation'],
 > = {
-  borderRange?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  borderRange?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >
   hasCommunications?: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
@@ -893,15 +897,15 @@ export type DiplomaticRelationResolvers<
   >
   hasContact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
   isHostile?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
-  opinion?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  opinion?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
   targetCountryId?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   targetEmpireName?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >
-  threat?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
-  trust?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  threat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  trust?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
 }
 
 export type EmpireResolvers<
