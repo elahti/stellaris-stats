@@ -9,7 +9,10 @@ import { getSave, insertSave } from '../db/save.js'
 import { getLogger } from '../logger.js'
 import { MigrationsConfig, runUpMigrations } from '../migrations.js'
 import { populateBudgetTables } from './budgetPopulator.js'
+import { populateDiplomaticRelationTables } from './diplomaticRelationPopulator.js'
+import { populateEmpireTables } from './empirePopulator.js'
 import { readGamestateData } from './gamestateReader.js'
+import { populatePlanetCoordinateTables } from './planetCoordinatePopulator.js'
 import { ParserConfig } from './parserConfig.js'
 import { getParserOptions } from './parserOptions.js'
 
@@ -65,6 +68,39 @@ export const executeParserIteration = async (
     logger.info(
       { gamestateId: insertedGamestate.gamestateId },
       'Budget data populated',
+    )
+
+    await populateEmpireTables(
+      client,
+      insertedGamestate.gamestateId,
+      gamestate,
+      logger,
+    )
+    logger.info(
+      { gamestateId: insertedGamestate.gamestateId },
+      'Empire data populated',
+    )
+
+    await populateDiplomaticRelationTables(
+      client,
+      insertedGamestate.gamestateId,
+      gamestate,
+      logger,
+    )
+    logger.info(
+      { gamestateId: insertedGamestate.gamestateId },
+      'Diplomatic relation data populated',
+    )
+
+    await populatePlanetCoordinateTables(
+      client,
+      insertedGamestate.gamestateId,
+      gamestate,
+      logger,
+    )
+    logger.info(
+      { gamestateId: insertedGamestate.gamestateId },
+      'Planet coordinate data populated',
     )
   })
 }
