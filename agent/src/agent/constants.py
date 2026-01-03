@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from pydantic_ai import NativeOutput, ToolOutput
+from pydantic_ai import ToolOutput
 from pydantic_ai.models import Model
 from pydantic_ai.models.anthropic import AnthropicModel
 from pydantic_ai.models.openai import OpenAIResponsesModel
@@ -53,14 +53,7 @@ AVAILABLE_MODELS: dict[str, ModelConfig] = {
 DEFAULT_MODEL = "openai-responses:gpt-5.2-2025-12-11"
 
 
-def wrap_output_type[T](
-    output_type: type[T],
-    model_name: str,
-    thinking_enabled: bool = False,
-) -> NativeOutput[T] | ToolOutput[T]:
-    is_anthropic = model_name.startswith("anthropic:")
-    if is_anthropic and thinking_enabled:
-        return NativeOutput(output_type)
+def wrap_output_type[T](output_type: type[T]) -> ToolOutput[T]:
     return ToolOutput(output_type)
 
 

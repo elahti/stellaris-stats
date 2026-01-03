@@ -105,16 +105,11 @@ The game starts on January 1, 2200. You are analyzing the {ANALYSIS_DATAPOINTS} 
 
 def create_native_budget_agent(
     model_name: str,
-    thinking_enabled: bool = False,
 ) -> Agent[AgentDeps, SuddenDropAnalysisResult]:
     agent: Agent[AgentDeps, SuddenDropAnalysisResult] = Agent(
         get_model(model_name),
         deps_type=AgentDeps,
-        output_type=wrap_output_type(
-            SuddenDropAnalysisResult,
-            model_name,
-            thinking_enabled,
-        ),
+        output_type=wrap_output_type(SuddenDropAnalysisResult),
         system_prompt=build_system_prompt(),
     )
     _register_tools(agent)
@@ -199,22 +194,10 @@ async def run_native_budget_analysis(
     save_filename: str,
     deps: AgentDeps | None = None,
     model_name: str | None = None,
-    thinking_enabled: bool = False,
 ) -> AgentRunResult[SuddenDropAnalysisResult]:
-    """Run budget analysis for a specific save file.
-
-    Args:
-        save_filename: The filename of the save to analyze (without .sav extension).
-        deps: Optional dependencies to use. If not provided, creates default deps.
-        model_name: Optional model to use. If not provided, uses the default model.
-        thinking_enabled: Whether thinking is enabled for this run.
-
-    Returns:
-        The complete agent run result.
-    """
     if deps is None:
         deps = create_deps()
     prompt = build_analysis_prompt(save_filename)
     actual_model = model_name or DEFAULT_MODEL
-    agent = create_native_budget_agent(actual_model, thinking_enabled)
+    agent = create_native_budget_agent(actual_model)
     return await agent.run(prompt, deps=deps)

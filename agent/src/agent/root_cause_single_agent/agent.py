@@ -4,7 +4,6 @@ from dataclasses import dataclass
 
 from pydantic_ai import Agent
 from pydantic_ai.mcp import MCPServerStreamableHTTP
-from pydantic_ai.settings import ModelSettings
 
 from agent.constants import DEFAULT_MODEL, get_model, wrap_output_type
 from agent.models import MultiAgentAnalysisResult
@@ -24,18 +23,13 @@ def get_single_agent(
     mcp_server: MCPServerStreamableHTTP,
     model_name: str,
     settings: Settings | None = None,
-    thinking_enabled: bool = False,
 ) -> Agent[RootCauseSingleAgentDeps, MultiAgentAnalysisResult]:
     if settings is None:
         settings = get_settings()
     return Agent(
         get_model(model_name),
         deps_type=RootCauseSingleAgentDeps,
-        output_type=wrap_output_type(
-            MultiAgentAnalysisResult,
-            model_name,
-            thinking_enabled,
-        ),
+        output_type=wrap_output_type(MultiAgentAnalysisResult),
         system_prompt=build_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
     )
@@ -51,8 +45,6 @@ async def run_root_cause_single_agent_analysis(
     save_filename: str,
     settings: Settings | None = None,
     model_name: str | None = None,
-    model_settings: ModelSettings | None = None,
-    thinking_enabled: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -66,12 +58,11 @@ async def run_root_cause_single_agent_analysis(
         # Run single agent that does both drop detection and root cause analysis
         deps = create_deps(settings)
         prompt = build_analysis_prompt(save_filename, deps.graphql_url)
-        agent = get_single_agent(mcp_server, actual_model, settings, thinking_enabled)
+        agent = get_single_agent(mcp_server, actual_model, settings)
 
         result = await agent.run(
             prompt,
             deps=deps,
-            model_settings=model_settings,
         )
 
         return result.output

@@ -5,11 +5,10 @@ import sys
 
 import logfire
 
-from agent.constants import DEFAULT_MODEL, get_model_names
+from agent.constants import get_model_names
 from agent.models import MultiAgentAnalysisResult
 from agent.root_cause_multi_agent.agent import run_root_cause_multi_agent_analysis
 from agent.settings import Settings, get_settings
-from agent.thinking_settings import THINKING_LEVELS, ThinkingLevel, get_model_settings
 
 
 def print_analysis_result(result: MultiAgentAnalysisResult) -> None:
@@ -103,11 +102,9 @@ async def run_analysis_async(
     *,
     raw: bool = False,
     parallel: bool = False,
-    thinking: ThinkingLevel,
 ) -> None:
     result = await run_root_cause_multi_agent_analysis(
         save_filename,
-        model_settings=get_model_settings(DEFAULT_MODEL, thinking),
         parallel_root_cause=parallel,
     )
     if raw:
@@ -125,7 +122,6 @@ def cmd_analyze(args: argparse.Namespace) -> None:
             args.save,
             raw=args.raw,
             parallel=parallel,
-            thinking=args.thinking,
         ),
     )
 
@@ -156,9 +152,9 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  agent analyze --save commonwealthofman_1251622081 --thinking off
-  agent analyze --save commonwealthofman_1251622081 --thinking high --raw
-  agent analyze --save commonwealthofman_1251622081 --thinking high --parallel
+  agent analyze --save commonwealthofman_1251622081
+  agent analyze --save commonwealthofman_1251622081 --raw
+  agent analyze --save commonwealthofman_1251622081 --parallel
         """,
     )
     analyze_parser.add_argument(
@@ -176,13 +172,6 @@ Examples:
         "--parallel",
         action="store_true",
         help="Run root cause analyses in parallel",
-    )
-    analyze_parser.add_argument(
-        "--thinking",
-        type=str,
-        choices=THINKING_LEVELS,
-        required=True,
-        help="Thinking/reasoning effort level",
     )
     analyze_parser.set_defaults(func=cmd_analyze)
 

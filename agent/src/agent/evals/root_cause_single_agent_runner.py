@@ -2,7 +2,6 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 import logfire
-from pydantic_ai.settings import ModelSettings
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
@@ -48,9 +47,7 @@ async def eval_environment(
 async def run_root_cause_single_agent_eval(
     inputs: EvalInputs,
     model_name: str | None = None,
-    model_settings: ModelSettings | None = None,
     settings: Settings | None = None,
-    thinking_enabled: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -83,8 +80,6 @@ async def run_root_cause_single_agent_eval(
                 save_filename=inputs["save_filename"],
                 settings=eval_settings,
                 model_name=model_name,
-                model_settings=model_settings,
-                thinking_enabled=thinking_enabled,
             )
     except Exception as e:
         logfire.error(f"Root cause single-agent eval failed: {e!r}")
@@ -93,10 +88,8 @@ async def run_root_cause_single_agent_eval(
 
 def create_root_cause_single_agent_eval_task(
     model_name: str | None = None,
-    model_settings: ModelSettings | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-    thinking_enabled: bool = False,
 ) -> EvalTask:
     async def eval_task(
         inputs: EvalInputs,
@@ -104,9 +97,7 @@ def create_root_cause_single_agent_eval_task(
         return await run_root_cause_single_agent_eval(
             inputs,
             model_name=model_name,
-            model_settings=model_settings,
             settings=settings,
-            thinking_enabled=thinking_enabled,
         )
 
     if experiment_name:
@@ -120,8 +111,6 @@ async def run_root_cause_single_agent_evals(
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-    model_settings: ModelSettings | None = None,
-    thinking_enabled: bool = False,
 ) -> EvaluationReport[EvalInputs, MultiAgentAnalysisResult, EvalMetadata]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
@@ -129,10 +118,8 @@ async def run_root_cause_single_agent_evals(
 
     task = create_root_cause_single_agent_eval_task(
         model_name,
-        model_settings,
         experiment_name,
         settings,
-        thinking_enabled,
     )
     # Run sequentially to avoid MCP server cancel scope issues with concurrent tasks
     report = await dataset.evaluate(task, max_concurrency=1)

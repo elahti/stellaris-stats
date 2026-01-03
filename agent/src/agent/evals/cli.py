@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from typing import Any
 
 import logfire
-from pydantic_ai.settings import ModelSettings
 
 from agent.constants import get_model_names
 from agent.evals.datasets.native_budget_agent import (
@@ -22,12 +21,6 @@ from agent.evals.root_cause_multi_agent_runner import run_root_cause_multi_agent
 from agent.evals.root_cause_single_agent_runner import run_root_cause_single_agent_evals
 from agent.evals.sandbox_drop_detection_runner import run_sandbox_drop_detection_evals
 from agent.settings import Settings, get_settings
-from agent.thinking_settings import (
-    THINKING_LEVELS,
-    ThinkingLevel,
-    get_model_settings,
-    is_thinking_enabled,
-)
 
 
 @dataclass
@@ -59,24 +52,15 @@ AVAILABLE_DATASETS: dict[str, DatasetConfig] = {
 def build_experiment_name(
     dataset_name: str,
     model_name: str,
-    thinking: ThinkingLevel,
 ) -> str:
     model_short = model_name.split(":")[-1] if ":" in model_name else model_name
-    return f"{dataset_name}_{model_short}_thinking-{thinking}"
-
-
-def compute_model_settings(
-    model_name: str,
-    thinking: ThinkingLevel,
-) -> ModelSettings | None:
-    return get_model_settings(model_name, thinking)
+    return f"{dataset_name}_{model_short}"
 
 
 async def run_evals_for_models(
     dataset_name: str,
     models: list[str],
     settings: Settings,
-    thinking: ThinkingLevel,
 ) -> None:
     config = AVAILABLE_DATASETS[dataset_name]
     dataset = config.create()
@@ -84,18 +68,13 @@ async def run_evals_for_models(
     for model in models:
         print(f"\n{'=' * 60}")
         print(f"Running evals with model: {model}")
-        print(f"Thinking level: {thinking}")
         print("=" * 60)
-        experiment_name = build_experiment_name(dataset_name, model, thinking)
-        model_settings = compute_model_settings(model, thinking)
-        thinking_enabled = is_thinking_enabled(model, thinking)
+        experiment_name = build_experiment_name(dataset_name, model)
         await runner(
             dataset,
             model,
             experiment_name,
             settings,
-            model_settings=model_settings,
-            thinking_enabled=thinking_enabled,
         )
 
 
@@ -105,10 +84,10 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  budget-evals --dataset root_cause_multi_agent_drop_detection --thinking off
-  budget-evals --dataset root_cause_single_agent_drop_detection --thinking off
-  budget-evals --dataset native_budget_agent --model openai-responses:gpt-5.2-2025-12-11 --thinking medium
-  budget-evals --dataset sandbox_drop_detection --thinking high
+  budget-evals --dataset root_cause_multi_agent_drop_detection
+  budget-evals --dataset root_cause_single_agent_drop_detection
+  budget-evals --dataset native_budget_agent --model openai-responses:gpt-5.2-2025-12-11
+  budget-evals --dataset sandbox_drop_detection
   budget-evals --list-datasets
         """,
     )
@@ -124,13 +103,6 @@ Examples:
         type=str,
         choices=get_model_names(),
         help="Model to use (if not provided, runs on all available models)",
-    )
-    parser.add_argument(
-        "--thinking",
-        type=str,
-        choices=THINKING_LEVELS,
-        required=True,
-        help="Thinking/reasoning effort level",
     )
     parser.add_argument(
         "--list-datasets",
@@ -161,21 +133,16 @@ Examples:
 
     dataset_name = args.dataset
     config = AVAILABLE_DATASETS[dataset_name]
-    thinking = args.thinking
 
     if args.model:
         dataset = config.create()
-        experiment_name = build_experiment_name(dataset_name, args.model, thinking)
-        model_settings = compute_model_settings(args.model, thinking)
-        thinking_enabled = is_thinking_enabled(args.model, thinking)
+        experiment_name = build_experiment_name(dataset_name, args.model)
         asyncio.run(
             config.runner(
                 dataset,
                 args.model,
                 experiment_name,
                 settings,
-                model_settings=model_settings,
-                thinking_enabled=thinking_enabled,
             ),
         )
     else:
@@ -184,7 +151,6 @@ Examples:
                 dataset_name,
                 get_model_names(),
                 settings,
-                thinking=thinking,
             ),
         )
 
