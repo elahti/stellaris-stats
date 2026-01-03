@@ -23,6 +23,12 @@ SELECT
         planet_data -> 'upkeep',
         'balance',
         planet_data -> 'profits'
+      ),
+      'coordinate',
+      (
+        SELECT JSONB_BUILD_OBJECT('x', pc.x, 'y', pc.y, 'system_id', pc.system_id)
+        FROM planet_coordinate pc
+        WHERE pc.gamestate_id = g.gamestate_id AND pc.planet_id = planet_extract.planet_id
       )
     )
   ) AS planets
