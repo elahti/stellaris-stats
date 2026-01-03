@@ -96,9 +96,6 @@ const buildRelationLookupKey = (
 
 export const up = async (pgm: MigrationBuilder): Promise<void> => {
   let lastGamestateId = 0
-  let totalRelationsProcessed = 0
-  let totalModifiersInserted = 0
-  let totalMissingRelations = 0
 
   for (;;) {
     const result = await pgm.db.query(getGamestatesQuery, [
@@ -150,8 +147,6 @@ export const up = async (pgm: MigrationBuilder): Promise<void> => {
 
     if (relationsWithModifiers.length === 0) continue
 
-    totalRelationsProcessed += relationsWithModifiers.length
-
     // Batch lookup: get all diplomatic_relation_ids in one query
     const lookupResult = await pgm.db.query(
       getDiplomaticRelationIdsBatchQuery,
@@ -184,10 +179,7 @@ export const up = async (pgm: MigrationBuilder): Promise<void> => {
         rel.targetCountryId,
       )
       const diplomaticRelationId = relationIdMap.get(key)
-      if (diplomaticRelationId === undefined) {
-        totalMissingRelations++
-        continue
-      }
+      if (diplomaticRelationId === undefined) continue
 
       for (const mod of rel.modifiers) {
         diplomaticRelationIds.push(diplomaticRelationId)
@@ -202,17 +194,7 @@ export const up = async (pgm: MigrationBuilder): Promise<void> => {
         modifierTypes,
         values,
       ])
-      totalModifiersInserted += diplomaticRelationIds.length
     }
-  }
-
-  console.log(
-    `Opinion modifier migration complete: ${totalModifiersInserted} modifiers inserted from ${totalRelationsProcessed} relations`,
-  )
-  if (totalMissingRelations > 0) {
-    console.warn(
-      `Warning: ${totalMissingRelations} relations skipped (not found in diplomatic_relation table)`,
-    )
   }
 }
 
