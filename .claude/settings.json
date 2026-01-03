@@ -52,6 +52,7 @@
       "Bash(npx tsc:*)",
       "Bash(psql:*)",
       "Bash(ruff check:*)",
+      "Bash(sed:*)",
       "Bash(tree:*)",
       "Bash(uv add:*)",
       "Bash(uv lock:*)",
