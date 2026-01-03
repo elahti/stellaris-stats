@@ -6,6 +6,11 @@ const PlayerCountryIdSchema = z
   .union([z.number(), z.string()])
   .transform((val) => (typeof val === 'string' ? val : String(val)))
 
+const ModifierSchema = z.object({
+  modifier: z.string(),
+  value: z.number(),
+})
+
 const RelationSchema = z.object({
   country: z.number(),
   relation_current: z.number().optional(),
@@ -15,6 +20,7 @@ const RelationSchema = z.object({
   border_range: z.number().optional(),
   contact: z.boolean().optional(),
   communications: z.boolean().optional(),
+  modifier: z.array(ModifierSchema).optional(),
 })
 
 const ParsedGamestateSchema = z.object({
@@ -44,6 +50,13 @@ INSERT INTO diplomatic_relation (
   has_contact, has_communications
 )
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+RETURNING diplomatic_relation_id
+`
+
+const insertOpinionModifierQuery = `
+INSERT INTO opinion_modifier (diplomatic_relation_id, modifier_type, value)
+VALUES ($1, $2, $3)
+ON CONFLICT (diplomatic_relation_id, modifier_type) DO NOTHING
 `
 
 export const populateDiplomaticRelationTables = async (
@@ -116,7 +129,7 @@ export const populateDiplomaticRelationTables = async (
     const relation = parsed.data
 
     try {
-      await client.query(insertRelationQuery, [
+      const result = await client.query(insertRelationQuery, [
         gamestateId,
         playerCountryId,
         String(relation.country),
@@ -128,6 +141,21 @@ export const populateDiplomaticRelationTables = async (
         relation.contact ?? false,
         relation.communications ?? false,
       ])
+
+      const resultRow = result.rows[0] as
+        | { diplomatic_relation_id: number }
+        | undefined
+      const diplomaticRelationId = resultRow?.diplomatic_relation_id
+
+      if (relation.modifier && diplomaticRelationId) {
+        for (const mod of relation.modifier) {
+          await client.query(insertOpinionModifierQuery, [
+            diplomaticRelationId,
+            mod.modifier,
+            mod.value,
+          ])
+        }
+      }
     } catch (error: unknown) {
       logger.warn(
         { targetCountryId: relation.country, error },
