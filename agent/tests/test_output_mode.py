@@ -1,8 +1,16 @@
+from typing import get_args
+
 from pydantic import BaseModel
 from pydantic_ai import NativeOutput, ToolOutput
 
 from agent.constants import wrap_output_type
-from agent.thinking_settings import is_thinking_enabled
+from agent.thinking_settings import (
+    ANTHROPIC_BUDGET_TOKENS,
+    ANTHROPIC_MAX_TOKENS,
+    ThinkingLevel,
+    get_model_settings,
+    is_thinking_enabled,
+)
 
 
 class DummyOutput(BaseModel):
@@ -65,3 +73,40 @@ class TestIsThinkingEnabled:
 
     def test_returns_false_for_openai_with_off(self) -> None:
         assert is_thinking_enabled("openai-responses:gpt-5.2", "off") is False
+
+
+class TestGetModelSettings:
+    def test_returns_none_when_thinking_off(self) -> None:
+        result = get_model_settings("anthropic:claude-sonnet-4-5", "off")
+        assert result is None
+
+    def test_returns_anthropic_settings_for_anthropic_model(self) -> None:
+        result = get_model_settings("anthropic:claude-sonnet-4-5", "high")
+        assert result is not None
+        assert "anthropic_thinking" in result
+
+    def test_returns_openai_settings_for_openai_model(self) -> None:
+        result = get_model_settings("openai-responses:gpt-5.2", "high")
+        assert result is not None
+        assert "openai_reasoning_effort" in result
+
+    def test_anthropic_settings_include_max_tokens(self) -> None:
+        result = get_model_settings("anthropic:claude-sonnet-4-5", "medium")
+        assert result is not None
+        assert result["max_tokens"] == ANTHROPIC_MAX_TOKENS["medium"]  # pyright: ignore[reportTypedDictNotRequiredAccess]
+
+    def test_anthropic_settings_include_thinking_config(self) -> None:
+        result = get_model_settings("anthropic:claude-sonnet-4-5", "low")
+        assert result is not None
+        thinking: dict[str, object] = result["anthropic_thinking"]  # pyright: ignore[reportGeneralTypeIssues,reportUnknownVariableType]
+        assert thinking["type"] == "enabled"
+        assert thinking["budget_tokens"] == ANTHROPIC_BUDGET_TOKENS["low"]
+
+    def test_max_tokens_greater_than_budget_tokens_for_all_levels(self) -> None:
+        levels: list[ThinkingLevel] = list(get_args(ThinkingLevel))
+        for level in levels:
+            if level == "off":
+                continue
+            assert ANTHROPIC_MAX_TOKENS[level] > ANTHROPIC_BUDGET_TOKENS[level], (
+                f"max_tokens must be > budget_tokens for level {level}"
+            )
