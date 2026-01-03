@@ -1,6 +1,5 @@
 from collections.abc import Callable
 from dataclasses import dataclass
-from enum import Enum
 
 from pydantic_ai import NativeOutput, ToolOutput
 from pydantic_ai.models import Model
@@ -8,15 +7,9 @@ from pydantic_ai.models.anthropic import AnthropicModel
 from pydantic_ai.models.openai import OpenAIResponsesModel
 
 
-class OutputMode(str, Enum):
-    NATIVE = "native"
-    TOOL = "tool"
-
-
 @dataclass
 class ModelConfig:
     factory: Callable[[], Model]
-    output_mode: OutputMode = OutputMode.TOOL
 
 
 def create_claude_haiku() -> Model:
@@ -63,9 +56,10 @@ DEFAULT_MODEL = "openai-responses:gpt-5.2-2025-12-11"
 def wrap_output_type[T](
     output_type: type[T],
     model_name: str,
+    thinking_enabled: bool = False,
 ) -> NativeOutput[T] | ToolOutput[T]:
-    config = AVAILABLE_MODELS[model_name]
-    if config.output_mode == OutputMode.NATIVE:
+    is_anthropic = model_name.startswith("anthropic:")
+    if is_anthropic and thinking_enabled:
         return NativeOutput(output_type)
     return ToolOutput(output_type)
 

@@ -28,13 +28,18 @@ def get_root_cause_agent(
     mcp_server: MCPServerStreamableHTTP,
     model_name: str,
     settings: Settings | None = None,
+    thinking_enabled: bool = False,
 ) -> Agent[RootCauseAgentDeps, RootCauseAnalysisResult]:
     if settings is None:
         settings = get_settings()
     return Agent(
         get_model(model_name),
         deps_type=RootCauseAgentDeps,
-        output_type=wrap_output_type(RootCauseAnalysisResult, model_name),
+        output_type=wrap_output_type(
+            RootCauseAnalysisResult,
+            model_name,
+            thinking_enabled,
+        ),
         system_prompt=build_root_cause_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
     )
@@ -54,6 +59,7 @@ async def run_root_cause_analysis(
     model_name: str | None = None,
     model_settings: ModelSettings | None = None,
     settings: Settings | None = None,
+    thinking_enabled: bool = False,
 ) -> AgentRunResult[RootCauseAnalysisResult]:
     if settings is None:
         settings = get_settings()
@@ -62,6 +68,6 @@ async def run_root_cause_analysis(
 
     actual_model = model_name or DEFAULT_MODEL
     prompt = build_root_cause_analysis_prompt(drop, save_filename, settings.graphql_url)
-    agent = get_root_cause_agent(mcp_server, actual_model, settings)
+    agent = get_root_cause_agent(mcp_server, actual_model, settings, thinking_enabled)
 
     return await agent.run(prompt, deps=deps, model_settings=model_settings)

@@ -48,6 +48,7 @@ async def run_sandbox_drop_detection_eval(
     model_name: str | None = None,
     model_settings: ModelSettings | None = None,
     settings: Settings | None = None,
+    thinking_enabled: bool = False,
 ) -> SuddenDropAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -81,6 +82,7 @@ async def run_sandbox_drop_detection_eval(
                 model_name=model_name,
                 model_settings=model_settings,
                 settings=eval_settings,
+                thinking_enabled=thinking_enabled,
             )
             return result.output
     except Exception as e:
@@ -93,6 +95,7 @@ def create_sandbox_drop_detection_eval_task(
     model_settings: ModelSettings | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
+    thinking_enabled: bool = False,
 ) -> LegacyEvalTask:
     async def eval_task(
         inputs: EvalInputs,
@@ -102,6 +105,7 @@ def create_sandbox_drop_detection_eval_task(
             model_name=model_name,
             model_settings=model_settings,
             settings=settings,
+            thinking_enabled=thinking_enabled,
         )
 
     if experiment_name:
@@ -116,6 +120,7 @@ async def run_sandbox_drop_detection_evals(
     experiment_name: str | None = None,
     settings: Settings | None = None,
     model_settings: ModelSettings | None = None,
+    thinking_enabled: bool = False,
 ) -> EvaluationReport[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
@@ -126,6 +131,7 @@ async def run_sandbox_drop_detection_evals(
         model_settings,
         experiment_name,
         settings,
+        thinking_enabled,
     )
     # Run sequentially to avoid MCP server cancel scope issues with concurrent tasks
     report = await dataset.evaluate(task, max_concurrency=1)

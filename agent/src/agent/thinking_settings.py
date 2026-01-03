@@ -53,3 +53,7 @@ def get_model_settings(
             f"Unsupported model provider for thinking settings: {model_name}. "
             + "Expected 'anthropic:' or 'openai-responses:' prefix.",
         )
+
+
+def is_thinking_enabled(model_name: str, thinking_level: ThinkingLevel) -> bool:
+    return thinking_level != "off" and model_name.startswith("anthropic:")

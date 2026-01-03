@@ -22,7 +22,12 @@ from agent.evals.root_cause_multi_agent_runner import run_root_cause_multi_agent
 from agent.evals.root_cause_single_agent_runner import run_root_cause_single_agent_evals
 from agent.evals.sandbox_drop_detection_runner import run_sandbox_drop_detection_evals
 from agent.settings import Settings, get_settings
-from agent.thinking_settings import THINKING_LEVELS, ThinkingLevel, get_model_settings
+from agent.thinking_settings import (
+    THINKING_LEVELS,
+    ThinkingLevel,
+    get_model_settings,
+    is_thinking_enabled,
+)
 
 
 @dataclass
@@ -83,12 +88,14 @@ async def run_evals_for_models(
         print("=" * 60)
         experiment_name = build_experiment_name(dataset_name, model, thinking)
         model_settings = compute_model_settings(model, thinking)
+        thinking_enabled = is_thinking_enabled(model, thinking)
         await runner(
             dataset,
             model,
             experiment_name,
             settings,
             model_settings=model_settings,
+            thinking_enabled=thinking_enabled,
         )
 
 
@@ -160,6 +167,7 @@ Examples:
         dataset = config.create()
         experiment_name = build_experiment_name(dataset_name, args.model, thinking)
         model_settings = compute_model_settings(args.model, thinking)
+        thinking_enabled = is_thinking_enabled(args.model, thinking)
         asyncio.run(
             config.runner(
                 dataset,
@@ -167,6 +175,7 @@ Examples:
                 experiment_name,
                 settings,
                 model_settings=model_settings,
+                thinking_enabled=thinking_enabled,
             ),
         )
     else:
