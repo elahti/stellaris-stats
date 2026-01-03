@@ -37,9 +37,9 @@ INSERT INTO empire (
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 `
 
-const insertEmpirePlanetQuery = `
+const insertEmpirePlanetsBatchQuery = `
 INSERT INTO empire_planet (gamestate_id, country_id, planet_id)
-VALUES ($1, $2, $3)
+SELECT $1, $2, unnest($3::integer[])
 ON CONFLICT (gamestate_id, country_id, planet_id) DO NOTHING
 `
 
@@ -101,14 +101,12 @@ export const populateEmpireTables = async (
         country.tech_power ?? null,
       ])
 
-      if (country.owned_planets) {
-        for (const planetId of country.owned_planets) {
-          await client.query(insertEmpirePlanetQuery, [
-            gamestateId,
-            countryId,
-            planetId,
-          ])
-        }
+      if (country.owned_planets && country.owned_planets.length > 0) {
+        await client.query(insertEmpirePlanetsBatchQuery, [
+          gamestateId,
+          countryId,
+          country.owned_planets,
+        ])
       }
     } catch (error: unknown) {
       logger.warn({ countryId, error }, 'Failed to insert empire, skipping')

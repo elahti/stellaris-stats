@@ -38,13 +38,20 @@ ORDER BY
 LIMIT $2
 `
 
-const getDiplomaticRelationIdQuery = `
-SELECT diplomatic_relation_id
+const getDiplomaticRelationIdsBatchQuery = `
+SELECT gamestate_id, source_country_id, target_country_id, diplomatic_relation_id
 FROM diplomatic_relation
-WHERE gamestate_id = $1
-  AND source_country_id = $2
-  AND target_country_id = $3
+WHERE (gamestate_id, source_country_id, target_country_id) IN (
+  SELECT * FROM unnest($1::integer[], $2::text[], $3::text[])
+)
 `
+
+const DiplomaticRelationLookupRowSchema = z.object({
+  gamestate_id: z.number(),
+  source_country_id: z.string(),
+  target_country_id: z.string(),
+  diplomatic_relation_id: z.number(),
+})
 
 const insertModifiersBatchQuery = `
 INSERT INTO opinion_modifier (diplomatic_relation_id, modifier_type, value)
@@ -74,8 +81,24 @@ const parseRelation = (
 
 const BATCH_SIZE = 100
 
+interface RelationWithModifiers {
+  gamestateId: number
+  sourceCountryId: string
+  targetCountryId: string
+  modifiers: z.infer<typeof ModifierSchema>[]
+}
+
+const buildRelationLookupKey = (
+  gamestateId: number,
+  sourceCountryId: string,
+  targetCountryId: string,
+): string => `${gamestateId}|${sourceCountryId}|${targetCountryId}`
+
 export const up = async (pgm: MigrationBuilder): Promise<void> => {
   let lastGamestateId = 0
+  let totalRelationsProcessed = 0
+  let totalModifiersInserted = 0
+  let totalMissingRelations = 0
 
   for (;;) {
     const result = await pgm.db.query(getGamestatesQuery, [
@@ -86,9 +109,11 @@ export const up = async (pgm: MigrationBuilder): Promise<void> => {
 
     if (rows.length === 0) break
 
-    const diplomaticRelationIds: number[] = []
-    const modifierTypes: string[] = []
-    const values: number[] = []
+    // First pass: collect all relations that need diplomatic_relation_id lookup
+    const relationsWithModifiers: RelationWithModifiers[] = []
+    const lookupGamestateIds: number[] = []
+    const lookupSourceIds: string[] = []
+    const lookupTargetIds: string[] = []
 
     for (const row of rows) {
       if (!row.relations_data || !row.player_country_id) continue
@@ -108,27 +133,67 @@ export const up = async (pgm: MigrationBuilder): Promise<void> => {
 
         const targetCountryId = String(relation.country)
 
-        const relIdResult = await pgm.db.query(getDiplomaticRelationIdQuery, [
-          row.gamestate_id,
-          row.player_country_id,
+        relationsWithModifiers.push({
+          gamestateId: row.gamestate_id,
+          sourceCountryId: row.player_country_id,
           targetCountryId,
-        ])
+          modifiers: relation.modifier,
+        })
 
-        if (relIdResult.rows.length === 0) continue
-
-        const relIdRow = relIdResult.rows[0] as {
-          diplomatic_relation_id: number
-        }
-        const diplomaticRelationId = relIdRow.diplomatic_relation_id
-
-        for (const mod of relation.modifier) {
-          diplomaticRelationIds.push(diplomaticRelationId)
-          modifierTypes.push(mod.modifier)
-          values.push(mod.value)
-        }
+        lookupGamestateIds.push(row.gamestate_id)
+        lookupSourceIds.push(row.player_country_id)
+        lookupTargetIds.push(targetCountryId)
       }
 
       lastGamestateId = row.gamestate_id
+    }
+
+    if (relationsWithModifiers.length === 0) continue
+
+    totalRelationsProcessed += relationsWithModifiers.length
+
+    // Batch lookup: get all diplomatic_relation_ids in one query
+    const lookupResult = await pgm.db.query(
+      getDiplomaticRelationIdsBatchQuery,
+      [lookupGamestateIds, lookupSourceIds, lookupTargetIds],
+    )
+    const lookupRows = z
+      .array(DiplomaticRelationLookupRowSchema)
+      .parse(lookupResult.rows)
+
+    // Build lookup map
+    const relationIdMap = new Map<string, number>()
+    for (const row of lookupRows) {
+      const key = buildRelationLookupKey(
+        row.gamestate_id,
+        row.source_country_id,
+        row.target_country_id,
+      )
+      relationIdMap.set(key, row.diplomatic_relation_id)
+    }
+
+    // Second pass: build insert arrays using the lookup map
+    const diplomaticRelationIds: number[] = []
+    const modifierTypes: string[] = []
+    const values: number[] = []
+
+    for (const rel of relationsWithModifiers) {
+      const key = buildRelationLookupKey(
+        rel.gamestateId,
+        rel.sourceCountryId,
+        rel.targetCountryId,
+      )
+      const diplomaticRelationId = relationIdMap.get(key)
+      if (diplomaticRelationId === undefined) {
+        totalMissingRelations++
+        continue
+      }
+
+      for (const mod of rel.modifiers) {
+        diplomaticRelationIds.push(diplomaticRelationId)
+        modifierTypes.push(mod.modifier)
+        values.push(mod.value)
+      }
     }
 
     if (diplomaticRelationIds.length > 0) {
@@ -137,7 +202,17 @@ export const up = async (pgm: MigrationBuilder): Promise<void> => {
         modifierTypes,
         values,
       ])
+      totalModifiersInserted += diplomaticRelationIds.length
     }
+  }
+
+  console.log(
+    `Opinion modifier migration complete: ${totalModifiersInserted} modifiers inserted from ${totalRelationsProcessed} relations`,
+  )
+  if (totalMissingRelations > 0) {
+    console.warn(
+      `Warning: ${totalMissingRelations} relations skipped (not found in diplomatic_relation table)`,
+    )
   }
 }
 

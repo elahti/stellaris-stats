@@ -38,6 +38,8 @@ const BATCH_SIZE = 100
 
 export const up = async (pgm: MigrationBuilder): Promise<void> => {
   let lastGamestateId = 0
+  let totalGamestatesProcessed = 0
+  let totalPlanetsInserted = 0
 
   for (;;) {
     const result = await pgm.db.query(getGamestatesQuery, [
@@ -47,6 +49,8 @@ export const up = async (pgm: MigrationBuilder): Promise<void> => {
     const rows = z.array(GamestateRowSchema).parse(result.rows)
 
     if (rows.length === 0) break
+
+    totalGamestatesProcessed += rows.length
 
     const gamestateIds: number[] = []
     const countryIds: string[] = []
@@ -80,8 +84,13 @@ export const up = async (pgm: MigrationBuilder): Promise<void> => {
         countryIds,
         planetIds,
       ])
+      totalPlanetsInserted += gamestateIds.length
     }
   }
+
+  console.log(
+    `Empire planet migration complete: ${totalPlanetsInserted} planet records inserted from ${totalGamestatesProcessed} gamestates`,
+  )
 }
 
 export const down = (_pgm: MigrationBuilder): void => {

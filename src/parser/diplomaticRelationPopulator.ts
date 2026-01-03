@@ -53,9 +53,9 @@ VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 RETURNING diplomatic_relation_id
 `
 
-const insertOpinionModifierQuery = `
+const insertOpinionModifiersBatchQuery = `
 INSERT INTO opinion_modifier (diplomatic_relation_id, modifier_type, value)
-VALUES ($1, $2, $3)
+SELECT $1, unnest($2::text[]), unnest($3::double precision[])
 ON CONFLICT (diplomatic_relation_id, modifier_type) DO NOTHING
 `
 
@@ -147,14 +147,18 @@ export const populateDiplomaticRelationTables = async (
         | undefined
       const diplomaticRelationId = resultRow?.diplomatic_relation_id
 
-      if (relation.modifier && diplomaticRelationId) {
-        for (const mod of relation.modifier) {
-          await client.query(insertOpinionModifierQuery, [
-            diplomaticRelationId,
-            mod.modifier,
-            mod.value,
-          ])
-        }
+      if (
+        relation.modifier
+        && relation.modifier.length > 0
+        && diplomaticRelationId
+      ) {
+        const modifierTypes = relation.modifier.map((m) => m.modifier)
+        const modifierValues = relation.modifier.map((m) => m.value)
+        await client.query(insertOpinionModifiersBatchQuery, [
+          diplomaticRelationId,
+          modifierTypes,
+          modifierValues,
+        ])
       }
     } catch (error: unknown) {
       logger.warn(
