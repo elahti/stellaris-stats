@@ -7,6 +7,9 @@ import logfire
 
 from agent.constants import get_model_names
 from agent.models import MultiAgentAnalysisResult
+from agent.neighbor_analysis import NeighborAnalysisResult
+from agent.neighbor_analysis_multi_agent import run_neighbor_multi_agent_orchestration
+from agent.neighbor_analysis_single_agent import run_neighbor_single_agent_analysis
 from agent.root_cause_multi_agent.agent import run_root_cause_multi_agent_analysis
 from agent.settings import Settings, get_settings
 
@@ -74,6 +77,67 @@ def print_analysis_result(result: MultiAgentAnalysisResult) -> None:
     print("\n" + "=" * 60)
 
 
+def print_neighbor_analysis_result(result: NeighborAnalysisResult) -> None:
+    print("=" * 60)
+    print("STELLARIS NEIGHBOR ANALYSIS REPORT")
+    print("=" * 60)
+    print(f"Save: {result.save_filename}")
+    print(f"Date: {result.analysis_date}")
+    print(f"Player: {result.player_empire_name}")
+    print(f"Owned Planets: {result.player_owned_planets}")
+    print("-" * 60)
+    print(f"\nSummary: {result.summary}")
+
+    if result.neighbors:
+        print("\n" + "-" * 60)
+        print("NEAREST NEIGHBORS (sorted by distance):")
+        print("-" * 60)
+
+        for neighbor in result.neighbors:
+            hostile_marker = " [HOSTILE]" if neighbor.is_hostile else ""
+            opinion_str = (
+                f"{neighbor.opinion:+.0f}" if neighbor.opinion is not None else "N/A"
+            )
+
+            print(f"\n  {neighbor.name}{hostile_marker}")
+            print(f"    Distance: {neighbor.min_distance:.1f}")
+            print(f"    Planets: {neighbor.owned_planet_count}")
+            print(f"    Opinion: {opinion_str}")
+
+            if neighbor.trust is not None:
+                print(f"    Trust: {neighbor.trust:+.0f}")
+            if neighbor.threat is not None:
+                print(f"    Threat: {neighbor.threat:.0f}")
+
+            if neighbor.opinion_modifiers:
+                print("    Opinion Modifiers:")
+                for mod in neighbor.opinion_modifiers:
+                    print(f"      - {mod.modifier_type}: {mod.value:+.0f}")
+
+    if result.key_findings:
+        print("\n" + "-" * 60)
+        print("KEY FINDINGS:")
+        print("-" * 60)
+
+        for finding in result.key_findings:
+            color_start = ""
+            color_end = ""
+            if sys.stdout.isatty():
+                if finding.severity == "critical":
+                    color_start = "\033[91m"
+                elif finding.severity == "warning":
+                    color_start = "\033[93m"
+                else:
+                    color_start = "\033[94m"
+                color_end = "\033[0m"
+
+            print(
+                f"  {color_start}[{finding.severity.upper()}]{color_end} {finding.description}",
+            )
+
+    print("\n" + "=" * 60)
+
+
 def configure_logfire(settings: Settings) -> None:
     logfire.configure(
         service_name="stellaris-stats-agent",
@@ -113,6 +177,27 @@ async def run_analysis_async(
         print_analysis_result(result)
 
 
+async def run_neighbor_analysis_async(
+    save_filename: str,
+    *,
+    raw: bool = False,
+    agent_type: str = "single",
+    parallel: bool = False,
+) -> None:
+    if agent_type == "multi":
+        result = await run_neighbor_multi_agent_orchestration(
+            save_filename,
+            parallel_analysis=parallel,
+        )
+    else:
+        result = await run_neighbor_single_agent_analysis(save_filename)
+
+    if raw:
+        print(json.dumps(result.model_dump(), indent=2, default=str))
+    else:
+        print_neighbor_analysis_result(result)
+
+
 def cmd_analyze(args: argparse.Namespace) -> None:
     settings = get_settings()
     configure_logfire(settings)
@@ -121,6 +206,20 @@ def cmd_analyze(args: argparse.Namespace) -> None:
         run_analysis_async(
             args.save,
             raw=args.raw,
+            parallel=parallel,
+        ),
+    )
+
+
+def cmd_analyze_neighbors(args: argparse.Namespace) -> None:
+    settings = get_settings()
+    configure_logfire(settings)
+    parallel = getattr(args, "parallel", False)
+    asyncio.run(
+        run_neighbor_analysis_async(
+            args.save,
+            raw=args.raw,
+            agent_type=args.agent_type,
             parallel=parallel,
         ),
     )
@@ -174,6 +273,43 @@ Examples:
         help="Run root cause analyses in parallel",
     )
     analyze_parser.set_defaults(func=cmd_analyze)
+
+    analyze_neighbors_parser = subparsers.add_parser(
+        "analyze-neighbors",
+        help="Analyze closest neighbors and their opinions",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  agent analyze-neighbors --save commonwealthofman_1251622081
+  agent analyze-neighbors --save commonwealthofman_1251622081 --raw
+  agent analyze-neighbors --save commonwealthofman_1251622081 --agent-type multi
+  agent analyze-neighbors --save commonwealthofman_1251622081 --agent-type multi --parallel
+        """,
+    )
+    analyze_neighbors_parser.add_argument(
+        "--save",
+        type=str,
+        required=True,
+        help="Save filename to analyze (without .sav extension)",
+    )
+    analyze_neighbors_parser.add_argument(
+        "--raw",
+        action="store_true",
+        help="Print raw JSON output instead of formatted report",
+    )
+    analyze_neighbors_parser.add_argument(
+        "--agent-type",
+        type=str,
+        choices=["single", "multi"],
+        default="single",
+        help="Agent type: single (one agent does all) or multi (separate agents)",
+    )
+    analyze_neighbors_parser.add_argument(
+        "--parallel",
+        action="store_true",
+        help="Run neighbor analyses in parallel (only for multi agent)",
+    )
+    analyze_neighbors_parser.set_defaults(func=cmd_analyze_neighbors)
 
     list_saves_parser = subparsers.add_parser(
         "list-saves",

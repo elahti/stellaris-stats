@@ -38,6 +38,7 @@
   "name": "stellaris-stats",
   "scripts": {
     "agent:analyze": "cd agent && dotenvx run -f ../.env.stellaris-stats -f ../.env.stellaris-stats.secrets -- uv run agent analyze",
+    "agent:analyze-neighbors": "cd agent && dotenvx run -f ../.env.stellaris-stats -f ../.env.stellaris-stats.secrets -- uv run agent analyze-neighbors",
     "agent:evals": "cd agent && dotenvx run -f ../.env.stellaris-stats -f ../.env.stellaris-stats.evals -f ../.env.stellaris-stats.secrets -- uv run budget-evals",
     "agent:generate-fixture": "cd agent && dotenvx run -f ../.env.stellaris-stats -- uv run python scripts/generate_sql_fixture.py",
     "agent:list-models": "cd agent && uv run agent list-models",
