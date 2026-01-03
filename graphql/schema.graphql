@@ -117,10 +117,41 @@ type PlanetProduction @cacheControl {
   balance: BudgetEntry
 }
 
+type Coordinate @cacheControl {
+  x: Float!
+  y: Float!
+  systemId: Int
+}
+
 type Planet @cacheControl {
   planetId: String!
   planetName: String!
   profits: PlanetProduction!
+  coordinate: Coordinate
+}
+
+type Empire @cacheControl {
+  countryId: String!
+  name: String!
+  isPlayer: Boolean!
+  capitalPlanetId: Int
+  ownedPlanetCount: Int!
+  controlledPlanetCount: Int!
+  militaryPower: Float
+  economyPower: Float
+  techPower: Float
+}
+
+type DiplomaticRelation @cacheControl {
+  targetCountryId: String!
+  targetEmpireName: String
+  opinion: Int
+  trust: Int
+  threat: Int
+  isHostile: Boolean!
+  borderRange: Int
+  hasContact: Boolean!
+  hasCommunications: Boolean!
 }
 
 type Budget @cacheControl {
@@ -134,6 +165,9 @@ type Gamestate @cacheControl {
   date: DateTimeISO!
   planets: [Planet!]!
   budget: Budget!
+  empires: [Empire!]!
+  playerEmpire: Empire
+  diplomaticRelations: [DiplomaticRelation!]!
 }
 
 type Save {

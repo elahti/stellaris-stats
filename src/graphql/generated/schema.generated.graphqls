@@ -115,16 +115,50 @@ enum CacheControlScope {
   PUBLIC
 }
 
+type Coordinate {
+  systemId: Int
+  x: Float!
+  y: Float!
+}
+
 scalar DateTimeISO
+
+type DiplomaticRelation {
+  borderRange: Int
+  hasCommunications: Boolean!
+  hasContact: Boolean!
+  isHostile: Boolean!
+  opinion: Int
+  targetCountryId: String!
+  targetEmpireName: String
+  threat: Int
+  trust: Int
+}
+
+type Empire {
+  capitalPlanetId: Int
+  controlledPlanetCount: Int!
+  countryId: String!
+  economyPower: Float
+  isPlayer: Boolean!
+  militaryPower: Float
+  name: String!
+  ownedPlanetCount: Int!
+  techPower: Float
+}
 
 type Gamestate {
   budget: Budget!
   date: DateTimeISO!
+  diplomaticRelations: [DiplomaticRelation!]!
+  empires: [Empire!]!
   gamestateId: Int!
   planets: [Planet!]!
+  playerEmpire: Empire
 }
 
 type Planet {
+  coordinate: Coordinate
   planetId: String!
   planetName: String!
   profits: PlanetProduction!

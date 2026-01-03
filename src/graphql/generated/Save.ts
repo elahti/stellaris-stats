@@ -7,5 +7,8 @@ export const Save: SaveResolvers = {
       ...gamestate,
       planets: [],
       budget: emptyBudget(),
+      empires: [],
+      playerEmpire: null,
+      diplomaticRelations: [],
     })),
 }

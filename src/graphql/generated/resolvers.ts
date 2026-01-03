@@ -5,6 +5,9 @@ import { saves as Query_saves } from './Query/saves.js'
 import { Budget } from './Budget.js'
 import { BudgetCategory } from './BudgetCategory.js'
 import { BudgetEntry } from './BudgetEntry.js'
+import { Coordinate } from './Coordinate.js'
+import { DiplomaticRelation } from './DiplomaticRelation.js'
+import { Empire } from './Empire.js'
 import { Gamestate } from './Gamestate.js'
 import { Planet } from './Planet.js'
 import { PlanetProduction } from './PlanetProduction.js'
@@ -16,6 +19,9 @@ export const resolvers: Resolvers = {
   Budget: Budget,
   BudgetCategory: BudgetCategory,
   BudgetEntry: BudgetEntry,
+  Coordinate: Coordinate,
+  DiplomaticRelation: DiplomaticRelation,
+  Empire: Empire,
   Gamestate: Gamestate,
   Planet: Planet,
   PlanetProduction: PlanetProduction,

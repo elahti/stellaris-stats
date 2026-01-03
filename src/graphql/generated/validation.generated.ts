@@ -141,14 +141,48 @@ export enum CacheControlScope {
   Public = 'PUBLIC',
 }
 
+export type Coordinate = {
+  systemId?: Maybe<Scalars['Int']['output']>
+  x: Scalars['Float']['output']
+  y: Scalars['Float']['output']
+}
+
+export type DiplomaticRelation = {
+  borderRange?: Maybe<Scalars['Int']['output']>
+  hasCommunications: Scalars['Boolean']['output']
+  hasContact: Scalars['Boolean']['output']
+  isHostile: Scalars['Boolean']['output']
+  opinion?: Maybe<Scalars['Int']['output']>
+  targetCountryId: Scalars['String']['output']
+  targetEmpireName?: Maybe<Scalars['String']['output']>
+  threat?: Maybe<Scalars['Int']['output']>
+  trust?: Maybe<Scalars['Int']['output']>
+}
+
+export type Empire = {
+  capitalPlanetId?: Maybe<Scalars['Int']['output']>
+  controlledPlanetCount: Scalars['Int']['output']
+  countryId: Scalars['String']['output']
+  economyPower?: Maybe<Scalars['Float']['output']>
+  isPlayer: Scalars['Boolean']['output']
+  militaryPower?: Maybe<Scalars['Float']['output']>
+  name: Scalars['String']['output']
+  ownedPlanetCount: Scalars['Int']['output']
+  techPower?: Maybe<Scalars['Float']['output']>
+}
+
 export type Gamestate = {
   budget: Budget
   date: Scalars['DateTimeISO']['output']
+  diplomaticRelations: Array<DiplomaticRelation>
+  empires: Array<Empire>
   gamestateId: Scalars['Int']['output']
   planets: Array<Planet>
+  playerEmpire?: Maybe<Empire>
 }
 
 export type Planet = {
+  coordinate?: Maybe<Coordinate>
   planetId: Scalars['String']['output']
   planetName: Scalars['String']['output']
   profits: PlanetProduction
@@ -309,19 +343,64 @@ export function BudgetEntrySchema(): z.ZodObject<Properties<BudgetEntry>> {
   })
 }
 
+export function CoordinateSchema(): z.ZodObject<Properties<Coordinate>> {
+  return z.object({
+    __typename: z.literal('Coordinate').optional(),
+    systemId: z.number().nullish(),
+    x: z.number(),
+    y: z.number(),
+  })
+}
+
+export function DiplomaticRelationSchema(): z.ZodObject<
+  Properties<DiplomaticRelation>
+> {
+  return z.object({
+    __typename: z.literal('DiplomaticRelation').optional(),
+    borderRange: z.number().nullish(),
+    hasCommunications: z.boolean(),
+    hasContact: z.boolean(),
+    isHostile: z.boolean(),
+    opinion: z.number().nullish(),
+    targetCountryId: z.string(),
+    targetEmpireName: z.string().nullish(),
+    threat: z.number().nullish(),
+    trust: z.number().nullish(),
+  })
+}
+
+export function EmpireSchema(): z.ZodObject<Properties<Empire>> {
+  return z.object({
+    __typename: z.literal('Empire').optional(),
+    capitalPlanetId: z.number().nullish(),
+    controlledPlanetCount: z.number(),
+    countryId: z.string(),
+    economyPower: z.number().nullish(),
+    isPlayer: z.boolean(),
+    militaryPower: z.number().nullish(),
+    name: z.string(),
+    ownedPlanetCount: z.number(),
+    techPower: z.number().nullish(),
+  })
+}
+
 export function GamestateSchema(): z.ZodObject<Properties<Gamestate>> {
   return z.object({
     __typename: z.literal('Gamestate').optional(),
     budget: z.lazy(() => BudgetSchema()),
     date: z.date(),
+    diplomaticRelations: z.array(z.lazy(() => DiplomaticRelationSchema())),
+    empires: z.array(z.lazy(() => EmpireSchema())),
     gamestateId: z.number(),
     planets: z.array(z.lazy(() => PlanetSchema())),
+    playerEmpire: z.lazy(() => EmpireSchema().nullish()),
   })
 }
 
 export function PlanetSchema(): z.ZodObject<Properties<Planet>> {
   return z.object({
     __typename: z.literal('Planet').optional(),
+    coordinate: z.lazy(() => CoordinateSchema().nullish()),
     planetId: z.string(),
     planetName: z.string(),
     profits: z.lazy(() => PlanetProductionSchema()),
