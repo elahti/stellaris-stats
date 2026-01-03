@@ -50,6 +50,7 @@ async def run_root_cause_multi_agent_eval(
     model_name: str | None = None,
     model_settings: ModelSettings | None = None,
     settings: Settings | None = None,
+    thinking_enabled: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -84,6 +85,7 @@ async def run_root_cause_multi_agent_eval(
                 model_name=model_name,
                 model_settings=model_settings,
                 parallel_root_cause=False,
+                thinking_enabled=thinking_enabled,
             )
     except Exception as e:
         logfire.error(f"Root cause multi-agent eval failed: {e!r}")
@@ -95,6 +97,7 @@ def create_root_cause_multi_agent_eval_task(
     model_settings: ModelSettings | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
+    thinking_enabled: bool = False,
 ) -> EvalTask:
     async def eval_task(
         inputs: EvalInputs,
@@ -104,6 +107,7 @@ def create_root_cause_multi_agent_eval_task(
             model_name=model_name,
             model_settings=model_settings,
             settings=settings,
+            thinking_enabled=thinking_enabled,
         )
 
     if experiment_name:
@@ -118,6 +122,7 @@ async def run_root_cause_multi_agent_evals(
     experiment_name: str | None = None,
     settings: Settings | None = None,
     model_settings: ModelSettings | None = None,
+    thinking_enabled: bool = False,
 ) -> EvaluationReport[EvalInputs, MultiAgentAnalysisResult, EvalMetadata]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
@@ -128,6 +133,7 @@ async def run_root_cause_multi_agent_evals(
         model_settings,
         experiment_name,
         settings,
+        thinking_enabled,
     )
     # Run sequentially to avoid MCP server cancel scope issues with concurrent tasks
     report = await dataset.evaluate(task, max_concurrency=1)

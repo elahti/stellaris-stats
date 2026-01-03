@@ -23,6 +23,14 @@ ANTHROPIC_BUDGET_TOKENS: dict[ThinkingLevel, int] = {
     "max": 65536,
 }
 
+ANTHROPIC_MAX_TOKENS: dict[ThinkingLevel, int] = {
+    "minimal": 16000,
+    "low": 16000,
+    "medium": 32000,
+    "high": 64000,
+    "max": 128000,
+}
+
 OPENAI_REASONING_EFFORT: dict[ThinkingLevel, str] = {
     "minimal": "minimal",
     "low": "low",
@@ -40,7 +48,9 @@ def get_model_settings(
         return None
     if model_name.startswith("anthropic:"):
         budget_tokens = ANTHROPIC_BUDGET_TOKENS[thinking_level]
+        max_tokens = ANTHROPIC_MAX_TOKENS[thinking_level]
         return AnthropicModelSettings(
+            max_tokens=max_tokens,
             anthropic_thinking={"type": "enabled", "budget_tokens": budget_tokens},
         )
     elif model_name.startswith("openai-responses:"):
@@ -53,3 +63,7 @@ def get_model_settings(
             f"Unsupported model provider for thinking settings: {model_name}. "
             + "Expected 'anthropic:' or 'openai-responses:' prefix.",
         )
+
+
+def is_thinking_enabled(model_name: str, thinking_level: ThinkingLevel) -> bool:
+    return thinking_level != "off" and model_name.startswith("anthropic:")

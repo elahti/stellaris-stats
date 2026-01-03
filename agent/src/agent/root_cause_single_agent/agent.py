@@ -24,13 +24,18 @@ def get_single_agent(
     mcp_server: MCPServerStreamableHTTP,
     model_name: str,
     settings: Settings | None = None,
+    thinking_enabled: bool = False,
 ) -> Agent[RootCauseSingleAgentDeps, MultiAgentAnalysisResult]:
     if settings is None:
         settings = get_settings()
     return Agent(
         get_model(model_name),
         deps_type=RootCauseSingleAgentDeps,
-        output_type=wrap_output_type(MultiAgentAnalysisResult, model_name),
+        output_type=wrap_output_type(
+            MultiAgentAnalysisResult,
+            model_name,
+            thinking_enabled,
+        ),
         system_prompt=build_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
     )
@@ -47,6 +52,7 @@ async def run_root_cause_single_agent_analysis(
     settings: Settings | None = None,
     model_name: str | None = None,
     model_settings: ModelSettings | None = None,
+    thinking_enabled: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -60,7 +66,7 @@ async def run_root_cause_single_agent_analysis(
         # Run single agent that does both drop detection and root cause analysis
         deps = create_deps(settings)
         prompt = build_analysis_prompt(save_filename, deps.graphql_url)
-        agent = get_single_agent(mcp_server, actual_model, settings)
+        agent = get_single_agent(mcp_server, actual_model, settings, thinking_enabled)
 
         result = await agent.run(
             prompt,
