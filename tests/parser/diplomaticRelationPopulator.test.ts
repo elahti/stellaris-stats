@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { PoolClient } from 'pg'
 import { populateDiplomaticRelationTables } from '../../src/parser/diplomaticRelationPopulator.js'
 import { insertGamestate } from '../../src/db/gamestates.js'
 import { insertSave } from '../../src/db/save.js'
@@ -38,6 +39,20 @@ describe('Diplomatic Relation Populator', () => {
     }
   }
 
+  const insertEmpires = async (
+    client: PoolClient,
+    gamestateId: number,
+    countryIds: string[],
+  ) => {
+    for (const countryId of countryIds) {
+      await client.query(
+        `INSERT INTO empire (gamestate_id, country_id, name, is_player)
+         VALUES ($1, $2, $3, $4)`,
+        [gamestateId, countryId, `Empire ${countryId}`, countryId === '0'],
+      )
+    }
+  }
+
   describe('populateDiplomaticRelationTables', () => {
     it('populates relations from valid gamestate', async () => {
       const gamestateId = await createGamestate()
@@ -65,6 +80,7 @@ describe('Diplomatic Relation Populator', () => {
 
       const client = await testDb.pool.connect()
       try {
+        await insertEmpires(client, gamestateId, ['0', '1'])
         await populateDiplomaticRelationTables(
           client,
           gamestateId,
@@ -168,6 +184,7 @@ describe('Diplomatic Relation Populator', () => {
 
       const client = await testDb.pool.connect()
       try {
+        await insertEmpires(client, gamestateId, ['0', '2'])
         await populateDiplomaticRelationTables(
           client,
           gamestateId,
@@ -205,6 +222,7 @@ describe('Diplomatic Relation Populator', () => {
 
       const client = await testDb.pool.connect()
       try {
+        await insertEmpires(client, gamestateId, ['0', '1', '2', '3'])
         await populateDiplomaticRelationTables(
           client,
           gamestateId,

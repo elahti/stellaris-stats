@@ -6,6 +6,11 @@ const PlayerCountryIdSchema = z
   .union([z.number(), z.string()])
   .transform((val) => (typeof val === 'string' ? val : String(val)))
 
+const ModifierSchema = z.object({
+  modifier: z.string(),
+  value: z.number(),
+})
+
 const RelationSchema = z.object({
   country: z.number(),
   relation_current: z.number().optional(),
@@ -15,6 +20,7 @@ const RelationSchema = z.object({
   border_range: z.number().optional(),
   contact: z.boolean().optional(),
   communications: z.boolean().optional(),
+  modifier: z.array(ModifierSchema).optional(),
 })
 
 const ParsedGamestateSchema = z.object({
@@ -44,6 +50,17 @@ INSERT INTO diplomatic_relation (
   has_contact, has_communications
 )
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+RETURNING diplomatic_relation_id
+`
+
+const insertOpinionModifiersBatchQuery = `
+INSERT INTO opinion_modifier (diplomatic_relation_id, modifier_type, value)
+SELECT $1, unnest($2::text[]), unnest($3::double precision[])
+ON CONFLICT (diplomatic_relation_id, modifier_type) DO NOTHING
+`
+
+const getExistingEmpiresQuery = `
+SELECT country_id FROM empire WHERE gamestate_id = $1
 `
 
 export const populateDiplomaticRelationTables = async (
@@ -92,6 +109,23 @@ export const populateDiplomaticRelationTables = async (
     return
   }
 
+  const existingEmpiresResult = await client.query(getExistingEmpiresQuery, [
+    gamestateId,
+  ])
+  const existingEmpires = new Set(
+    existingEmpiresResult.rows.map(
+      (row: { country_id: string }) => row.country_id,
+    ),
+  )
+
+  if (!existingEmpires.has(playerCountryId)) {
+    logger.warn(
+      { playerCountryId },
+      'Player empire not found in database, skipping diplomatic relation population',
+    )
+    return
+  }
+
   const relationsArray =
     Array.isArray(relationsRaw) ? relationsRaw
     : typeof relationsRaw === 'object' ?
@@ -114,12 +148,21 @@ export const populateDiplomaticRelationTables = async (
     }
 
     const relation = parsed.data
+    const targetCountryId = String(relation.country)
+
+    if (!existingEmpires.has(targetCountryId)) {
+      logger.debug(
+        { targetCountryId },
+        'Target empire not found in database, skipping relation',
+      )
+      continue
+    }
 
     try {
-      await client.query(insertRelationQuery, [
+      const result = await client.query(insertRelationQuery, [
         gamestateId,
         playerCountryId,
-        String(relation.country),
+        targetCountryId,
         relation.relation_current ?? null,
         relation.trust ?? null,
         relation.threat ?? null,
@@ -128,9 +171,28 @@ export const populateDiplomaticRelationTables = async (
         relation.contact ?? false,
         relation.communications ?? false,
       ])
+
+      const resultRow = result.rows[0] as
+        | { diplomatic_relation_id: number }
+        | undefined
+      const diplomaticRelationId = resultRow?.diplomatic_relation_id
+
+      if (
+        relation.modifier
+        && relation.modifier.length > 0
+        && diplomaticRelationId
+      ) {
+        const modifierTypes = relation.modifier.map((m) => m.modifier)
+        const modifierValues = relation.modifier.map((m) => m.value)
+        await client.query(insertOpinionModifiersBatchQuery, [
+          diplomaticRelationId,
+          modifierTypes,
+          modifierValues,
+        ])
+      }
     } catch (error: unknown) {
       logger.warn(
-        { targetCountryId: relation.country, error },
+        { targetCountryId, error },
         'Failed to insert diplomatic relation, skipping',
       )
     }

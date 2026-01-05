@@ -10,6 +10,7 @@ const EmpireRowSchema = z.object({
   isPlayer: z.boolean(),
   capitalPlanetId: z.number().nullable(),
   ownedPlanetCount: z.number(),
+  ownedPlanetIds: z.array(z.number()),
   controlledPlanetCount: z.number(),
   militaryPower: z.number().nullable(),
   economyPower: z.number().nullable(),
@@ -20,22 +21,28 @@ type EmpireRow = z.infer<typeof EmpireRowSchema>
 
 const getEmpiresBatchQuery = `
 SELECT
-  gamestate_id,
-  country_id,
-  name,
-  is_player,
-  capital_planet_id,
-  owned_planet_count,
-  controlled_planet_count,
-  military_power,
-  economy_power,
-  tech_power
+  e.gamestate_id,
+  e.country_id,
+  e.name,
+  e.is_player,
+  e.capital_planet_id,
+  e.owned_planet_count,
+  COALESCE(
+    (SELECT ARRAY_AGG(ep.planet_id ORDER BY ep.planet_id)
+     FROM empire_planet ep
+     WHERE ep.gamestate_id = e.gamestate_id AND ep.country_id = e.country_id),
+    '{}'
+  ) AS owned_planet_ids,
+  e.controlled_planet_count,
+  e.military_power,
+  e.economy_power,
+  e.tech_power
 FROM
-  empire
+  empire e
 WHERE
-  gamestate_id = ANY($1)
+  e.gamestate_id = ANY($1)
 ORDER BY
-  gamestate_id, country_id
+  e.gamestate_id, e.country_id
 `
 
 const rowToEmpire = (row: EmpireRow): Empire => ({
@@ -44,6 +51,7 @@ const rowToEmpire = (row: EmpireRow): Empire => ({
   isPlayer: row.isPlayer,
   capitalPlanetId: row.capitalPlanetId,
   ownedPlanetCount: row.ownedPlanetCount,
+  ownedPlanetIds: row.ownedPlanetIds,
   controlledPlanetCount: row.controlledPlanetCount,
   militaryPower: row.militaryPower,
   economyPower: row.economyPower,

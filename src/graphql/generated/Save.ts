@@ -10,5 +10,6 @@ export const Save: SaveResolvers = {
       empires: [],
       playerEmpire: null,
       diplomaticRelations: [],
+      allPlanetCoordinates: [],
     })),
 }

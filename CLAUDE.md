@@ -50,7 +50,8 @@ All commands run from `/workspace`.
 | Format            | `npm run format:python`                                                                     |
 | List saves        | `npm run agent:list-saves`                                                                  |
 | List models       | `npm run agent:list-models`                                                                 |
-| Analyze budget    | `npm run agent:analyze -- --save <filename>`                                                |
+| Analyze budget    | `npm run agent:analyze -- --type budget --save <filename> [--parallel]`                     |
+| Analyze neighbors | `npm run agent:analyze -- --type neighbors --save <filename> [--agent-type single\|multi] [--parallel]` |
 | Run evals         | `npm run agent:evals -- --dataset multi_agent_drop_detection`                                |
 | Generate fixture  | `npm run agent:generate-fixture -- --save <name> --start-date YYYY-MM-DD --end-date YYYY-MM-DD --output <path>` |
 | Test (verbose)    | `npm run test:python`                                                                       |

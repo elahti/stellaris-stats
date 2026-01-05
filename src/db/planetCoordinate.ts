@@ -5,7 +5,7 @@ import { Coordinate } from '../graphql/generated/validation.generated.js'
 
 const PlanetCoordinateRowSchema = z.object({
   gamestateId: z.number(),
-  planetId: z.string(),
+  planetId: z.number(),
   x: z.number(),
   y: z.number(),
   systemId: z.number().nullable(),
@@ -37,13 +37,13 @@ const rowToCoordinate = (row: PlanetCoordinateRow): Coordinate => ({
 export const getPlanetCoordinatesBatch = async (
   client: PoolClient,
   gamestateIds: readonly number[],
-): Promise<Map<number, Map<string, Coordinate>>> => {
+): Promise<Map<number, Map<number, Coordinate>>> => {
   const rows = await selectRows(
     () => client.query(getPlanetCoordinatesBatchQuery, [gamestateIds]),
     PlanetCoordinateRowSchema,
   )
 
-  const result = new Map<number, Map<string, Coordinate>>()
+  const result = new Map<number, Map<number, Coordinate>>()
 
   for (const gamestateId of gamestateIds) {
     result.set(gamestateId, new Map())
