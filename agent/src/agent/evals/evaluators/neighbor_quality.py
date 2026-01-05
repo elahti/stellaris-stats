@@ -354,9 +354,7 @@ class NeighborThreatRange(
             return False
         if self.min_threat is not None and neighbor.threat < self.min_threat:
             return False
-        return not (
-            self.max_threat is not None and neighbor.threat > self.max_threat
-        )
+        return not (self.max_threat is not None and neighbor.threat > self.max_threat)
 
     def _constraint_str(self) -> str:
         constraint: list[str] = []
