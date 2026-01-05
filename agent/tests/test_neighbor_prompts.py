@@ -186,13 +186,19 @@ class TestBuildOpinionAnalysisSystemPrompt:
 class TestBuildOpinionAnalysisPrompt:
     def test_contains_save_filename(self) -> None:
         prompt = build_opinion_analysis_prompt(
-            "my-empire.sav", "1", "Test Empire", "http://example.com",
+            "my-empire.sav",
+            "1",
+            "Test Empire",
+            "http://example.com",
         )
         assert "my-empire.sav" in prompt
 
     def test_contains_target_info(self) -> None:
         prompt = build_opinion_analysis_prompt(
-            "test.sav", "42", "Blorg Commonality", "http://example.com",
+            "test.sav",
+            "42",
+            "Blorg Commonality",
+            "http://example.com",
         )
         assert "Blorg Commonality" in prompt
         assert "42" in prompt
