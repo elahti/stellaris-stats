@@ -8,7 +8,7 @@ from agent.graphql_client import (
     ListSaves,
     ListSavesSaves,
 )
-from agent.native_budget_agent.tools import AgentDeps
+from agent.native_budget.tools import AgentDeps
 
 FIXTURES_DIR = Path(__file__).parent.parent / "src/agent/evals/fixtures"
 

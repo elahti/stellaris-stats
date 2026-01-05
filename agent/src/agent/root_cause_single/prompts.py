@@ -1,4 +1,4 @@
-from agent.root_cause_multi_agent.prompts import (
+from agent.root_cause_multi.prompts import (
     ANALYSIS_DATAPOINTS,
     BUDGET_CATEGORIES,
     DROP_THRESHOLD_PERCENT,

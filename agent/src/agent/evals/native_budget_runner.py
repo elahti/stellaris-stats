@@ -5,6 +5,7 @@ import logfire
 from pydantic_evals import Dataset
 from pydantic_evals.reporting import EvaluationReport
 
+from agent.constants import DEFAULT_MODEL
 from agent.evals.fixture_loader import load_fixture
 from agent.evals.server_manager import (
     GraphQLServerProcess,
@@ -16,11 +17,13 @@ from agent.evals.test_database import (
     create_test_database,
     destroy_test_database,
 )
-from agent.evals.types import EvalInputs, EvalMetadata, EvalTask
-from agent.models import MultiAgentAnalysisResult
-from agent.root_cause_single_agent.agent import (
-    run_root_cause_single_agent_analysis,
+from agent.evals.types import EvalInputs, EvalMetadata, LegacyEvalTask
+from agent.models import SuddenDropAnalysisResult
+from agent.native_budget.agent import (
+    build_analysis_prompt,
+    create_native_budget_agent,
 )
+from agent.native_budget.tools import create_deps
 from agent.settings import Settings, get_settings
 
 
@@ -44,11 +47,11 @@ async def eval_environment(
         await destroy_test_database(db_ctx, settings)
 
 
-async def run_root_cause_single_agent_eval(
+async def run_native_budget_eval(
     inputs: EvalInputs,
     model_name: str | None = None,
     settings: Settings | None = None,
-) -> MultiAgentAnalysisResult:
+) -> SuddenDropAnalysisResult:
     if settings is None:
         settings = get_settings()
 
@@ -65,6 +68,7 @@ async def run_root_cause_single_agent_eval(
             else:
                 graphql_url = server.url
 
+            # Create a custom GraphQL client pointing to the test server
             eval_settings = settings.model_copy(
                 update={
                     "stellaris_stats_graphql_server_host": graphql_url.split("://")[
@@ -76,25 +80,33 @@ async def run_root_cause_single_agent_eval(
                 },
             )
 
-            return await run_root_cause_single_agent_analysis(
-                save_filename=inputs["save_filename"],
-                settings=eval_settings,
-                model_name=model_name,
+            client = eval_settings.create_graphql_client()
+            deps = create_deps(client=client, settings=eval_settings)
+
+            prompt = build_analysis_prompt(inputs["save_filename"])
+            actual_model = model_name or DEFAULT_MODEL
+            agent = create_native_budget_agent(actual_model)
+
+            result = await agent.run(
+                prompt,
+                deps=deps,
             )
+
+            return result.output
     except Exception as e:
-        logfire.error(f"Root cause single-agent eval failed: {e!r}")
+        logfire.error(f"Native budget eval failed: {e!r}")
         raise
 
 
-def create_root_cause_single_agent_eval_task(
+def create_native_budget_eval_task(
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-) -> EvalTask:
+) -> LegacyEvalTask:
     async def eval_task(
         inputs: EvalInputs,
-    ) -> MultiAgentAnalysisResult:
-        return await run_root_cause_single_agent_eval(
+    ) -> SuddenDropAnalysisResult:
+        return await run_native_budget_eval(
             inputs,
             model_name=model_name,
             settings=settings,
@@ -106,23 +118,22 @@ def create_root_cause_single_agent_eval_task(
     return eval_task
 
 
-async def run_root_cause_single_agent_evals(
-    dataset: Dataset[EvalInputs, MultiAgentAnalysisResult, EvalMetadata],
+async def run_native_budget_evals(
+    dataset: Dataset[EvalInputs, SuddenDropAnalysisResult, EvalMetadata],
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
-) -> EvaluationReport[EvalInputs, MultiAgentAnalysisResult, EvalMetadata]:
+) -> EvaluationReport[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]:
     logfire.configure(send_to_logfire="if-token-present")
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx()
 
-    task = create_root_cause_single_agent_eval_task(
+    task = create_native_budget_eval_task(
         model_name,
         experiment_name,
         settings,
     )
-    # Run sequentially to avoid MCP server cancel scope issues with concurrent tasks
-    report = await dataset.evaluate(task, max_concurrency=1)
+    report = await dataset.evaluate(task)
 
     report.print(
         include_input=True,

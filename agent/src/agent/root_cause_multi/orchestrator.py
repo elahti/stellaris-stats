@@ -13,11 +13,11 @@ from agent.models import (
     SuddenDropAnalysisResult,
     SuddenDropWithRootCause,
 )
-from agent.root_cause_multi_agent.prompts import (
+from agent.root_cause_multi.prompts import (
     build_analysis_prompt,
     build_system_prompt,
 )
-from agent.root_cause_multi_agent.root_cause_agent import (
+from agent.root_cause_multi.root_cause_agent import (
     create_root_cause_deps,
     run_root_cause_analysis,
 )

@@ -1,4 +1,4 @@
-from agent.native_budget_agent.agent import (
+from agent.native_budget.agent import (
     ANALYSIS_DATAPOINTS,
     DROP_THRESHOLD_PERCENT,
     RESOURCE_FIELDS,
@@ -6,7 +6,7 @@ from agent.native_budget_agent.agent import (
     build_system_prompt,
     sum_resources_for_snapshot,
 )
-from agent.native_budget_agent.models import BudgetSnapshot
+from agent.native_budget.models import BudgetSnapshot
 
 
 class TestSumResourcesForSnapshot:

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from agent.models import MultiAgentAnalysisResult
-from agent.root_cause_multi_agent.orchestrator import (
+from agent.root_cause_multi.orchestrator import (
     RootCauseMultiAgentDeps,
     create_deps,
     run_root_cause_multi_agent_orchestration,

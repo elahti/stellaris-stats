@@ -1,6 +1,6 @@
 from agent.models import SuddenDrop
-from agent.root_cause_multi_agent.prompts import BUDGET_CATEGORIES
-from agent.root_cause_multi_agent.root_cause_prompts import (
+from agent.root_cause_multi.prompts import BUDGET_CATEGORIES
+from agent.root_cause_multi.root_cause_prompts import (
     build_root_cause_analysis_prompt,
     build_root_cause_system_prompt,
 )

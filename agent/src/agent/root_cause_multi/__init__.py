@@ -1,18 +1,18 @@
-from agent.root_cause_multi_agent.agent import (
+from agent.root_cause_multi.agent import (
     RootCauseMultiAgentDeps,
     create_deps,
     run_root_cause_multi_agent_analysis,
 )
-from agent.root_cause_multi_agent.orchestrator import (
+from agent.root_cause_multi.orchestrator import (
     get_drop_detection_agent,
     run_root_cause_multi_agent_orchestration,
 )
-from agent.root_cause_multi_agent.prompts import (
+from agent.root_cause_multi.prompts import (
     ANALYSIS_DATAPOINTS,
     DROP_THRESHOLD_PERCENT,
     RESOURCE_FIELDS,
 )
-from agent.root_cause_multi_agent.root_cause_agent import (
+from agent.root_cause_multi.root_cause_agent import (
     RootCauseAgentDeps,
     create_root_cause_deps,
     get_root_cause_agent,

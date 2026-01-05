@@ -1,5 +1,5 @@
 from agent.models import SuddenDrop, SuddenDropAnalysisResult
-from agent.native_budget_agent.agent import (
+from agent.native_budget.agent import (
     ANALYSIS_DATAPOINTS,
     DROP_THRESHOLD_PERCENT,
     RESOURCE_FIELDS,
@@ -8,13 +8,13 @@ from agent.native_budget_agent.agent import (
     run_native_budget_analysis,
     sum_resources_for_snapshot,
 )
-from agent.native_budget_agent.models import (
+from agent.native_budget.models import (
     BudgetSnapshot,
     BudgetTimeSeries,
     SaveInfo,
     SnapshotResourceTotals,
 )
-from agent.native_budget_agent.tools import (
+from agent.native_budget.tools import (
     AgentDeps,
     GraphQLClientProtocol,
     create_deps,

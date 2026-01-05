@@ -18,7 +18,7 @@ from agent.evals.test_database import (
 )
 from agent.evals.types import EvalInputs, EvalMetadata, EvalTask
 from agent.models import MultiAgentAnalysisResult
-from agent.root_cause_multi_agent.orchestrator import (
+from agent.root_cause_multi.orchestrator import (
     run_root_cause_multi_agent_orchestration,
 )
 from agent.settings import Settings, get_settings
@@ -44,7 +44,7 @@ async def eval_environment(
         await destroy_test_database(db_ctx, settings)
 
 
-async def run_root_cause_multi_agent_eval(
+async def run_root_cause_multi_eval(
     inputs: EvalInputs,
     model_name: str | None = None,
     settings: Settings | None = None,
@@ -83,11 +83,11 @@ async def run_root_cause_multi_agent_eval(
                 parallel_root_cause=False,
             )
     except Exception as e:
-        logfire.error(f"Root cause multi-agent eval failed: {e!r}")
+        logfire.error(f"Root cause multi eval failed: {e!r}")
         raise
 
 
-def create_root_cause_multi_agent_eval_task(
+def create_root_cause_multi_eval_task(
     model_name: str | None = None,
     experiment_name: str | None = None,
     settings: Settings | None = None,
@@ -95,7 +95,7 @@ def create_root_cause_multi_agent_eval_task(
     async def eval_task(
         inputs: EvalInputs,
     ) -> MultiAgentAnalysisResult:
-        return await run_root_cause_multi_agent_eval(
+        return await run_root_cause_multi_eval(
             inputs,
             model_name=model_name,
             settings=settings,
@@ -107,7 +107,7 @@ def create_root_cause_multi_agent_eval_task(
     return eval_task
 
 
-async def run_root_cause_multi_agent_evals(
+async def run_root_cause_multi_evals(
     dataset: Dataset[EvalInputs, MultiAgentAnalysisResult, EvalMetadata],
     model_name: str | None = None,
     experiment_name: str | None = None,
@@ -117,7 +117,7 @@ async def run_root_cause_multi_agent_evals(
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx()
 
-    task = create_root_cause_multi_agent_eval_task(
+    task = create_root_cause_multi_eval_task(
         model_name,
         experiment_name,
         settings,

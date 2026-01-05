@@ -1,4 +1,4 @@
-from agent.root_cause_single_agent.agent import (
+from agent.root_cause_single.agent import (
     RootCauseSingleAgentDeps,
     create_deps,
     run_root_cause_single_agent_analysis,

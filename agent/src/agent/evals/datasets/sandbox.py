@@ -11,7 +11,7 @@ from agent.models import SuddenDropAnalysisResult
 CaseType = Case[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]
 
 
-def create_sandbox_drop_detection_dataset() -> Dataset[
+def create_sandbox_dataset() -> Dataset[
     EvalInputs,
     SuddenDropAnalysisResult,
     EvalMetadata,
@@ -90,7 +90,7 @@ def create_sandbox_drop_detection_dataset() -> Dataset[
     global_evaluators = (IsInstance(type_name="SuddenDropAnalysisResult"),)
 
     return Dataset(
-        name="sandbox_drop_detection",
+        name="sandbox",
         cases=cases,
         evaluators=global_evaluators,
     )

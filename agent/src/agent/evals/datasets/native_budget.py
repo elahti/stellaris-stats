@@ -11,7 +11,7 @@ from agent.models import SuddenDropAnalysisResult
 CaseType = Case[EvalInputs, SuddenDropAnalysisResult, EvalMetadata]
 
 
-def create_native_budget_agent_dataset() -> Dataset[
+def create_native_budget_dataset() -> Dataset[
     EvalInputs,
     SuddenDropAnalysisResult,
     EvalMetadata,
@@ -90,7 +90,7 @@ def create_native_budget_agent_dataset() -> Dataset[
     global_evaluators = (IsInstance(type_name="SuddenDropAnalysisResult"),)
 
     return Dataset(
-        name="native_budget_agent",
+        name="native_budget",
         cases=cases,
         evaluators=global_evaluators,
     )

@@ -13,7 +13,7 @@ from agent.models import MultiAgentAnalysisResult
 CaseType = Case[EvalInputs, MultiAgentAnalysisResult, EvalMetadata]
 
 
-def create_root_cause_drop_detection_dataset() -> Dataset[
+def create_root_cause_dataset() -> Dataset[
     EvalInputs,
     MultiAgentAnalysisResult,
     EvalMetadata,

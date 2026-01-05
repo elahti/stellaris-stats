@@ -3,13 +3,13 @@ from pydantic_ai.agent import AgentRunResult
 
 from agent.constants import DEFAULT_MODEL, get_model, wrap_output_type
 from agent.models import SuddenDropAnalysisResult
-from agent.native_budget_agent.models import (
+from agent.native_budget.models import (
     BudgetSnapshot,
     BudgetTimeSeries,
     SaveInfo,
     SnapshotResourceTotals,
 )
-from agent.native_budget_agent.tools import (
+from agent.native_budget.tools import (
     AgentDeps,
     create_deps,
     fetch_budget_data,

@@ -11,7 +11,7 @@ from agent.graphql_client import (
     GetDatesSaveGamestates,
     ListSavesSaves,
 )
-from agent.native_budget_agent.tools import (
+from agent.native_budget.tools import (
     AgentDeps,
     get_available_dates,
     get_gamestates_for_dates,
