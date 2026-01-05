@@ -7,19 +7,24 @@ from typing import Any
 import logfire
 
 from agent.constants import get_model_names
-from agent.evals.datasets.native_budget_agent import (
-    create_native_budget_agent_dataset,
+from agent.evals.datasets.native_budget import (
+    create_native_budget_dataset,
 )
-from agent.evals.datasets.root_cause_drop_detection import (
-    create_root_cause_drop_detection_dataset,
+from agent.evals.datasets.neighbor import (
+    create_neighbor_dataset,
 )
-from agent.evals.datasets.sandbox_drop_detection import (
-    create_sandbox_drop_detection_dataset,
+from agent.evals.datasets.root_cause import (
+    create_root_cause_dataset,
 )
-from agent.evals.native_budget_agent_runner import run_native_budget_agent_evals
-from agent.evals.root_cause_multi_agent_runner import run_root_cause_multi_agent_evals
-from agent.evals.root_cause_single_agent_runner import run_root_cause_single_agent_evals
-from agent.evals.sandbox_drop_detection_runner import run_sandbox_drop_detection_evals
+from agent.evals.datasets.sandbox import (
+    create_sandbox_dataset,
+)
+from agent.evals.native_budget_runner import run_native_budget_evals
+from agent.evals.neighbor_multi_runner import run_neighbor_multi_evals
+from agent.evals.neighbor_single_runner import run_neighbor_single_evals
+from agent.evals.root_cause_multi_runner import run_root_cause_multi_evals
+from agent.evals.root_cause_single_runner import run_root_cause_single_evals
+from agent.evals.sandbox_runner import run_sandbox_evals
 from agent.settings import Settings, get_settings
 
 
@@ -30,21 +35,29 @@ class DatasetConfig:
 
 
 AVAILABLE_DATASETS: dict[str, DatasetConfig] = {
-    "root_cause_multi_agent_drop_detection": DatasetConfig(
-        create=create_root_cause_drop_detection_dataset,
-        runner=run_root_cause_multi_agent_evals,
+    "root_cause_multi": DatasetConfig(
+        create=create_root_cause_dataset,
+        runner=run_root_cause_multi_evals,
     ),
-    "root_cause_single_agent_drop_detection": DatasetConfig(
-        create=create_root_cause_drop_detection_dataset,
-        runner=run_root_cause_single_agent_evals,
+    "root_cause_single": DatasetConfig(
+        create=create_root_cause_dataset,
+        runner=run_root_cause_single_evals,
     ),
-    "native_budget_agent": DatasetConfig(
-        create=create_native_budget_agent_dataset,
-        runner=run_native_budget_agent_evals,
+    "native_budget": DatasetConfig(
+        create=create_native_budget_dataset,
+        runner=run_native_budget_evals,
     ),
-    "sandbox_drop_detection": DatasetConfig(
-        create=create_sandbox_drop_detection_dataset,
-        runner=run_sandbox_drop_detection_evals,
+    "sandbox": DatasetConfig(
+        create=create_sandbox_dataset,
+        runner=run_sandbox_evals,
+    ),
+    "neighbor_multi": DatasetConfig(
+        create=create_neighbor_dataset,
+        runner=run_neighbor_multi_evals,
+    ),
+    "neighbor_single": DatasetConfig(
+        create=create_neighbor_dataset,
+        runner=run_neighbor_single_evals,
     ),
 }
 
@@ -59,11 +72,11 @@ def build_experiment_name(
 
 async def run_evals_for_models(
     dataset_name: str,
+    dataset: Any,
     models: list[str],
     settings: Settings,
 ) -> None:
     config = AVAILABLE_DATASETS[dataset_name]
-    dataset = config.create()
     runner = config.runner
     for model in models:
         print(f"\n{'=' * 60}")
@@ -80,14 +93,16 @@ async def run_evals_for_models(
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Run pydantic-ai evals for the budget agent",
+        description="Run pydantic-ai evals for budget and neighbor agents",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  budget-evals --dataset root_cause_multi_agent_drop_detection
-  budget-evals --dataset root_cause_single_agent_drop_detection
-  budget-evals --dataset native_budget_agent --model openai-responses:gpt-5.2-2025-12-11
-  budget-evals --dataset sandbox_drop_detection
+  budget-evals --dataset root_cause_multi
+  budget-evals --dataset root_cause_single
+  budget-evals --dataset native_budget --model openai-responses:gpt-5.2-2025-12-11
+  budget-evals --dataset sandbox
+  budget-evals --dataset neighbor_multi
+  budget-evals --dataset neighbor_single
   budget-evals --list-datasets
         """,
     )
@@ -108,6 +123,11 @@ Examples:
         "--list-datasets",
         action="store_true",
         help="List available eval datasets",
+    )
+    parser.add_argument(
+        "--case",
+        type=str,
+        help="Run only the specified case (by name)",
     )
 
     args = parser.parse_args()
@@ -133,9 +153,18 @@ Examples:
 
     dataset_name = args.dataset
     config = AVAILABLE_DATASETS[dataset_name]
+    dataset = config.create()
+
+    if args.case:
+        original_count = len(dataset.cases)
+        dataset.cases = [c for c in dataset.cases if c.name == args.case]
+        if not dataset.cases:
+            print(f"Error: Case '{args.case}' not found in dataset '{dataset_name}'")
+            print(f"Available cases: {[c.name for c in config.create().cases]}")
+            sys.exit(1)
+        print(f"Filtered to case '{args.case}' (1 of {original_count} cases)")
 
     if args.model:
-        dataset = config.create()
         experiment_name = build_experiment_name(dataset_name, args.model)
         asyncio.run(
             config.runner(
@@ -149,6 +178,7 @@ Examples:
         asyncio.run(
             run_evals_for_models(
                 dataset_name,
+                dataset,
                 get_model_names(),
                 settings,
             ),

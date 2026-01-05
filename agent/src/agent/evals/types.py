@@ -2,6 +2,7 @@ from collections.abc import Awaitable, Callable
 from typing import TypedDict
 
 from agent.models import MultiAgentAnalysisResult, SuddenDropAnalysisResult
+from agent.neighbor import NeighborAnalysisResult
 
 
 class EvalInputs(TypedDict):
@@ -19,3 +20,4 @@ class EvalMetadata(TypedDict):
 
 EvalTask = Callable[[EvalInputs], Awaitable[MultiAgentAnalysisResult]]
 LegacyEvalTask = Callable[[EvalInputs], Awaitable[SuddenDropAnalysisResult]]
+NeighborEvalTask = Callable[[EvalInputs], Awaitable[NeighborAnalysisResult]]
