@@ -104,6 +104,10 @@ After Python changes: `npm run typecheck:python && npm run lint:python && npm ru
 - Never force push, hard reset, or skip hooks unless requested
 - Never amend other developers' commits
 
+## Git Commits
+
+When committing code, first read and follow the instructions in `.claude/commands/commit.md`. Key rules: use `{type}: message` format (feat/fix/refactor/docs/style/test/build), focus on "why" not "how", no emojis or attribution lines, split logically distinct changes into separate commits.
+
 ## GraphQL Schema Changes
 
 When modifying `graphql/schema.graphql`:
