@@ -29,6 +29,9 @@ services:
       - user-cache:/home/vscode/.cache
       - agent-venv:/workspace/agent/.venv
       - local-share-uv:/home/vscode/.local/share/uv
+      - gh-config:/home/vscode/.config/gh
+      - gh-state:/home/vscode/.local/state/gh
+      - gh-data:/home/vscode/.local/share/gh
 
   db:
     image: postgres:18@sha256:bfe50b2b0ddd9b55eadedd066fe24c7c6fe06626185b73358c480ea37868024d
@@ -238,3 +241,9 @@ volumes:
     name: stellaris-stats_user-cache
   agent-venv:
     name: stellaris-stats_agent-venv
+  gh-config:
+    name: stellaris-stats_gh-config
+  gh-state:
+    name: stellaris-stats_gh-state
+  gh-data:
+    name: stellaris-stats_gh-data
