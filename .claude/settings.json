@@ -94,5 +94,10 @@
     "deny": [
       "Read(/**/.env.keys)"
     ]
+  },
+  "statusLine": {
+    "command": "bun x ccusage statusline",
+    "padding": 0,
+    "type": "command"
   }
 }
