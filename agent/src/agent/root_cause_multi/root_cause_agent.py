@@ -36,6 +36,7 @@ def get_root_cause_agent(
         output_type=wrap_output_type(RootCauseAnalysisResult),
         system_prompt=build_root_cause_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
+        name="root_cause_agent",
     )
 
 

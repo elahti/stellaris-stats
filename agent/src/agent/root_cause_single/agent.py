@@ -32,6 +32,7 @@ def get_single_agent(
         output_type=wrap_output_type(MultiAgentAnalysisResult),
         system_prompt=build_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
+        name="root_cause_single_agent",
     )
 
 

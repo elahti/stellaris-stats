@@ -49,6 +49,7 @@ def get_neighbor_detection_agent(
         output_type=wrap_output_type(NeighborDetectionResult),
         system_prompt=build_neighbor_detection_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
+        name="neighbor_detection_agent",
     )
 
 
@@ -65,6 +66,7 @@ def get_opinion_analysis_agent(
         output_type=wrap_output_type(OpinionAnalysisResult),
         system_prompt=build_opinion_analysis_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
+        name="opinion_analysis_agent",
     )
 
 

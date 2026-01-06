@@ -111,6 +111,7 @@ def create_native_budget_agent(
         deps_type=AgentDeps,
         output_type=wrap_output_type(SuddenDropAnalysisResult),
         system_prompt=build_system_prompt(),
+        name="native_budget_agent",
     )
     _register_tools(agent)
     return agent

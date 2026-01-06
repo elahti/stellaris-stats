@@ -36,6 +36,7 @@ def get_sandbox_drop_detection_agent(
         output_type=wrap_output_type(SuddenDropAnalysisResult),
         system_prompt=build_system_prompt(settings.graphql_url),
         toolsets=[mcp_server],
+        name="sandbox_drop_detection_agent",
     )
 
 
