@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import asyncio
 from dataclasses import dataclass
 
 from pydantic_ai import Agent
@@ -85,7 +84,6 @@ async def run_root_cause_multi_agent_orchestration(
     save_filename: str,
     settings: Settings | None = None,
     model_name: str | None = None,
-    parallel_root_cause: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -115,29 +113,15 @@ async def run_root_cause_multi_agent_orchestration(
         # Phase 2: Run root cause analysis for each drop
         drops_with_causes: list[SuddenDropWithRootCause] = []
 
-        if drop_analysis.sudden_drops:
-            if parallel_root_cause:
-                tasks = [
-                    analyze_single_drop(
-                        drop=drop,
-                        save_filename=save_filename,
-                        mcp_server=mcp_server,
-                        settings=settings,
-                        model_name=model_name,
-                    )
-                    for drop in drop_analysis.sudden_drops
-                ]
-                drops_with_causes = list(await asyncio.gather(*tasks))
-            else:
-                for drop in drop_analysis.sudden_drops:
-                    result = await analyze_single_drop(
-                        drop=drop,
-                        save_filename=save_filename,
-                        mcp_server=mcp_server,
-                        settings=settings,
-                        model_name=model_name,
-                    )
-                    drops_with_causes.append(result)
+        for drop in drop_analysis.sudden_drops:
+            result = await analyze_single_drop(
+                drop=drop,
+                save_filename=save_filename,
+                mcp_server=mcp_server,
+                settings=settings,
+                model_name=model_name,
+            )
+            drops_with_causes.append(result)
 
         # Build final result
         successful_analyses = sum(

@@ -80,7 +80,6 @@ async def run_neighbor_multi_eval(
                 save_filename=inputs["save_filename"],
                 settings=eval_settings,
                 model_name=model_name,
-                parallel_analysis=False,
             )
     except Exception as e:
         logfire.error(f"Neighbor multi eval failed: {e!r}")

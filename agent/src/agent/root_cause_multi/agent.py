@@ -19,7 +19,6 @@ async def run_root_cause_multi_agent_analysis(
     save_filename: str,
     model_name: str | None = None,
     settings: Settings | None = None,
-    parallel_root_cause: bool = False,
 ) -> MultiAgentAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -27,5 +26,4 @@ async def run_root_cause_multi_agent_analysis(
         save_filename=save_filename,
         settings=settings,
         model_name=model_name,
-        parallel_root_cause=parallel_root_cause,
     )

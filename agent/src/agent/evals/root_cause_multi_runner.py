@@ -80,7 +80,6 @@ async def run_root_cause_multi_eval(
                 save_filename=inputs["save_filename"],
                 settings=eval_settings,
                 model_name=model_name,
-                parallel_root_cause=False,
             )
     except Exception as e:
         logfire.error(f"Root cause multi eval failed: {e!r}")

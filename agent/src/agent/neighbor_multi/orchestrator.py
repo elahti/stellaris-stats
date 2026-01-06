@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import asyncio
 from dataclasses import dataclass
 
 from pydantic_ai import Agent
@@ -102,7 +101,6 @@ async def run_neighbor_multi_agent_orchestration(
     save_filename: str,
     settings: Settings | None = None,
     model_name: str | None = None,
-    parallel_analysis: bool = False,
 ) -> NeighborAnalysisResult:
     if settings is None:
         settings = get_settings()
@@ -128,77 +126,61 @@ async def run_neighbor_multi_agent_orchestration(
         neighbors: list[NeighborInfo] = []
         all_findings: list[KeyFinding] = []
 
-        if detection.detected_neighbors:
-            results: list[AnalysisResultTuple]
-            if parallel_analysis:
-                tasks = [
-                    analyze_single_neighbor(
-                        neighbor=neighbor,
-                        save_filename=save_filename,
-                        mcp_server=mcp_server,
-                        deps=deps,
-                        model_name=actual_model,
-                        settings=settings,
-                    )
-                    for neighbor in detection.detected_neighbors
-                ]
-                results = list(await asyncio.gather(*tasks))
-            else:
-                results = []
-                for neighbor in detection.detected_neighbors:
-                    result = await analyze_single_neighbor(
-                        neighbor=neighbor,
-                        save_filename=save_filename,
-                        mcp_server=mcp_server,
-                        deps=deps,
-                        model_name=actual_model,
-                        settings=settings,
-                    )
-                    results.append(result)
+        results: list[AnalysisResultTuple] = []
+        for neighbor in detection.detected_neighbors:
+            result = await analyze_single_neighbor(
+                neighbor=neighbor,
+                save_filename=save_filename,
+                mcp_server=mcp_server,
+                deps=deps,
+                model_name=actual_model,
+                settings=settings,
+            )
+            results.append(result)
 
-            for neighbor, opinion_result, _error in results:
-                if opinion_result:
-                    neighbors.append(
-                        NeighborInfo(
-                            country_id=neighbor.country_id,
-                            name=neighbor.name,
-                            min_distance=neighbor.min_distance,
-                            owned_planet_count=neighbor.owned_planet_count,
-                            opinion=opinion_result.opinion,
-                            trust=opinion_result.trust,
-                            threat=opinion_result.threat,
-                            is_hostile=opinion_result.is_hostile,
-                            opinion_modifiers=[
-                                OpinionModifier(
-                                    modifier_type=m.modifier_type,
-                                    value=m.value,
-                                )
-                                for m in opinion_result.opinion_modifiers
-                            ],
-                        ),
+        for neighbor, opinion_result, _error in results:
+            if opinion_result:
+                neighbors.append(
+                    NeighborInfo(
+                        country_id=neighbor.country_id,
+                        name=neighbor.name,
+                        min_distance=neighbor.min_distance,
+                        owned_planet_count=neighbor.owned_planet_count,
+                        opinion=opinion_result.opinion,
+                        trust=opinion_result.trust,
+                        threat=opinion_result.threat,
+                        is_hostile=opinion_result.is_hostile,
+                        opinion_modifiers=[
+                            OpinionModifier(
+                                modifier_type=m.modifier_type,
+                                value=m.value,
+                            )
+                            for m in opinion_result.opinion_modifiers
+                        ],
+                    ),
+                )
+                all_findings.extend(
+                    KeyFinding(
+                        finding_type=finding.finding_type,
+                        description=finding.description,
+                        severity=finding.severity,
                     )
-                    all_findings.extend(
-                        KeyFinding(
-                            finding_type=finding.finding_type,
-                            description=finding.description,
-                            severity=finding.severity,
-                        )
-                        for finding in opinion_result.findings
-                    )
-                else:
-                    neighbors.append(
-                        NeighborInfo(
-                            country_id=neighbor.country_id,
-                            name=neighbor.name,
-                            min_distance=neighbor.min_distance,
-                            owned_planet_count=neighbor.owned_planet_count,
-                            opinion=None,
-                            trust=None,
-                            threat=None,
-                            is_hostile=None,
-                            opinion_modifiers=[],
-                        ),
-                    )
+                    for finding in opinion_result.findings
+                )
+            else:
+                neighbors.append(
+                    NeighborInfo(
+                        country_id=neighbor.country_id,
+                        name=neighbor.name,
+                        min_distance=neighbor.min_distance,
+                        owned_planet_count=neighbor.owned_planet_count,
+                        opinion=None,
+                        trust=None,
+                        threat=None,
+                        is_hostile=None,
+                        opinion_modifiers=[],
+                    ),
+                )
 
         # Build summary
         summary_parts: list[str] = []

@@ -213,15 +213,11 @@ async def run_analysis_async(
     save_filename: str,
     *,
     raw: bool = False,
-    parallel: bool = False,
 ) -> None:
     result: MultiAgentAnalysisResult | SuddenDropAnalysisResult | NeighborAnalysisResult
 
     if analysis_type == "root-cause-multi":
-        result = await run_root_cause_multi_agent_analysis(
-            save_filename,
-            parallel_root_cause=parallel,
-        )
+        result = await run_root_cause_multi_agent_analysis(save_filename)
         if raw:
             print(json.dumps(result.model_dump(), indent=2, default=str))
         else:
@@ -249,10 +245,7 @@ async def run_analysis_async(
             print_sudden_drop_result(sandbox_result.output)
 
     elif analysis_type == "neighbor-multi":
-        result = await run_neighbor_multi_agent_orchestration(
-            save_filename,
-            parallel_analysis=parallel,
-        )
+        result = await run_neighbor_multi_agent_orchestration(save_filename)
         if raw:
             print(json.dumps(result.model_dump(), indent=2, default=str))
         else:
@@ -269,7 +262,6 @@ async def run_analysis_async(
 def cmd_analyze(args: argparse.Namespace) -> None:
     settings = get_settings()
     configure_logfire(settings)
-    parallel = getattr(args, "parallel", False)
 
     try:
         asyncio.run(
@@ -277,7 +269,6 @@ def cmd_analyze(args: argparse.Namespace) -> None:
                 args.type,
                 args.save,
                 raw=args.raw,
-                parallel=parallel,
             ),
         )
     except Exception as e:
@@ -315,7 +306,7 @@ Examples:
   agent analyze --type root-cause-single --save commonwealthofman_1251622081
   agent analyze --type native-budget --save commonwealthofman_1251622081
   agent analyze --type sandbox --save commonwealthofman_1251622081
-  agent analyze --type neighbor-multi --save commonwealthofman_1251622081 --parallel
+  agent analyze --type neighbor-multi --save commonwealthofman_1251622081
   agent analyze --type neighbor-single --save commonwealthofman_1251622081
   agent analyze --type root-cause-multi --save commonwealthofman_1251622081 --raw
         """,
@@ -337,11 +328,6 @@ Examples:
         "--raw",
         action="store_true",
         help="Print raw JSON output instead of formatted report",
-    )
-    analyze_parser.add_argument(
-        "--parallel",
-        action="store_true",
-        help="Run analyses in parallel (root-cause-multi, neighbor-multi only)",
     )
     analyze_parser.set_defaults(func=cmd_analyze)
 
