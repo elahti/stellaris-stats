@@ -96,7 +96,7 @@
     ]
   },
   "statusLine": {
-    "command": "bun x ccusage statusline",
+    "command": "bun x ccusage statusline --cost-source cc",
     "padding": 0,
     "type": "command"
   }
