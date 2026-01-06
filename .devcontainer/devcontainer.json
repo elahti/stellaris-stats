@@ -147,6 +147,9 @@
     }
   },
   "dockerComposeFile": "docker-compose.yml",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
   "forwardPorts": [
     4000, // GraphQL server
     4001, // GraphQL MCP server
