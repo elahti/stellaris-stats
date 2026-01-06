@@ -1072,10 +1072,7 @@ export const typeDefs = {
           arguments: [],
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
           },
           directives: [],
         },
@@ -1187,6 +1184,25 @@ export const typeDefs = {
         },
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'ownedPlanetIds' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'Int' },
+                },
+              },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'controlledPlanetCount' },
           arguments: [],
           type: {
@@ -1214,6 +1230,43 @@ export const typeDefs = {
           name: { kind: 'Name', value: 'techPower' },
           arguments: [],
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          directives: [],
+        },
+      ],
+    },
+    {
+      kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'OpinionModifier' },
+      interfaces: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [],
+        },
+      ],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'modifierType' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'value' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          },
           directives: [],
         },
       ],
@@ -1317,6 +1370,25 @@ export const typeDefs = {
           },
           directives: [],
         },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'opinionModifiers' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'OpinionModifier' },
+                },
+              },
+            },
+          },
+          directives: [],
+        },
       ],
     },
     {
@@ -1368,6 +1440,57 @@ export const typeDefs = {
               name: { kind: 'Name', value: 'BudgetCategory' },
             },
           },
+          directives: [],
+        },
+      ],
+    },
+    {
+      kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'AllPlanetCoordinate' },
+      interfaces: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [],
+        },
+      ],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'planetId' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'x' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'y' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'systemId' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
           directives: [],
         },
       ],
@@ -1478,6 +1601,25 @@ export const typeDefs = {
                 type: {
                   kind: 'NamedType',
                   name: { kind: 'Name', value: 'DiplomaticRelation' },
+                },
+              },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'allPlanetCoordinates' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'AllPlanetCoordinate' },
                 },
               },
             },

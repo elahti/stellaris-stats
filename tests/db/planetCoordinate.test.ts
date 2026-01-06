@@ -98,7 +98,7 @@ describe('Planet Coordinate Module', () => {
           gamestate!.gamestateId,
         ])
         const coordinates = result.get(gamestate!.gamestateId)
-        const coord = coordinates?.get('7')
+        const coord = coordinates?.get(7)
 
         expect(coord?.x).toBe(-56.82)
         expect(coord?.y).toBe(85.08)

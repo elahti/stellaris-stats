@@ -6,14 +6,29 @@ import sys
 import logfire
 
 from agent.constants import get_model_names
-from agent.models import MultiAgentAnalysisResult
-from agent.root_cause_multi_agent.agent import run_root_cause_multi_agent_analysis
+from agent.models import MultiAgentAnalysisResult, SuddenDropAnalysisResult
+from agent.native_budget import run_native_budget_analysis
+from agent.neighbor import NeighborAnalysisResult
+from agent.neighbor_multi import run_neighbor_multi_agent_orchestration
+from agent.neighbor_single import run_neighbor_single_agent_analysis
+from agent.root_cause_multi.agent import run_root_cause_multi_agent_analysis
+from agent.root_cause_single import run_root_cause_single_agent_analysis
+from agent.sandbox import run_sandbox_drop_detection_analysis
 from agent.settings import Settings, get_settings
 
+ANALYSIS_TYPES = [
+    "root-cause-multi",
+    "root-cause-single",
+    "native-budget",
+    "sandbox",
+    "neighbor-multi",
+    "neighbor-single",
+]
 
-def print_analysis_result(result: MultiAgentAnalysisResult) -> None:
+
+def print_multi_agent_result(result: MultiAgentAnalysisResult) -> None:
     print("=" * 60)
-    print("STELLARIS MULTI-AGENT ANALYSIS REPORT")
+    print("STELLARIS BUDGET ANALYSIS REPORT")
     print("=" * 60)
     print(f"Save: {result.save_filename}")
     print(f"Period: {result.analysis_period_start} to {result.analysis_period_end}")
@@ -74,6 +89,102 @@ def print_analysis_result(result: MultiAgentAnalysisResult) -> None:
     print("\n" + "=" * 60)
 
 
+def print_sudden_drop_result(result: SuddenDropAnalysisResult) -> None:
+    print("=" * 60)
+    print("STELLARIS DROP DETECTION REPORT")
+    print("=" * 60)
+    print(f"Save: {result.save_filename}")
+    print(f"Period: {result.analysis_period_start} to {result.analysis_period_end}")
+    print(f"Datapoints: {result.datapoints_analyzed}")
+    print(f"Threshold: {result.drop_threshold_percent}% drop")
+    print("-" * 60)
+    print(f"\nSummary: {result.summary}")
+
+    for drop in result.sudden_drops:
+        print(f"\n{'=' * 60}")
+        print(f"[{drop.resource}]")
+        print("-" * 40)
+
+        color_start = ""
+        color_end = ""
+        if sys.stdout.isatty():
+            color_start = "\033[91m"
+            color_end = "\033[0m"
+
+        print(
+            f"  {color_start}Drop: {drop.drop_percent:.1f}% "
+            + f"({drop.drop_absolute:.2f}){color_end}",
+        )
+        print(f"    Start ({drop.start_date}): {drop.start_value:.2f}")
+        print(f"    End ({drop.end_date}): {drop.end_value:.2f}")
+
+    if not result.sudden_drops:
+        print("\nNo sudden drops detected.")
+
+    print("\n" + "=" * 60)
+
+
+def print_neighbor_result(result: NeighborAnalysisResult) -> None:
+    print("=" * 60)
+    print("STELLARIS NEIGHBOR ANALYSIS REPORT")
+    print("=" * 60)
+    print(f"Save: {result.save_filename}")
+    print(f"Date: {result.analysis_date}")
+    print(f"Player: {result.player_empire_name}")
+    print(f"Owned Planets: {result.player_owned_planets}")
+    print("-" * 60)
+    print(f"\nSummary: {result.summary}")
+
+    if result.neighbors:
+        print("\n" + "-" * 60)
+        print("NEAREST NEIGHBORS (sorted by distance):")
+        print("-" * 60)
+
+        for neighbor in result.neighbors:
+            hostile_marker = " [HOSTILE]" if neighbor.is_hostile else ""
+            opinion_str = (
+                f"{neighbor.opinion:+.0f}" if neighbor.opinion is not None else "N/A"
+            )
+
+            print(f"\n  {neighbor.name}{hostile_marker}")
+            print(f"    Distance: {neighbor.min_distance:.1f}")
+            print(f"    Planets: {neighbor.owned_planet_count}")
+            print(f"    Opinion: {opinion_str}")
+
+            if neighbor.trust is not None:
+                print(f"    Trust: {neighbor.trust:+.0f}")
+            if neighbor.threat is not None:
+                print(f"    Threat: {neighbor.threat:.0f}")
+
+            if neighbor.opinion_modifiers:
+                print("    Opinion Modifiers:")
+                for mod in neighbor.opinion_modifiers:
+                    print(f"      - {mod.modifier_type}: {mod.value:+.0f}")
+
+    if result.key_findings:
+        print("\n" + "-" * 60)
+        print("KEY FINDINGS:")
+        print("-" * 60)
+
+        for finding in result.key_findings:
+            color_start = ""
+            color_end = ""
+            if sys.stdout.isatty():
+                if finding.severity == "critical":
+                    color_start = "\033[91m"
+                elif finding.severity == "warning":
+                    color_start = "\033[93m"
+                else:
+                    color_start = "\033[94m"
+                color_end = "\033[0m"
+
+            print(
+                f"  {color_start}[{finding.severity.upper()}]{color_end} {finding.description}",
+            )
+
+    print("\n" + "=" * 60)
+
+
 def configure_logfire(settings: Settings) -> None:
     logfire.configure(
         service_name="stellaris-stats-agent",
@@ -98,32 +209,80 @@ async def run_list_saves_async(settings: Settings) -> None:
 
 
 async def run_analysis_async(
+    analysis_type: str,
     save_filename: str,
     *,
     raw: bool = False,
     parallel: bool = False,
 ) -> None:
-    result = await run_root_cause_multi_agent_analysis(
-        save_filename,
-        parallel_root_cause=parallel,
-    )
-    if raw:
-        print(json.dumps(result.model_dump(), indent=2, default=str))
-    else:
-        print_analysis_result(result)
+    result: MultiAgentAnalysisResult | SuddenDropAnalysisResult | NeighborAnalysisResult
+
+    if analysis_type == "root-cause-multi":
+        result = await run_root_cause_multi_agent_analysis(
+            save_filename,
+            parallel_root_cause=parallel,
+        )
+        if raw:
+            print(json.dumps(result.model_dump(), indent=2, default=str))
+        else:
+            print_multi_agent_result(result)
+
+    elif analysis_type == "root-cause-single":
+        result = await run_root_cause_single_agent_analysis(save_filename)
+        if raw:
+            print(json.dumps(result.model_dump(), indent=2, default=str))
+        else:
+            print_multi_agent_result(result)
+
+    elif analysis_type == "native-budget":
+        native_result = await run_native_budget_analysis(save_filename)
+        if raw:
+            print(json.dumps(native_result.output.model_dump(), indent=2, default=str))
+        else:
+            print_sudden_drop_result(native_result.output)
+
+    elif analysis_type == "sandbox":
+        sandbox_result = await run_sandbox_drop_detection_analysis(save_filename)
+        if raw:
+            print(json.dumps(sandbox_result.output.model_dump(), indent=2, default=str))
+        else:
+            print_sudden_drop_result(sandbox_result.output)
+
+    elif analysis_type == "neighbor-multi":
+        result = await run_neighbor_multi_agent_orchestration(
+            save_filename,
+            parallel_analysis=parallel,
+        )
+        if raw:
+            print(json.dumps(result.model_dump(), indent=2, default=str))
+        else:
+            print_neighbor_result(result)
+
+    elif analysis_type == "neighbor-single":
+        result = await run_neighbor_single_agent_analysis(save_filename)
+        if raw:
+            print(json.dumps(result.model_dump(), indent=2, default=str))
+        else:
+            print_neighbor_result(result)
 
 
 def cmd_analyze(args: argparse.Namespace) -> None:
     settings = get_settings()
     configure_logfire(settings)
     parallel = getattr(args, "parallel", False)
-    asyncio.run(
-        run_analysis_async(
-            args.save,
-            raw=args.raw,
-            parallel=parallel,
-        ),
-    )
+
+    try:
+        asyncio.run(
+            run_analysis_async(
+                args.type,
+                args.save,
+                raw=args.raw,
+                parallel=parallel,
+            ),
+        )
+    except Exception as e:
+        print(f"Error running analysis: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 def cmd_list_saves(args: argparse.Namespace) -> None:
@@ -148,14 +307,25 @@ def main() -> None:
 
     analyze_parser = subparsers.add_parser(
         "analyze",
-        help="Analyze a save file for sudden budget drops",
+        help="Analyze a save file using various agent types",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  agent analyze --save commonwealthofman_1251622081
-  agent analyze --save commonwealthofman_1251622081 --raw
-  agent analyze --save commonwealthofman_1251622081 --parallel
+  agent analyze --type root-cause-multi --save commonwealthofman_1251622081
+  agent analyze --type root-cause-single --save commonwealthofman_1251622081
+  agent analyze --type native-budget --save commonwealthofman_1251622081
+  agent analyze --type sandbox --save commonwealthofman_1251622081
+  agent analyze --type neighbor-multi --save commonwealthofman_1251622081 --parallel
+  agent analyze --type neighbor-single --save commonwealthofman_1251622081
+  agent analyze --type root-cause-multi --save commonwealthofman_1251622081 --raw
         """,
+    )
+    analyze_parser.add_argument(
+        "--type",
+        type=str,
+        choices=ANALYSIS_TYPES,
+        required=True,
+        help="Analysis type to run",
     )
     analyze_parser.add_argument(
         "--save",
@@ -171,7 +341,7 @@ Examples:
     analyze_parser.add_argument(
         "--parallel",
         action="store_true",
-        help="Run root cause analyses in parallel",
+        help="Run analyses in parallel (root-cause-multi, neighbor-multi only)",
     )
     analyze_parser.set_defaults(func=cmd_analyze)
 

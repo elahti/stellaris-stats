@@ -64,7 +64,7 @@ export const populatePlanetCoordinateTables = async (
     try {
       await client.query(insertCoordinateQuery, [
         gamestateId,
-        planetId,
+        parseInt(planetId, 10),
         coord.x,
         coord.y,
         coord.origin ?? null,

@@ -5,6 +5,7 @@ import asyncpg
 
 from scripts.generate_sql_fixture import (
     BUDGET_ENTRY_COLUMNS,
+    FixtureData,
     generate_sql_statements,
     sql_num,
     sql_str,
@@ -81,14 +82,33 @@ class TestGenerateSqlStatements:
         mock.__getitem__ = get_item
         return mock
 
+    def _create_fixture_data(
+        self,
+        save: asyncpg.Record,
+        gamestates: list[asyncpg.Record] | None = None,
+        budget_data: list[asyncpg.Record] | None = None,
+    ) -> FixtureData:
+        return FixtureData(
+            save=save,
+            gamestates=gamestates or [],
+            budget_data=budget_data or [],
+            planet_coordinates=[],
+            empires=[],
+            empire_planets=[],
+            diplomatic_relations=[],
+            opinion_modifiers=[],
+        )
+
     def test_includes_header_comment_with_description(self) -> None:
         save = self._create_mock_record({"filename": "test.sav", "name": "Test Save"})
-        result = generate_sql_statements(save, [], [], "Test fixture description")
+        data = self._create_fixture_data(save)
+        result = generate_sql_statements(data, "Test fixture description")
         assert "-- Test fixture description" in result
 
     def test_includes_generated_timestamp(self) -> None:
         save = self._create_mock_record({"filename": "test.sav", "name": "Test Save"})
-        result = generate_sql_statements(save, [], [], "")
+        data = self._create_fixture_data(save)
+        result = generate_sql_statements(data, "")
         assert "-- Generated:" in result
 
     def test_includes_gamestate_count(self) -> None:
@@ -97,7 +117,8 @@ class TestGenerateSqlStatements:
             self._create_mock_record({"gamestate_id": 1, "date": datetime(2200, 1, 1)}),
             self._create_mock_record({"gamestate_id": 2, "date": datetime(2200, 2, 1)}),
         ]
-        result = generate_sql_statements(save, gamestates, [], "")
+        data = self._create_fixture_data(save, gamestates=gamestates)
+        result = generate_sql_statements(data, "")
         assert "-- Gamestates: 2" in result
 
     def test_includes_budget_entry_count(self) -> None:
@@ -113,7 +134,12 @@ class TestGenerateSqlStatements:
         gamestates = [
             self._create_mock_record({"gamestate_id": 1, "date": datetime(2200, 1, 1)}),
         ]
-        result = generate_sql_statements(save, gamestates, budget_data, "")
+        data = self._create_fixture_data(
+            save,
+            gamestates=gamestates,
+            budget_data=budget_data,
+        )
+        result = generate_sql_statements(data, "")
         assert "-- Budget entries: 1" in result
 
     def test_generates_save_insert(self) -> None:
@@ -121,7 +147,8 @@ class TestGenerateSqlStatements:
             "filename": "commonwealth_123",
             "name": "Commonwealth",
         })
-        result = generate_sql_statements(save, [], [], "")
+        data = self._create_fixture_data(save)
+        result = generate_sql_statements(data, "")
         assert (
             "INSERT INTO save (filename, name) VALUES ('commonwealth_123', 'Commonwealth');"
             in result
@@ -132,7 +159,8 @@ class TestGenerateSqlStatements:
             "filename": "test.sav",
             "name": "Player's Empire",
         })
-        result = generate_sql_statements(save, [], [], "")
+        data = self._create_fixture_data(save)
+        result = generate_sql_statements(data, "")
         assert "'Player''s Empire'" in result
 
     def test_generates_gamestate_inserts(self) -> None:
@@ -140,7 +168,8 @@ class TestGenerateSqlStatements:
         gamestates = [
             self._create_mock_record({"gamestate_id": 1, "date": datetime(2200, 1, 1)}),
         ]
-        result = generate_sql_statements(save, gamestates, [], "")
+        data = self._create_fixture_data(save, gamestates=gamestates)
+        result = generate_sql_statements(data, "")
         assert "INSERT INTO gamestate" in result
         assert "2200-01-01" in result
 
@@ -159,7 +188,12 @@ class TestGenerateSqlStatements:
                 **budget_entry_values,
             }),
         ]
-        result = generate_sql_statements(save, gamestates, budget_data, "")
+        data = self._create_fixture_data(
+            save,
+            gamestates=gamestates,
+            budget_data=budget_data,
+        )
+        result = generate_sql_statements(data, "")
         assert "INSERT INTO budget_entry" in result
         assert "100.5" in result
 
@@ -176,7 +210,12 @@ class TestGenerateSqlStatements:
                 **dict.fromkeys(BUDGET_ENTRY_COLUMNS, 0.0),
             }),
         ]
-        result = generate_sql_statements(save, gamestates, budget_data, "")
+        data = self._create_fixture_data(
+            save,
+            gamestates=gamestates,
+            budget_data=budget_data,
+        )
+        result = generate_sql_statements(data, "")
         assert "INSERT INTO budget_category" in result
         assert "'income'" in result
         assert "'trade_value'" in result
@@ -195,7 +234,12 @@ class TestGenerateSqlStatements:
                 **budget_entry_values,
             }),
         ]
-        result = generate_sql_statements(save, gamestates, budget_data, "")
+        data = self._create_fixture_data(
+            save,
+            gamestates=gamestates,
+            budget_data=budget_data,
+        )
+        result = generate_sql_statements(data, "")
         assert "NULL" in result
 
     def test_uses_all_twenty_budget_columns(self) -> None:

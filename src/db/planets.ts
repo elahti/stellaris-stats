@@ -14,7 +14,7 @@ SELECT
       'planet_name',
       planet_extract.planet_data -> 'name' ->> 'key',
       'planet_id',
-      planet_extract.planet_id,
+      planet_extract.planet_id::INTEGER,
       'profits',
       JSONB_BUILD_OBJECT(
         'income',
@@ -49,7 +49,7 @@ FROM
       )
   ) AS planet_extract
   LEFT JOIN planet_coordinate pc
-    ON pc.gamestate_id = g.gamestate_id AND pc.planet_id = planet_extract.planet_id
+    ON pc.gamestate_id = g.gamestate_id AND pc.planet_id = planet_extract.planet_id::INTEGER
 WHERE
   g.gamestate_id = ANY($1)
 GROUP BY

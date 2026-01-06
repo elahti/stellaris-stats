@@ -3,6 +3,13 @@ directive @cacheControl(
   scope: CacheControlScope
 ) on FIELD_DEFINITION | INTERFACE | OBJECT
 
+type AllPlanetCoordinate {
+  planetId: Int!
+  systemId: Int
+  x: Float!
+  y: Float!
+}
+
 type Budget {
   balance: BudgetCategory!
   expenses: BudgetCategory!
@@ -129,6 +136,7 @@ type DiplomaticRelation {
   hasContact: Boolean!
   isHostile: Boolean!
   opinion: Float
+  opinionModifiers: [OpinionModifier!]!
   targetCountryId: String!
   targetEmpireName: String
   threat: Float
@@ -144,10 +152,12 @@ type Empire {
   militaryPower: Float
   name: String!
   ownedPlanetCount: Int!
+  ownedPlanetIds: [Int!]!
   techPower: Float
 }
 
 type Gamestate {
+  allPlanetCoordinates: [AllPlanetCoordinate!]!
   budget: Budget!
   date: DateTimeISO!
   diplomaticRelations: [DiplomaticRelation!]!
@@ -157,9 +167,14 @@ type Gamestate {
   playerEmpire: Empire
 }
 
+type OpinionModifier {
+  modifierType: String!
+  value: Float!
+}
+
 type Planet {
   coordinate: Coordinate
-  planetId: String!
+  planetId: Int!
   planetName: String!
   profits: PlanetProduction!
 }

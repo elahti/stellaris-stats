@@ -107,6 +107,7 @@ services:
       - stellaris-stats-mcp-run-python-network
     ports:
       - 4002:4002
+    restart: unless-stopped
 
   grafana:
     container_name: stellaris-stats_grafana

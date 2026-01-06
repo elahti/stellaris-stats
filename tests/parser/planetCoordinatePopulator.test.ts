@@ -62,7 +62,7 @@ describe('Planet Coordinate Populator', () => {
 
         const result = await getPlanetCoordinatesBatch(client, [gamestateId])
         const coordinates = result.get(gamestateId)
-        const coord = coordinates?.get('7')
+        const coord = coordinates?.get(7)
 
         expect(coord?.x).toBe(-56.82)
         expect(coord?.y).toBe(85.08)
@@ -123,7 +123,7 @@ describe('Planet Coordinate Populator', () => {
 
         const result = await getPlanetCoordinatesBatch(client, [gamestateId])
         const coordinates = result.get(gamestateId)
-        const coord = coordinates?.get('7')
+        const coord = coordinates?.get(7)
 
         expect(coord?.x).toBe(100.0)
         expect(coord?.y).toBe(-50.0)
@@ -184,7 +184,7 @@ describe('Planet Coordinate Populator', () => {
 
         const result = await getPlanetCoordinatesBatch(client, [gamestateId])
         const coordinates = result.get(gamestateId)
-        const coord = coordinates?.get('7')
+        const coord = coordinates?.get(7)
 
         expect(coord?.x).toBe(-100.5)
         expect(coord?.y).toBe(-200.25)

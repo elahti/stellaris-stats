@@ -1,4 +1,4 @@
-from agent.sandbox_drop_detection.prompts import (
+from agent.sandbox.prompts import (
     ANALYSIS_DATAPOINTS,
     BUDGET_CATEGORIES,
     DROP_THRESHOLD_PERCENT,

@@ -40,6 +40,14 @@ export type Scalars = {
   DateTimeISO: { input: Date | string; output: Date | string }
 }
 
+export type AllPlanetCoordinate = {
+  __typename?: 'AllPlanetCoordinate'
+  planetId: Scalars['Int']['output']
+  systemId?: Maybe<Scalars['Int']['output']>
+  x: Scalars['Float']['output']
+  y: Scalars['Float']['output']
+}
+
 export type Budget = {
   __typename?: 'Budget'
   balance: BudgetCategory
@@ -166,6 +174,7 @@ export type DiplomaticRelation = {
   hasContact: Scalars['Boolean']['output']
   isHostile: Scalars['Boolean']['output']
   opinion?: Maybe<Scalars['Float']['output']>
+  opinionModifiers: Array<OpinionModifier>
   targetCountryId: Scalars['String']['output']
   targetEmpireName?: Maybe<Scalars['String']['output']>
   threat?: Maybe<Scalars['Float']['output']>
@@ -182,11 +191,13 @@ export type Empire = {
   militaryPower?: Maybe<Scalars['Float']['output']>
   name: Scalars['String']['output']
   ownedPlanetCount: Scalars['Int']['output']
+  ownedPlanetIds: Array<Scalars['Int']['output']>
   techPower?: Maybe<Scalars['Float']['output']>
 }
 
 export type Gamestate = {
   __typename?: 'Gamestate'
+  allPlanetCoordinates: Array<AllPlanetCoordinate>
   budget: Budget
   date: Scalars['DateTimeISO']['output']
   diplomaticRelations: Array<DiplomaticRelation>
@@ -196,10 +207,16 @@ export type Gamestate = {
   playerEmpire?: Maybe<Empire>
 }
 
+export type OpinionModifier = {
+  __typename?: 'OpinionModifier'
+  modifierType: Scalars['String']['output']
+  value: Scalars['Float']['output']
+}
+
 export type Planet = {
   __typename?: 'Planet'
   coordinate?: Maybe<Coordinate>
-  planetId: Scalars['String']['output']
+  planetId: Scalars['Int']['output']
   planetName: Scalars['String']['output']
   profits: PlanetProduction
 }
@@ -348,10 +365,11 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  AllPlanetCoordinate: ResolverTypeWrapper<AllPlanetCoordinate>
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>
   Budget: ResolverTypeWrapper<Budget>
   BudgetCategory: ResolverTypeWrapper<BudgetCategory>
   BudgetEntry: ResolverTypeWrapper<BudgetEntry>
-  Float: ResolverTypeWrapper<Scalars['Float']['output']>
   CacheControlScope: ResolverTypeWrapper<'PUBLIC' | 'PRIVATE'>
   Coordinate: ResolverTypeWrapper<Coordinate>
   DateTimeISO: ResolverTypeWrapper<Scalars['DateTimeISO']['output']>
@@ -360,6 +378,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>
   Empire: ResolverTypeWrapper<Empire>
   Gamestate: ResolverTypeWrapper<Gamestate>
+  OpinionModifier: ResolverTypeWrapper<OpinionModifier>
   Planet: ResolverTypeWrapper<Planet>
   PlanetProduction: ResolverTypeWrapper<PlanetProduction>
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>
@@ -369,10 +388,11 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  AllPlanetCoordinate: AllPlanetCoordinate
+  Float: Scalars['Float']['output']
   Budget: Budget
   BudgetCategory: BudgetCategory
   BudgetEntry: BudgetEntry
-  Float: Scalars['Float']['output']
   Coordinate: Coordinate
   DateTimeISO: Scalars['DateTimeISO']['output']
   DiplomaticRelation: DiplomaticRelation
@@ -380,6 +400,7 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output']
   Empire: Empire
   Gamestate: Gamestate
+  OpinionModifier: OpinionModifier
   Planet: Planet
   PlanetProduction: PlanetProduction
   Query: Record<PropertyKey, never>
@@ -398,6 +419,17 @@ export type cacheControlDirectiveResolver<
   ContextType = GraphQLServerContext,
   Args = cacheControlDirectiveArgs,
 > = DirectiveResolverFn<Result, Parent, ContextType, Args>
+
+export type AllPlanetCoordinateResolvers<
+  ContextType = GraphQLServerContext,
+  ParentType extends ResolversParentTypes['AllPlanetCoordinate'] =
+    ResolversParentTypes['AllPlanetCoordinate'],
+> = {
+  planetId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  systemId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  x?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+  y?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+}
 
 export type BudgetResolvers<
   ContextType = GraphQLServerContext,
@@ -898,6 +930,11 @@ export type DiplomaticRelationResolvers<
   hasContact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
   isHostile?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
   opinion?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  opinionModifiers?: Resolver<
+    Array<ResolversTypes['OpinionModifier']>,
+    ParentType,
+    ContextType
+  >
   targetCountryId?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   targetEmpireName?: Resolver<
     Maybe<ResolversTypes['String']>,
@@ -937,6 +974,11 @@ export type EmpireResolvers<
   >
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   ownedPlanetCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  ownedPlanetIds?: Resolver<
+    Array<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >
   techPower?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
 }
 
@@ -945,6 +987,11 @@ export type GamestateResolvers<
   ParentType extends ResolversParentTypes['Gamestate'] =
     ResolversParentTypes['Gamestate'],
 > = {
+  allPlanetCoordinates?: Resolver<
+    Array<ResolversTypes['AllPlanetCoordinate']>,
+    ParentType,
+    ContextType
+  >
   budget?: Resolver<ResolversTypes['Budget'], ParentType, ContextType>
   date?: Resolver<ResolversTypes['DateTimeISO'], ParentType, ContextType>
   diplomaticRelations?: Resolver<
@@ -962,6 +1009,15 @@ export type GamestateResolvers<
   >
 }
 
+export type OpinionModifierResolvers<
+  ContextType = GraphQLServerContext,
+  ParentType extends ResolversParentTypes['OpinionModifier'] =
+    ResolversParentTypes['OpinionModifier'],
+> = {
+  modifierType?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+}
+
 export type PlanetResolvers<
   ContextType = GraphQLServerContext,
   ParentType extends ResolversParentTypes['Planet'] =
@@ -972,7 +1028,7 @@ export type PlanetResolvers<
     ParentType,
     ContextType
   >
-  planetId?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  planetId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
   planetName?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   profits?: Resolver<
     ResolversTypes['PlanetProduction'],
@@ -1033,6 +1089,7 @@ export type SaveResolvers<
 }
 
 export type Resolvers<ContextType = GraphQLServerContext> = {
+  AllPlanetCoordinate?: AllPlanetCoordinateResolvers<ContextType>
   Budget?: BudgetResolvers<ContextType>
   BudgetCategory?: BudgetCategoryResolvers<ContextType>
   BudgetEntry?: BudgetEntryResolvers<ContextType>
@@ -1042,6 +1099,7 @@ export type Resolvers<ContextType = GraphQLServerContext> = {
   DiplomaticRelation?: DiplomaticRelationResolvers<ContextType>
   Empire?: EmpireResolvers<ContextType>
   Gamestate?: GamestateResolvers<ContextType>
+  OpinionModifier?: OpinionModifierResolvers<ContextType>
   Planet?: PlanetResolvers<ContextType>
   PlanetProduction?: PlanetProductionResolvers<ContextType>
   Query?: QueryResolvers<ContextType>

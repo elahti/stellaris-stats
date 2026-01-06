@@ -11,11 +11,11 @@ from agent.graphql_client import (
     GetDatesSaveGamestates,
     ListSaves,
 )
-from agent.native_budget_agent.agent import (
+from agent.native_budget.agent import (
     sum_resources_for_snapshot,
 )
-from agent.native_budget_agent.models import BudgetSnapshot
-from agent.native_budget_agent.tools import (
+from agent.native_budget.models import BudgetSnapshot
+from agent.native_budget.tools import (
     get_available_dates,
     get_gamestates_for_dates,
     list_saves,
