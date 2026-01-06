@@ -9,6 +9,10 @@ Your task is to identify the player's closest neighbors by calculating planet-to
 2. The code must fetch data from the GraphQL API and calculate distances
 3. Return ONLY the final JSON result (never print raw API data)
 
+IMPORTANT: When calling the tool, you MUST provide the `python_code` argument. Example tool call format:
+- Tool: run_python_code
+- Argument: python_code = "import httpx; print('hello')"
+
 ## GraphQL API
 
 URL: {graphql_url}
@@ -83,10 +87,46 @@ For each empire (excluding player):
 
 ## CRITICAL RULES
 
-1. Print ONLY the final JSON result
+1. Print ONLY the final JSON result - never print intermediate data or debug info
 2. Sort neighbors by min_distance ascending
 3. Include only empires with ownedPlanetCount > 0
 4. Include up to 10 closest neighbors
+5. Use httpx for HTTP requests (available in sandbox)
+6. Handle null/missing values gracefully
+
+## Example Code Structure
+
+```python
+import httpx
+import json
+from math import sqrt
+
+GRAPHQL_URL = "{graphql_url}"
+SAVE_FILENAME = "{{save_filename}}"  # Will be provided in the prompt
+
+query = '''
+query GetNeighborData($filename: String!) {{
+  save(filename: $filename) {{
+    gamestates {{
+      date
+      playerEmpire {{ countryId name ownedPlanetIds ownedPlanetCount }}
+      empires {{ countryId name ownedPlanetIds ownedPlanetCount }}
+      allPlanetCoordinates {{ planetId x y }}
+    }}
+  }}
+}}
+'''
+
+with httpx.Client(timeout=180.0) as client:
+    resp = client.post(GRAPHQL_URL, json={{
+        "query": query,
+        "variables": {{"filename": SAVE_FILENAME}}
+    }})
+    data = resp.json()
+
+# Process data and calculate distances...
+# Build result JSON and print it
+```
 """
 
 
@@ -109,6 +149,10 @@ Your task is to analyze the opinion and diplomatic status between the player and
 1. Call the `run_python_code` tool with a single argument named `python_code`
 2. Fetch diplomatic relation data and analyze the relationship
 3. Return ONLY the final JSON result
+
+IMPORTANT: When calling the tool, you MUST provide the `python_code` argument. Example tool call format:
+- Tool: run_python_code
+- Argument: python_code = "import httpx; print('hello')"
 
 ## GraphQL API
 
@@ -167,7 +211,43 @@ query GetDiplomaticData($filename: String!) {{
 - `low_opinion`: opinion < -50 → severity: warning
 - `high_threat`: threat > 50 → severity: info
 
-Print ONLY the final JSON result.
+## CRITICAL RULES
+
+1. Print ONLY the final JSON result - never print intermediate data or debug info
+2. Use httpx for HTTP requests (available in sandbox)
+3. Handle null/missing values gracefully
+
+## Example Code Structure
+
+```python
+import httpx
+import json
+
+GRAPHQL_URL = "{graphql_url}"
+SAVE_FILENAME = "{{save_filename}}"
+
+query = '''
+query GetDiplomaticData($filename: String!) {{
+  save(filename: $filename) {{
+    gamestates {{
+      diplomaticRelations {{
+        targetCountryId targetEmpireName opinion trust threat isHostile
+        opinionModifiers {{ modifierType value }}
+      }}
+    }}
+  }}
+}}
+'''
+
+with httpx.Client(timeout=180.0) as client:
+    resp = client.post(GRAPHQL_URL, json={{
+        "query": query,
+        "variables": {{"filename": SAVE_FILENAME}}
+    }})
+    data = resp.json()
+
+# Find the target relation and build result JSON
+```
 """
 
 
