@@ -7,6 +7,7 @@ for DIR in \
   $HOME/.cache \
   $HOME/.claude \
   $HOME/.claude.json-volume \
+  $HOME/.config/ccstatusline \
   $HOME/.config/gh \
   $HOME/.local/share \
   $HOME/.local/state \

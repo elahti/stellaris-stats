@@ -96,7 +96,7 @@
     ]
   },
   "statusLine": {
-    "command": "bun x ccusage statusline --cost-source cc",
+    "command": "bunx -y ccstatusline@latest",
     "padding": 0,
     "type": "command"
   }
