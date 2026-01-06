@@ -52,8 +52,20 @@ git commit -m "Add support for parsing fleet compositions"
 
 ## Commit Message Rules
 
-- Imperative mood ("Add feature" not "Added feature")
-- Concise (50 chars or less for subject)
+Format:
+```
+{task-type}: brief description of the big picture change
+
+- Optional bullet points for complex changes
+- Focus on additional context if needed
+```
+
+Task types: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `build`
+
+Guidelines:
+- Focus on "why" and "what", not implementation details
+- First line should be concise (50 chars or less)
+- For complex changes, add bullet points after a blank line
 - No emojis, no attribution lines, no "Generated with Claude Code", no "Co-Authored-By"
 
 ## When to Combine (single commit is OK)
