@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pydantic_ai import Agent
 from pydantic_ai.mcp import MCPServerStreamableHTTP
 
-from agent.constants import DEFAULT_MODEL, get_model, wrap_output_type
+from agent.constants import DEFAULT_MODEL, create_model, wrap_output_type
 from agent.neighbor import (
     KeyFinding,
     NeighborAnalysisResult,
@@ -23,7 +23,12 @@ from agent.neighbor_multi.prompts import (
     build_opinion_analysis_prompt,
     build_opinion_analysis_system_prompt,
 )
-from agent.settings import Settings, get_settings
+from agent.settings import (
+    MCP_TIMEOUT_SECONDS,
+    Settings,
+    create_resilient_http_client,
+    get_settings,
+)
 
 AnalysisResultTuple = tuple[DetectedNeighbor, OpinionAnalysisResult | None, str | None]
 
@@ -35,7 +40,7 @@ class NeighborMultiAgentDeps:
     graphql_url: str
 
 
-def get_neighbor_detection_agent(
+def create_neighbor_detection_agent(
     mcp_server: MCPServerStreamableHTTP,
     model_name: str,
     settings: Settings | None = None,
@@ -43,7 +48,7 @@ def get_neighbor_detection_agent(
     if settings is None:
         settings = get_settings()
     return Agent(
-        get_model(model_name),
+        create_model(model_name),
         deps_type=NeighborMultiAgentDeps,
         output_type=wrap_output_type(NeighborDetectionResult),
         system_prompt=build_neighbor_detection_system_prompt(settings.graphql_url),
@@ -52,7 +57,7 @@ def get_neighbor_detection_agent(
     )
 
 
-def get_opinion_analysis_agent(
+def create_opinion_analysis_agent(
     mcp_server: MCPServerStreamableHTTP,
     model_name: str,
     settings: Settings | None = None,
@@ -60,7 +65,7 @@ def get_opinion_analysis_agent(
     if settings is None:
         settings = get_settings()
     return Agent(
-        get_model(model_name),
+        create_model(model_name),
         deps_type=NeighborMultiAgentDeps,
         output_type=wrap_output_type(OpinionAnalysisResult),
         system_prompt=build_opinion_analysis_system_prompt(settings.graphql_url),
@@ -84,7 +89,7 @@ async def analyze_single_neighbor(
     settings: Settings,
 ) -> tuple[DetectedNeighbor, OpinionAnalysisResult | None, str | None]:
     try:
-        agent = get_opinion_analysis_agent(mcp_server, model_name, settings)
+        agent = create_opinion_analysis_agent(mcp_server, model_name, settings)
         prompt = build_opinion_analysis_prompt(
             save_filename,
             neighbor.country_id,
@@ -107,13 +112,14 @@ async def run_neighbor_multi_agent_orchestration(
 
     actual_model = model_name or DEFAULT_MODEL
 
-    mcp_server = MCPServerStreamableHTTP(settings.sandbox_url)
+    http_client = create_resilient_http_client(MCP_TIMEOUT_SECONDS)
+    mcp_server = MCPServerStreamableHTTP(settings.sandbox_url, http_client=http_client)
 
     async with mcp_server:
         # Phase 1: Run neighbor detection agent
         deps = create_deps(settings)
         prompt = build_neighbor_detection_prompt(save_filename, deps.graphql_url)
-        detection_agent = get_neighbor_detection_agent(
+        detection_agent = create_neighbor_detection_agent(
             mcp_server,
             actual_model,
             settings,
