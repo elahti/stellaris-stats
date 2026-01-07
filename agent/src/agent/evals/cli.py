@@ -1,10 +1,12 @@
 import argparse
 import asyncio
 import sys
+from collections.abc import Callable, Coroutine
 from dataclasses import dataclass
 from typing import Any
 
 import logfire
+from pydantic_evals import Dataset
 
 from agent.constants import get_model_names
 from agent.evals.datasets.native_budget import (
@@ -30,8 +32,8 @@ from agent.settings import Settings, get_settings
 
 @dataclass
 class DatasetConfig:
-    create: Any
-    runner: Any
+    create: Callable[[], Dataset[Any, Any, Any]]
+    runner: Callable[..., Coroutine[Any, Any, Any]]
 
 
 AVAILABLE_DATASETS: dict[str, DatasetConfig] = {
