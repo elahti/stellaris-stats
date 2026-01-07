@@ -1,7 +1,12 @@
 from pydantic_ai import Agent, RunContext
 from pydantic_ai.agent import AgentRunResult
 
-from agent.constants import DEFAULT_MODEL, get_model, wrap_output_type
+from agent.analysis_config import (
+    ANALYSIS_DATAPOINTS,
+    DROP_THRESHOLD_PERCENT,
+    RESOURCE_FIELDS,
+)
+from agent.constants import DEFAULT_MODEL, create_model, wrap_output_type
 from agent.models import SuddenDropAnalysisResult
 from agent.native_budget.models import (
     BudgetSnapshot,
@@ -18,32 +23,6 @@ from agent.native_budget.tools import (
     list_saves,
     select_latest_dates,
 )
-
-DROP_THRESHOLD_PERCENT = 30.0
-ANALYSIS_DATAPOINTS = 4
-
-RESOURCE_FIELDS = [
-    "energy",
-    "minerals",
-    "alloys",
-    "food",
-    "consumerGoods",
-    "influence",
-    "unity",
-    "trade",
-    "physicsResearch",
-    "societyResearch",
-    "engineeringResearch",
-    "exoticGases",
-    "rareCrystals",
-    "volatileMotes",
-    "srDarkMatter",
-    "srLivingMetal",
-    "srZro",
-    "nanites",
-    "minorArtifacts",
-    "astralThreads",
-]
 
 
 def sum_resources_for_snapshot(snapshot: BudgetSnapshot) -> dict[str, float]:
@@ -107,7 +86,7 @@ def create_native_budget_agent(
     model_name: str,
 ) -> Agent[AgentDeps, SuddenDropAnalysisResult]:
     agent: Agent[AgentDeps, SuddenDropAnalysisResult] = Agent(
-        get_model(model_name),
+        create_model(model_name),
         deps_type=AgentDeps,
         output_type=wrap_output_type(SuddenDropAnalysisResult),
         system_prompt=build_system_prompt(),

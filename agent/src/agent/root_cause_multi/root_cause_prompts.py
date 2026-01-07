@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from agent.root_cause_multi.prompts import BUDGET_CATEGORIES, RESOURCE_FIELDS
+from agent.analysis_config import BUDGET_CATEGORIES, RESOURCE_FIELDS
 
 if TYPE_CHECKING:
     from agent.models import SuddenDrop

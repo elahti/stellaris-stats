@@ -7,8 +7,8 @@ from .models import (
 from .orchestrator import (
     NeighborMultiAgentDeps,
     create_deps,
-    get_neighbor_detection_agent,
-    get_opinion_analysis_agent,
+    create_neighbor_detection_agent,
+    create_opinion_analysis_agent,
     run_neighbor_multi_agent_orchestration,
 )
 from .prompts import (
@@ -29,7 +29,7 @@ __all__ = [
     "build_opinion_analysis_prompt",
     "build_opinion_analysis_system_prompt",
     "create_deps",
-    "get_neighbor_detection_agent",
-    "get_opinion_analysis_agent",
+    "create_neighbor_detection_agent",
+    "create_opinion_analysis_agent",
     "run_neighbor_multi_agent_orchestration",
 ]
