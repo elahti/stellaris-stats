@@ -1,7 +1,9 @@
-from agent.native_budget.agent import (
+from agent.analysis_config import (
     ANALYSIS_DATAPOINTS,
     DROP_THRESHOLD_PERCENT,
     RESOURCE_FIELDS,
+)
+from agent.native_budget.agent import (
     build_analysis_prompt,
     build_system_prompt,
     sum_resources_for_snapshot,
