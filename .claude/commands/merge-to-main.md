@@ -61,9 +61,8 @@ Execute these commands in sequence (note the branch name from earlier):
 
 2. **Update main**: `git pull origin main`
 
-3. **Merge the branch**: `git merge <branch> --ff-only`
-   - `--ff-only` ensures clean linear history - should always work since we rebased
-   - If this fails, something unexpected happened
+3. **Merge the branch**: `git merge <branch> --no-ff`
+   - `--no-ff` creates a merge commit to preserve branch history
 
 4. **Push main**: `git push origin main`
 
@@ -119,7 +118,7 @@ View: <run-url>
 | Rebase conflict | Exit with message: "Rebase conflict. Resolve with `git rebase --continue` or `git rebase --abort`." |
 | No workflow runs found | Exit with message: "No CI runs found for this branch. Push commits to trigger CI." |
 | CI failed | Report which jobs failed with link to run |
-| Fast-forward failed | Exit with message: "Fast-forward merge failed. This is unexpected after rebase." |
+| Merge conflict | Exit with message: "Merge conflict. This is unexpected after rebase - resolve manually." |
 | Push rejected | Report the error, suggest resolving the issue |
 
 ## Safety
