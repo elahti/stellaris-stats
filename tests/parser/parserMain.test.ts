@@ -103,8 +103,6 @@ describe('Parser Main - Integration Tests', () => {
 
     const logger = createSilentLogger()
 
-    const poolSizeBefore = testDb.pool.totalCount
-
     await executeParserIteration(
       testDb.pool,
       '/test/ironman.sav',
@@ -112,8 +110,7 @@ describe('Parser Main - Integration Tests', () => {
       logger,
     )
 
-    const poolSizeAfter = testDb.pool.totalCount
-    expect(poolSizeAfter).toBe(poolSizeBefore)
+    expect(testDb.pool.idleCount).toBe(testDb.pool.totalCount)
   })
 
   it('should store full parsed data as JSONB in gamestate', async () => {
