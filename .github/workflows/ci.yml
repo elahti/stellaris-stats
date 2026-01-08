@@ -41,7 +41,7 @@ jobs:
         run: npm ci
 
       - name: Build project
-        run: npm run graphql:codegen:typescript && tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json
+        run: tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json
 
   test-typescript:
     name: Test TypeScript
@@ -136,3 +136,47 @@ jobs:
 
       - name: Run Python tests
         run: npm run test:ci:python
+
+  verify-codegen-typescript:
+    name: Verify TypeScript Codegen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6
+        with:
+          node-version: '24.12.0'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run GraphQL codegen
+        run: npm run graphql:codegen:typescript
+
+      - name: Check for uncommitted changes
+        run: git diff --exit-code src/graphql/generated/
+
+  verify-codegen-python:
+    name: Verify Python Codegen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7
+
+      - name: Setup Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: cd agent && uv sync
+
+      - name: Run GraphQL codegen
+        run: npm run graphql:codegen:python
+
+      - name: Check for uncommitted changes
+        run: git diff --exit-code agent/src/agent/graphql_client/
