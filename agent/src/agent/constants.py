@@ -57,7 +57,7 @@ def wrap_output_type[T](output_type: type[T]) -> ToolOutput[T]:
     return ToolOutput(output_type)
 
 
-def get_model(name: str) -> Model:
+def create_model(name: str) -> Model:
     return AVAILABLE_MODELS[name].factory()
 
 

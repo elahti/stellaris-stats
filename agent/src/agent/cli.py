@@ -15,6 +15,7 @@ from agent.root_cause_multi.agent import run_root_cause_multi_agent_analysis
 from agent.root_cause_single import run_root_cause_single_agent_analysis
 from agent.sandbox import run_sandbox_drop_detection_analysis
 from agent.settings import Settings, get_settings
+from agent.validation import ValidationError, validate_save_filename
 
 ANALYSIS_TYPES = [
     "root-cause-multi",
@@ -260,6 +261,12 @@ async def run_analysis_async(
 
 
 def cmd_analyze(args: argparse.Namespace) -> None:
+    try:
+        save_filename = validate_save_filename(args.save)
+    except ValidationError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
     settings = get_settings()
     configure_logfire(settings)
 
@@ -267,7 +274,7 @@ def cmd_analyze(args: argparse.Namespace) -> None:
         asyncio.run(
             run_analysis_async(
                 args.type,
-                args.save,
+                save_filename,
                 raw=args.raw,
             ),
         )

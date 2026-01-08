@@ -5,13 +5,18 @@ from dataclasses import dataclass
 from pydantic_ai import Agent
 from pydantic_ai.mcp import MCPServerStreamableHTTP
 
-from agent.constants import DEFAULT_MODEL, get_model, wrap_output_type
+from agent.constants import DEFAULT_MODEL, create_model, wrap_output_type
 from agent.neighbor import NeighborAnalysisResult
 from agent.neighbor_single.prompts import (
     build_analysis_prompt,
     build_system_prompt,
 )
-from agent.settings import Settings, get_settings
+from agent.settings import (
+    MCP_TIMEOUT_SECONDS,
+    Settings,
+    create_resilient_http_client,
+    get_settings,
+)
 
 
 @dataclass
@@ -21,7 +26,7 @@ class NeighborSingleAgentDeps:
     graphql_url: str
 
 
-def get_single_agent(
+def create_single_agent(
     mcp_server: MCPServerStreamableHTTP,
     model_name: str,
     settings: Settings | None = None,
@@ -29,7 +34,7 @@ def get_single_agent(
     if settings is None:
         settings = get_settings()
     return Agent(
-        get_model(model_name),
+        create_model(model_name),
         deps_type=NeighborSingleAgentDeps,
         output_type=wrap_output_type(NeighborAnalysisResult),
         system_prompt=build_system_prompt(settings.graphql_url),
@@ -58,13 +63,14 @@ async def run_neighbor_single_agent_analysis(
 
     actual_model = model_name or DEFAULT_MODEL
 
-    mcp_server = MCPServerStreamableHTTP(settings.sandbox_url)
+    http_client = create_resilient_http_client(MCP_TIMEOUT_SECONDS)
+    mcp_server = MCPServerStreamableHTTP(settings.sandbox_url, http_client=http_client)
 
     try:
         async with mcp_server:
             deps = create_deps(settings)
             prompt = build_analysis_prompt(save_filename, deps.graphql_url)
-            agent = get_single_agent(mcp_server, actual_model, settings)
+            agent = create_single_agent(mcp_server, actual_model, settings)
 
             result = await agent.run(
                 prompt,

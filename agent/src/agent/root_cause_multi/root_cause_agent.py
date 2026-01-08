@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from pydantic_ai import Agent
 from pydantic_ai.mcp import MCPServerStreamableHTTP
 
-from agent.constants import DEFAULT_MODEL, get_model, wrap_output_type
+from agent.constants import DEFAULT_MODEL, create_model, wrap_output_type
 from agent.models import RootCauseAnalysisResult, SuddenDrop
 from agent.root_cause_multi.root_cause_prompts import (
     build_root_cause_analysis_prompt,
@@ -23,7 +23,7 @@ class RootCauseAgentDeps:
     graphql_url: str
 
 
-def get_root_cause_agent(
+def create_root_cause_agent(
     mcp_server: MCPServerStreamableHTTP,
     model_name: str,
     settings: Settings | None = None,
@@ -31,7 +31,7 @@ def get_root_cause_agent(
     if settings is None:
         settings = get_settings()
     return Agent(
-        get_model(model_name),
+        create_model(model_name),
         deps_type=RootCauseAgentDeps,
         output_type=wrap_output_type(RootCauseAnalysisResult),
         system_prompt=build_root_cause_system_prompt(settings.graphql_url),
@@ -61,6 +61,6 @@ async def run_root_cause_analysis(
 
     actual_model = model_name or DEFAULT_MODEL
     prompt = build_root_cause_analysis_prompt(drop, save_filename, settings.graphql_url)
-    agent = get_root_cause_agent(mcp_server, actual_model, settings)
+    agent = create_root_cause_agent(mcp_server, actual_model, settings)
 
     return await agent.run(prompt, deps=deps)
