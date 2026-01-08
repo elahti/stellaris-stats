@@ -1,4 +1,9 @@
 {
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "superpowers@superpowers-marketplace": true
+  },
   "permissions": {
     "allow": [
       "Bash(bun --help:*)",
@@ -9,6 +14,7 @@
       "Bash(curl:*)",
       "Bash(dotenvx run -f .env.stellaris-stats.evals -- bun test:*)",
       "Bash(find:*)",
+      "Bash(gh run:*)",
       "Bash(git add:*)",
       "Bash(git branch:*)",
       "Bash(git checkout:*)",
@@ -24,7 +30,6 @@
       "Bash(git rev-parse:*)",
       "Bash(git show:*)",
       "Bash(git status:*)",
-      "Bash(gh run:*)",
       "Bash(grep:*)",
       "Bash(jq:*)",
       "Bash(ls:*)",
@@ -57,6 +62,7 @@
       "Bash(tree:*)",
       "Bash(uv add:*)",
       "Bash(uv lock:*)",
+      "Bash(uv pip list:*)",
       "Bash(uv pip show:*)",
       "Bash(uv run ruff check:*)",
       "Bash(uv sync:*)",
@@ -70,6 +76,8 @@
       "mcp__python-executor__run_python_code",
       "Skill(commit)",
       "Skill(merge-to-main)",
+      "Skill(superpowers:brainstorming)",
+      "Skill(superpowers:executing-plans)",
       "WebFetch(domain:ai.pydantic.dev)",
       "WebFetch(domain:cli.github.com)",
       "WebFetch(domain:docs.anthropic.com)",
@@ -85,21 +93,16 @@
       "WebFetch(domain:www.npmjs.com)",
       "WebSearch"
     ],
-    "deny": [
-      "Read(/**/.env.keys)"
-    ],
     "ask": [
       "Bash(npm run agent:evals:*)"
+    ],
+    "deny": [
+      "Read(/**/.env.keys)"
     ]
   },
   "statusLine": {
-    "type": "command",
     "command": "bunx -y ccstatusline@latest",
-    "padding": 0
-  },
-  "enabledPlugins": {
-    "context7@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
-    "superpowers@superpowers-marketplace": true
+    "padding": 0,
+    "type": "command"
   }
 }
