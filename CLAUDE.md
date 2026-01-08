@@ -106,7 +106,9 @@ After Python changes: `npm run typecheck:python && npm run lint:python && npm ru
 
 ## Git Commits
 
-When committing code, first read and follow the instructions in `.claude/commands/commit.md`. Key rules: use `{type}: message` format (feat/fix/refactor/docs/style/test/build), focus on "why" not "how", no emojis or attribution lines, split logically distinct changes into separate commits.
+**ALWAYS invoke the `/commit` skill when committing code.** This applies to all commits, including those made during superpowers workflows. Never commit directly with `git commit` - use the skill instead.
+
+The `/commit` skill enforces: `{type}: message` format (feat/fix/refactor/docs/style/test/build), quality checks before commit, feature branch workflow, and splitting logically distinct changes into separate commits.
 
 ## GraphQL Schema Changes
 
