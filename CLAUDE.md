@@ -74,7 +74,7 @@ When adding or modifying npm scripts, require explicit arguments from the user r
 
 **Python**: Full type annotations, PEP 8 naming, context managers for resources, list comprehensions where readable, prefer Pydantic models over Dicts in function signatures, docstrings for classes and protocols.
 
-**Both**: No comments in code, exact dependency versions, run quality checks after changes.
+**Both**: Comments only where logic isn't self-evident—avoid redundant or excessive commentary. Exact dependency versions, run quality checks after changes.
 
 ### Python Agent Pattern
 
