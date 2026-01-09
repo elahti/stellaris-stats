@@ -11,9 +11,10 @@ Create one or more git commits, splitting logically distinct changes into separa
 ## Workflow
 
 1. Run `git status` to check the current branch
-2. **CRITICAL**: If on main/master, STOP and create a feature branch first:
-   - `git checkout -b <branch-name>` (e.g., `refactor-budget-agent`, `fix-parser-bug`)
-   - Never commit directly to main/master
+2. If on main/master, decide whether a feature branch is needed:
+   - **Minor fixes and small changes** (typos, one-line fixes, doc tweaks): commit directly to main
+   - **Larger changes** (new features, refactors, multi-file changes): create a feature branch first with `git checkout -b <branch-name>`
+   - **User override**: If user explicitly says to commit to a specific branch, do so without questioning
 3. Run `git diff`, `git diff --staged`, and `git log --oneline -5` to review changes
 4. **Run quality checks** before committing (see Quality Checks section below)
 5. **Analyze and categorize** each changed file (see categories below)

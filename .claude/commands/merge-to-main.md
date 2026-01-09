@@ -8,6 +8,8 @@ model: haiku
 
 Merge the current development branch to main after verifying CI has passed.
 
+**Note**: This workflow is for feature branches. Minor fixes and small changes can be committed directly to main without needing a branch or this merge process.
+
 ## Workflow
 
 1. Run `git status` to check the current branch and working tree state

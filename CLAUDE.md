@@ -59,9 +59,9 @@ All commands run from `/workspace`.
 
 Python GraphQL client is generated using ariadne-codegen. Queries are defined in `agent/queries.graphql` and output to `agent/src/agent/graphql_client/`. The generated directory is excluded from ruff and pyright.
 
-## npm Script Guidelines
+### npm Script Guidelines
 
-When adding or modifying npm scripts, require explicit arguments from the user rather than embedding default values in the script. This makes the interface consistent and avoids hidden behavior.
+When adding or modifying npm scripts, require explicit arguments from the user rather than embedding default values in the script.
 
 ```diff
 - "agent:analyze": "... -- uv run agent analyze --save",  # Bad: --save expects implicit arg
@@ -99,17 +99,18 @@ After TypeScript changes: `npm run lint:typescript && npm run build && npm run t
 
 After Python changes: `npm run typecheck:python && npm run lint:python && npm run format:python && npm run test:ci:python`
 
-### Safety
+## Git
 
+**ALWAYS invoke the `/commit` skill when committing code.** The skill handles commit format, quality checks, and workflow decisions.
+
+Workflow:
+- Use branch-based development, not git worktrees
+- Minor fixes can be committed directly to main; larger changes require a feature branch
+- If explicitly told to commit to a specific branch, do so without questioning
+
+Safety:
 - Never force push, hard reset, or skip hooks unless requested
 - Never amend other developers' commits
-- Use branch-based development, not git worktrees
-
-## Git Commits
-
-**ALWAYS invoke the `/commit` skill when committing code.** This applies to all commits, including those made during superpowers workflows. Never commit directly with `git commit` - use the skill instead.
-
-The `/commit` skill enforces: `{type}: message` format (feat/fix/refactor/docs/style/test/build), quality checks before commit, feature branch workflow, and splitting logically distinct changes into separate commits.
 
 ## GraphQL Schema Changes
 
