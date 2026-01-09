@@ -17,6 +17,7 @@
     "node-pg-migrate": "8.0.4",
     "pg": "8.16.3",
     "pino": "10.1.0",
+    "playwright": "1.57.0",
     "ws": "8.18.0",
     "yauzl-promise": "4.0.0",
     "zod": "4.3.4"
@@ -52,8 +53,8 @@
     "build": "npm run graphql:codegen && tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json",
     "db:connect": "dotenvx run -f .env.stellaris-stats --strict -- sh -c 'PGPASSWORD=\"$STELLARIS_STATS_DB_PASSWORD\" psql -h \"$STELLARIS_STATS_DB_HOST\" -p \"$STELLARIS_STATS_DB_PORT\" -U \"$STELLARIS_STATS_DB_USER\" \"$STELLARIS_STATS_DB_NAME\"'",
     "db:dump": "dotenvx run -f .env.stellaris-stats -- sh -c 'PGPASSWORD=$STELLARIS_STATS_DB_PASSWORD pg_dump --clean -h $STELLARIS_STATS_DB_HOST -U $STELLARIS_STATS_DB_USER -d $STELLARIS_STATS_DB_NAME | gzip > /workspace/db-dump-data/db-dump-$(date +%Y-%m-%d-%H-%M-%S).sql.gz'",
-    "db:restore": "dotenvx run -f .env.stellaris-stats -- sh -c 'PGPASSWORD=$STELLARIS_STATS_DB_PASSWORD zcat /workspace/db-dump-data/\"$1\" | psql -h $STELLARIS_STATS_DB_HOST -U $STELLARIS_STATS_DB_USER -d $STELLARIS_STATS_DB_NAME' --",
     "db:migrate": "dotenvx run -f .env.stellaris-stats --strict -- sh -c 'DATABASE_URL=\"postgres://$STELLARIS_STATS_DB_USER:$STELLARIS_STATS_DB_PASSWORD@$STELLARIS_STATS_DB_HOST:$STELLARIS_STATS_DB_PORT/$STELLARIS_STATS_DB_NAME\" node-pg-migrate up -m \"$STELLARIS_STATS_MIGRATIONS_DIR\" --migrations-table \"$STELLARIS_STATS_MIGRATIONS_TABLE\"'",
+    "db:restore": "dotenvx run -f .env.stellaris-stats -- sh -c 'PGPASSWORD=$STELLARIS_STATS_DB_PASSWORD zcat /workspace/db-dump-data/\"$1\" | psql -h $STELLARIS_STATS_DB_HOST -U $STELLARIS_STATS_DB_USER -d $STELLARIS_STATS_DB_NAME' --",
     "db:validate-budget-schema": "dotenvx run -f .env.stellaris-stats --strict -- tsx src/scripts/validateBudgetSchema.ts",
     "db:verify-migration-rows": "dotenvx run -f .env.stellaris-stats --strict -- tsx src/scripts/verifyMigrationRowCounts.ts",
     "format:python": "cd agent && uv run ruff format",
@@ -65,15 +66,15 @@
     "lint:python": "cd agent && uv run ruff check",
     "lint:typescript": "eslint .",
     "parser:run": "dotenvx run -f .env.stellaris-stats --strict -- npx tsx watch src/parser/parserMain.ts",
-    "ui:build": "cd ui && npm run build",
-    "ui:codegen": "cd ui && npm run codegen",
-    "ui:dev": "cd ui && npm run dev",
-    "ui:preview": "cd ui && npm run preview",
     "test:ci:python": "cd agent && uv run pytest -v --tb=short --cov=agent --cov-report=term-missing",
     "test:ci:typescript": "dotenvx run -f .env.stellaris-stats.tests -- bun test --coverage",
     "test:python": "cd agent && uv run pytest -v --cov=agent --cov-report=term-missing",
     "test:typescript": "dotenvx run -f .env.stellaris-stats.tests -- bun test --watch",
     "test:typescript:coverage": "dotenvx run -f .env.stellaris-stats.tests -- bun test --coverage",
-    "typecheck:python": "cd agent && uv run pyright"
+    "typecheck:python": "cd agent && uv run pyright",
+    "ui:build": "cd ui && npm run build",
+    "ui:codegen": "cd ui && npm run codegen",
+    "ui:dev": "cd ui && npm run dev",
+    "ui:preview": "cd ui && npm run preview"
   }
 }
