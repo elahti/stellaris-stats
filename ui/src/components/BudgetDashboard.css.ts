@@ -1,0 +1,61 @@
+import { style } from '@vanilla-extract/css'
+import { vars } from '../styles/theme.css'
+
+export const dashboardContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: vars.space.lg,
+  padding: vars.space.lg,
+})
+
+export const dashboardHeader = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+})
+
+export const dashboardTitle = style({
+  fontFamily: vars.font.title,
+  fontSize: '1.75rem',
+  color: vars.color.primary,
+  margin: 0,
+})
+
+export const saveName = style({
+  fontFamily: vars.font.menu,
+  fontSize: '1.1rem',
+  color: vars.color.text,
+})
+
+export const chartsGrid = style({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+  gap: vars.space.lg,
+})
+
+export const loadingContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: vars.space.xl,
+  color: vars.color.textMuted,
+  fontFamily: vars.font.body,
+})
+
+export const errorContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: vars.space.xl,
+  color: vars.color.error,
+  fontFamily: vars.font.body,
+})
+
+export const noDataContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: vars.space.xl,
+  color: vars.color.textMuted,
+  fontFamily: vars.font.body,
+})
