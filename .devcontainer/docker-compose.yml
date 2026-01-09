@@ -111,14 +111,6 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
 
-  librechat-mongo:
-    container_name: stellaris-stats_librechat-mongo
-    image: mongo:8.2.3-noble@sha256:d775d416112201f006871dd792dc0917eec9aa566b327611b1ca52397e79bf03
-    networks:
-      - stellaris-stats-librechat-mongo-network
-    volumes:
-      - librechat-mongo-data:/data/db
-
   librechat-metrics:
     container_name: stellaris-stats_librechat-metrics
     env_file:
@@ -173,8 +165,6 @@ volumes:
     name: stellaris-stats_gamestate-json-data
   grafana-data:
     name: stellaris-stats_grafana-data
-  librechat-mongo-data:
-    name: stellaris-stats_librechat-mongo-data
   local-share-uv:
     name: stellaris-stats_local-share-uv
   node-modules:
