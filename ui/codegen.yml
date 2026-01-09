@@ -1,0 +1,10 @@
+schema: "../graphql/schema.graphql"
+documents: "src/graphql/**/*.graphql"
+generates:
+  src/graphql/generated/:
+    preset: client
+    config:
+      strictScalars: true
+      useTypeImports: true
+      scalars:
+        DateTimeISO: string
