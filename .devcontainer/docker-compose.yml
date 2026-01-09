@@ -148,18 +148,6 @@ services:
       - stellaris-stats-librechat-metrics-network
       - stellaris-stats-librechat-mongo-network
 
-  prometheus:
-    container_name: stellaris-stats_prometheus
-    image: prom/prometheus:v3.8.1@sha256:2b6f734e372c1b4717008f7d0a0152316aedd4d13ae17ef1e3268dbfaf68041b
-    networks:
-      - stellaris-stats-librechat-metrics-network
-      - stellaris-stats_prometheus-network
-    ports:
-      - 4005:9090
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - prometheus-data:/prometheus
-
 networks:
   stellaris-stats-apollo-mcp-server-network:
     driver: bridge
@@ -220,8 +208,6 @@ volumes:
     name: stellaris-stats_local-share-uv
   node-modules:
     name: stellaris-stats_node-modules
-  prometheus-data:
-    name: stellaris-stats_prometheus-data
   redis-data:
     name: stellaris-stats_redis-data
   user-cache:
