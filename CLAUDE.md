@@ -14,6 +14,11 @@ src/                    # TypeScript source
   graphql/              # GraphQL server & generated types
   parser/               # Save file parsing
   scripts/              # Utility scripts
+ui/                     # React frontend
+  src/components/       # React components
+  src/hooks/            # Custom React hooks
+  src/lib/              # Apollo Client config
+  src/styles/           # vanilla-extract theme
 agent/src/agent/        # Python budget analysis agent
 migrations/             # Database migrations
 graphql/                # GraphQL schema definitions
@@ -38,6 +43,15 @@ All commands run from `/workspace`.
 | Test (CI)                | `npm run test:ci:typescript`    |
 | Run parser               | `npm run parser:run -- -g <id>` |
 | List saves               | `npm run parser:run -- -l`      |
+
+### UI (React)
+
+| Task            | Command             |
+| --------------- | ------------------- |
+| Dev server      | `npm run ui:dev`    |
+| Build           | `npm run ui:build`  |
+| Preview build   | `npm run ui:preview`|
+| GraphQL codegen | `npm run ui:codegen`|
 
 ### Python
 
@@ -98,6 +112,8 @@ With lazy initialization, `__init__.py` re-exports are safe since importing the 
 After TypeScript changes: `npm run lint:typescript && npm run build && npm run test:ci:typescript`
 
 After Python changes: `npm run typecheck:python && npm run lint:python && npm run format:python && npm run test:ci:python`
+
+After UI changes: `npm run ui:build`
 
 ## Git
 
