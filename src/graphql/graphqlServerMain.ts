@@ -83,7 +83,9 @@ const runGraphQLServer = async (logger: Logger) => {
     {
       serverWillStart: () =>
         Promise.resolve({
-          drainServer: () => serverCleanup.dispose(),
+          drainServer: async () => {
+            await serverCleanup.dispose()
+          },
         }),
     },
     responseCachePlugin<GraphQLServerContext>({ cache }),
