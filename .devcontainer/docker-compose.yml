@@ -11,8 +11,6 @@ services:
       - stellaris-stats-db-evals-network
       - stellaris-stats-db-tests-network
       - stellaris-stats-apollo-mcp-server-network
-      - stellaris-stats-librechat-metrics-network
-      - stellaris-stats-librechat-mongo-network
       - stellaris-stats-mcp-run-python-network
       - stellaris-stats-grafana-network
       - stellaris-stats_prometheus-network
@@ -111,15 +109,6 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
 
-  librechat-metrics:
-    container_name: stellaris-stats_librechat-metrics
-    env_file:
-      - .env.librechat-metrics
-    image: ghcr.io/virtuos/librechat_exporter:2.1.0@sha256:868e92f859f54554206772b863b9f6a5d2357e75334265a4a1918a242a3a724f
-    networks:
-      - stellaris-stats-librechat-metrics-network
-      - stellaris-stats-librechat-mongo-network
-
 networks:
   stellaris-stats-apollo-mcp-server-network:
     driver: bridge
@@ -133,12 +122,6 @@ networks:
   stellaris-stats-db-tests-network:
     driver: bridge
     name: stellaris-stats_db-tests-network
-  stellaris-stats-librechat-metrics-network:
-    driver: bridge
-    name: stellaris-stats_librechat-metrics-network
-  stellaris-stats-librechat-mongo-network:
-    driver: bridge
-    name: stellaris-stats_librechat-mongo-network
   stellaris-stats-mcp-run-python-network:
     driver: bridge
     name: stellaris-stats_mcp-run-python-network
