@@ -11,7 +11,6 @@ services:
       - stellaris-stats-db-evals-network
       - stellaris-stats-db-tests-network
       - stellaris-stats-apollo-mcp-server-network
-      - stellaris-stats-librechat-network
       - stellaris-stats-librechat-metrics-network
       - stellaris-stats-librechat-mongo-network
       - stellaris-stats-mcp-run-python-network
@@ -112,25 +111,6 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
 
-  librechat:
-    container_name: stellaris-stats_librechat
-    env_file:
-      - .env.librechat
-      - .env.librechat.secrets
-    image: librechat/librechat:v0.8.1-rc2@sha256:168c522cb1eaab789dc61cd8e8a2639f8c6c847ccfc22ae0c29bf5a382650464
-    networks:
-      - stellaris-stats-apollo-mcp-server-network
-      - stellaris-stats-librechat-network
-      - stellaris-stats-librechat-mongo-network
-      - stellaris-stats-mcp-run-python-network
-    ports:
-      - 4004:3080
-    volumes:
-      - ./librechat.yaml:/app/librechat.yaml:ro
-      - librechat-image-data:/app/client/public/images
-      - librechat-upload-data:/app/uploads
-      - librechat-logs:/app/api/logs
-
   librechat-mongo:
     container_name: stellaris-stats_librechat-mongo
     image: mongo:8.2.3-noble@sha256:d775d416112201f006871dd792dc0917eec9aa566b327611b1ca52397e79bf03
@@ -161,9 +141,6 @@ networks:
   stellaris-stats-db-tests-network:
     driver: bridge
     name: stellaris-stats_db-tests-network
-  stellaris-stats-librechat-network:
-    driver: bridge
-    name: stellaris-stats_librechat-network
   stellaris-stats-librechat-metrics-network:
     driver: bridge
     name: stellaris-stats_librechat-metrics-network
@@ -198,12 +175,6 @@ volumes:
     name: stellaris-stats_grafana-data
   librechat-mongo-data:
     name: stellaris-stats_librechat-mongo-data
-  librechat-image-data:
-    name: stellaris-stats_librechat-image-data
-  librechat-upload-data:
-    name: stellaris-stats_librechat-upload-data
-  librechat-logs:
-    name: stellaris-stats_librechat-logs
   local-share-uv:
     name: stellaris-stats_local-share-uv
   node-modules:
