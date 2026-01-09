@@ -11,9 +11,6 @@ services:
       - stellaris-stats-db-evals-network
       - stellaris-stats-db-tests-network
       - stellaris-stats-apollo-mcp-server-network
-      - stellaris-stats-librechat-network
-      - stellaris-stats-librechat-metrics-network
-      - stellaris-stats-librechat-mongo-network
       - stellaris-stats-mcp-run-python-network
       - stellaris-stats-grafana-network
       - stellaris-stats_prometheus-network
@@ -87,20 +84,6 @@ services:
       - ../graphql/schema.graphql:/data/schema.graphql:ro
       - ../apollo-mcp-server.yaml:/apollo-mcp-server.yaml:ro
 
-  mcp-inspector:
-    container_name: stellaris-stats_mcp-inspector
-    environment:
-      - ALLOWED_ORIGINS=http://localhost:6274
-      - DANGEROUSLY_OMIT_AUTH=true
-      - HOST=0.0.0.0
-    image: ghcr.io/modelcontextprotocol/inspector:latest@sha256:d4fda7b69cb8ae4cd9d3ac5b24bea59defc0555b59f90c9b5197c92968f65af1
-    networks:
-      - stellaris-stats-apollo-mcp-server-network
-      - stellaris-stats-mcp-run-python-network
-    ports:
-      - 6274:6274
-      - 6277:6277
-
   pydantic-mcp-run-python:
     build:
       context: ..
@@ -126,54 +109,6 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
 
-  librechat:
-    container_name: stellaris-stats_librechat
-    env_file:
-      - .env.librechat
-      - .env.librechat.secrets
-    image: librechat/librechat:v0.8.1-rc2@sha256:168c522cb1eaab789dc61cd8e8a2639f8c6c847ccfc22ae0c29bf5a382650464
-    networks:
-      - stellaris-stats-apollo-mcp-server-network
-      - stellaris-stats-librechat-network
-      - stellaris-stats-librechat-mongo-network
-      - stellaris-stats-mcp-run-python-network
-    ports:
-      - 4004:3080
-    volumes:
-      - ./librechat.yaml:/app/librechat.yaml:ro
-      - librechat-image-data:/app/client/public/images
-      - librechat-upload-data:/app/uploads
-      - librechat-logs:/app/api/logs
-
-  librechat-mongo:
-    container_name: stellaris-stats_librechat-mongo
-    image: mongo:8.2.3-noble@sha256:d775d416112201f006871dd792dc0917eec9aa566b327611b1ca52397e79bf03
-    networks:
-      - stellaris-stats-librechat-mongo-network
-    volumes:
-      - librechat-mongo-data:/data/db
-
-  librechat-metrics:
-    container_name: stellaris-stats_librechat-metrics
-    env_file:
-      - .env.librechat-metrics
-    image: ghcr.io/virtuos/librechat_exporter:2.1.0@sha256:868e92f859f54554206772b863b9f6a5d2357e75334265a4a1918a242a3a724f
-    networks:
-      - stellaris-stats-librechat-metrics-network
-      - stellaris-stats-librechat-mongo-network
-
-  prometheus:
-    container_name: stellaris-stats_prometheus
-    image: prom/prometheus:v3.8.1@sha256:2b6f734e372c1b4717008f7d0a0152316aedd4d13ae17ef1e3268dbfaf68041b
-    networks:
-      - stellaris-stats-librechat-metrics-network
-      - stellaris-stats_prometheus-network
-    ports:
-      - 4005:9090
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - prometheus-data:/prometheus
-
 networks:
   stellaris-stats-apollo-mcp-server-network:
     driver: bridge
@@ -187,15 +122,6 @@ networks:
   stellaris-stats-db-tests-network:
     driver: bridge
     name: stellaris-stats_db-tests-network
-  stellaris-stats-librechat-network:
-    driver: bridge
-    name: stellaris-stats_librechat-network
-  stellaris-stats-librechat-metrics-network:
-    driver: bridge
-    name: stellaris-stats_librechat-metrics-network
-  stellaris-stats-librechat-mongo-network:
-    driver: bridge
-    name: stellaris-stats_librechat-mongo-network
   stellaris-stats-mcp-run-python-network:
     driver: bridge
     name: stellaris-stats_mcp-run-python-network
@@ -222,20 +148,10 @@ volumes:
     name: stellaris-stats_gamestate-json-data
   grafana-data:
     name: stellaris-stats_grafana-data
-  librechat-mongo-data:
-    name: stellaris-stats_librechat-mongo-data
-  librechat-image-data:
-    name: stellaris-stats_librechat-image-data
-  librechat-upload-data:
-    name: stellaris-stats_librechat-upload-data
-  librechat-logs:
-    name: stellaris-stats_librechat-logs
   local-share-uv:
     name: stellaris-stats_local-share-uv
   node-modules:
     name: stellaris-stats_node-modules
-  prometheus-data:
-    name: stellaris-stats_prometheus-data
   redis-data:
     name: stellaris-stats_redis-data
   user-cache:
