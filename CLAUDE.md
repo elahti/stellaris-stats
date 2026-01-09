@@ -103,6 +103,7 @@ After Python changes: `npm run typecheck:python && npm run lint:python && npm ru
 
 - Never force push, hard reset, or skip hooks unless requested
 - Never amend other developers' commits
+- Use branch-based development, not git worktrees
 
 ## Git Commits
 
