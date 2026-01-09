@@ -246,6 +246,15 @@ export type Save = {
   saveId: Scalars['Int']['output']
 }
 
+export type Subscription = {
+  __typename?: 'Subscription'
+  gamestateCreated: Gamestate
+}
+
+export type SubscriptiongamestateCreatedArgs = {
+  saveId: Scalars['Int']['input']
+}
+
 export type ResolverTypeWrapper<T> = Promise<T> | T
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
@@ -383,6 +392,7 @@ export type ResolversTypes = {
   PlanetProduction: ResolverTypeWrapper<PlanetProduction>
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>
   Save: ResolverTypeWrapper<Save>
+  Subscription: ResolverTypeWrapper<Record<PropertyKey, never>>
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
 }
 
@@ -405,6 +415,7 @@ export type ResolversParentTypes = {
   PlanetProduction: PlanetProduction
   Query: Record<PropertyKey, never>
   Save: Save
+  Subscription: Record<PropertyKey, never>
   Int: Scalars['Int']['output']
 }
 
@@ -1088,6 +1099,20 @@ export type SaveResolvers<
   saveId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
 }
 
+export type SubscriptionResolvers<
+  ContextType = GraphQLServerContext,
+  ParentType extends ResolversParentTypes['Subscription'] =
+    ResolversParentTypes['Subscription'],
+> = {
+  gamestateCreated?: SubscriptionResolver<
+    ResolversTypes['Gamestate'],
+    'gamestateCreated',
+    ParentType,
+    ContextType,
+    RequireFields<SubscriptiongamestateCreatedArgs, 'saveId'>
+  >
+}
+
 export type Resolvers<ContextType = GraphQLServerContext> = {
   AllPlanetCoordinate?: AllPlanetCoordinateResolvers<ContextType>
   Budget?: BudgetResolvers<ContextType>
@@ -1104,6 +1129,7 @@ export type Resolvers<ContextType = GraphQLServerContext> = {
   PlanetProduction?: PlanetProductionResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
   Save?: SaveResolvers<ContextType>
+  Subscription?: SubscriptionResolvers<ContextType>
 }
 
 export type DirectiveResolvers<ContextType = GraphQLServerContext> = {

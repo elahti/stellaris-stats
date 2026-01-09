@@ -1739,12 +1739,54 @@ export const typeDefs = {
       ],
     },
     {
+      kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'Subscription' },
+      interfaces: [],
+      directives: [],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'gamestateCreated' },
+          arguments: [
+            {
+              kind: 'InputValueDefinition',
+              name: { kind: 'Name', value: 'saveId' },
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'Int' },
+                },
+              },
+              directives: [],
+            },
+          ],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'Gamestate' },
+            },
+          },
+          directives: [],
+        },
+      ],
+    },
+    {
       kind: 'SchemaDefinition',
       operationTypes: [
         {
           kind: 'OperationTypeDefinition',
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Query' } },
           operation: 'query',
+        },
+        {
+          kind: 'OperationTypeDefinition',
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'Subscription' },
+          },
+          operation: 'subscription',
         },
       ],
     },

@@ -196,3 +196,7 @@ type Query {
   saves: [Save!]!
   save(filename: String!): Save
 }
+
+type Subscription {
+  gamestateCreated(saveId: Int!): Gamestate!
+}

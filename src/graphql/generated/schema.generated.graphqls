@@ -196,3 +196,7 @@ type Save {
   name: String!
   saveId: Int!
 }
+
+type Subscription {
+  gamestateCreated(saveId: Int!): Gamestate!
+}

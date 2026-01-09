@@ -225,6 +225,14 @@ export type Save = {
   saveId: Scalars['Int']['output']
 }
 
+export type Subscription = {
+  gamestateCreated: Gamestate
+}
+
+export type SubscriptionGamestateCreatedArgs = {
+  saveId: Scalars['Int']['input']
+}
+
 type Properties<T> = Required<{
   [K in keyof T]: z.ZodType<T[K]>
 }>

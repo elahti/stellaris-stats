@@ -2,6 +2,7 @@
 import type { Resolvers } from './types.generated.js'
 import { save as Query_save } from './Query/save.js'
 import { saves as Query_saves } from './Query/saves.js'
+import { gamestateCreated as Subscription_gamestateCreated } from './Subscription/gamestateCreated.js'
 import { AllPlanetCoordinate } from './AllPlanetCoordinate.js'
 import { Budget } from './Budget.js'
 import { BudgetCategory } from './BudgetCategory.js'
@@ -18,6 +19,7 @@ import { DateTimeISOResolver } from 'graphql-scalars'
 export const resolvers: Resolvers = {
   Query: { save: Query_save, saves: Query_saves },
 
+  Subscription: { gamestateCreated: Subscription_gamestateCreated },
   AllPlanetCoordinate: AllPlanetCoordinate,
   Budget: Budget,
   BudgetCategory: BudgetCategory,
