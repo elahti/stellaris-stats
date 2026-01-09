@@ -156,9 +156,7 @@
     4002, // Pydantic MCP Python server
     4003, // Grafana
     4004, // LibreChat
-    4005, // Prometheus
-    6274, // MCP inspector
-    6277 // MCP inspector
+    4005 // Prometheus
   ],
   "name": "Stellaris Stats Dev Container",
   "postCreateCommand": ". .devcontainer/post-create-command.sh",

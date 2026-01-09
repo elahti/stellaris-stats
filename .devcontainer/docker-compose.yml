@@ -87,20 +87,6 @@ services:
       - ../graphql/schema.graphql:/data/schema.graphql:ro
       - ../apollo-mcp-server.yaml:/apollo-mcp-server.yaml:ro
 
-  mcp-inspector:
-    container_name: stellaris-stats_mcp-inspector
-    environment:
-      - ALLOWED_ORIGINS=http://localhost:6274
-      - DANGEROUSLY_OMIT_AUTH=true
-      - HOST=0.0.0.0
-    image: ghcr.io/modelcontextprotocol/inspector:latest@sha256:d4fda7b69cb8ae4cd9d3ac5b24bea59defc0555b59f90c9b5197c92968f65af1
-    networks:
-      - stellaris-stats-apollo-mcp-server-network
-      - stellaris-stats-mcp-run-python-network
-    ports:
-      - 6274:6274
-      - 6277:6277
-
   pydantic-mcp-run-python:
     build:
       context: ..
