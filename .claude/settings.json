@@ -4,6 +4,19 @@
     "pyright-lsp@claude-plugins-official": true,
     "superpowers@superpowers-marketplace": true
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bun .claude/hooks/index.ts PostToolUse",
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit|MultiEdit"
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Bash(bun --help:*)",

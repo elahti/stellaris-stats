@@ -16,6 +16,7 @@ export default tseslint.config(
       '**/dist/**',
       'agent/**',
       'ui/**',
+      '.claude/hooks/**',
       'eslint.config.mjs',
       'src/graphql/generated/types.generated.ts',
       'src/graphql/generated/validation.generated.ts',
