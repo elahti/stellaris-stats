@@ -25,10 +25,14 @@ export const publishGamestateCreated = async (
   await redisClient.publish(GAMESTATE_CREATED, JSON.stringify(payload))
 }
 
+interface GamestateCreatedEvent {
+  gamestateCreated: Gamestate
+}
+
 export const subscribeToGamestateCreated = async (
   redisClient: Redis,
   saveId: number,
-): Promise<AsyncIterable<{ gamestateCreated: Gamestate }>> => {
+): Promise<AsyncIterable<GamestateCreatedEvent>> => {
   const pubsub = getPubSub()
   const subscriber = redisClient.duplicate()
 
@@ -47,7 +51,29 @@ export const subscribeToGamestateCreated = async (
     }
   })
 
-  return pubsub.asyncIterableIterator<{ gamestateCreated: Gamestate }>(
+  const innerIterator = pubsub.asyncIterableIterator<GamestateCreatedEvent>(
     `${GAMESTATE_CREATED}.${saveId}`,
   )
+
+  const cleanup = async (): Promise<void> => {
+    await subscriber.unsubscribe(GAMESTATE_CREATED)
+    void subscriber.quit()
+  }
+
+  return {
+    [Symbol.asyncIterator](): AsyncIterator<GamestateCreatedEvent> {
+      const iterator = innerIterator[Symbol.asyncIterator]()
+      return {
+        next: () => iterator.next(),
+        return: async (value) => {
+          await cleanup()
+          return { done: true as const, value }
+        },
+        throw: async (error) => {
+          await cleanup()
+          throw error
+        },
+      }
+    },
+  }
 }
