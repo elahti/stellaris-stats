@@ -161,10 +161,17 @@ type DiplomaticRelation @cacheControl {
   opinionModifiers: [OpinionModifier!]!
 }
 
+type BudgetTotals @cacheControl {
+  income: BudgetEntry!
+  expenses: BudgetEntry!
+  balance: BudgetEntry!
+}
+
 type Budget @cacheControl {
   income: BudgetCategory!
   expenses: BudgetCategory!
   balance: BudgetCategory!
+  totals: BudgetTotals!
 }
 
 type AllPlanetCoordinate @cacheControl {
@@ -195,4 +202,8 @@ type Save {
 type Query {
   saves: [Save!]!
   save(filename: String!): Save
+}
+
+type Subscription {
+  gamestateCreated(saveId: Int!): Gamestate!
 }

@@ -1,0 +1,45 @@
+query GetSaves {
+  saves {
+    saveId
+    filename
+    name
+  }
+}
+
+query GetSave($filename: String!) {
+  save(filename: $filename) {
+    saveId
+    filename
+    name
+    gamestates {
+      gamestateId
+      date
+    }
+  }
+}
+
+query GetBudget($filename: String!) {
+  save(filename: $filename) {
+    saveId
+    filename
+    name
+    gamestates {
+      gamestateId
+      date
+      budget {
+        totals {
+          balance {
+            energy
+            minerals
+            food
+            trade
+            alloys
+            consumerGoods
+            unity
+            influence
+          }
+        }
+      }
+    }
+  }
+}

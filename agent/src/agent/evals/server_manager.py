@@ -42,7 +42,7 @@ async def start_graphql_server(
 
     return GraphQLServerProcess(
         process=process,
-        url=f"http://localhost:{port}",
+        url=f"http://localhost:{port}/graphql",
         port=port,
     )
 

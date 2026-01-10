@@ -14,6 +14,7 @@ type Budget {
   balance: BudgetCategory!
   expenses: BudgetCategory!
   income: BudgetCategory!
+  totals: BudgetTotals!
 }
 
 type BudgetCategory {
@@ -117,6 +118,12 @@ type BudgetEntry {
   volatileMotes: Float
 }
 
+type BudgetTotals {
+  balance: BudgetEntry!
+  expenses: BudgetEntry!
+  income: BudgetEntry!
+}
+
 enum CacheControlScope {
   PRIVATE
   PUBLIC
@@ -195,4 +202,8 @@ type Save {
   gamestates: [Gamestate!]!
   name: String!
   saveId: Int!
+}
+
+type Subscription {
+  gamestateCreated(saveId: Int!): Gamestate!
 }

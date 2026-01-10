@@ -94,6 +94,7 @@ const runTestGraphQLServer = async () => {
         client,
         loaders: createDataLoaders(client),
         cache,
+        redisClient: mockRedis as unknown as Redis,
       }
     },
   })

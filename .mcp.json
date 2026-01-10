@@ -3,6 +3,14 @@
     "python-executor": {
       "type": "http",
       "url": "http://pydantic-mcp-run-python:4002/mcp"
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@playwright/mcp@latest", "--browser", "firefox"],
+      "env": {
+        "PLAYWRIGHT_BROWSERS_PATH": "/home/vscode/.cache/ms-playwright"
+      }
     }
   }
 }

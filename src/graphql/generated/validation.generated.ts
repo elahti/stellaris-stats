@@ -40,6 +40,7 @@ export type Budget = {
   balance: BudgetCategory
   expenses: BudgetCategory
   income: BudgetCategory
+  totals: BudgetTotals
 }
 
 export type BudgetCategory = {
@@ -143,6 +144,12 @@ export type BudgetEntry = {
   volatileMotes?: Maybe<Scalars['Float']['output']>
 }
 
+export type BudgetTotals = {
+  balance: BudgetEntry
+  expenses: BudgetEntry
+  income: BudgetEntry
+}
+
 export enum CacheControlScope {
   Private = 'PRIVATE',
   Public = 'PUBLIC',
@@ -225,6 +232,14 @@ export type Save = {
   saveId: Scalars['Int']['output']
 }
 
+export type Subscription = {
+  gamestateCreated: Gamestate
+}
+
+export type SubscriptionGamestateCreatedArgs = {
+  saveId: Scalars['Int']['input']
+}
+
 type Properties<T> = Required<{
   [K in keyof T]: z.ZodType<T[K]>
 }>
@@ -258,6 +273,7 @@ export function BudgetSchema(): z.ZodObject<Properties<Budget>> {
     balance: z.lazy(() => BudgetCategorySchema()),
     expenses: z.lazy(() => BudgetCategorySchema()),
     income: z.lazy(() => BudgetCategorySchema()),
+    totals: z.lazy(() => BudgetTotalsSchema()),
   })
 }
 
@@ -367,6 +383,15 @@ export function BudgetEntrySchema(): z.ZodObject<Properties<BudgetEntry>> {
     trade: z.number().nullish(),
     unity: z.number().nullish(),
     volatileMotes: z.number().nullish(),
+  })
+}
+
+export function BudgetTotalsSchema(): z.ZodObject<Properties<BudgetTotals>> {
+  return z.object({
+    __typename: z.literal('BudgetTotals').optional(),
+    balance: z.lazy(() => BudgetEntrySchema()),
+    expenses: z.lazy(() => BudgetEntrySchema()),
+    income: z.lazy(() => BudgetEntrySchema()),
   })
 }
 

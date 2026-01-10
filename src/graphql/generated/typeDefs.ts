@@ -1393,6 +1393,59 @@ export const typeDefs = {
     },
     {
       kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'BudgetTotals' },
+      interfaces: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [],
+        },
+      ],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'income' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'BudgetEntry' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'expenses' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'BudgetEntry' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'balance' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'BudgetEntry' },
+            },
+          },
+          directives: [],
+        },
+      ],
+    },
+    {
+      kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'Budget' },
       interfaces: [],
       directives: [
@@ -1438,6 +1491,19 @@ export const typeDefs = {
             type: {
               kind: 'NamedType',
               name: { kind: 'Name', value: 'BudgetCategory' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'totals' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'BudgetTotals' },
             },
           },
           directives: [],
@@ -1739,12 +1805,54 @@ export const typeDefs = {
       ],
     },
     {
+      kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'Subscription' },
+      interfaces: [],
+      directives: [],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'gamestateCreated' },
+          arguments: [
+            {
+              kind: 'InputValueDefinition',
+              name: { kind: 'Name', value: 'saveId' },
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'Int' },
+                },
+              },
+              directives: [],
+            },
+          ],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'Gamestate' },
+            },
+          },
+          directives: [],
+        },
+      ],
+    },
+    {
       kind: 'SchemaDefinition',
       operationTypes: [
         {
           kind: 'OperationTypeDefinition',
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Query' } },
           operation: 'query',
+        },
+        {
+          kind: 'OperationTypeDefinition',
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'Subscription' },
+          },
+          operation: 'subscription',
         },
       ],
     },

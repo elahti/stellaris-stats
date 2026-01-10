@@ -1,0 +1,20 @@
+subscription OnGamestateCreated($saveId: Int!) {
+  gamestateCreated(saveId: $saveId) {
+    gamestateId
+    date
+    budget {
+      totals {
+        balance {
+          energy
+          minerals
+          food
+          trade
+          alloys
+          consumerGoods
+          unity
+          influence
+        }
+      }
+    }
+  }
+}

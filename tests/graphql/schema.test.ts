@@ -123,6 +123,42 @@ describe('GraphQL Schema', () => {
     })
   })
 
+  describe('BudgetTotals Type', () => {
+    const schema = buildSchema(schemaSDL)
+
+    it('defines BudgetTotals type', () => {
+      const budgetTotalsType = schema.getType('BudgetTotals')
+      expect(budgetTotalsType).toBeDefined()
+    })
+
+    it('has income, expenses, and balance fields', () => {
+      const budgetTotalsType = schema.getType('BudgetTotals') as
+        | import('graphql').GraphQLObjectType
+        | undefined
+      const fields = budgetTotalsType?.getFields()
+
+      expect(fields?.income).toBeDefined()
+      expect(fields?.expenses).toBeDefined()
+      expect(fields?.balance).toBeDefined()
+    })
+
+    it('uses cacheControl directive', () => {
+      expect(schemaSDL).toContain('type BudgetTotals @cacheControl')
+    })
+  })
+
+  describe('Budget Type totals Field', () => {
+    const schema = buildSchema(schemaSDL)
+    const budgetType = schema.getType('Budget') as
+      | import('graphql').GraphQLObjectType
+      | undefined
+
+    it('has totals field', () => {
+      const fields = budgetType?.getFields()
+      expect(fields?.totals).toBeDefined()
+    })
+  })
+
   describe('BudgetEntry Type Fields', () => {
     const schema = buildSchema(schemaSDL)
     const budgetEntryType = schema.getType('BudgetEntry') as

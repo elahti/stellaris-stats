@@ -56,7 +56,7 @@ class Settings(BaseSettings):
     @property
     def graphql_url(self) -> str:
         """Build the GraphQL server URL from host and port settings."""
-        return f"http://{self.stellaris_stats_graphql_server_host}:{self.stellaris_stats_graphql_server_port}"
+        return f"http://{self.stellaris_stats_graphql_server_host}:{self.stellaris_stats_graphql_server_port}/graphql"
 
     @property
     def sandbox_url(self) -> str:

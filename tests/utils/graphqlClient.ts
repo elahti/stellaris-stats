@@ -1,4 +1,5 @@
 import type { GraphQLFormattedError } from 'graphql'
+import type { Redis } from 'ioredis'
 import { createDataLoaders } from '../../src/graphql/dataloaders/index.js'
 import type { GraphQLServerContext } from '../../src/graphql/graphqlServerContext.js'
 import type { TestServerContext } from './testServer.js'
@@ -18,6 +19,7 @@ export const executeQuery = async <T = Record<string, unknown>>(
     client,
     loaders: createDataLoaders(client),
     cache: testServer.cache,
+    redisClient: testServer.mockRedis as unknown as Redis,
   }
 
   const response = await testServer.server.executeOperation(

@@ -53,6 +53,7 @@ export type Budget = {
   balance: BudgetCategory
   expenses: BudgetCategory
   income: BudgetCategory
+  totals: BudgetTotals
 }
 
 export type BudgetCategory = {
@@ -158,6 +159,13 @@ export type BudgetEntry = {
   volatileMotes?: Maybe<Scalars['Float']['output']>
 }
 
+export type BudgetTotals = {
+  __typename?: 'BudgetTotals'
+  balance: BudgetEntry
+  expenses: BudgetEntry
+  income: BudgetEntry
+}
+
 export type CacheControlScope = 'PRIVATE' | 'PUBLIC'
 
 export type Coordinate = {
@@ -244,6 +252,15 @@ export type Save = {
   gamestates: Array<Gamestate>
   name: Scalars['String']['output']
   saveId: Scalars['Int']['output']
+}
+
+export type Subscription = {
+  __typename?: 'Subscription'
+  gamestateCreated: Gamestate
+}
+
+export type SubscriptiongamestateCreatedArgs = {
+  saveId: Scalars['Int']['input']
 }
 
 export type ResolverTypeWrapper<T> = Promise<T> | T
@@ -370,6 +387,7 @@ export type ResolversTypes = {
   Budget: ResolverTypeWrapper<Budget>
   BudgetCategory: ResolverTypeWrapper<BudgetCategory>
   BudgetEntry: ResolverTypeWrapper<BudgetEntry>
+  BudgetTotals: ResolverTypeWrapper<BudgetTotals>
   CacheControlScope: ResolverTypeWrapper<'PUBLIC' | 'PRIVATE'>
   Coordinate: ResolverTypeWrapper<Coordinate>
   DateTimeISO: ResolverTypeWrapper<Scalars['DateTimeISO']['output']>
@@ -383,6 +401,7 @@ export type ResolversTypes = {
   PlanetProduction: ResolverTypeWrapper<PlanetProduction>
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>
   Save: ResolverTypeWrapper<Save>
+  Subscription: ResolverTypeWrapper<Record<PropertyKey, never>>
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
 }
 
@@ -393,6 +412,7 @@ export type ResolversParentTypes = {
   Budget: Budget
   BudgetCategory: BudgetCategory
   BudgetEntry: BudgetEntry
+  BudgetTotals: BudgetTotals
   Coordinate: Coordinate
   DateTimeISO: Scalars['DateTimeISO']['output']
   DiplomaticRelation: DiplomaticRelation
@@ -405,6 +425,7 @@ export type ResolversParentTypes = {
   PlanetProduction: PlanetProduction
   Query: Record<PropertyKey, never>
   Save: Save
+  Subscription: Record<PropertyKey, never>
   Int: Scalars['Int']['output']
 }
 
@@ -439,6 +460,7 @@ export type BudgetResolvers<
   balance?: Resolver<ResolversTypes['BudgetCategory'], ParentType, ContextType>
   expenses?: Resolver<ResolversTypes['BudgetCategory'], ParentType, ContextType>
   income?: Resolver<ResolversTypes['BudgetCategory'], ParentType, ContextType>
+  totals?: Resolver<ResolversTypes['BudgetTotals'], ParentType, ContextType>
 }
 
 export type BudgetCategoryResolvers<
@@ -890,6 +912,16 @@ export type BudgetEntryResolvers<
   >
 }
 
+export type BudgetTotalsResolvers<
+  ContextType = GraphQLServerContext,
+  ParentType extends ResolversParentTypes['BudgetTotals'] =
+    ResolversParentTypes['BudgetTotals'],
+> = {
+  balance?: Resolver<ResolversTypes['BudgetEntry'], ParentType, ContextType>
+  expenses?: Resolver<ResolversTypes['BudgetEntry'], ParentType, ContextType>
+  income?: Resolver<ResolversTypes['BudgetEntry'], ParentType, ContextType>
+}
+
 export type CacheControlScopeResolvers = EnumResolverSignature<
   { PRIVATE?: any; PUBLIC?: any },
   ResolversTypes['CacheControlScope']
@@ -1088,11 +1120,26 @@ export type SaveResolvers<
   saveId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
 }
 
+export type SubscriptionResolvers<
+  ContextType = GraphQLServerContext,
+  ParentType extends ResolversParentTypes['Subscription'] =
+    ResolversParentTypes['Subscription'],
+> = {
+  gamestateCreated?: SubscriptionResolver<
+    ResolversTypes['Gamestate'],
+    'gamestateCreated',
+    ParentType,
+    ContextType,
+    RequireFields<SubscriptiongamestateCreatedArgs, 'saveId'>
+  >
+}
+
 export type Resolvers<ContextType = GraphQLServerContext> = {
   AllPlanetCoordinate?: AllPlanetCoordinateResolvers<ContextType>
   Budget?: BudgetResolvers<ContextType>
   BudgetCategory?: BudgetCategoryResolvers<ContextType>
   BudgetEntry?: BudgetEntryResolvers<ContextType>
+  BudgetTotals?: BudgetTotalsResolvers<ContextType>
   CacheControlScope?: CacheControlScopeResolvers
   Coordinate?: CoordinateResolvers<ContextType>
   DateTimeISO?: GraphQLScalarType
@@ -1104,6 +1151,7 @@ export type Resolvers<ContextType = GraphQLServerContext> = {
   PlanetProduction?: PlanetProductionResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
   Save?: SaveResolvers<ContextType>
+  Subscription?: SubscriptionResolvers<ContextType>
 }
 
 export type DirectiveResolvers<ContextType = GraphQLServerContext> = {
