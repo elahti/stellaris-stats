@@ -68,8 +68,12 @@ describe('Budget.totals Resolver', () => {
     const armies = gamestate?.budget.balance.armies
     const totals = gamestate?.budget.totals.balance
 
-    expect(totals?.energy).toBe((countryBase?.energy ?? 0) + (armies?.energy ?? 0))
-    expect(totals?.minerals).toBe((countryBase?.minerals ?? 0) + (armies?.minerals ?? 0))
+    expect(totals?.energy).toBe(
+      (countryBase?.energy ?? 0) + (armies?.energy ?? 0),
+    )
+    expect(totals?.minerals).toBe(
+      (countryBase?.minerals ?? 0) + (armies?.minerals ?? 0),
+    )
     expect(totals?.food).toBe((countryBase?.food ?? 0) + (armies?.food ?? 0))
   })
 
@@ -96,6 +100,8 @@ describe('Budget.totals Resolver', () => {
 
     expect(result.errors).toBeUndefined()
     // Should not throw even if some categories are null
-    expect(result.data?.save.gamestates[0]?.budget.totals.balance.energy).toBeNumber()
+    expect(
+      result.data?.save.gamestates[0]?.budget.totals.balance.energy,
+    ).toBeNumber()
   })
 })
