@@ -14,6 +14,7 @@ type Budget {
   balance: BudgetCategory!
   expenses: BudgetCategory!
   income: BudgetCategory!
+  totals: BudgetTotals!
 }
 
 type BudgetCategory {
@@ -115,6 +116,12 @@ type BudgetEntry {
   trade: Float
   unity: Float
   volatileMotes: Float
+}
+
+type BudgetTotals {
+  balance: BudgetEntry!
+  expenses: BudgetEntry!
+  income: BudgetEntry!
 }
 
 enum CacheControlScope {

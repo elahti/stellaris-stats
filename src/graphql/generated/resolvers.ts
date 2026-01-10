@@ -7,6 +7,7 @@ import { AllPlanetCoordinate } from './AllPlanetCoordinate.js'
 import { Budget } from './Budget.js'
 import { BudgetCategory } from './BudgetCategory.js'
 import { BudgetEntry } from './BudgetEntry.js'
+import { BudgetTotals } from './BudgetTotals.js'
 import { Coordinate } from './Coordinate.js'
 import { DiplomaticRelation } from './DiplomaticRelation.js'
 import { Empire } from './Empire.js'
@@ -24,6 +25,7 @@ export const resolvers: Resolvers = {
   Budget: Budget,
   BudgetCategory: BudgetCategory,
   BudgetEntry: BudgetEntry,
+  BudgetTotals: BudgetTotals,
   Coordinate: Coordinate,
   DiplomaticRelation: DiplomaticRelation,
   Empire: Empire,

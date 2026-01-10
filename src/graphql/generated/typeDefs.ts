@@ -1393,6 +1393,59 @@ export const typeDefs = {
     },
     {
       kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'BudgetTotals' },
+      interfaces: [],
+      directives: [
+        {
+          kind: 'Directive',
+          name: { kind: 'Name', value: 'cacheControl' },
+          arguments: [],
+        },
+      ],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'income' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'BudgetEntry' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'expenses' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'BudgetEntry' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'balance' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'BudgetEntry' },
+            },
+          },
+          directives: [],
+        },
+      ],
+    },
+    {
+      kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'Budget' },
       interfaces: [],
       directives: [
@@ -1438,6 +1491,19 @@ export const typeDefs = {
             type: {
               kind: 'NamedType',
               name: { kind: 'Name', value: 'BudgetCategory' },
+            },
+          },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'totals' },
+          arguments: [],
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'BudgetTotals' },
             },
           },
           directives: [],

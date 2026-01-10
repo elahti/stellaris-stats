@@ -12,6 +12,11 @@ export const emptyBudget = (): Budget => ({
   income: {},
   expenses: {},
   balance: {},
+  totals: {
+    income: {},
+    expenses: {},
+    balance: {},
+  },
 })
 
 const getBudgetBatchQuery = `

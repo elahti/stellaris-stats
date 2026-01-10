@@ -53,6 +53,7 @@ export type Budget = {
   balance: BudgetCategory
   expenses: BudgetCategory
   income: BudgetCategory
+  totals: BudgetTotals
 }
 
 export type BudgetCategory = {
@@ -156,6 +157,13 @@ export type BudgetEntry = {
   trade?: Maybe<Scalars['Float']['output']>
   unity?: Maybe<Scalars['Float']['output']>
   volatileMotes?: Maybe<Scalars['Float']['output']>
+}
+
+export type BudgetTotals = {
+  __typename?: 'BudgetTotals'
+  balance: BudgetEntry
+  expenses: BudgetEntry
+  income: BudgetEntry
 }
 
 export type CacheControlScope = 'PRIVATE' | 'PUBLIC'
@@ -379,6 +387,7 @@ export type ResolversTypes = {
   Budget: ResolverTypeWrapper<Budget>
   BudgetCategory: ResolverTypeWrapper<BudgetCategory>
   BudgetEntry: ResolverTypeWrapper<BudgetEntry>
+  BudgetTotals: ResolverTypeWrapper<BudgetTotals>
   CacheControlScope: ResolverTypeWrapper<'PUBLIC' | 'PRIVATE'>
   Coordinate: ResolverTypeWrapper<Coordinate>
   DateTimeISO: ResolverTypeWrapper<Scalars['DateTimeISO']['output']>
@@ -403,6 +412,7 @@ export type ResolversParentTypes = {
   Budget: Budget
   BudgetCategory: BudgetCategory
   BudgetEntry: BudgetEntry
+  BudgetTotals: BudgetTotals
   Coordinate: Coordinate
   DateTimeISO: Scalars['DateTimeISO']['output']
   DiplomaticRelation: DiplomaticRelation
@@ -450,6 +460,7 @@ export type BudgetResolvers<
   balance?: Resolver<ResolversTypes['BudgetCategory'], ParentType, ContextType>
   expenses?: Resolver<ResolversTypes['BudgetCategory'], ParentType, ContextType>
   income?: Resolver<ResolversTypes['BudgetCategory'], ParentType, ContextType>
+  totals?: Resolver<ResolversTypes['BudgetTotals'], ParentType, ContextType>
 }
 
 export type BudgetCategoryResolvers<
@@ -901,6 +912,16 @@ export type BudgetEntryResolvers<
   >
 }
 
+export type BudgetTotalsResolvers<
+  ContextType = GraphQLServerContext,
+  ParentType extends ResolversParentTypes['BudgetTotals'] =
+    ResolversParentTypes['BudgetTotals'],
+> = {
+  balance?: Resolver<ResolversTypes['BudgetEntry'], ParentType, ContextType>
+  expenses?: Resolver<ResolversTypes['BudgetEntry'], ParentType, ContextType>
+  income?: Resolver<ResolversTypes['BudgetEntry'], ParentType, ContextType>
+}
+
 export type CacheControlScopeResolvers = EnumResolverSignature<
   { PRIVATE?: any; PUBLIC?: any },
   ResolversTypes['CacheControlScope']
@@ -1118,6 +1139,7 @@ export type Resolvers<ContextType = GraphQLServerContext> = {
   Budget?: BudgetResolvers<ContextType>
   BudgetCategory?: BudgetCategoryResolvers<ContextType>
   BudgetEntry?: BudgetEntryResolvers<ContextType>
+  BudgetTotals?: BudgetTotalsResolvers<ContextType>
   CacheControlScope?: CacheControlScopeResolvers
   Coordinate?: CoordinateResolvers<ContextType>
   DateTimeISO?: GraphQLScalarType
