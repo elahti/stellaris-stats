@@ -60,7 +60,7 @@ async def run_root_cause_single_eval(
             if settings.stellaris_stats_eval_graphql_server_host:
                 graphql_url = (
                     f"http://{settings.stellaris_stats_eval_graphql_server_host}"
-                    f":{server.port}"
+                    f":{server.port}/graphql"
                 )
             else:
                 graphql_url = server.url
@@ -71,7 +71,7 @@ async def run_root_cause_single_eval(
                         1
                     ].split(":")[0],
                     "stellaris_stats_graphql_server_port": int(
-                        graphql_url.split(":")[-1],
+                        graphql_url.split(":")[-1].split("/")[0],
                     ),
                 },
             )

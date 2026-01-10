@@ -29,7 +29,7 @@ If the user specifies an exact date, use it. If no date is provided, assume the 
 ```python
 import requests
 
-url = 'http://devcontainer:4000'
+url = 'http://devcontainer:4000/graphql'
 save_filename = '<save>'  # Replace with actual save name
 
 query = f'''
