@@ -1,57 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useQuery, useSubscription } from '@apollo/client/react'
-import { graphql } from '../graphql/generated'
-
-const GET_BUDGET = graphql(`
-  query GetBudget($filename: String!) {
-    save(filename: $filename) {
-      saveId
-      filename
-      name
-      gamestates {
-        gamestateId
-        date
-        budget {
-          balance {
-            countryBase {
-              energy
-              minerals
-              food
-              trade
-              alloys
-              consumerGoods
-              unity
-              influence
-            }
-          }
-        }
-      }
-    }
-  }
-`)
-
-const ON_GAMESTATE_CREATED = graphql(`
-  subscription OnGamestateCreated($saveId: Int!) {
-    gamestateCreated(saveId: $saveId) {
-      gamestateId
-      date
-      budget {
-        balance {
-          countryBase {
-            energy
-            minerals
-            food
-            trade
-            alloys
-            consumerGoods
-            unity
-            influence
-          }
-        }
-      }
-    }
-  }
-`)
+import {
+  GetBudgetDocument,
+  OnGamestateCreatedDocument,
+} from '../graphql/generated/graphql'
 
 interface BudgetData {
   gamestateId: number
@@ -83,7 +35,7 @@ export interface UseRealtimeBudgetResult {
 export const useRealtimeBudget = (
   filename: string,
 ): UseRealtimeBudgetResult => {
-  const { data, loading, error } = useQuery(GET_BUDGET, {
+  const { data, loading, error } = useQuery(GetBudgetDocument, {
     variables: { filename },
     skip: !filename,
   })
@@ -97,12 +49,15 @@ export const useRealtimeBudget = (
     }
   }, [data])
 
-  useSubscription(ON_GAMESTATE_CREATED, {
+  useSubscription(OnGamestateCreatedDocument, {
     variables: { saveId: saveId ?? 0 },
     skip: !saveId,
     onData: ({ data: subscriptionData }) => {
       if (subscriptionData?.data?.gamestateCreated) {
-        setGamestates((prev) => [...prev, subscriptionData.data.gamestateCreated])
+        setGamestates((prev) => [
+          ...prev,
+          subscriptionData.data.gamestateCreated,
+        ])
       }
     },
   })

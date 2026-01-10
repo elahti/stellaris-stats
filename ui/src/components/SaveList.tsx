@@ -1,16 +1,6 @@
 import { useQuery } from '@apollo/client/react'
-import { graphql } from '../graphql/generated'
+import { GetSavesDocument } from '../graphql/generated/graphql'
 import * as styles from './SaveList.css'
-
-const GET_SAVES = graphql(`
-  query GetSaves {
-    saves {
-      saveId
-      filename
-      name
-    }
-  }
-`)
 
 export interface SaveListProps {
   selectedFilename?: string
@@ -21,7 +11,7 @@ export const SaveList = ({
   selectedFilename,
   onSelectSave,
 }: SaveListProps): React.ReactElement => {
-  const { data, loading, error } = useQuery(GET_SAVES)
+  const { data, loading, error } = useQuery(GetSavesDocument)
 
   if (loading) {
     return <div className={styles.loadingText}>Loading saves...</div>
