@@ -24,9 +24,20 @@ migrations/             # Database migrations
 graphql/                # GraphQL schema definitions
 grafana/                # Dashboard configurations (see grafana/README.md)
 tests/                  # Test files, utils, fixtures
-docs/                   # Detailed documentation
-  ARCHITECTURE.md       # Caching, testing, parser details
+docs/                   # Detailed documentation (see below)
 ```
+
+## Detailed Documentation
+
+Consult these when making significant changes to each system:
+
+| Topic | File | When to read |
+|-------|------|--------------|
+| Caching | `docs/CACHING.md` | Modifying Redis, response cache, or DataLoaders |
+| Testing | `docs/TESTING.md` | Adding tests, fixtures, or test infrastructure |
+| Parser | `docs/PARSER.md` | Changing save file parsing or budget extraction |
+| Agent | `docs/AGENT.md` | Working on Python budget agent or evals |
+| UI | `docs/UI.md` | Frontend components, hooks, or styling |
 
 ## Commands
 
@@ -144,7 +155,7 @@ Column name mapping: `snake_case` (DB) → `camelCase` (GraphQL) via `selectRows
 Keep synchronized when changing:
 
 - Commands → Update Commands section
-- Architecture → Update `docs/ARCHITECTURE.md`
+- System internals → Update relevant `docs/*.md` file
 - Grafana → Update `grafana/README.md`
 
 ## Claude-Specific
