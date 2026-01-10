@@ -3,8 +3,8 @@ subscription OnGamestateCreated($saveId: Int!) {
     gamestateId
     date
     budget {
-      balance {
-        countryBase {
+      totals {
+        balance {
           energy
           minerals
           food

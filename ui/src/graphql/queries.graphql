@@ -27,8 +27,8 @@ query GetBudget($filename: String!) {
       gamestateId
       date
       budget {
-        balance {
-          countryBase {
+        totals {
+          balance {
             energy
             minerals
             food
