@@ -60,9 +60,9 @@ export const BudgetDashboard = ({
       label: resourceLabels[key],
       color: resourceColors[key],
       values: sortedGamestates.map((g) => {
-        const countryBase = g.budget?.balance?.countryBase
-        if (!countryBase) return 0
-        return countryBase[key] ?? 0
+        const totals = g.budget?.totals?.balance
+        if (!totals) return 0
+        return totals[key] ?? 0
       }),
     }))
 

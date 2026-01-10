@@ -9,8 +9,8 @@ interface BudgetData {
   gamestateId: number
   date: string
   budget: {
-    balance: {
-      countryBase: {
+    totals: {
+      balance: {
         energy: number | null
         minerals: number | null
         food: number | null
