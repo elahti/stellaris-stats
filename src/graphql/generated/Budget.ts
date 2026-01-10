@@ -2,6 +2,7 @@ import type { BudgetResolvers } from './types.generated.js'
 import {
   type BudgetCategory,
   type BudgetEntry,
+  BudgetEntrySchema,
 } from './validation.generated.js'
 
 const RESOURCE_KEYS = [
@@ -28,7 +29,7 @@ const RESOURCE_KEYS = [
 ] as const
 
 const sumCategories = (category: BudgetCategory): BudgetEntry => {
-  const result: Record<string, number> = {}
+  const result: Record<string, number | null | undefined> = {}
   for (const key of RESOURCE_KEYS) {
     result[key] = 0
   }
@@ -42,7 +43,7 @@ const sumCategories = (category: BudgetCategory): BudgetEntry => {
       }
     }
   }
-  return result as BudgetEntry
+  return BudgetEntrySchema().parse(result)
 }
 
 export const Budget: BudgetResolvers = {
