@@ -119,6 +119,41 @@ async def destroy_test_database(ctx: TestDatabaseContext) -> None:
         await admin_conn.close()
 
 
+async def destroy_test_template(settings: Settings | None = None) -> None:
+    """Clean up the template database at end of eval session."""
+    global _template_ready, _template_settings
+
+    if _template_ready is None:
+        return
+
+    if settings is None:
+        settings = _template_settings or get_settings()
+
+    admin_conn = await asyncpg.connect(
+        host=settings.stellaris_stats_db_host,
+        port=settings.stellaris_stats_db_port,
+        user=settings.stellaris_stats_db_user,
+        password=settings.stellaris_stats_db_password,
+        database=settings.stellaris_stats_db_name,
+    )
+
+    try:
+        await admin_conn.execute(
+            """
+            SELECT pg_terminate_backend(pid)
+            FROM pg_stat_activity
+            WHERE datname = $1
+              AND pid <> pg_backend_pid()
+            """,
+            TEMPLATE_DB_NAME,
+        )
+        await admin_conn.execute(f"DROP DATABASE IF EXISTS {TEMPLATE_DB_NAME}")
+        _template_ready = None
+        _template_settings = None
+    finally:
+        await admin_conn.close()
+
+
 async def _run_migrations(
     db_name: str,
     host: str,
