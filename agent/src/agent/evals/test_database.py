@@ -22,6 +22,34 @@ class TestDatabaseContext:
     settings: Settings
 
 
+async def _ensure_template(settings: Settings) -> None:  # pyright: ignore[reportUnusedFunction]
+    """Create and migrate the template database (called once per session)."""
+    global _template_settings
+    _template_settings = settings
+
+    admin_conn = await asyncpg.connect(
+        host=settings.stellaris_stats_db_host,
+        port=settings.stellaris_stats_db_port,
+        user=settings.stellaris_stats_db_user,
+        password=settings.stellaris_stats_db_password,
+        database=settings.stellaris_stats_db_name,
+    )
+
+    try:
+        await admin_conn.execute(f"DROP DATABASE IF EXISTS {TEMPLATE_DB_NAME}")
+        await admin_conn.execute(f"CREATE DATABASE {TEMPLATE_DB_NAME}")
+    finally:
+        await admin_conn.close()
+
+    await _run_migrations(
+        db_name=TEMPLATE_DB_NAME,
+        host=settings.stellaris_stats_db_host,
+        port=settings.stellaris_stats_db_port,
+        user=settings.stellaris_stats_db_user,
+        password=settings.stellaris_stats_db_password,
+    )
+
+
 async def create_test_database(
     settings: Settings | None = None,
 ) -> TestDatabaseContext:
