@@ -21,11 +21,11 @@ async def start_graphql_server(
 ) -> GraphQLServerProcess:
     env = {
         **os.environ,
-        "TEST_DB_HOST": db_ctx.host,
-        "TEST_DB_PORT": str(db_ctx.port),
+        "TEST_DB_HOST": db_ctx.settings.stellaris_stats_db_host,
+        "TEST_DB_PORT": str(db_ctx.settings.stellaris_stats_db_port),
         "TEST_DB_NAME": db_ctx.db_name,
-        "TEST_DB_USER": db_ctx.user,
-        "TEST_DB_PASSWORD": db_ctx.password,
+        "TEST_DB_USER": db_ctx.settings.stellaris_stats_db_user,
+        "TEST_DB_PASSWORD": db_ctx.settings.stellaris_stats_db_password,
     }
 
     process = await asyncio.create_subprocess_exec(

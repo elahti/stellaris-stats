@@ -9,15 +9,17 @@ import asyncpg
 
 from agent.settings import Settings, get_settings
 
+TEMPLATE_DB_NAME = "stellaris_test_template"
+
+_template_ready: asyncio.Task[None] | None = None
+_template_settings: Settings | None = None
+
 
 @dataclass
 class TestDatabaseContext:
     pool: asyncpg.Pool[asyncpg.Record]
     db_name: str
-    host: str
-    port: int
-    user: str
-    password: str
+    settings: Settings
 
 
 async def create_test_database(
@@ -64,28 +66,19 @@ async def create_test_database(
     return TestDatabaseContext(
         pool=pool,
         db_name=db_name,
-        host=settings.stellaris_stats_db_host,
-        port=settings.stellaris_stats_db_port,
-        user=settings.stellaris_stats_db_user,
-        password=settings.stellaris_stats_db_password,
+        settings=settings,
     )
 
 
-async def destroy_test_database(
-    ctx: TestDatabaseContext,
-    settings: Settings | None = None,
-) -> None:
-    if settings is None:
-        settings = get_settings()
-
+async def destroy_test_database(ctx: TestDatabaseContext) -> None:
     await ctx.pool.close()
 
     admin_conn = await asyncpg.connect(
-        host=settings.stellaris_stats_db_host,
-        port=settings.stellaris_stats_db_port,
-        user=settings.stellaris_stats_db_user,
-        password=settings.stellaris_stats_db_password,
-        database=settings.stellaris_stats_db_name,
+        host=ctx.settings.stellaris_stats_db_host,
+        port=ctx.settings.stellaris_stats_db_port,
+        user=ctx.settings.stellaris_stats_db_user,
+        password=ctx.settings.stellaris_stats_db_password,
+        database=ctx.settings.stellaris_stats_db_name,
     )
 
     try:

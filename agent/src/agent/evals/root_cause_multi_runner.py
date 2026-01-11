@@ -41,7 +41,7 @@ async def eval_environment(
         finally:
             await stop_graphql_server(server)
     finally:
-        await destroy_test_database(db_ctx, settings)
+        await destroy_test_database(db_ctx)
 
 
 async def run_root_cause_multi_eval(
