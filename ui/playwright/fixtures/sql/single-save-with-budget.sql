@@ -35,7 +35,7 @@ VALUES
      WHERE save_id = (SELECT save_id FROM save WHERE filename = 'test-empire.sav')
      AND date = '2300-01-01'),
     'balance',
-    'total',
+    'none',
     (SELECT budget_entry_id FROM budget_entry ORDER BY budget_entry_id DESC LIMIT 1)
   );
 
@@ -56,7 +56,7 @@ VALUES
      WHERE save_id = (SELECT save_id FROM save WHERE filename = 'test-empire.sav')
      AND date = '2300-06-01'),
     'balance',
-    'total',
+    'none',
     (SELECT budget_entry_id FROM budget_entry ORDER BY budget_entry_id DESC LIMIT 1)
   );
 
@@ -78,6 +78,6 @@ VALUES
      WHERE save_id = (SELECT save_id FROM save WHERE filename = 'test-empire.sav')
      AND date = '2301-01-01'),
     'balance',
-    'total',
+    'none',
     (SELECT budget_entry_id FROM budget_entry ORDER BY budget_entry_id DESC LIMIT 1)
   );
