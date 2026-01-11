@@ -5,7 +5,7 @@ import { Pool } from 'pg'
 import { getPlaywrightEnvConfig } from '../config'
 
 const TEST_DB_NAME = 'stellaris_e2e_test'
-const FIXTURES_DIR = './ui/playwright/fixtures/sql'
+const FIXTURES_DIR = './playwright/fixtures/sql'
 
 type TestFixtures = {
   loadFixture: (fixturePath: string) => Promise<void>

@@ -6,7 +6,6 @@ import {
   resolvers as scalarResolvers,
   typeDefs as scalarTypeDefs,
 } from 'graphql-scalars'
-import { createServer } from 'net'
 import { Pool } from 'pg'
 import type { Redis } from 'ioredis'
 import { createDataLoaders } from './dataloaders/index.js'
@@ -16,22 +15,13 @@ import { GraphQLServerContext } from './graphqlServerContext.js'
 import { RedisCache } from './responseCache.js'
 import { createMockRedis } from '../../tests/utils/mockRedis.js'
 
-const findFreePort = (): Promise<number> =>
-  new Promise((resolve, reject) => {
-    const server = createServer()
-    server.listen(0, () => {
-      const address = server.address()
-      if (address && typeof address === 'object') {
-        const port = address.port
-        server.close(() => {
-          resolve(port)
-        })
-      } else {
-        reject(new Error('Failed to get server address'))
-      }
-    })
-    server.on('error', reject)
-  })
+const getServerPort = (): number => {
+  const portEnv = process.env.GRAPHQL_PORT
+  if (portEnv) {
+    return parseInt(portEnv, 10)
+  }
+  return 4000
+}
 
 const getRequiredEnv = (name: string): string => {
   const value = process.env[name]
@@ -84,7 +74,7 @@ const runTestGraphQLServer = async () => {
     cache,
   })
 
-  const port = await findFreePort()
+  const port = getServerPort()
 
   await startStandaloneServer(server, {
     listen: { port },

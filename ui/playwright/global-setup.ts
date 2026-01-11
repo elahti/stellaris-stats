@@ -1,4 +1,4 @@
-import { spawn, ChildProcess } from 'child_process'
+import { spawn, ChildProcess, execSync } from 'child_process'
 import { Pool } from 'pg'
 import { getPlaywrightEnvConfig } from './config'
 
@@ -6,6 +6,26 @@ const TEMPLATE_DB_NAME = 'stellaris_e2e_template'
 const TEST_DB_NAME = 'stellaris_e2e_test'
 
 let graphqlServerProcess: ChildProcess | null = null
+
+const runMigrationsViaScript = (
+  config: ReturnType<typeof getPlaywrightEnvConfig>,
+  databaseName: string,
+): void => {
+  const databaseUrl = `postgres://${config.dbUser}:${config.dbPassword}@${config.dbHost}:${config.dbPort}/${databaseName}`
+  const rootDir = process.cwd().replace('/ui', '')
+
+  execSync(
+    `npx node-pg-migrate up -m "${rootDir}/migrations" --migrations-table "e2e_migrations"`,
+    {
+      cwd: rootDir,
+      env: {
+        ...process.env,
+        DATABASE_URL: databaseUrl,
+      },
+      stdio: 'pipe',
+    },
+  )
+}
 
 const waitForServer = (
   process: ChildProcess,
@@ -65,25 +85,7 @@ const createTemplateDatabase = async (config: ReturnType<typeof getPlaywrightEnv
   })
 
   try {
-    const { runUpMigrations } = await import('../../src/migrations.js')
-    const silentLogger = {
-      info: () => undefined,
-      error: () => undefined,
-      warn: () => undefined,
-      fatal: () => undefined,
-      debug: () => undefined,
-      trace: () => undefined,
-      silent: () => undefined,
-      child: () => silentLogger,
-    }
-    await runUpMigrations(
-      {
-        STELLARIS_STATS_MIGRATIONS_DIR: './migrations',
-        STELLARIS_STATS_MIGRATIONS_TABLE: 'e2e_migrations',
-      },
-      templatePool,
-      silentLogger as never,
-    )
+    await runMigrationsViaScript(config, TEMPLATE_DB_NAME)
     console.log('Ran migrations on template database')
   } finally {
     await templatePool.end()
