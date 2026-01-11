@@ -8,6 +8,7 @@ import {
 } from 'graphql-scalars'
 import { Pool } from 'pg'
 import type { Redis } from 'ioredis'
+import z from 'zod/v4'
 import { createDataLoaders } from './dataloaders/index.js'
 import { resolvers } from './generated/resolvers.js'
 import { typeDefs } from './generated/typeDefs.js'
@@ -15,13 +16,14 @@ import { GraphQLServerContext } from './graphqlServerContext.js'
 import { RedisCache } from './responseCache.js'
 import { createMockRedis } from '../../tests/utils/mockRedis.js'
 
-const getServerPort = (): number => {
-  const portEnv = process.env.GRAPHQL_PORT
-  if (portEnv) {
-    return parseInt(portEnv, 10)
-  }
-  return 4000
-}
+const TestServerConfig = z.object({
+  port: z.coerce.number().default(4000),
+})
+
+const getServerConfig = () =>
+  TestServerConfig.parse({
+    port: process.env.STELLARIS_STATS_GRAPHQL_SERVER_PORT,
+  })
 
 const getRequiredEnv = (name: string): string => {
   const value = process.env[name]
@@ -84,7 +86,7 @@ const runTestGraphQLServer = async () => {
     cache,
   })
 
-  const port = getServerPort()
+  const { port } = getServerConfig()
 
   await startStandaloneServer(server, {
     listen: { port },

@@ -10,4 +10,5 @@
 /agent/.venv/
 /db-dump-data
 /gamestate-json-data/
-/ui/test-results/
+/ui/test-results/ui/playwright/.graphql-server-pid
+ui/test-results/
