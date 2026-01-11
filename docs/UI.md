@@ -67,6 +67,7 @@ interface TimeSeriesChartProps {
 ### Apollo Client Setup (`lib/apollo.ts`)
 
 Split link configuration:
+
 - **HTTP link** for queries/mutations → `/graphql`
 - **WebSocket link** for subscriptions → `ws://{host}/graphql`
 
@@ -85,7 +86,8 @@ const splitLink = split(
 3. Appends new data to local state on subscription events
 
 ```typescript
-const { gamestates, loading, error, saveName, saveId } = useRealtimeBudget(filename)
+const { gamestates, loading, error, saveName, saveId } =
+  useRealtimeBudget(filename)
 ```
 
 State is managed locally (not in Apollo cache) because uPlot needs array format and appending is simpler than cache merge policies.
@@ -93,11 +95,13 @@ State is managed locally (not in Apollo cache) because uPlot needs array format 
 ### GraphQL Operations
 
 **Queries** (`graphql/queries.graphql`):
+
 - `GetSaves` - List all saves
 - `GetSave` - Get save details with gamestates
 - `GetBudget` - Get budget totals for charting
 
 **Subscriptions** (`graphql/subscriptions.graphql`):
+
 - `OnGamestateCreated` - Real-time new gamestate notifications
 
 ## Theming System
@@ -177,3 +181,68 @@ export const panel = style({
 - Operations defined in `.graphql` files
 - Types generated via `npm run ui:codegen`
 - Import generated document constants (e.g., `GetBudgetDocument`)
+
+## E2E Testing
+
+End-to-end tests use Playwright to test the full application stack.
+
+### Running Tests
+
+```bash
+# Run all E2E tests (from workspace root)
+npm run test:ci:e2e
+
+# Run E2E tests with UI mode (from workspace root)
+npm run test:e2e:ui -w ui
+```
+
+### Test File Structure
+
+```
+ui/playwright/
+├── tests/                # Test files
+│   ├── navigation.spec.ts
+│   ├── save-selection.spec.ts
+│   └── error-handling.spec.ts
+├── fixtures/
+│   ├── test-base.ts      # Custom test fixture with database helpers
+│   └── sql/              # SQL fixture files
+│       ├── empty-database.sql
+│       ├── single-save-with-budget.sql
+│       └── multiple-saves.sql
+├── global-setup.ts       # Creates test database, starts GraphQL server
+├── global-teardown.ts    # Cleanup
+└── config.ts             # Environment configuration
+```
+
+### Database Setup Pattern
+
+Tests use a template database approach for fast setup:
+
+1. **Global setup** creates a template database with migrations applied
+2. **Test database** is cloned from the template before tests run
+3. **Fixtures** load specific SQL data per test
+
+```typescript
+import { test, expect } from '../fixtures/test-base'
+
+test('displays saves', async ({ page, loadFixture }) => {
+  await loadFixture('multiple-saves.sql')
+  await page.goto('/')
+  await expect(page.getByRole('heading', { name: 'Saves' })).toBeVisible()
+})
+```
+
+### Available Fixture Helpers
+
+The custom test fixture (`test-base.ts`) provides:
+
+- `loadFixture(path)` - Truncates tables and loads SQL fixture file
+- `resetDatabase()` - Truncates all tables without loading data
+
+### Writing Tests
+
+- Use semantic locators (`getByRole`, `getByText`) over CSS selectors
+- Load appropriate SQL fixtures before each test
+- Use `test.describe` blocks to group related tests
+- Avoid strict mode violations by scoping locators (e.g., `sidebar.getByRole(...)`)
