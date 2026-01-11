@@ -286,7 +286,7 @@ jobs:
         run: cd ui && npx playwright install chromium --with-deps
 
       - name: Build TypeScript
-        run: npm run build
+        run: npm run graphql:codegen:typescript && tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json
 
       - name: Install dotenvx
         run: npm install -g @dotenvx/dotenvx
