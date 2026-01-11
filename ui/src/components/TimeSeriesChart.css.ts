@@ -26,15 +26,15 @@ export const chartWrapper = style({
 
 export const legend = style({
   display: 'flex',
-  flexWrap: 'wrap',
-  gap: vars.space.md,
+  flexDirection: 'column',
+  gap: vars.space.xs,
   padding: vars.space.sm,
 })
 
 export const legendItem = style({
   display: 'flex',
   alignItems: 'center',
-  gap: vars.space.xs,
+  gap: vars.space.sm,
   fontFamily: vars.font.body,
   fontSize: '0.85rem',
   color: vars.color.text,
@@ -44,4 +44,17 @@ export const legendColor = style({
   width: '12px',
   height: '12px',
   borderRadius: '2px',
+  flexShrink: 0,
+})
+
+export const legendLabel = style({
+  flex: 1,
+})
+
+export const legendValue = style({
+  fontFamily: 'monospace',
+  fontSize: '0.85rem',
+  color: vars.color.text,
+  minWidth: '80px',
+  textAlign: 'right',
 })
