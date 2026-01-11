@@ -1,7 +1,8 @@
 import argparse
 import asyncio
 import sys
-from collections.abc import Callable, Coroutine
+from collections.abc import AsyncIterator, Callable, Coroutine
+from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from typing import Any
 
@@ -27,7 +28,17 @@ from agent.evals.neighbor_single_runner import run_neighbor_single_evals
 from agent.evals.root_cause_multi_runner import run_root_cause_multi_evals
 from agent.evals.root_cause_single_runner import run_root_cause_single_evals
 from agent.evals.sandbox_runner import run_sandbox_evals
+from agent.evals.test_database import destroy_test_template
 from agent.settings import Settings, get_settings
+
+
+@asynccontextmanager
+async def eval_session(settings: Settings) -> AsyncIterator[None]:
+    """Context manager for eval session - ensures template cleanup."""
+    try:
+        yield
+    finally:
+        await destroy_test_template(settings)
 
 
 @dataclass
@@ -78,19 +89,20 @@ async def run_evals_for_models(
     models: list[str],
     settings: Settings,
 ) -> None:
-    config = AVAILABLE_DATASETS[dataset_name]
-    runner = config.runner
-    for model in models:
-        print(f"\n{'=' * 60}")
-        print(f"Running evals with model: {model}")
-        print("=" * 60)
-        experiment_name = build_experiment_name(dataset_name, model)
-        await runner(
-            dataset,
-            model,
-            experiment_name,
-            settings,
-        )
+    async with eval_session(settings):
+        config = AVAILABLE_DATASETS[dataset_name]
+        runner = config.runner
+        for model in models:
+            print(f"\n{'=' * 60}")
+            print(f"Running evals with model: {model}")
+            print("=" * 60)
+            experiment_name = build_experiment_name(dataset_name, model)
+            await runner(
+                dataset,
+                model,
+                experiment_name,
+                settings,
+            )
 
 
 def main() -> None:
@@ -168,14 +180,17 @@ Examples:
 
     if args.model:
         experiment_name = build_experiment_name(dataset_name, args.model)
-        asyncio.run(
-            config.runner(
-                dataset,
-                args.model,
-                experiment_name,
-                settings,
-            ),
-        )
+
+        async def run_single() -> None:
+            async with eval_session(settings):
+                await config.runner(
+                    dataset,
+                    args.model,
+                    experiment_name,
+                    settings,
+                )
+
+        asyncio.run(run_single())
     else:
         asyncio.run(
             run_evals_for_models(
