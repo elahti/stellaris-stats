@@ -31,13 +31,13 @@ docs/                   # Detailed documentation (see below)
 
 Consult these when making significant changes to each system:
 
-| Topic | File | When to read |
-|-------|------|--------------|
+| Topic   | File              | When to read                                    |
+| ------- | ----------------- | ----------------------------------------------- |
 | Caching | `docs/CACHING.md` | Modifying Redis, response cache, or DataLoaders |
-| Testing | `docs/TESTING.md` | Adding tests, fixtures, or test infrastructure |
-| Parser | `docs/PARSER.md` | Changing save file parsing or budget extraction |
-| Agent | `docs/AGENT.md` | Working on Python budget agent or evals |
-| UI | `docs/UI.md` | Frontend components, hooks, or styling |
+| Testing | `docs/TESTING.md` | Adding tests, fixtures, or test infrastructure  |
+| Parser  | `docs/PARSER.md`  | Changing save file parsing or budget extraction |
+| Agent   | `docs/AGENT.md`   | Working on Python budget agent or evals         |
+| UI      | `docs/UI.md`      | Frontend components, hooks, or styling          |
 
 ## Commands
 
@@ -57,30 +57,32 @@ All commands run from `/workspace`.
 
 ### UI (React)
 
-| Task            | Command             |
-| --------------- | ------------------- |
-| Dev server      | `npm run ui:dev`    |
-| Build           | `npm run ui:build`  |
-| Preview build   | `npm run ui:preview`|
-| GraphQL codegen | `npm run ui:codegen`|
+| Task            | Command                     |
+| --------------- | --------------------------- |
+| Dev server      | `npm run ui:dev`            |
+| Build           | `npm run ui:build`          |
+| Preview build   | `npm run ui:preview`        |
+| GraphQL codegen | `npm run ui:codegen`        |
+| E2E tests       | `npm run test:ci:e2e`       |
+| E2E tests (UI)  | `npm run test:e2e:ui -w ui` |
 
 ### Python
 
-| Task              | Command                                                                                     |
-| ----------------- | ------------------------------------------------------------------------------------------- |
-| Sync deps         | `cd agent && uv sync`                                                                       |
-| GraphQL codegen   | `npm run graphql:codegen:python`                                                            |
-| Type check        | `npm run typecheck:python`                                                                  |
-| Lint              | `npm run lint:python`                                                                       |
-| Format            | `npm run format:python`                                                                     |
-| List saves        | `npm run agent:list-saves`                                                                  |
-| List models       | `npm run agent:list-models`                                                                 |
-| Analyze budget    | `npm run agent:analyze -- --type budget --save <filename>`                     |
-| Analyze neighbors | `npm run agent:analyze -- --type neighbors --save <filename> [--agent-type single\|multi]` |
-| Run evals         | `npm run agent:evals -- --dataset multi_agent_drop_detection`                                |
+| Task              | Command                                                                                                         |
+| ----------------- | --------------------------------------------------------------------------------------------------------------- |
+| Sync deps         | `cd agent && uv sync`                                                                                           |
+| GraphQL codegen   | `npm run graphql:codegen:python`                                                                                |
+| Type check        | `npm run typecheck:python`                                                                                      |
+| Lint              | `npm run lint:python`                                                                                           |
+| Format            | `npm run format:python`                                                                                         |
+| List saves        | `npm run agent:list-saves`                                                                                      |
+| List models       | `npm run agent:list-models`                                                                                     |
+| Analyze budget    | `npm run agent:analyze -- --type budget --save <filename>`                                                      |
+| Analyze neighbors | `npm run agent:analyze -- --type neighbors --save <filename> [--agent-type single\|multi]`                      |
+| Run evals         | `npm run agent:evals -- --dataset multi_agent_drop_detection`                                                   |
 | Generate fixture  | `npm run agent:generate-fixture -- --save <name> --start-date YYYY-MM-DD --end-date YYYY-MM-DD --output <path>` |
-| Test (verbose)    | `npm run test:python`                                                                       |
-| Test (CI)         | `npm run test:ci:python`                                                                    |
+| Test (verbose)    | `npm run test:python`                                                                                           |
+| Test (CI)         | `npm run test:ci:python`                                                                                        |
 
 Python GraphQL client is generated using ariadne-codegen. Queries are defined in `agent/queries.graphql` and output to `agent/src/agent/graphql_client/`. The generated directory is excluded from ruff and pyright.
 
@@ -131,11 +133,13 @@ After UI changes: `npm run ui:build`
 **ALWAYS invoke the `/commit` skill when committing code.** The skill handles commit format, quality checks, and workflow decisions.
 
 Workflow:
+
 - Use branch-based development, not git worktrees
 - Minor fixes can be committed directly to main; larger changes require a feature branch
 - If explicitly told to commit to a specific branch, do so without questioning
 
 Safety:
+
 - Never force push, hard reset, or skip hooks unless requested
 - Never amend other developers' commits
 

@@ -79,8 +79,12 @@ export const BudgetDashboard = ({
 
   if (!chartData) {
     return (
-      <div className={styles.noDataContainer}>
-        Select a save to view budget data
+      <div className={styles.dashboardContainer}>
+        <div className={styles.dashboardHeader}>
+          <h2 className={styles.dashboardTitle}>Empire Budget</h2>
+          {saveName && <span className={styles.saveName}>{saveName}</span>}
+        </div>
+        <div className={styles.noDataContainer}>No budget data available for this save</div>
       </div>
     )
   }

@@ -227,3 +227,69 @@ jobs:
 
       - name: Check for uncommitted changes
         run: git diff --exit-code ui/src/graphql/generated/
+
+  test-e2e:
+    name: Test E2E
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:18@sha256:bfe50b2b0ddd9b55eadedd066fe24c7c6fe06626185b73358c480ea37868024d
+        env:
+          POSTGRES_DB: stellaris_test_admin
+          POSTGRES_USER: stellaris_test
+          POSTGRES_PASSWORD: stellaris_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    env:
+      # Test database config (used by test server)
+      TEST_DB_HOST: localhost
+      TEST_DB_PORT: 5432
+      TEST_DB_NAME: stellaris_test_admin
+      TEST_DB_USER: stellaris_test
+      TEST_DB_PASSWORD: stellaris_test
+      # Database config (used by migrations and Playwright setup)
+      STELLARIS_STATS_DB_HOST: localhost
+      STELLARIS_STATS_DB_PORT: 5432
+      STELLARIS_STATS_DB_NAME: stellaris_test_admin
+      STELLARIS_STATS_DB_USER: stellaris_test
+      STELLARIS_STATS_DB_PASSWORD: stellaris_test
+      STELLARIS_STATS_MIGRATIONS_DIR: ./migrations
+      STELLARIS_STATS_MIGRATIONS_TABLE: pgmigrations
+      # Vite config
+      STELLARIS_STATS_VITE_HOST: localhost
+      STELLARIS_STATS_VITE_PORT: 5173
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6
+        with:
+          node-version: '24.12.0'
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install UI dependencies
+        run: cd ui && npm ci
+
+      - name: Install Playwright browsers
+        run: cd ui && npx playwright install chromium --with-deps
+
+      - name: Build TypeScript
+        run: npm run graphql:codegen:typescript && tsc -p tsconfig.src.json && tsc -p tsconfig.tests.json
+
+      - name: Install dotenvx
+        run: npm install -g @dotenvx/dotenvx
+
+      - name: Run E2E tests
+        run: npm run test:ci:e2e

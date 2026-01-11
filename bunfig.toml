@@ -1,0 +1,4 @@
+[test]
+# Exclude Playwright E2E tests from bun test discovery
+# Playwright tests are run separately with 'playwright test'
+ignore = ["ui/playwright/tests/**"]
