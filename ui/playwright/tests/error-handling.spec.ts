@@ -16,8 +16,10 @@ test.describe('Error Handling', () => {
     await loadFixture('multiple-saves.sql')
     await page.goto('/')
 
+    const sidebar = page.locator('aside')
+
     // Empire Beta has no budget data
-    await page.getByText('Empire Beta').click()
+    await sidebar.getByRole('heading', { name: 'Empire Beta' }).click()
 
     // Should show the dashboard but with appropriate message
     await expect(page.getByRole('heading', { name: 'Empire Budget' })).toBeVisible()

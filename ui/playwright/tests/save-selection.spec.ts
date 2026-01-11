@@ -13,27 +13,30 @@ test.describe('Save Selection', () => {
     await loadFixture('multiple-saves.sql')
     await page.goto('/')
 
+    const sidebar = page.locator('aside')
     await expect(page.getByRole('heading', { name: 'Saves' })).toBeVisible()
-    await expect(page.getByText('Empire Alpha')).toBeVisible()
-    await expect(page.getByText('Empire Beta')).toBeVisible()
-    await expect(page.getByText('Empire Gamma')).toBeVisible()
+    await expect(sidebar.getByRole('heading', { name: 'Empire Alpha' })).toBeVisible()
+    await expect(sidebar.getByRole('heading', { name: 'Empire Beta' })).toBeVisible()
+    await expect(sidebar.getByRole('heading', { name: 'Empire Gamma' })).toBeVisible()
   })
 
   test('selecting a save shows the dashboard', async ({ page, loadFixture }) => {
     await loadFixture('multiple-saves.sql')
     await page.goto('/')
 
-    await page.getByText('Empire Alpha').click()
+    const sidebar = page.locator('aside')
+    await sidebar.getByRole('heading', { name: 'Empire Alpha' }).click()
 
     await expect(page.getByRole('heading', { name: 'Empire Budget' })).toBeVisible()
-    await expect(page.getByText('Empire Alpha')).toBeVisible()
+    await expect(page.getByRole('main').getByText('Empire Alpha')).toBeVisible()
   })
 
   test('dashboard displays chart sections', async ({ page, loadFixture }) => {
     await loadFixture('single-save-with-budget.sql')
     await page.goto('/')
 
-    await page.getByText('Test Empire').click()
+    const sidebar = page.locator('aside')
+    await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
     await expect(page.getByRole('heading', { name: 'Primary Resources' })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Secondary Resources' })).toBeVisible()
@@ -45,11 +48,12 @@ test.describe('Save Selection', () => {
     await loadFixture('single-save-with-budget.sql')
     await page.goto('/')
 
-    await page.getByText('Test Empire').click()
+    const sidebar = page.locator('aside')
+    await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
-    // Primary resources legend
-    await expect(page.getByText('Energy')).toBeVisible()
-    await expect(page.getByText('Minerals')).toBeVisible()
-    await expect(page.getByText('Food')).toBeVisible()
+    // Primary resources legend (use first() since labels appear in multiple charts)
+    await expect(page.getByText('Energy').first()).toBeVisible()
+    await expect(page.getByText('Minerals').first()).toBeVisible()
+    await expect(page.getByText('Food').first()).toBeVisible()
   })
 })
