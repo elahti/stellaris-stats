@@ -29,7 +29,17 @@ export const [themeClass, vars] = createTheme({
     alloys: '#c77dff',
     consumerGoods: '#ff922b',
     unity: '#22d3ee',
-    influence: '#f97316',
+    influence: '#a64d79',
+    trade: '#8ab8ff',
+    rareCrystals: '#e84393',
+    exoticGases: '#00cec9',
+    volatileMotes: '#fdcb6e',
+    srDarkMatter: '#9b59b6',
+    srLivingMetal: '#a0a0a0',
+    srZro: '#5dade2',
+    physicsResearch: '#3274a1',
+    societyResearch: '#55efc4',
+    engineeringResearch: '#fab1a0',
 
     // Status
     success: '#00e696',
