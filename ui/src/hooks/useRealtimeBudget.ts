@@ -17,8 +17,17 @@ interface BudgetData {
         trade: number | null
         alloys: number | null
         consumerGoods: number | null
+        rareCrystals: number | null
+        exoticGases: number | null
+        volatileMotes: number | null
+        srDarkMatter: number | null
+        srLivingMetal: number | null
+        srZro: number | null
         unity: number | null
         influence: number | null
+        physicsResearch: number | null
+        societyResearch: number | null
+        engineeringResearch: number | null
       } | null
     } | null
   } | null

@@ -35,8 +35,17 @@ query GetBudget($filename: String!) {
             trade
             alloys
             consumerGoods
+            rareCrystals
+            exoticGases
+            volatileMotes
+            srDarkMatter
+            srLivingMetal
+            srZro
             unity
             influence
+            physicsResearch
+            societyResearch
+            engineeringResearch
           }
         }
       }
