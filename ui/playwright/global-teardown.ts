@@ -4,7 +4,10 @@ import { getPlaywrightEnvConfig } from './config'
 const TEMPLATE_DB_NAME = 'stellaris_e2e_template'
 const TEST_DB_NAME = 'stellaris_e2e_test'
 
-const terminateConnections = async (pool: Pool, dbName: string): Promise<void> => {
+const terminateConnections = async (
+  pool: Pool,
+  dbName: string,
+): Promise<void> => {
   await pool.query(
     `SELECT pg_terminate_backend(pid)
      FROM pg_stat_activity
@@ -23,6 +26,8 @@ const globalTeardown = async (): Promise<void> => {
     try {
       process.kill(parseInt(pid, 10), 'SIGTERM')
       console.log('Stopped GraphQL server')
+      // Allow server time to process SIGTERM before terminating connections
+      await new Promise((resolve) => setTimeout(resolve, 500))
     } catch {
       // Process may have already exited
     }

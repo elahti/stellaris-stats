@@ -45,6 +45,16 @@ const runTestGraphQLServer = async () => {
     max: 10,
   })
 
+  // Handle pool errors - suppress 57P01 errors (admin shutdown)
+  // These occur during E2E test teardown when pg_terminate_backend is called
+  pool.on('error', (err: Error & { code?: string }) => {
+    if (err.code === '57P01') {
+      // Expected: connection terminated by pg_terminate_backend during teardown
+      return
+    }
+    console.error('Unexpected pool error:', err)
+  })
+
   const mockRedis = createMockRedis()
   const cache = new RedisCache(mockRedis as unknown as Redis)
 
