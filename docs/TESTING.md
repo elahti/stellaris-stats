@@ -24,7 +24,7 @@ The project uses end-to-end integration testing with complete database isolation
 
 #### 1. Test Database Manager (`tests/utils/testDatabase.ts`)
 
-Creates and destroys isolated test databases:
+Creates and destroys isolated test databases using a template database pattern for performance:
 
 ```typescript
 const testDb = await createTestDatabase()
@@ -36,9 +36,10 @@ await destroyTestDatabase(testDb)
 **Features:**
 
 - Creates unique database with UUID-based name
-- Runs all migrations automatically
+- **Template optimization**: First test creates `stellaris_test_template` with migrations, subsequent tests clone from it
 - Provides dedicated connection pool
 - Cleanup ensures no test database leaks
+- Template destroyed at end of test run via `destroyTestTemplate()`
 
 #### 2. Test Server Factory (`tests/utils/testServer.ts`)
 
@@ -232,3 +233,77 @@ Uses existing mock infrastructure from evals:
 - `create_mock_client()`: Creates MockClient from loaded fixture
 
 This approach allows testing agent tools and logic without network calls or API keys.
+
+## Python Evals
+
+The eval system uses real databases for integration testing of agent behavior. It employs the same template database pattern as TypeScript tests for performance.
+
+### Template Database Pattern
+
+Evals use a template database optimization to avoid running migrations for each test case:
+
+```python
+# Template created lazily on first create_test_database() call
+# Subsequent calls clone from template (fast PostgreSQL operation)
+
+async with eval_environment(fixture_path, settings) as (db_ctx, server):
+    # db_ctx.pool - asyncpg connection pool
+    # db_ctx.db_name - unique database name
+    # db_ctx.settings - connection settings
+    result = await run_eval(...)
+```
+
+**How it works:**
+
+1. First `create_test_database()` call creates `stellaris_test_template` and runs migrations
+2. Subsequent calls use `CREATE DATABASE {name} TEMPLATE stellaris_test_template` (fast clone)
+3. Each test database is destroyed after the eval case completes
+4. Template is destroyed at end of eval session via `eval_session()` context manager
+
+### Eval Infrastructure (`agent/src/agent/evals/`)
+
+| File | Purpose |
+|------|---------|
+| `test_database.py` | Template database creation, cloning, and cleanup |
+| `fixture_loader.py` | Loads SQL fixtures into test database |
+| `server_manager.py` | Starts/stops GraphQL server for evals |
+| `cli.py` | Eval CLI with `eval_session()` context manager |
+| `*_runner.py` | Dataset-specific eval runners |
+
+### Running Evals
+
+```bash
+# List available datasets
+npm run agent:evals -- --list-datasets
+
+# Run specific dataset
+npm run agent:evals -- --dataset sandbox
+
+# Run with specific model
+npm run agent:evals -- --dataset sandbox --model anthropic:claude-sonnet-4-20250514
+
+# Run single case
+npm run agent:evals -- --dataset sandbox --case "energy_drop"
+```
+
+### Session Lifecycle
+
+```python
+# In cli.py - ensures template cleanup
+@asynccontextmanager
+async def eval_session(settings: Settings) -> AsyncIterator[None]:
+    try:
+        yield
+    finally:
+        await destroy_test_template(settings)
+
+# Usage in main()
+async with eval_session(settings):
+    await run_evals(...)  # Template created on first DB, cleaned up after
+```
+
+### Performance
+
+- **Before template pattern**: Each eval case ran migrations (~2-5 seconds per case)
+- **After template pattern**: First case creates template, subsequent cases clone (~100ms per case)
+- For a dataset with 10 cases: ~30 seconds → ~5 seconds for database setup
