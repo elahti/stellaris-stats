@@ -1,5 +1,10 @@
-import { style } from '@vanilla-extract/css'
+import { style, globalStyle } from '@vanilla-extract/css'
 import { vars } from '../styles/theme.css'
+
+// Override uPlot's default title styling for better readability
+globalStyle('.u-title', {
+  color: vars.color.text,
+})
 
 export const chartContainer = style({
   display: 'flex',

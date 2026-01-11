@@ -3,6 +3,9 @@ import { createTheme, style } from '@vanilla-extract/css'
 // Raw color values for canvas-based charting (uPlot, etc.)
 // These are needed because canvas APIs don't understand CSS variables
 export const chartColors = {
+  // Text color for axis labels (canvas APIs need raw hex, not CSS vars)
+  text: '#e8e8e8',
+  // Resource colors
   energy: '#f4c542',
   minerals: '#e63946',
   food: '#7cb518',

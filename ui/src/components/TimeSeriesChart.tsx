@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react'
 import uPlot from 'uplot'
 import 'uplot/dist/uPlot.min.css'
-import { vars } from '../styles/theme.css'
+import { vars, chartColors } from '../styles/theme.css'
 import * as styles from './TimeSeriesChart.css'
 
 export interface SeriesConfig {
@@ -60,7 +60,7 @@ const createChartOptions = (
   },
   axes: [
     {
-      stroke: vars.color.textMuted,
+      stroke: chartColors.text,
       grid: {
         stroke: 'rgba(70, 130, 180, 0.15)',
         width: 1,
@@ -73,7 +73,7 @@ const createChartOptions = (
       values: (_self, ticks) => ticks.map((t) => formatGameDate(t * 1000)),
     },
     {
-      stroke: vars.color.textMuted,
+      stroke: chartColors.text,
       grid: {
         stroke: 'rgba(70, 130, 180, 0.15)',
         width: 1,
