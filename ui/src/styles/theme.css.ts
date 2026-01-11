@@ -52,6 +52,7 @@ export const [themeClass, vars] = createTheme({
     title: '"Orbitron", sans-serif',
     heading: '"Malgun Gothic", "Century Gothic", sans-serif',
     body: '"Century Gothic", "Segoe UI", sans-serif',
+    mono: '"Consolas", "Monaco", monospace',
   },
 
   space: {

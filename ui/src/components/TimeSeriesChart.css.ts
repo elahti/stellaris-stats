@@ -52,7 +52,7 @@ export const legendLabel = style({
 })
 
 export const legendValue = style({
-  fontFamily: 'monospace',
+  fontFamily: vars.font.mono,
   fontSize: '0.85rem',
   color: vars.color.text,
   minWidth: '80px',
