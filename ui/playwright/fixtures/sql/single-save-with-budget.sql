@@ -19,12 +19,14 @@ VALUES
     '{}'::jsonb
   );
 
--- Budget for first gamestate
+-- Budget for first gamestate (early game - no strategic resources yet)
 INSERT INTO budget_entry (
-  energy, minerals, food, alloys, consumer_goods,
-  trade, unity, influence
+  energy, minerals, food, trade,
+  alloys, consumer_goods,
+  unity, influence,
+  physics_research, society_research, engineering_research
 )
-VALUES (100.0, 150.0, 50.0, 20.0, 25.0, 10.0, 5.0, 2.0);
+VALUES (100.0, 150.0, 50.0, 10.0, 20.0, 25.0, 5.0, 2.0, 30.0, 25.0, 28.0);
 
 INSERT INTO budget_category (gamestate_id, category_type, category_name, budget_entry_id)
 VALUES
@@ -37,12 +39,15 @@ VALUES
     (SELECT budget_entry_id FROM budget_entry ORDER BY budget_entry_id DESC LIMIT 1)
   );
 
--- Budget for second gamestate
+-- Budget for second gamestate (mid game - some strategic resources)
 INSERT INTO budget_entry (
-  energy, minerals, food, alloys, consumer_goods,
-  trade, unity, influence
+  energy, minerals, food, trade,
+  alloys, consumer_goods,
+  rare_crystals, exotic_gases, volatile_motes,
+  unity, influence,
+  physics_research, society_research, engineering_research
 )
-VALUES (200.0, 300.0, 100.0, 40.0, 50.0, 20.0, 10.0, 4.0);
+VALUES (200.0, 300.0, 100.0, 20.0, 40.0, 50.0, 5.0, 3.0, 4.0, 10.0, 4.0, 60.0, 50.0, 55.0);
 
 INSERT INTO budget_category (gamestate_id, category_type, category_name, budget_entry_id)
 VALUES
@@ -55,12 +60,16 @@ VALUES
     (SELECT budget_entry_id FROM budget_entry ORDER BY budget_entry_id DESC LIMIT 1)
   );
 
--- Budget for third gamestate
+-- Budget for third gamestate (late game - all resources including advanced strategic)
 INSERT INTO budget_entry (
-  energy, minerals, food, alloys, consumer_goods,
-  trade, unity, influence
+  energy, minerals, food, trade,
+  alloys, consumer_goods,
+  rare_crystals, exotic_gases, volatile_motes,
+  sr_dark_matter, sr_living_metal, sr_zro,
+  unity, influence,
+  physics_research, society_research, engineering_research
 )
-VALUES (350.0, 500.0, 175.0, 70.0, 85.0, 35.0, 18.0, 7.0);
+VALUES (350.0, 500.0, 175.0, 35.0, 70.0, 85.0, 10.0, 8.0, 9.0, 2.0, 1.0, 3.0, 18.0, 7.0, 120.0, 100.0, 110.0);
 
 INSERT INTO budget_category (gamestate_id, category_type, category_name, budget_entry_id)
 VALUES
