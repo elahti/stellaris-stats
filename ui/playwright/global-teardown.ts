@@ -1,5 +1,7 @@
+import { existsSync, readFileSync, unlinkSync } from 'fs'
 import { Pool } from 'pg'
 import { getPlaywrightEnvConfig } from './config'
+import { PID_FILE } from './global-setup'
 
 const TEMPLATE_DB_NAME = 'stellaris_e2e_template'
 const TEST_DB_NAME = 'stellaris_e2e_test'
@@ -20,16 +22,27 @@ const terminateConnections = async (
 const globalTeardown = async (): Promise<void> => {
   console.log('Tearing down E2E test environment...')
 
-  // Kill GraphQL server
-  const pid = process.env.E2E_GRAPHQL_PID
-  if (pid) {
+  // Kill GraphQL server process group using PID from file
+  if (existsSync(PID_FILE)) {
+    const pid = parseInt(readFileSync(PID_FILE, 'utf-8').trim(), 10)
     try {
-      process.kill(parseInt(pid, 10), 'SIGTERM')
-      console.log('Stopped GraphQL server')
-      // Allow server time to process SIGTERM before terminating connections
+      // Kill entire process group (negative PID) for detached processes
+      process.kill(-pid, 'SIGTERM')
       await new Promise((resolve) => setTimeout(resolve, 500))
+
+      // Force kill if still running
+      try {
+        process.kill(-pid, 0) // Check if process group exists
+        process.kill(-pid, 'SIGKILL')
+        await new Promise((resolve) => setTimeout(resolve, 100))
+      } catch {
+        // Process group already exited
+      }
+      console.log('Stopped GraphQL server')
     } catch {
       // Process may have already exited
+    } finally {
+      unlinkSync(PID_FILE)
     }
   }
 

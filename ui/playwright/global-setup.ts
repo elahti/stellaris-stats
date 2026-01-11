@@ -1,6 +1,13 @@
 import { spawn, ChildProcess, execSync } from 'child_process'
+import { writeFileSync } from 'fs'
+import { dirname, join } from 'path'
+import { fileURLToPath } from 'url'
 import { Pool } from 'pg'
 import { getPlaywrightEnvConfig } from './config'
+
+// File to store GraphQL server PID for teardown (process.env doesn't persist between workers)
+const __dirname = dirname(fileURLToPath(import.meta.url))
+export const PID_FILE = join(__dirname, '.graphql-server-pid')
 
 const TEMPLATE_DB_NAME = 'stellaris_e2e_template'
 const TEST_DB_NAME = 'stellaris_e2e_test'
@@ -56,7 +63,9 @@ const waitForServer = (
     })
   })
 
-const createTemplateDatabase = async (config: ReturnType<typeof getPlaywrightEnvConfig>): Promise<void> => {
+const createTemplateDatabase = async (
+  config: ReturnType<typeof getPlaywrightEnvConfig>,
+): Promise<void> => {
   const adminPool = new Pool({
     host: config.dbHost,
     port: config.dbPort,
@@ -92,7 +101,9 @@ const createTemplateDatabase = async (config: ReturnType<typeof getPlaywrightEnv
   }
 }
 
-const createTestDatabase = async (config: ReturnType<typeof getPlaywrightEnvConfig>): Promise<void> => {
+const createTestDatabase = async (
+  config: ReturnType<typeof getPlaywrightEnvConfig>,
+): Promise<void> => {
   const adminPool = new Pool({
     host: config.dbHost,
     port: config.dbPort,
@@ -104,14 +115,18 @@ const createTestDatabase = async (config: ReturnType<typeof getPlaywrightEnvConf
 
   try {
     await adminPool.query(`DROP DATABASE IF EXISTS ${TEST_DB_NAME}`)
-    await adminPool.query(`CREATE DATABASE ${TEST_DB_NAME} TEMPLATE ${TEMPLATE_DB_NAME}`)
+    await adminPool.query(
+      `CREATE DATABASE ${TEST_DB_NAME} TEMPLATE ${TEMPLATE_DB_NAME}`,
+    )
     console.log(`Created test database: ${TEST_DB_NAME}`)
   } finally {
     await adminPool.end()
   }
 }
 
-const startGraphQLServer = (config: ReturnType<typeof getPlaywrightEnvConfig>): ChildProcess => {
+const startGraphQLServer = (
+  config: ReturnType<typeof getPlaywrightEnvConfig>,
+): ChildProcess => {
   const env = {
     ...process.env,
     TEST_DB_HOST: config.dbHost,
@@ -125,6 +140,7 @@ const startGraphQLServer = (config: ReturnType<typeof getPlaywrightEnvConfig>): 
     cwd: process.cwd().replace('/ui', ''),
     env,
     stdio: ['pipe', 'pipe', 'pipe'],
+    detached: true, // Create new process group for proper cleanup
   })
 
   return proc
@@ -141,12 +157,17 @@ const globalSetup = async (): Promise<void> => {
 
   // Start GraphQL server
   graphqlServerProcess = startGraphQLServer(config)
-  const port = await waitForServer(graphqlServerProcess, /SERVER_READY:(\d+)/, 30000)
+  const port = await waitForServer(
+    graphqlServerProcess,
+    /SERVER_READY:(\d+)/,
+    30000,
+  )
   console.log(`GraphQL server started on port ${port}`)
 
-  // Store process info for teardown
-  process.env.E2E_GRAPHQL_PID = String(graphqlServerProcess.pid)
-  process.env.E2E_GRAPHQL_PORT = port
+  // Store PID in file for teardown (process.env doesn't persist between Playwright workers)
+  if (graphqlServerProcess.pid) {
+    writeFileSync(PID_FILE, String(graphqlServerProcess.pid))
+  }
 }
 
 export default globalSetup
