@@ -66,7 +66,7 @@ const createChartOptions = (
         width: 1,
       },
       ticks: {
-        stroke: vars.color.border,
+        stroke: 'rgba(70, 130, 180, 0.15)',
         width: 1,
       },
       font: `12px ${vars.font.body}`,
@@ -79,7 +79,7 @@ const createChartOptions = (
         width: 1,
       },
       ticks: {
-        stroke: vars.color.border,
+        stroke: 'rgba(70, 130, 180, 0.15)',
         width: 1,
       },
       font: `12px ${vars.font.body}`,
