@@ -114,4 +114,58 @@ test.describe('Save Selection', () => {
       page.getByRole('heading', { name: 'Basic Resources' }),
     ).not.toBeVisible()
   })
+
+  test('charts do not show uPlot built-in legend', async ({
+    page,
+    loadFixture,
+  }) => {
+    await loadFixture('single-save-with-budget.sql')
+    await page.goto('/')
+
+    const sidebar = page.locator('aside')
+    await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
+
+    // Wait for charts to render
+    await expect(
+      page.getByRole('heading', { name: 'Basic Resources' }),
+    ).toBeVisible()
+
+    // uPlot's built-in legend uses .u-legend class - should not be visible
+    await expect(page.locator('.u-legend')).toHaveCount(0)
+  })
+
+  test('hovering on chart updates legend values', async ({
+    page,
+    loadFixture,
+  }) => {
+    await loadFixture('single-save-with-budget.sql')
+    await page.goto('/')
+
+    const sidebar = page.locator('aside')
+    await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
+
+    // Wait for charts to render
+    await expect(
+      page.getByRole('heading', { name: 'Basic Resources' }),
+    ).toBeVisible()
+
+    // Get initial Energy value from legend (latest value is +350)
+    const energyValue = page.getByText('+350').first()
+    await expect(energyValue).toBeVisible()
+
+    // Hover on the first chart canvas at an earlier position (left side)
+    const canvas = page.locator('canvas').first()
+    const box = await canvas.boundingBox()
+    if (box) {
+      // Hover at 20% from left (earlier in timeline, should show different values)
+      await page.mouse.move(box.x + box.width * 0.2, box.y + box.height * 0.5)
+
+      // Wait a bit for the hover state to update
+      await page.waitForTimeout(100)
+
+      // The value should change from +350 (this verifies hover updates the legend)
+      // Since we're at an earlier point in the timeline, the value should be different
+      await expect(page.getByText('+350')).not.toBeVisible()
+    }
+  })
 })

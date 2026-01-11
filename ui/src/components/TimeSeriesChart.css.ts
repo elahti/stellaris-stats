@@ -38,6 +38,7 @@ export const legendItem = style({
   fontFamily: vars.font.body,
   fontSize: '0.85rem',
   color: vars.color.text,
+  maxWidth: '280px',
 })
 
 export const legendColor = style({
@@ -48,7 +49,7 @@ export const legendColor = style({
 })
 
 export const legendLabel = style({
-  flex: 1,
+  whiteSpace: 'nowrap',
 })
 
 export const legendValue = style({
@@ -57,4 +58,5 @@ export const legendValue = style({
   color: vars.color.text,
   minWidth: '80px',
   textAlign: 'right',
+  marginLeft: 'auto',
 })

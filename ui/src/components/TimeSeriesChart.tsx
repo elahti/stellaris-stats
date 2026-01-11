@@ -43,6 +43,7 @@ const createChartOptions = (
   width: 0,
   height,
   background: 'transparent',
+  legend: { show: false },
   cursor: {
     drag: { x: false, y: false },
   },
@@ -106,9 +107,12 @@ export const TimeSeriesChart = ({
   const containerRef = useRef<HTMLDivElement>(null)
   const chartRef = useRef<uPlot | null>(null)
   const onHoverChangeRef = useRef(onHoverChange)
+  const isProgrammaticCursorRef = useRef(false)
   onHoverChangeRef.current = onHoverChange
 
   const stableOnHoverChange = useCallback((index: number | null) => {
+    // Ignore callbacks from programmatic cursor updates (sync from other charts)
+    if (isProgrammaticCursorRef.current) return
     onHoverChangeRef.current(index)
   }, [])
 
@@ -154,7 +158,10 @@ export const TimeSeriesChart = ({
 
   useEffect(() => {
     if (chartRef.current && hoveredIndex !== null) {
+      // Set flag to ignore the callback triggered by programmatic cursor update
+      isProgrammaticCursorRef.current = true
       chartRef.current.setCursor({ idx: hoveredIndex, left: -1, top: -1 })
+      isProgrammaticCursorRef.current = false
     }
   }, [hoveredIndex])
 

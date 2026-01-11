@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { vars } from '../styles/theme.css'
+import { chartColors } from '../styles/theme.css'
 import { useRealtimeBudget } from '../hooks/useRealtimeBudget'
 import { TimeSeriesChart, SeriesConfig } from './TimeSeriesChart'
 import type { BudgetEntry } from '../graphql/generated/graphql'
@@ -22,20 +22,20 @@ const RESOURCE_CATEGORIES: ResourceCategory[] = [
   {
     title: 'Basic Resources',
     resources: [
-      { key: 'energy', label: 'Energy', color: vars.color.energy },
-      { key: 'minerals', label: 'Minerals', color: vars.color.minerals },
-      { key: 'food', label: 'Food', color: vars.color.food },
-      { key: 'trade', label: 'Trade', color: vars.color.trade },
+      { key: 'energy', label: 'Energy', color: chartColors.energy },
+      { key: 'minerals', label: 'Minerals', color: chartColors.minerals },
+      { key: 'food', label: 'Food', color: chartColors.food },
+      { key: 'trade', label: 'Trade', color: chartColors.trade },
     ],
   },
   {
     title: 'Advanced Resources',
     resources: [
-      { key: 'alloys', label: 'Alloys', color: vars.color.alloys },
+      { key: 'alloys', label: 'Alloys', color: chartColors.alloys },
       {
         key: 'consumerGoods',
         label: 'Consumer Goods',
-        color: vars.color.consumerGoods,
+        color: chartColors.consumerGoods,
       },
     ],
   },
@@ -45,17 +45,17 @@ const RESOURCE_CATEGORIES: ResourceCategory[] = [
       {
         key: 'rareCrystals',
         label: 'Rare Crystals',
-        color: vars.color.rareCrystals,
+        color: chartColors.rareCrystals,
       },
       {
         key: 'exoticGases',
         label: 'Exotic Gases',
-        color: vars.color.exoticGases,
+        color: chartColors.exoticGases,
       },
       {
         key: 'volatileMotes',
         label: 'Volatile Motes',
-        color: vars.color.volatileMotes,
+        color: chartColors.volatileMotes,
       },
     ],
   },
@@ -65,21 +65,21 @@ const RESOURCE_CATEGORIES: ResourceCategory[] = [
       {
         key: 'srDarkMatter',
         label: 'Dark Matter',
-        color: vars.color.srDarkMatter,
+        color: chartColors.srDarkMatter,
       },
       {
         key: 'srLivingMetal',
         label: 'Living Metal',
-        color: vars.color.srLivingMetal,
+        color: chartColors.srLivingMetal,
       },
-      { key: 'srZro', label: 'Zro', color: vars.color.srZro },
+      { key: 'srZro', label: 'Zro', color: chartColors.srZro },
     ],
   },
   {
     title: 'Abstract Resources',
     resources: [
-      { key: 'unity', label: 'Unity', color: vars.color.unity },
-      { key: 'influence', label: 'Influence', color: vars.color.influence },
+      { key: 'unity', label: 'Unity', color: chartColors.unity },
+      { key: 'influence', label: 'Influence', color: chartColors.influence },
     ],
   },
   {
@@ -88,17 +88,17 @@ const RESOURCE_CATEGORIES: ResourceCategory[] = [
       {
         key: 'physicsResearch',
         label: 'Physics',
-        color: vars.color.physicsResearch,
+        color: chartColors.physicsResearch,
       },
       {
         key: 'societyResearch',
         label: 'Society',
-        color: vars.color.societyResearch,
+        color: chartColors.societyResearch,
       },
       {
         key: 'engineeringResearch',
         label: 'Engineering',
-        color: vars.color.engineeringResearch,
+        color: chartColors.engineeringResearch,
       },
     ],
   },
