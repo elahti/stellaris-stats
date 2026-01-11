@@ -22,7 +22,7 @@ class TestDatabaseContext:
     settings: Settings
 
 
-async def _ensure_template(settings: Settings) -> None:  # pyright: ignore[reportUnusedFunction]
+async def _ensure_template(settings: Settings) -> None:
     """Create and migrate the template database (called once per session)."""
     global _template_settings
     _template_settings = settings
@@ -56,6 +56,11 @@ async def create_test_database(
     if settings is None:
         settings = get_settings()
 
+    global _template_ready
+    if _template_ready is None:
+        _template_ready = asyncio.create_task(_ensure_template(settings))
+    await _template_ready
+
     db_name = f"stellaris_test_{uuid4().hex}"
 
     admin_conn = await asyncpg.connect(
@@ -67,17 +72,11 @@ async def create_test_database(
     )
 
     try:
-        await admin_conn.execute(f"CREATE DATABASE {db_name}")
+        await admin_conn.execute(
+            f"CREATE DATABASE {db_name} TEMPLATE {TEMPLATE_DB_NAME}",
+        )
     finally:
         await admin_conn.close()
-
-    await _run_migrations(
-        db_name=db_name,
-        host=settings.stellaris_stats_db_host,
-        port=settings.stellaris_stats_db_port,
-        user=settings.stellaris_stats_db_user,
-        password=settings.stellaris_stats_db_password,
-    )
 
     pool = await asyncpg.create_pool(
         host=settings.stellaris_stats_db_host,
@@ -91,11 +90,7 @@ async def create_test_database(
 
     assert pool is not None, "Failed to create connection pool"
 
-    return TestDatabaseContext(
-        pool=pool,
-        db_name=db_name,
-        settings=settings,
-    )
+    return TestDatabaseContext(pool=pool, db_name=db_name, settings=settings)
 
 
 async def destroy_test_database(ctx: TestDatabaseContext) -> None:
