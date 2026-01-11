@@ -10,3 +10,4 @@
 /agent/.venv/
 /db-dump-data
 /gamestate-json-data/
+/ui/test-results/
