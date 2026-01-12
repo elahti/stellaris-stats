@@ -61,6 +61,22 @@ const createChartOptions = (
         onHoverChange(idx === undefined ? null : idx)
       },
     ],
+    draw: [
+      (u) => {
+        const ctx = u.ctx
+        const y0 = u.valToPos(0, 'y', true)
+        if (y0 >= u.bbox.top && y0 <= u.bbox.top + u.bbox.height) {
+          ctx.save()
+          ctx.strokeStyle = chartConfig.colors.zeroLine
+          ctx.lineWidth = 1
+          ctx.beginPath()
+          ctx.moveTo(u.bbox.left, y0)
+          ctx.lineTo(u.bbox.left + u.bbox.width, y0)
+          ctx.stroke()
+          ctx.restore()
+        }
+      },
+    ],
   },
   axes: [
     {
