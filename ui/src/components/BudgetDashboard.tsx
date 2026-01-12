@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { chartColors } from '../styles/theme.css'
 import { useRealtimeBudget } from '../hooks/useRealtimeBudget'
 import { TimeSeriesChart, SeriesConfig } from './TimeSeriesChart'
@@ -123,6 +123,8 @@ export const BudgetDashboard = ({
 }: BudgetDashboardProps): React.ReactElement => {
   const { gamestates, loading, error, saveName } = useRealtimeBudget(filename)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [hiddenResources, setHiddenResources] = useState<Set<string>>(new Set())
 
   const chartData = useMemo(() => {
     if (gamestates.length === 0) return null
@@ -162,6 +164,36 @@ export const BudgetDashboard = ({
     return { timestamps, categories }
   }, [gamestates])
 
+  useEffect(() => {
+    if (
+      chartData
+      && chartData.categories.length > 0
+      && selectedCategory === null
+    ) {
+      setSelectedCategory(chartData.categories[0].title)
+    }
+  }, [chartData, selectedCategory])
+
+  useEffect(() => {
+    setHiddenResources(new Set())
+  }, [selectedCategory])
+
+  const handleToggleResource = (key: string) => {
+    setHiddenResources((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) {
+        next.delete(key)
+      } else {
+        next.add(key)
+      }
+      return next
+    })
+  }
+
+  const selectedCategoryData = chartData?.categories.find(
+    (c) => c.title === selectedCategory,
+  )
+
   if (loading) {
     return <div className={styles.loadingContainer}>Loading budget data...</div>
   }
@@ -191,18 +223,34 @@ export const BudgetDashboard = ({
         {saveName && <span className={styles.saveName}>{saveName}</span>}
       </div>
 
-      <div className={styles.chartsGrid}>
+      <nav className={styles.categoryTabs}>
         {chartData.categories.map((category) => (
-          <TimeSeriesChart
+          <button
             key={category.title}
-            title={category.title}
+            className={`${styles.tab} ${selectedCategory === category.title ? styles.tabActive : ''}`}
+            onClick={() => setSelectedCategory(category.title)}
+            type='button'
+          >
+            {category.title}
+          </button>
+        ))}
+      </nav>
+
+      {selectedCategoryData && (
+        <div className={styles.chartSection}>
+          <TimeSeriesChart
+            title={selectedCategoryData.title}
             timestamps={chartData.timestamps}
-            series={category.series}
+            series={selectedCategoryData.series.filter(
+              (s) => !hiddenResources.has(s.key),
+            )}
             hoveredIndex={hoveredIndex}
             onHoverChange={setHoveredIndex}
+            hiddenKeys={hiddenResources}
+            onToggleResource={handleToggleResource}
           />
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
