@@ -28,8 +28,8 @@ export const saveName = style({
 })
 
 export const chartsGrid = style({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+  display: 'flex',
+  flexDirection: 'column',
   gap: vars.space.lg,
 })
 

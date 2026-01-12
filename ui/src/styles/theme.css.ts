@@ -1,5 +1,30 @@
 import { createTheme, style } from '@vanilla-extract/css'
 
+// Raw color values for canvas-based charting (uPlot, etc.)
+// These are needed because canvas APIs don't understand CSS variables
+export const chartColors = {
+  // Text color for axis labels (canvas APIs need raw hex, not CSS vars)
+  text: '#e8e8e8',
+  // Resource colors
+  energy: '#f4c542',
+  minerals: '#e63946',
+  food: '#7cb518',
+  alloys: '#c77dff',
+  consumerGoods: '#ff922b',
+  unity: '#22d3ee',
+  influence: '#a64d79',
+  trade: '#8ab8ff',
+  rareCrystals: '#e84393',
+  exoticGases: '#00cec9',
+  volatileMotes: '#fdcb6e',
+  srDarkMatter: '#9b59b6',
+  srLivingMetal: '#a0a0a0',
+  srZro: '#5dade2',
+  physicsResearch: '#3274a1',
+  societyResearch: '#55efc4',
+  engineeringResearch: '#fab1a0',
+} as const
+
 export const [themeClass, vars] = createTheme({
   color: {
     // Backgrounds
@@ -29,7 +54,17 @@ export const [themeClass, vars] = createTheme({
     alloys: '#c77dff',
     consumerGoods: '#ff922b',
     unity: '#22d3ee',
-    influence: '#f97316',
+    influence: '#a64d79',
+    trade: '#8ab8ff',
+    rareCrystals: '#e84393',
+    exoticGases: '#00cec9',
+    volatileMotes: '#fdcb6e',
+    srDarkMatter: '#9b59b6',
+    srLivingMetal: '#a0a0a0',
+    srZro: '#5dade2',
+    physicsResearch: '#3274a1',
+    societyResearch: '#55efc4',
+    engineeringResearch: '#fab1a0',
 
     // Status
     success: '#00e696',
@@ -42,6 +77,7 @@ export const [themeClass, vars] = createTheme({
     title: '"Orbitron", sans-serif',
     heading: '"Malgun Gothic", "Century Gothic", sans-serif',
     body: '"Century Gothic", "Segoe UI", sans-serif',
+    mono: '"Consolas", "Monaco", monospace',
   },
 
   space: {
