@@ -127,9 +127,12 @@ export const TimeSeriesChart = ({
   useEffect(() => {
     if (!containerRef.current || timestamps.length === 0) return
 
+    // Filter out hidden series for chart rendering, but keep all series for legend
+    const visibleSeries = series.filter((s) => !hiddenKeys.has(s.key))
+
     const opts = createChartOptions(
       title,
-      series,
+      visibleSeries,
       chartHeight,
       stableOnHoverChange,
     )
@@ -137,7 +140,7 @@ export const TimeSeriesChart = ({
 
     const data: uPlot.AlignedData = [
       timestamps.map((t) => t / 1000),
-      ...series.map((s) => s.values.map((v) => v ?? null)),
+      ...visibleSeries.map((s) => s.values.map((v) => v ?? null)),
     ]
 
     chartRef.current = new uPlot(opts, data, containerRef.current)
@@ -157,17 +160,18 @@ export const TimeSeriesChart = ({
       window.removeEventListener('resize', handleResize)
       chartRef.current?.destroy()
     }
-  }, [timestamps, series, title, chartHeight, stableOnHoverChange])
+  }, [timestamps, series, title, chartHeight, stableOnHoverChange, hiddenKeys])
 
   useEffect(() => {
     if (chartRef.current && timestamps.length > 0) {
+      const visibleSeries = series.filter((s) => !hiddenKeys.has(s.key))
       const data: uPlot.AlignedData = [
         timestamps.map((t) => t / 1000),
-        ...series.map((s) => s.values.map((v) => v ?? null)),
+        ...visibleSeries.map((s) => s.values.map((v) => v ?? null)),
       ]
       chartRef.current.setData(data)
     }
-  }, [timestamps, series])
+  }, [timestamps, series, hiddenKeys])
 
   useEffect(() => {
     if (chartRef.current && hoveredIndex !== null) {

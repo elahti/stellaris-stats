@@ -241,9 +241,7 @@ export const BudgetDashboard = ({
           <TimeSeriesChart
             title={selectedCategoryData.title}
             timestamps={chartData.timestamps}
-            series={selectedCategoryData.series.filter(
-              (s) => !hiddenResources.has(s.key),
-            )}
+            series={selectedCategoryData.series}
             hoveredIndex={hoveredIndex}
             onHoverChange={setHoveredIndex}
             hiddenKeys={hiddenResources}

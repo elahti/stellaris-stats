@@ -210,19 +210,20 @@ test.describe('Save Selection', () => {
       page.getByRole('heading', { name: 'Basic Resources' }),
     ).toBeVisible()
 
-    // Verify all legend items are initially visible
-    await expect(page.getByRole('button', { name: /Energy/ })).toBeVisible()
-    await expect(page.getByRole('button', { name: /Minerals/ })).toBeVisible()
-    await expect(page.getByRole('button', { name: /Food/ })).toBeVisible()
-    await expect(page.getByRole('button', { name: /Trade/ })).toBeVisible()
+    // Find the Energy legend item and click it
+    const energyLegend = page.getByRole('button', { name: /Energy/ })
+    await expect(energyLegend).toBeVisible()
 
-    // Click Energy to hide it from chart
-    await page.getByRole('button', { name: /Energy/ }).click()
+    // Click to hide
+    await energyLegend.click()
 
-    // Energy should no longer be in the legend (filtered from chart)
-    await expect(page.getByRole('button', { name: /Energy/ })).not.toBeVisible()
+    // Legend item should have reduced opacity (hidden state)
+    await expect(energyLegend).toHaveCSS('opacity', '0.4')
 
-    // Other resources should still be visible
-    await expect(page.getByRole('button', { name: /Minerals/ })).toBeVisible()
+    // Click again to show
+    await energyLegend.click()
+
+    // Legend item should be fully visible again
+    await expect(energyLegend).toHaveCSS('opacity', '1')
   })
 })
