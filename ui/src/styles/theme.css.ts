@@ -1,31 +1,15 @@
 import { createTheme, style } from '@vanilla-extract/css'
 
-// Raw color values for canvas-based charting (uPlot, etc.)
-// These are needed because canvas APIs don't understand CSS variables
-export const chartColors = {
-  // Text color for axis labels (canvas APIs need raw hex, not CSS vars)
-  text: '#e8e8e8',
-  // Resource colors
-  energy: '#f4c542',
-  minerals: '#e63946',
-  food: '#7cb518',
-  alloys: '#c77dff',
-  consumerGoods: '#ff922b',
-  unity: '#22d3ee',
-  influence: '#a64d79',
-  trade: '#8ab8ff',
-  rareCrystals: '#e84393',
-  exoticGases: '#00cec9',
-  volatileMotes: '#fdcb6e',
-  srDarkMatter: '#9b59b6',
-  srLivingMetal: '#a0a0a0',
-  srZro: '#5dade2',
-  physicsResearch: '#3274a1',
-  societyResearch: '#55efc4',
-  engineeringResearch: '#fab1a0',
-} as const
+// Raw theme values - single source of truth
+// Used by both CSS variables (vars) and canvas-based charts (chartConfig)
+const themeValues = {
+  fontSize: {
+    md: '16px', // Body text, axis labels
+    lg: '20px', // h3, subheadings
+    xl: '24px', // h2, section headings
+    xxl: '32px', // h1, page titles
+  },
 
-export const [themeClass, vars] = createTheme({
   color: {
     // Backgrounds
     void: '#05080a',
@@ -97,7 +81,42 @@ export const [themeClass, vars] = createTheme({
     panel: '0 0 20px rgba(0, 230, 150, 0.1), inset 0 0 60px rgba(0, 0, 0, 0.5)',
     glow: '0 0 10px currentColor',
   },
-})
+} as const
+
+export const [themeClass, vars] = createTheme(themeValues)
+
+// Chart configuration - derived from themeValues
+// Canvas APIs (uPlot) need raw values, not CSS variables
+export const chartConfig = {
+  colors: {
+    text: themeValues.color.textBright,
+    zeroLine: themeValues.color.textBright,
+    grid: 'rgba(70, 130, 180, 0.15)',
+    energy: themeValues.color.energy,
+    minerals: themeValues.color.minerals,
+    food: themeValues.color.food,
+    alloys: themeValues.color.alloys,
+    consumerGoods: themeValues.color.consumerGoods,
+    unity: themeValues.color.unity,
+    influence: themeValues.color.influence,
+    trade: themeValues.color.trade,
+    rareCrystals: themeValues.color.rareCrystals,
+    exoticGases: themeValues.color.exoticGases,
+    volatileMotes: themeValues.color.volatileMotes,
+    srDarkMatter: themeValues.color.srDarkMatter,
+    srLivingMetal: themeValues.color.srLivingMetal,
+    srZro: themeValues.color.srZro,
+    physicsResearch: themeValues.color.physicsResearch,
+    societyResearch: themeValues.color.societyResearch,
+    engineeringResearch: themeValues.color.engineeringResearch,
+  },
+  fontSize: {
+    axis: themeValues.fontSize.md,
+  },
+} as const
+
+// Legacy alias for backwards compatibility
+export const chartColors = chartConfig.colors
 
 export const panel = style({
   backgroundColor: vars.color.surface,
