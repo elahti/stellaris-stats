@@ -1,8 +1,10 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import uPlot from 'uplot'
 import 'uplot/dist/uPlot.min.css'
 import { vars, chartColors } from '../styles/theme.css'
 import * as styles from './TimeSeriesChart.css'
+
+const EMPTY_SET = new Set<string>()
 
 export interface SeriesConfig {
   key: string
@@ -18,6 +20,8 @@ export interface TimeSeriesChartProps {
   height?: number
   hoveredIndex: number | null
   onHoverChange: (index: number | null) => void
+  hiddenKeys?: Set<string>
+  onToggleResource?: (key: string) => void
 }
 
 const formatGameDate = (timestamp: number): string => {
@@ -100,14 +104,18 @@ export const TimeSeriesChart = ({
   timestamps,
   series,
   title,
-  height = 350,
+  height,
   hoveredIndex,
   onHoverChange,
+  hiddenKeys = EMPTY_SET,
+  onToggleResource,
 }: TimeSeriesChartProps): React.ReactElement => {
   const containerRef = useRef<HTMLDivElement>(null)
+  const outerContainerRef = useRef<HTMLDivElement>(null)
   const chartRef = useRef<uPlot | null>(null)
   const onHoverChangeRef = useRef(onHoverChange)
   const isProgrammaticCursorRef = useRef(false)
+  const [chartHeight, setChartHeight] = useState(height ?? 350)
   onHoverChangeRef.current = onHoverChange
 
   const stableOnHoverChange = useCallback((index: number | null) => {
@@ -119,7 +127,12 @@ export const TimeSeriesChart = ({
   useEffect(() => {
     if (!containerRef.current || timestamps.length === 0) return
 
-    const opts = createChartOptions(title, series, height, stableOnHoverChange)
+    const opts = createChartOptions(
+      title,
+      series,
+      chartHeight,
+      stableOnHoverChange,
+    )
     opts.width = containerRef.current.offsetWidth
 
     const data: uPlot.AlignedData = [
@@ -133,7 +146,7 @@ export const TimeSeriesChart = ({
       if (containerRef.current && chartRef.current) {
         chartRef.current.setSize({
           width: containerRef.current.offsetWidth,
-          height,
+          height: chartHeight,
         })
       }
     }
@@ -144,7 +157,7 @@ export const TimeSeriesChart = ({
       window.removeEventListener('resize', handleResize)
       chartRef.current?.destroy()
     }
-  }, [timestamps, series, title, height, stableOnHoverChange])
+  }, [timestamps, series, title, chartHeight, stableOnHoverChange])
 
   useEffect(() => {
     if (chartRef.current && timestamps.length > 0) {
@@ -165,6 +178,22 @@ export const TimeSeriesChart = ({
     }
   }, [hoveredIndex])
 
+  useEffect(() => {
+    if (!outerContainerRef.current || height !== undefined) return
+
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      if (entry) {
+        // Subtract space for title (~40px) and legend (~80px)
+        const availableHeight = entry.contentRect.height - 120
+        setChartHeight(Math.max(300, availableHeight))
+      }
+    })
+
+    observer.observe(outerContainerRef.current)
+    return () => observer.disconnect()
+  }, [height])
+
   const handleMouseLeave = () => {
     onHoverChange(null)
   }
@@ -173,7 +202,7 @@ export const TimeSeriesChart = ({
   const isHovering = hoveredIndex !== null
 
   return (
-    <div className={styles.chartContainer}>
+    <div className={styles.chartContainer} ref={outerContainerRef}>
       <h3 className={styles.chartTitle}>{title}</h3>
       <div
         className={styles.chartWrapper}
@@ -183,11 +212,27 @@ export const TimeSeriesChart = ({
       <div className={styles.legend}>
         {series.map((s) => {
           const value = s.values[displayIndex]
+          const isHidden = hiddenKeys.has(s.key)
           return (
-            <div key={s.key} className={styles.legendItem}>
+            <div
+              key={s.key}
+              className={`${styles.legendItem} ${isHidden ? styles.legendItemHidden : ''}`}
+              onClick={() => onToggleResource?.(s.key)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  onToggleResource?.(s.key)
+                }
+              }}
+              role='button'
+              tabIndex={0}
+              aria-pressed={!isHidden}
+            >
               <div
                 className={styles.legendColor}
-                style={{ backgroundColor: s.color }}
+                style={{
+                  backgroundColor: isHidden ? vars.color.textMuted : s.color,
+                }}
               />
               <span className={styles.legendLabel}>{s.label}</span>
               <span className={styles.legendValue}>
