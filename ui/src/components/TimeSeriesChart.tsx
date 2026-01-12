@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback, useState } from 'react'
 import uPlot from 'uplot'
 import 'uplot/dist/uPlot.min.css'
-import { vars, chartColors } from '../styles/theme.css'
+import { vars, chartConfig } from '../styles/theme.css'
 import * as styles from './TimeSeriesChart.css'
 
 const EMPTY_SET = new Set<string>()
@@ -64,29 +64,29 @@ const createChartOptions = (
   },
   axes: [
     {
-      stroke: chartColors.text,
+      stroke: chartConfig.colors.text,
       grid: {
-        stroke: 'rgba(70, 130, 180, 0.15)',
+        stroke: chartConfig.colors.grid,
         width: 1,
       },
       ticks: {
-        stroke: 'rgba(70, 130, 180, 0.15)',
+        stroke: chartConfig.colors.grid,
         width: 1,
       },
-      font: `12px ${vars.font.body}`,
+      font: `${chartConfig.fontSize.axis} ${vars.font.body}`,
       values: (_self, ticks) => ticks.map((t) => formatGameDate(t * 1000)),
     },
     {
-      stroke: chartColors.text,
+      stroke: chartConfig.colors.text,
       grid: {
-        stroke: 'rgba(70, 130, 180, 0.15)',
+        stroke: chartConfig.colors.grid,
         width: 1,
       },
       ticks: {
-        stroke: 'rgba(70, 130, 180, 0.15)',
+        stroke: chartConfig.colors.grid,
         width: 1,
       },
-      font: `12px ${vars.font.body}`,
+      font: `${chartConfig.fontSize.axis} ${vars.font.body}`,
     },
   ],
   series: [
