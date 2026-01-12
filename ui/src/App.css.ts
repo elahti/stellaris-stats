@@ -3,7 +3,8 @@ import { vars } from './styles/theme.css'
 
 export const appContainer = style({
   display: 'flex',
-  minHeight: '100vh',
+  height: '100vh',
+  overflow: 'hidden',
   backgroundColor: vars.color.background,
 })
 
@@ -17,7 +18,8 @@ export const sidebar = style({
 
 export const mainContent = style({
   flex: 1,
-  overflowY: 'auto',
+  minHeight: 0,
+  overflow: 'hidden',
 })
 
 export const welcomeContainer = style({
