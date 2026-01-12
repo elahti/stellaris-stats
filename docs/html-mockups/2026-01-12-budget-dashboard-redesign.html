@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Dashboard Redesign - Wireframe</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a1628;
+      --bg-secondary: #0d1f35;
+      --bg-card: #132337;
+      --border-color: rgba(70, 130, 180, 0.3);
+      --text-primary: #e8f4f8;
+      --text-muted: #8ba4b4;
+      --accent: #4a90a4;
+      --tab-active: #1a3a52;
+      --tab-hover: #15303f;
+
+      /* Resource colors */
+      --energy: #f4c542;
+      --minerals: #e63946;
+      --food: #7cb518;
+      --trade: #8AB8FF;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .layout {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar placeholder */
+    .sidebar {
+      width: 200px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      padding: 16px;
+      flex-shrink: 0;
+    }
+
+    .sidebar h2 {
+      color: var(--accent);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .sidebar-item {
+      padding: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    .sidebar-item.active {
+      border-color: var(--accent);
+    }
+
+    .sidebar-item h3 {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-item p {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 24px;
+    }
+
+    .content-wrapper {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: var(--accent);
+    }
+
+    .header .save-name {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Category tabs */
+    .category-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 10px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .tab:hover {
+      background: var(--tab-hover);
+      color: var(--text-primary);
+    }
+
+    .tab.active {
+      background: var(--tab-active);
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+
+    /* Chart container */
+    .chart-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .chart-title {
+      font-size: 16px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+
+    .chart-area {
+      flex: 1;
+      background: var(--bg-secondary);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      position: relative;
+    }
+
+    .chart-placeholder {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Mock chart lines */
+    .mock-chart {
+      position: absolute;
+      inset: 20px;
+      overflow: hidden;
+    }
+
+    .mock-line {
+      position: absolute;
+      height: 3px;
+      border-radius: 2px;
+      left: 0;
+      right: 0;
+    }
+
+    .mock-line.energy {
+      background: linear-gradient(90deg, var(--energy) 0%, var(--energy) 100%);
+      top: 20%;
+      clip-path: polygon(0% 80%, 20% 60%, 40% 40%, 60% 30%, 80% 25%, 100% 20%);
+      height: 60%;
+      opacity: 0.8;
+    }
+
+    .mock-line.minerals {
+      background: linear-gradient(90deg, var(--minerals) 0%, var(--minerals) 100%);
+      top: 35%;
+      clip-path: polygon(0% 70%, 20% 55%, 40% 50%, 60% 45%, 80% 40%, 100% 35%);
+      height: 50%;
+      opacity: 0.8;
+    }
+
+    .mock-line.food {
+      background: linear-gradient(90deg, var(--food) 0%, var(--food) 100%);
+      top: 50%;
+      clip-path: polygon(0% 60%, 20% 55%, 40% 45%, 60% 50%, 80% 45%, 100% 40%);
+      height: 40%;
+      opacity: 0.8;
+    }
+
+    .mock-line.trade {
+      background: linear-gradient(90deg, var(--trade) 0%, var(--trade) 100%);
+      top: 70%;
+      clip-path: polygon(0% 50%, 20% 45%, 40% 40%, 60% 35%, 80% 30%, 100% 25%);
+      height: 30%;
+      opacity: 0.8;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 16px;
+      flex-shrink: 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--bg-secondary);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .legend-item:hover {
+      background: var(--tab-hover);
+    }
+
+    .legend-item.hidden {
+      opacity: 0.4;
+    }
+
+    .legend-item.hidden .legend-color {
+      background: var(--text-muted) !important;
+    }
+
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+    }
+
+    .legend-label {
+      font-size: 13px;
+      color: var(--text-primary);
+      min-width: 100px;
+    }
+
+    .legend-value {
+      font-size: 13px;
+      font-family: 'SF Mono', Monaco, monospace;
+      color: var(--text-muted);
+    }
+
+    /* Annotations */
+    .annotation {
+      position: fixed;
+      background: #ff6b6b;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      z-index: 100;
+    }
+
+    .annotation::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+
+    .annotation-1 {
+      top: 90px;
+      left: 420px;
+    }
+
+    .annotation-1::before {
+      bottom: -8px;
+      left: 20px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid #ff6b6b;
+    }
+
+    .annotation-2 {
+      bottom: 180px;
+      right: 40px;
+    }
+
+    .annotation-2::before {
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 8px solid #ff6b6b;
+    }
+
+    .annotation-3 {
+      top: 50%;
+      right: 40px;
+    }
+
+    .annotation-3::before {
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 8px solid #ff6b6b;
+    }
+
+    /* Dimension indicators */
+    .dimension {
+      position: fixed;
+      color: #4ecdc4;
+      font-size: 11px;
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+
+    .dimension-width {
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .dimension-height {
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+    }
+
+    /* Info panel */
+    .info-panel {
+      position: fixed;
+      bottom: 20px;
+      left: 220px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      max-width: 300px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .info-panel h4 {
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .info-panel ul {
+      margin-left: 16px;
+      color: var(--text-muted);
+    }
+
+    .info-panel li {
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Saves</h2>
+      <div class="sidebar-item active">
+        <h3>United Nations of Earth</h3>
+        <p>unitednationsofearth_-15512622</p>
+      </div>
+      <div class="sidebar-item">
+        <h3>Yorphian Extractorate</h3>
+        <p>yorphianextractorate_888024433</p>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+      <div class="content-wrapper">
+        <!-- Header -->
+        <header class="header">
+          <h1>Empire Budget</h1>
+          <span class="save-name">United Nations of Earth</span>
+        </header>
+
+        <!-- Category tabs -->
+        <nav class="category-tabs">
+          <button class="tab active">Basic Resources</button>
+          <button class="tab">Advanced Resources</button>
+          <button class="tab">Basic Strategic</button>
+          <button class="tab">Advanced Strategic</button>
+          <button class="tab">Abstract Resources</button>
+          <button class="tab">Research</button>
+        </nav>
+
+        <!-- Chart section -->
+        <section class="chart-section">
+          <h3 class="chart-title">Basic Resources</h3>
+
+          <div class="chart-area">
+            <div class="mock-chart">
+              <div class="mock-line energy"></div>
+              <div class="mock-line minerals"></div>
+              <div class="mock-line food"></div>
+              <div class="mock-line trade"></div>
+            </div>
+          </div>
+
+          <!-- Clickable legend -->
+          <div class="legend">
+            <div class="legend-item" onclick="this.classList.toggle('hidden')">
+              <div class="legend-color" style="background: var(--energy)"></div>
+              <span class="legend-label">Energy</span>
+              <span class="legend-value">+4,435</span>
+            </div>
+            <div class="legend-item" onclick="this.classList.toggle('hidden')">
+              <div class="legend-color" style="background: var(--minerals)"></div>
+              <span class="legend-label">Minerals</span>
+              <span class="legend-value">+2,425</span>
+            </div>
+            <div class="legend-item" onclick="this.classList.toggle('hidden')">
+              <div class="legend-color" style="background: var(--food)"></div>
+              <span class="legend-label">Food</span>
+              <span class="legend-value">+1,837</span>
+            </div>
+            <div class="legend-item" onclick="this.classList.toggle('hidden')">
+              <div class="legend-color" style="background: var(--trade)"></div>
+              <span class="legend-label">Trade</span>
+              <span class="legend-value">+321</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Annotations -->
+  <div class="annotation annotation-1">NEW: Category tabs - click to switch</div>
+  <div class="annotation annotation-2">Click legend items to show/hide lines</div>
+  <div class="annotation annotation-3">Chart fills viewport (max 1400px wide)</div>
+
+  <!-- Info panel -->
+  <div class="info-panel">
+    <h4>Wireframe Notes</h4>
+    <ul>
+      <li>Max width: 1400px (centered on larger screens)</li>
+      <li>Height: calc(100vh - header - tabs - legend)</li>
+      <li>Single chart visible at a time</li>
+      <li>Legend items toggle line visibility</li>
+      <li>Hover syncs crosshair with value display</li>
+    </ul>
+  </div>
+
+  <script>
+    // Make tabs interactive for demo
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector('.chart-title').textContent = tab.textContent;
+      });
+    });
+  </script>
+</body>
+</html>

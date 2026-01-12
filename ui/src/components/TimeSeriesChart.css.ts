@@ -15,6 +15,8 @@ export const chartContainer = style({
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.sm,
   boxShadow: vars.shadow.panel,
+  flex: 1,
+  minHeight: 0,
 })
 
 export const chartTitle = style({
@@ -27,23 +29,36 @@ export const chartTitle = style({
 export const chartWrapper = style({
   position: 'relative',
   width: '100%',
+  flex: 1,
+  minHeight: '300px',
 })
 
 export const legend = style({
   display: 'flex',
-  flexDirection: 'column',
-  gap: vars.space.xs,
+  flexWrap: 'wrap',
+  gap: vars.space.sm,
   padding: vars.space.sm,
 })
 
 export const legendItem = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: vars.space.sm,
-  fontFamily: vars.font.body,
-  fontSize: '0.85rem',
-  color: vars.color.text,
-  maxWidth: '280px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'gap': vars.space.sm,
+  'fontFamily': vars.font.body,
+  'fontSize': '0.85rem',
+  'color': vars.color.text,
+  'maxWidth': '280px',
+  'cursor': 'pointer',
+  'padding': `${vars.space.xs} ${vars.space.sm}`,
+  'borderRadius': vars.radius.sm,
+  'transition': 'background 0.2s',
+  ':hover': {
+    background: vars.color.surfaceHover,
+  },
+})
+
+export const legendItemHidden = style({
+  opacity: 0.4,
 })
 
 export const legendColor = style({

@@ -47,34 +47,28 @@ test.describe('Save Selection', () => {
     await expect(page.getByRole('main').getByText('Empire Alpha')).toBeVisible()
   })
 
-  test('dashboard displays resource category sections', async ({
-    page,
-    loadFixture,
-  }) => {
+  test('dashboard displays category tabs', async ({ page, loadFixture }) => {
     await loadFixture('single-save-with-budget.sql')
     await page.goto('/')
 
     const sidebar = page.locator('aside')
     await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
-    // Core categories that should always be present with test data
+    // Should show category tabs
+    await expect(
+      page.getByRole('button', { name: 'Basic Resources' }),
+    ).toBeVisible()
+    await expect(
+      page.getByRole('button', { name: 'Advanced Resources' }),
+    ).toBeVisible()
+    await expect(
+      page.getByRole('button', { name: 'Abstract Resources' }),
+    ).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Research' })).toBeVisible()
+
+    // First tab should be active by default, showing its chart
     await expect(
       page.getByRole('heading', { name: 'Basic Resources' }),
-    ).toBeVisible()
-    await expect(
-      page.getByRole('heading', { name: 'Advanced Resources' }),
-    ).toBeVisible()
-    await expect(
-      page.getByRole('heading', { name: 'Abstract Resources' }),
-    ).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'Research' })).toBeVisible()
-
-    // Strategic categories (present because fixture has this data)
-    await expect(
-      page.getByRole('heading', { name: 'Basic Strategic Resources' }),
-    ).toBeVisible()
-    await expect(
-      page.getByRole('heading', { name: 'Advanced Strategic Resources' }),
     ).toBeVisible()
   })
 
@@ -106,12 +100,12 @@ test.describe('Save Selection', () => {
     const sidebar = page.locator('aside')
     await sidebar.getByRole('heading', { name: 'Empire Alpha' }).click()
 
-    // Should show no data message instead of chart sections
+    // Should show no data message instead of tabs
     await expect(page.getByText('No budget data available')).toBeVisible()
 
-    // Chart sections should not be visible
+    // Category tabs should not be visible
     await expect(
-      page.getByRole('heading', { name: 'Basic Resources' }),
+      page.getByRole('button', { name: 'Basic Resources' }),
     ).not.toBeVisible()
   })
 
@@ -125,7 +119,7 @@ test.describe('Save Selection', () => {
     const sidebar = page.locator('aside')
     await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
-    // Wait for charts to render
+    // Wait for chart to render
     await expect(
       page.getByRole('heading', { name: 'Basic Resources' }),
     ).toBeVisible()
@@ -144,7 +138,7 @@ test.describe('Save Selection', () => {
     const sidebar = page.locator('aside')
     await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
-    // Wait for charts to render
+    // Wait for chart to render
     await expect(
       page.getByRole('heading', { name: 'Basic Resources' }),
     ).toBeVisible()
@@ -153,19 +147,83 @@ test.describe('Save Selection', () => {
     const energyValue = page.getByText('+350').first()
     await expect(energyValue).toBeVisible()
 
-    // Hover on the first chart canvas at an earlier position (left side)
+    // Hover on the chart canvas at an earlier position (left side)
     const canvas = page.locator('canvas').first()
     const box = await canvas.boundingBox()
     if (box) {
-      // Hover at 20% from left (earlier in timeline, should show different values)
-      await page.mouse.move(box.x + box.width * 0.2, box.y + box.height * 0.5)
+      // Use hover with position to trigger uPlot cursor events
+      // Position at 10% from left to get first data point
+      await canvas.hover({
+        position: { x: box.width * 0.1, y: box.height * 0.5 },
+        force: true,
+      })
 
-      // Wait a bit for the hover state to update
-      await page.waitForTimeout(100)
-
-      // The value should change from +350 (this verifies hover updates the legend)
-      // Since we're at an earlier point in the timeline, the value should be different
-      await expect(page.getByText('+350')).not.toBeVisible()
+      // Wait for the hover state to update and check for changed value
+      // The first data point has energy=100, minerals=150, food=50
+      await expect(page.getByText('+100').first()).toBeVisible({
+        timeout: 2000,
+      })
     }
+  })
+
+  test('clicking category tab switches displayed chart', async ({
+    page,
+    loadFixture,
+  }) => {
+    await loadFixture('single-save-with-budget.sql')
+    await page.goto('/')
+
+    const sidebar = page.locator('aside')
+    await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
+
+    // Initially shows Basic Resources
+    await expect(
+      page.getByRole('heading', { name: 'Basic Resources' }),
+    ).toBeVisible()
+    await expect(page.getByText('Energy')).toBeVisible()
+
+    // Click Research tab
+    await page.getByRole('button', { name: 'Research' }).click()
+
+    // Should now show Research chart
+    await expect(page.getByRole('heading', { name: 'Research' })).toBeVisible()
+    await expect(page.getByText('Physics')).toBeVisible()
+
+    // Basic Resources chart title should no longer be visible
+    await expect(
+      page.getByRole('heading', { name: 'Basic Resources' }),
+    ).not.toBeVisible()
+  })
+
+  test('clicking legend item toggles line visibility', async ({
+    page,
+    loadFixture,
+  }) => {
+    await loadFixture('single-save-with-budget.sql')
+    await page.goto('/')
+
+    const sidebar = page.locator('aside')
+    await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
+
+    // Wait for chart to render
+    await expect(
+      page.getByRole('heading', { name: 'Basic Resources' }),
+    ).toBeVisible()
+
+    // Find the Energy legend item and click it
+    const energyLegend = page.getByRole('button', { name: /Energy/ })
+    await expect(energyLegend).toBeVisible()
+
+    // Click to hide
+    await energyLegend.click()
+
+    // Legend item should have reduced opacity (hidden state)
+    await expect(energyLegend).toHaveCSS('opacity', '0.4')
+
+    // Click again to show
+    await energyLegend.click()
+
+    // Legend item should be fully visible again
+    await expect(energyLegend).toHaveCSS('opacity', '1')
   })
 })
