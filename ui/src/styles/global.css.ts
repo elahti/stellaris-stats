@@ -34,15 +34,15 @@ globalStyle('h1, h2, h3', {
 })
 
 globalStyle('h1', {
-  fontSize: '2rem',
+  fontSize: vars.fontSize.xxl,
 })
 
 globalStyle('h2', {
-  fontSize: '1.5rem',
+  fontSize: vars.fontSize.xl,
 })
 
 globalStyle('h3', {
-  fontSize: '1.25rem',
+  fontSize: vars.fontSize.lg,
 })
 
 globalStyle('a', {
