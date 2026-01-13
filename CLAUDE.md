@@ -57,14 +57,14 @@ All commands run from `/workspace`.
 
 ### UI (React)
 
-| Task            | Command                     |
-| --------------- | --------------------------- |
-| Dev server      | `npm run ui:dev`            |
-| Build           | `npm run ui:build`          |
-| Preview build   | `npm run ui:preview`        |
-| GraphQL codegen | `npm run ui:codegen`        |
-| E2E tests       | `npm run test:ci:e2e`       |
-| E2E tests (UI)  | `npm run test:e2e:ui -w ui` |
+| Task            | Command                        |
+| --------------- | ------------------------------ |
+| Dev server      | `npm run ui:dev`               |
+| Build           | `npm run ui:build`             |
+| Preview build   | `npm run ui:preview`           |
+| GraphQL codegen | `npm run ui:codegen`           |
+| E2E tests       | `npm run test:ci:e2e`          |
+| E2E tests (UI)  | `cd ui && npm run test:e2e:ui` |
 
 ### Python
 
