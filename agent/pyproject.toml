@@ -18,7 +18,7 @@ budget-evals = "agent.evals.cli:main"
 
 [build-system]
 build-backend = "uv_build"
-requires      = ["uv_build==0.9.21"]
+requires      = ["uv_build==0.9.24"]
 
 [dependency-groups]
 dev = [
