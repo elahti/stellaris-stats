@@ -150,7 +150,7 @@ When modifying `graphql/schema.graphql`:
 1. **BudgetEntry fields**: Update `src/db/budget.ts` (`getBudgetBatchQuery`)
 2. **Grafana dashboards**: Dashboards in `grafana/*.json` reference schema fields via selectors like `budget.balance.armies.energy`. Changes break silently. Use `grep -l "fieldName" grafana/*.json` to find affected files, then update selectors, column definitions, and embedded GraphQL queries.
 3. **Python client**: If Budget types change, update `agent/queries.graphql` and run `npm run graphql:codegen:python`
-4. **Sandbox agent prompts**: If `BudgetEntry` or `BudgetCategory` fields change, update `RESOURCE_FIELDS` and `BUDGET_CATEGORIES` in `agent/src/agent/sandbox_budget_agent/prompts.py`
+4. **Sandbox agent prompts**: If `BudgetEntry` or `BudgetCategory` fields change, update `RESOURCE_FIELDS` and `BUDGET_CATEGORIES` in `agent/src/agent/sandbox/prompts.py`
 
 Column name mapping: `snake_case` (DB) → `camelCase` (GraphQL) via `selectRows()`
 
