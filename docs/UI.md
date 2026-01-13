@@ -9,28 +9,20 @@ React frontend for Stellaris statistics with real-time updates via GraphQL subsc
 - **Apollo Client** with graphql-ws for queries/mutations and WebSocket subscriptions
 - **uPlot** for high-performance time-series charts
 
-## File Structure
+## File Organization
 
-```
-ui/src/
-├── main.tsx              # Entry point, Apollo Provider setup
-├── App.tsx               # Root component with layout
-├── components/           # React components
-│   ├── SaveList.tsx      # Lists saves, handles selection
-│   ├── BudgetDashboard.tsx  # Main dashboard with charts
-│   └── TimeSeriesChart.tsx  # uPlot wrapper component
-├── hooks/                # Custom hooks
-│   └── useRealtimeBudget.ts  # Fetches + subscribes to budget data
-├── graphql/              # GraphQL operations
-│   ├── queries.graphql   # Query definitions
-│   ├── subscriptions.graphql  # Subscription definitions
-│   └── generated/        # Codegen output (gql.ts, graphql.ts)
-├── styles/               # Theme and global styles
-│   ├── theme.css.ts      # Theme tokens (colors, fonts, spacing)
-│   └── global.css.ts     # Global styles
-└── lib/
-    └── apollo.ts         # Apollo Client configuration
-```
+Components live in `ui/src/components/` with co-located `.css.ts` style files (vanilla-extract). Each component follows the `ComponentName.tsx` + `ComponentName.css.ts` naming pattern.
+
+GraphQL operations are defined in `ui/src/graphql/*.graphql` with generated types output to `ui/src/graphql/generated/`.
+
+Custom hooks live in `ui/src/hooks/`. The Apollo Client configuration is in `ui/src/lib/apollo.ts`.
+
+Theme tokens and global styles are in `ui/src/styles/`:
+
+- `theme.css.ts` — Theme variables (`vars.color`, `vars.space`, etc.)
+- `global.css.ts` — Global styles applied to the app
+
+Use `vars` from `theme.css.ts` for all styling values (never hardcode colors or spacing).
 
 ## Key Components
 
