@@ -91,6 +91,7 @@ const createChartOptions = (
       },
       font: `${chartConfig.fontSize.axis} ${chartConfig.font.body}`,
       values: (_self, ticks) => ticks.map((t) => formatGameDate(t * 1000)),
+      space: 100, // Increase spacing between x-axis ticks
     },
     {
       stroke: chartConfig.colors.text,
@@ -103,6 +104,7 @@ const createChartOptions = (
         width: 1,
       },
       font: `${chartConfig.fontSize.axis} ${chartConfig.font.body}`,
+      size: 60, // Allocate more space for y-axis labels
     },
   ],
   series: [
