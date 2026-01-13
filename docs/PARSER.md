@@ -13,20 +13,24 @@ The parser is a background service that periodically reads Stellaris save files,
 ### Key Components
 
 **Configuration (`src/parser/parserConfig.ts`)**
+
 - Defines parser-specific configuration schema
 - Validates `STELLARIS_STATS_PARSER_INTERVAL` using Zod
 
 **Main Parser (`src/parser/parserMain.ts`)**
+
 - Orchestrates the parsing workflow
 - Runs database migrations on startup
 - Executes parsing loop at configured intervals
 - Handles graceful shutdown (SIGTERM, SIGINT)
 
 **Gamestate Reader (`src/parser/gamestateReader.ts`)**
+
 - Extracts `gamestate` file from ZIP-compressed save files using yauzl-promise
 - Returns gamestate data as `Uint8Array` for parsing
 
 **Parser Options (`src/parser/parserOptions.ts`)**
+
 - Parses command-line arguments using Commander
 - Supports `-g <gamestateId>` to specify which save to parse
 - Supports `-l` to list available gamestate IDs from `/stellaris-data` directory
@@ -46,21 +50,25 @@ The parser is a background service that periodically reads Stellaris save files,
 ## Budget Table Population
 
 **Budget Data Extraction:**
+
 - Player country ID: `parsed.player[0].country`
 - Budget data path: `parsed.country[playerCountryId].budget.current_month`
 - Structure: Three-level nested object with category types (`income`, `expenses`, `balance`), each containing category names (e.g., `country_base`, `armies`, `ships`), which contain resource fields (20 total: `energy`, `minerals`, `alloys`, etc.)
 
 **Database Functions:**
-- `populateBudgetTables(client, gamestateId, parsed, logger)` - Main orchestration function in `src/db/budget.ts`
-- `insertBudgetEntry(client, entryData)` - Inserts budget_entry row with 20 resource columns, returns budget_entry_id
-- `insertBudgetCategory(client, gamestateId, categoryType, categoryName, budgetEntryId)` - Links budget entry to gamestate
+
+- `populateBudgetTables(client, gamestateId, parsed, logger)` - Main orchestration function in `src/parser/budgetPopulator.ts`
+- `insertBudgetEntry(client, entryData)` - Internal function that inserts budget_entry row with 20 resource columns, returns budget_entry_id
+- `insertBudgetCategory(client, gamestateId, categoryType, categoryName, budgetEntryId)` - Internal function that links budget entry to gamestate
 
 **Transaction Atomicity:**
+
 - All parser operations (save upsert, gamestate insert, budget population) wrapped in single transaction using `withTx()` helper
 - Ensures budget data is never orphaned from its gamestate
 - If budget population fails unexpectedly, entire operation rolls back
 
 **Graceful Error Handling:**
+
 - Missing player country ID: Log warning, skip budget population
 - Missing budget data: Log info, skip budget population (normal for some saves)
 - Validation errors: Log error with context, skip budget population
@@ -70,11 +78,13 @@ The parser is a background service that periodically reads Stellaris save files,
 ## Database Operations
 
 **Save Management**
-- Function: `upsertSave(client, filename, name)` in `src/db/save.ts`
-- Uses `ON CONFLICT (filename) DO UPDATE` to handle duplicates
-- Updates save name if it changes between parses
+
+- Functions: `getSave(client, filename)` and `insertSave(client, filename, name)` in `src/db/save.ts`
+- Parser checks for existing save first with `getSave`, only inserts if not found
+- Simple insert pattern rather than upsert
 
 **Gamestate Existence Check**
+
 - Function: `getGamestateByMonth(client, saveId, date)` in `src/db/gamestates.ts`
 - Uses PostgreSQL `DATE_TRUNC('month', ...)` to compare dates by month
 - Applies `startOfMonth()` (from date-fns) to incoming date only, not database date
@@ -82,6 +92,7 @@ The parser is a background service that periodically reads Stellaris save files,
 - Returns existing gamestate if found, undefined otherwise
 
 **Gamestate Insertion**
+
 - Function: `insertGamestate(client, saveId, date, data)` in `src/db/gamestates.ts`
 - Inserts full parsed gamestate as JSONB into `data` column
 - Enforces uniqueness constraint on `(save_id, date)` pair
@@ -97,15 +108,18 @@ The parser is a background service that periodically reads Stellaris save files,
 ## Configuration
 
 **Environment Variables:**
+
 - `STELLARIS_STATS_PARSER_INTERVAL` - Milliseconds between parser iterations
 
 **Data Location:**
+
 - Save files stored at `/stellaris-data/<gamestateId>/ironman.sav`
 - Each gamestate ID is a directory containing the save file
 
 ## Database Schema
 
 **Save Table:**
+
 ```sql
 CREATE TABLE save (
   save_id SERIAL PRIMARY KEY,
@@ -115,6 +129,7 @@ CREATE TABLE save (
 ```
 
 **Gamestate Table:**
+
 ```sql
 CREATE TABLE gamestate (
   gamestate_id SERIAL PRIMARY KEY,
