@@ -2,7 +2,7 @@
 dependencies = [
   "asyncpg==0.31.0",
   "httpx==0.28.1",
-  "logfire==4.16.0",
+  "logfire==4.18.0",
   "pydantic-ai==1.39.0",
   "pydantic-evals==1.39.0",
   "pydantic-settings==2.12.0",
