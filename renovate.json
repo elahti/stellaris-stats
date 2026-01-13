@@ -1,6 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "assignAutomerge": false,
   "extends": [
     "config:best-practices",
     "group:definitelyTyped",
@@ -8,30 +7,22 @@
   ],
   "labels": ["dependencies"],
   "lockFileMaintenance": {
-    "enabled": true
+    "enabled": true,
+    "automerge": true
   },
+  "platformAutomerge": true,
   "packageRules": [
     {
-      "groupName": "pydantic packages",
-      "matchPackageNames": ["/^pydantic.*/"]
+      "description": "Group all non-major updates into a single PR",
+      "groupName": "all non-major dependencies",
+      "matchUpdateTypes": ["minor", "patch", "digest", "pin"],
+      "automerge": true
     },
     {
-      "groupName": "dev dependencies",
-      "matchDepTypes": ["devDependencies"]
-    },
-    {
-      "groupName": "production dependencies",
-      "matchDepTypes": ["dependencies"],
-      "matchUpdateTypes": ["minor", "patch"]
-    },
-    {
-      "automerge": false,
-      "groupName": "major dependencies",
-      "matchUpdateTypes": ["major"]
-    },
-    {
-      "automerge": true,
-      "matchUpdateTypes": ["minor", "patch"]
+      "description": "Group all major updates into a single PR (requires manual review)",
+      "groupName": "all major dependencies",
+      "matchUpdateTypes": ["major"],
+      "automerge": false
     }
   ],
   "rangeStrategy": "pin",
@@ -41,6 +32,7 @@
   "vulnerabilityAlerts": {
     "automerge": true,
     "enabled": true,
-    "labels": ["security"]
+    "labels": ["security"],
+    "schedule": ["at any time"]
   }
 }
