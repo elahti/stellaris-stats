@@ -64,7 +64,7 @@ RUN curl -fsSL https://bun.sh/install | bash
 ENV BUN_INSTALL="$HOME/.bun"
 ENV PATH="$BUN_INSTALL/bin:$PATH"
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.21@sha256:15f68a476b768083505fe1dbfcc998344d0135f0ca1b8465c4760b323904f05a /uv /uvx $HOME/.local/bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.24@sha256:816fdce3387ed2142e37d2e56e1b1b97ccc1ea87731ba199dc8a25c04e4997c5 /uv /uvx $HOME/.local/bin/
 
 COPY --chown=vscode:vscode .devcontainer/.zshrc $HOME/.zshrc
 
@@ -80,7 +80,7 @@ RUN git clone --no-checkout https://github.com/pydantic/mcp-run-python.git /app 
   && git fetch --depth 1 origin 5ee2eea318725f78c22417e6f8a8374a5c9684ec \
   && git checkout 5ee2eea318725f78c22417e6f8a8374a5c9684ec
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.21@sha256:15f68a476b768083505fe1dbfcc998344d0135f0ca1b8465c4760b323904f05a /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.24@sha256:816fdce3387ed2142e37d2e56e1b1b97ccc1ea87731ba199dc8a25c04e4997c5 /uv /uvx /bin/
 COPY --from=docker.io/denoland/deno:bin-2.5.6@sha256:2f5f9d651af33c337767c423a340f76df35e35ff8ff4734210237b9c6fed94c7 /deno /bin
 
 WORKDIR /app
