@@ -68,7 +68,7 @@ COPY --from=ghcr.io/astral-sh/uv:0.9.21@sha256:15f68a476b768083505fe1dbfcc998344
 
 COPY --chown=vscode:vscode .devcontainer/.zshrc $HOME/.zshrc
 
-FROM python:3.14-slim-bookworm@sha256:e8a1ad81a9fef9dc56372fb49b50818cac71f5fae238b21d7738d73ccae8f803 AS pydantic-mcp-run-python
+FROM python:3.14-slim-bookworm@sha256:55b18d5d89ddb3ef534fe447f660a35832559c2361f8ea3985a5fcda95396f97 AS pydantic-mcp-run-python
 
 RUN apt update \
   && apt install -y \
