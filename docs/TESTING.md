@@ -105,12 +105,13 @@ In-memory Redis implementation:
 
 **Environment Files**: Separate env files for tests and evals
 
-| File | Purpose | Database Service |
-|------|---------|------------------|
-| `.env.stellaris-stats.tests` | TypeScript tests | `db-tests` |
-| `.env.stellaris-stats.evals` | Python evals | `db-evals` |
+| File                         | Purpose          | Database Service |
+| ---------------------------- | ---------------- | ---------------- |
+| `.env.stellaris-stats.tests` | TypeScript tests | `db-tests`       |
+| `.env.stellaris-stats.evals` | Python evals     | `db-evals`       |
 
 **TypeScript Tests** (`.env.stellaris-stats.tests`):
+
 ```bash
 STELLARIS_STATS_DB_HOST=db-tests
 STELLARIS_STATS_DB_PORT=5432
@@ -120,6 +121,7 @@ STELLARIS_STATS_DB_PASSWORD=stellaris_tests_password
 ```
 
 **Python Evals** (`.env.stellaris-stats.evals`):
+
 ```bash
 STELLARIS_STATS_DB_HOST=db-evals
 STELLARIS_STATS_DB_PORT=5432
@@ -195,20 +197,34 @@ The Python agent includes pytest-based unit tests for testing business logic wit
 - **Framework**: pytest with pytest-asyncio for async support
 - **Command**: `npm run test:python` (verbose) or `npm run test:ci:python` (CI mode)
 
-### Test Files
+### Test Categories
 
-| File | Purpose |
-|------|---------|
-| `test_tools.py` | Pure function tests: `select_latest_dates()`, `get_gamestates_for_dates()` |
-| `test_agent_functions.py` | Agent logic: `sum_resources_for_snapshot()`, prompt builders |
-| `test_models.py` | Pydantic model validation |
-| `test_mock_client.py` | MockClient and fixture loading tests |
-| `test_evaluators.py` | NoResourceDrop/ResourceDrop evaluator logic |
-| `test_tools_async.py` | Async functions: `get_available_dates()`, `list_saves()` |
+Tests are organized by what they verify:
+
+- **Agent logic**: Tests for agent behavior, tool functions, orchestration
+  - Pattern: `test_native_budget_agent*.py`, `test_orchestrator.py`
+
+- **Evaluators**: Custom pydantic-evals evaluator logic
+  - Pattern: `test_*evaluators.py`
+
+- **Prompts**: Prompt building and formatting
+  - Pattern: `test_*_prompts.py`
+
+- **Models**: Pydantic model validation
+  - Pattern: `test_*models.py`
+
+- **Fixtures**: Fixture loading and generation
+  - Pattern: `test_fixture_loader.py`, `test_generate_sql_fixture.py`
+
+- **Error handling**: Edge cases and error conditions
+  - Pattern: `test_error_handling.py`, `test_output_mode.py`
+
+Run `ls agent/tests/` to see current test files.
 
 ### Configuration
 
 **pytest.ini_options in `agent/pyproject.toml`:**
+
 ```toml
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "function"
@@ -228,6 +244,7 @@ testpaths = ["tests"]
 ### Mocking Strategy
 
 Uses existing mock infrastructure from evals:
+
 - `MockClient`: Dataclass-based mock implementing `GraphQLClientProtocol`
 - `load_fixture()`: Loads JSON fixtures with GraphQL response data
 - `create_mock_client()`: Creates MockClient from loaded fixture
@@ -262,13 +279,13 @@ async with eval_environment(fixture_path, settings) as (db_ctx, server):
 
 ### Eval Infrastructure (`agent/src/agent/evals/`)
 
-| File | Purpose |
-|------|---------|
-| `test_database.py` | Template database creation, cloning, and cleanup |
-| `fixture_loader.py` | Loads SQL fixtures into test database |
-| `server_manager.py` | Starts/stops GraphQL server for evals |
-| `cli.py` | Eval CLI with `eval_session()` context manager |
-| `*_runner.py` | Dataset-specific eval runners |
+| File                | Purpose                                          |
+| ------------------- | ------------------------------------------------ |
+| `test_database.py`  | Template database creation, cloning, and cleanup |
+| `fixture_loader.py` | Loads SQL fixtures into test database            |
+| `server_manager.py` | Starts/stops GraphQL server for evals            |
+| `cli.py`            | Eval CLI with `eval_session()` context manager   |
+| `*_runner.py`       | Dataset-specific eval runners                    |
 
 ### Running Evals
 
