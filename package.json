@@ -11,7 +11,7 @@
     "graphql": "16.12.0",
     "graphql-scalars": "1.25.0",
     "graphql-subscriptions": "3.0.0",
-    "graphql-ws": "5.16.0",
+    "graphql-ws": "5.16.2",
     "ioredis": "5.8.2",
     "jomini": "0.9.1",
     "node-pg-migrate": "8.0.4",
