@@ -101,6 +101,8 @@
       "mcp__plugin_context7_context7__get-library-docs",
       "mcp__plugin_context7_context7__query-docs",
       "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_figma_figma__generate_diagram",
+      "mcp__plugin_figma_figma__whoami",
       "mcp__plugin_playwright_playwright__browser_install",
       "mcp__plugin_playwright_playwright__browser_navigate",
       "mcp__python-executor__run_python_code",
