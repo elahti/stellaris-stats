@@ -20,7 +20,7 @@ const EXCLUDED_PATHS = [
   '__pycache__/',
 ]
 
-type FileType = 'typescript' | 'python' | 'prettier-only'
+type FileType = 'typescript' | 'python' | 'shell' | 'prettier-only'
 
 const EXTENSION_MAP: Record<string, FileType> = {
   '.ts': 'typescript',
@@ -28,6 +28,7 @@ const EXTENSION_MAP: Record<string, FileType> = {
   '.js': 'typescript',
   '.jsx': 'typescript',
   '.py': 'python',
+  '.sh': 'shell',
   '.css': 'prettier-only',
   '.json': 'prettier-only',
   '.md': 'prettier-only',
@@ -87,6 +88,10 @@ const lintWithRuff = (filePath: string): {success: boolean; output: string} => {
   return runCommand(`uv run ruff check --fix "${relativePath}"`, AGENT_DIR)
 }
 
+const lintWithShellcheck = (filePath: string): {success: boolean; output: string} => {
+  return runCommand(`shellcheck "${filePath}"`, WORKSPACE)
+}
+
 const processFile = (filePath: string): PostToolUseResponse => {
   if (!existsSync(filePath)) {
     return {}
@@ -129,6 +134,15 @@ const processFile = (filePath: string): PostToolUseResponse => {
       const ruffFormatResult = formatWithRuff(filePath)
       if (!ruffFormatResult.success) {
         return {decision: 'block', reason: `Ruff format failed: ${ruffFormatResult.output}`}
+      }
+
+      return {}
+    }
+
+    case 'shell': {
+      const shellcheckResult = lintWithShellcheck(filePath)
+      if (!shellcheckResult.success) {
+        return {decision: 'block', reason: `ShellCheck found errors: ${shellcheckResult.output}`}
       }
 
       return {}

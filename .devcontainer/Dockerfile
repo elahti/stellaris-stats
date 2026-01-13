@@ -40,6 +40,7 @@ RUN apt update \
     curl \
     file \
     postgresql-common \
+    shellcheck \
     vim \
   && /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -v 18 \
   && apt install -y postgresql-client-18 \

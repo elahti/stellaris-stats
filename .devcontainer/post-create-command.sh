@@ -1,4 +1,5 @@
 #!/bin/bash
+# Post-create setup for devcontainer
 
 HOME=/home/vscode
 WORKSPACE=/workspace
@@ -15,7 +16,7 @@ for DIR in \
   $WORKSPACE/db-dump-data \
   $WORKSPACE/gamestate-json-data \
   $WORKSPACE/node_modules; do
-  sudo chown -R vscode:vscode $DIR
+  sudo chown -R vscode:vscode "$DIR"
 done
 
 ln -sf $HOME/.claude.json-volume/.claude.json $HOME/.claude.json
