@@ -17,8 +17,8 @@
     "@apollo/client": "4.0.11",
     "graphql": "16.12.0",
     "graphql-ws": "5.16.0",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "uplot": "1.6.32",
     "uplot-react": "1.2.4"
   },
