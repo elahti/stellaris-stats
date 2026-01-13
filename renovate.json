@@ -20,6 +20,11 @@
       "matchDepTypes": ["devDependencies"]
     },
     {
+      "groupName": "production dependencies",
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
       "automerge": false,
       "groupName": "major dependencies",
       "matchUpdateTypes": ["major"]
