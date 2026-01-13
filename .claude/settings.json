@@ -19,6 +19,8 @@
   },
   "permissions": {
     "allow": [
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
       "Bash(bun --help:*)",
       "Bash(bun --version:*)",
       "Bash(bun test --help:*)",
