@@ -89,7 +89,7 @@ const createChartOptions = (
         stroke: chartConfig.colors.grid,
         width: 1,
       },
-      font: `${chartConfig.fontSize.axis} ${vars.font.body}`,
+      font: `${chartConfig.fontSize.axis} ${chartConfig.font.body}`,
       values: (_self, ticks) => ticks.map((t) => formatGameDate(t * 1000)),
     },
     {
@@ -102,7 +102,7 @@ const createChartOptions = (
         stroke: chartConfig.colors.grid,
         width: 1,
       },
-      font: `${chartConfig.fontSize.axis} ${vars.font.body}`,
+      font: `${chartConfig.fontSize.axis} ${chartConfig.font.body}`,
     },
   ],
   series: [

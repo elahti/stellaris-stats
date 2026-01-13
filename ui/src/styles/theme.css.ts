@@ -113,6 +113,9 @@ export const chartConfig = {
   fontSize: {
     axis: themeValues.fontSize.md,
   },
+  font: {
+    body: themeValues.font.body,
+  },
 } as const
 
 // Legacy alias for backwards compatibility
