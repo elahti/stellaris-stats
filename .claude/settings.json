@@ -19,8 +19,6 @@
   },
   "permissions": {
     "allow": [
-      "Bash(gh pr list:*)",
-      "Bash(gh pr view:*)",
       "Bash(bun --help:*)",
       "Bash(bun --version:*)",
       "Bash(bun test --help:*)",
@@ -28,6 +26,8 @@
       "Bash(dotenvx run -f .env.stellaris-stats.evals -- bun test:*)",
       "Bash(dotenvx run:*)",
       "Bash(find:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
       "Bash(gh run:*)",
       "Bash(git add:*)",
       "Bash(git branch:*)",
@@ -81,6 +81,7 @@
       "Bash(npx prettier:*)",
       "Bash(npx tsc:*)",
       "Bash(npx vue-tsc:*)",
+      "Bash(shellcheck:*)",
       "Bash(tree:*)",
       "Bash(uv add:*)",
       "Bash(uv lock:*)",
