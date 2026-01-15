@@ -19,13 +19,6 @@ export const chartContainer = style({
   minHeight: 0,
 })
 
-export const chartTitle = style({
-  fontFamily: vars.font.heading,
-  fontSize: '1.1rem',
-  color: vars.color.text,
-  margin: 0,
-})
-
 export const chartWrapper = style({
   position: 'relative',
   width: '100%',

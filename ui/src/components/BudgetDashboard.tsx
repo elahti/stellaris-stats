@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { chartColors } from '../styles/theme.css'
 import { useRealtimeBudget } from '../hooks/useRealtimeBudget'
 import { TimeSeriesChart, SeriesConfig } from './TimeSeriesChart'
@@ -7,6 +8,25 @@ import * as styles from './BudgetDashboard.css'
 
 export interface BudgetDashboardProps {
   filename: string
+  initialCategory?: string
+}
+
+const categoryKeyToTitle: Record<string, string> = {
+  basic: 'Basic Resources',
+  advanced: 'Advanced Resources',
+  basic_strategic: 'Basic Strategic Resources',
+  advanced_strategic: 'Advanced Strategic Resources',
+  abstract: 'Abstract Resources',
+  research: 'Research',
+}
+
+const categoryTitleToKey: Record<string, string> = {
+  'Basic Resources': 'basic',
+  'Advanced Resources': 'advanced',
+  'Basic Strategic Resources': 'basic_strategic',
+  'Advanced Strategic Resources': 'advanced_strategic',
+  'Abstract Resources': 'abstract',
+  'Research': 'research',
 }
 
 interface ResourceCategory {
@@ -120,11 +140,12 @@ const hasAnyData = (values: (number | null)[]): boolean =>
 
 export const BudgetDashboard = ({
   filename,
+  initialCategory,
 }: BudgetDashboardProps): React.ReactElement => {
   const { gamestates, loading, error, saveName } = useRealtimeBudget(filename)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [hiddenResources, setHiddenResources] = useState<Set<string>>(new Set())
+  const navigate = useNavigate()
 
   const chartData = useMemo(() => {
     if (gamestates.length === 0) return null
@@ -164,19 +185,25 @@ export const BudgetDashboard = ({
     return { timestamps, categories }
   }, [gamestates])
 
-  useEffect(() => {
-    if (
-      chartData
-      && chartData.categories.length > 0
-      && selectedCategory === null
-    ) {
-      setSelectedCategory(chartData.categories[0].title)
+  const selectedCategory = useMemo(() => {
+    if (initialCategory && categoryKeyToTitle[initialCategory]) {
+      return categoryKeyToTitle[initialCategory]
     }
-  }, [chartData, selectedCategory])
+    return chartData?.categories[0]?.title ?? null
+  }, [initialCategory, chartData])
 
   useEffect(() => {
     setHiddenResources(new Set())
   }, [selectedCategory])
+
+  const handleCategoryChange = (title: string) => {
+    const key = categoryTitleToKey[title] ?? 'basic'
+    navigate({
+      to: '/saves/$saveId/empire_budget',
+      params: { saveId: filename },
+      search: { category: key },
+    })
+  }
 
   const handleToggleResource = (key: string) => {
     setHiddenResources((prev) => {
@@ -207,7 +234,6 @@ export const BudgetDashboard = ({
       <div className={styles.dashboardContainer}>
         <div className={styles.dashboardHeader}>
           <h2 className={styles.dashboardTitle}>Empire Budget</h2>
-          {saveName && <span className={styles.saveName}>{saveName}</span>}
         </div>
         <div className={styles.noDataContainer}>
           No budget data available for this save
@@ -220,7 +246,6 @@ export const BudgetDashboard = ({
     <div className={styles.dashboardContainer}>
       <div className={styles.dashboardHeader}>
         <h2 className={styles.dashboardTitle}>Empire Budget</h2>
-        {saveName && <span className={styles.saveName}>{saveName}</span>}
       </div>
 
       <nav className={styles.categoryTabs}>
@@ -228,7 +253,7 @@ export const BudgetDashboard = ({
           <button
             key={category.title}
             className={`${styles.tab} ${selectedCategory === category.title ? styles.tabActive : ''}`}
-            onClick={() => setSelectedCategory(category.title)}
+            onClick={() => handleCategoryChange(category.title)}
             type='button'
           >
             {category.title}

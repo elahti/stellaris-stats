@@ -8,8 +8,8 @@ export const appContainer = style({
   backgroundColor: vars.color.background,
 })
 
-export const sidebar = style({
-  width: '300px',
+export const saveSidebar = style({
+  width: 'fit-content',
   flexShrink: 0,
   borderRight: `1px solid ${vars.color.border}`,
   backgroundColor: vars.color.surface,
@@ -20,29 +20,4 @@ export const mainContent = style({
   flex: 1,
   minHeight: 0,
   overflow: 'hidden',
-})
-
-export const welcomeContainer = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%',
-  padding: vars.space.xl,
-  textAlign: 'center',
-})
-
-export const welcomeTitle = style({
-  fontFamily: vars.font.title,
-  fontSize: '2rem',
-  color: vars.color.primary,
-  margin: 0,
-  marginBottom: vars.space.md,
-})
-
-export const welcomeText = style({
-  fontFamily: vars.font.body,
-  fontSize: '1.1rem',
-  color: vars.color.textMuted,
-  maxWidth: '400px',
 })

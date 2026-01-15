@@ -6,3 +6,7 @@ export type { TimeSeriesChartProps, SeriesConfig } from './TimeSeriesChart'
 
 export { BudgetDashboard } from './BudgetDashboard'
 export type { BudgetDashboardProps } from './BudgetDashboard'
+
+export { ViewMenu } from './ViewMenu'
+
+export { SplashScreen } from './SplashScreen'

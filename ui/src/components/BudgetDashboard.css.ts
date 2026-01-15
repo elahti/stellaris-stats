@@ -20,15 +20,10 @@ export const dashboardHeader = style({
 
 export const dashboardTitle = style({
   fontFamily: vars.font.title,
-  fontSize: '1.75rem',
+  fontSize: '1.5rem',
   color: vars.color.primary,
   margin: 0,
-})
-
-export const saveName = style({
-  fontFamily: vars.font.menu,
-  fontSize: '1.1rem',
-  color: vars.color.text,
+  marginBottom: vars.space.md,
 })
 
 export const categoryTabs = style({
