@@ -49,6 +49,7 @@
       "Bash(ls:*)",
       "Bash(node --version:*)",
       "Bash(npm --version:*)",
+      "Bash(npm ci:*)",
       "Bash(npm info:*)",
       "Bash(npm install:*)",
       "Bash(npm ls:*)",
