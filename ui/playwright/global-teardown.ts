@@ -1,10 +1,6 @@
-import { existsSync, readFileSync, unlinkSync } from 'fs'
 import { Pool } from 'pg'
 import { getPlaywrightEnvConfig } from './config'
-import { PID_FILE } from './global-setup'
-
-const TEMPLATE_DB_NAME = 'stellaris_e2e_template'
-const TEST_DB_NAME = 'stellaris_e2e_test'
+import { TEMPLATE_DB_NAME } from './global-setup'
 
 const terminateConnections = async (
   pool: Pool,
@@ -19,32 +15,23 @@ const terminateConnections = async (
   )
 }
 
+const dropAllWorkerDatabases = async (pool: Pool): Promise<void> => {
+  // Find all worker databases created during test run
+  const result = await pool.query(`
+    SELECT datname FROM pg_database
+    WHERE datname LIKE 'stellaris_e2e_test_%'
+  `)
+
+  for (const row of result.rows) {
+    const dbName = row.datname as string
+    await terminateConnections(pool, dbName)
+    await pool.query(`DROP DATABASE IF EXISTS "${dbName}"`)
+    console.log(`Dropped worker database: ${dbName}`)
+  }
+}
+
 const globalTeardown = async (): Promise<void> => {
   console.log('Tearing down E2E test environment...')
-
-  // Kill GraphQL server process group using PID from file
-  if (existsSync(PID_FILE)) {
-    const pid = parseInt(readFileSync(PID_FILE, 'utf-8').trim(), 10)
-    try {
-      // Kill entire process group (negative PID) for detached processes
-      process.kill(-pid, 'SIGTERM')
-      await new Promise((resolve) => setTimeout(resolve, 500))
-
-      // Force kill if still running
-      try {
-        process.kill(-pid, 0) // Check if process group exists
-        process.kill(-pid, 'SIGKILL')
-        await new Promise((resolve) => setTimeout(resolve, 100))
-      } catch {
-        // Process group already exited
-      }
-      console.log('Stopped GraphQL server')
-    } catch {
-      // Process may have already exited
-    } finally {
-      unlinkSync(PID_FILE)
-    }
-  }
 
   const config = getPlaywrightEnvConfig()
   const adminPool = new Pool({
@@ -57,10 +44,8 @@ const globalTeardown = async (): Promise<void> => {
   })
 
   try {
-    // Drop test database
-    await terminateConnections(adminPool, TEST_DB_NAME)
-    await adminPool.query(`DROP DATABASE IF EXISTS ${TEST_DB_NAME}`)
-    console.log(`Dropped test database: ${TEST_DB_NAME}`)
+    // Drop all worker databases (stellaris_e2e_test_0, stellaris_e2e_test_1, etc.)
+    await dropAllWorkerDatabases(adminPool)
 
     // Drop template database
     await terminateConnections(adminPool, TEMPLATE_DB_NAME)
