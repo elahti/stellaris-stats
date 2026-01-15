@@ -31,13 +31,14 @@ docs/                   # Detailed documentation (see below)
 
 Consult these when making significant changes to each system:
 
-| Topic   | File              | When to read                                    |
-| ------- | ----------------- | ----------------------------------------------- |
-| Caching | `docs/CACHING.md` | Modifying Redis, response cache, or DataLoaders |
-| Testing | `docs/TESTING.md` | Adding tests, fixtures, or test infrastructure  |
-| Parser  | `docs/PARSER.md`  | Changing save file parsing or budget extraction |
-| Agent   | `docs/AGENT.md`   | Working on Python budget agent or evals         |
-| UI      | `docs/UI.md`      | Frontend components, hooks, or styling          |
+| Topic    | File               | When to read                                      |
+| -------- | ------------------ | ------------------------------------------------- |
+| Caching  | `docs/CACHING.md`  | Modifying Redis, response cache, or DataLoaders   |
+| Testing  | `docs/TESTING.md`  | Adding tests, fixtures, or test infrastructure    |
+| Parser   | `docs/PARSER.md`   | Changing save file parsing or budget extraction   |
+| Agent    | `docs/AGENT.md`    | Working on Python budget agent or evals           |
+| UI       | `docs/UI.md`       | **Required before any UI work** - design workflow |
+| UI Specs | `docs/components/` | Source of truth for component implementation      |
 
 ## Commands
 
@@ -161,6 +162,7 @@ Keep synchronized when changing:
 - Commands → Update Commands section
 - System internals → Update relevant `docs/*.md` file
 - Grafana → Update `grafana/README.md`
+- UI component styles → Update `docs/components/` specs
 
 ## Claude-Specific
 
