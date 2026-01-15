@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback, useState } from 'react'
 import uPlot from 'uplot'
 import 'uplot/dist/uPlot.min.css'
-import { vars, chartColors } from '../styles/theme.css'
+import { vars, chartConfig } from '../styles/theme.css'
 import * as styles from './TimeSeriesChart.css'
 
 const EMPTY_SET = new Set<string>()
@@ -61,32 +61,50 @@ const createChartOptions = (
         onHoverChange(idx === undefined ? null : idx)
       },
     ],
+    draw: [
+      (u) => {
+        const ctx = u.ctx
+        const y0 = u.valToPos(0, 'y', true)
+        if (y0 >= u.bbox.top && y0 <= u.bbox.top + u.bbox.height) {
+          ctx.save()
+          ctx.strokeStyle = chartConfig.colors.zeroLine
+          ctx.lineWidth = 1
+          ctx.beginPath()
+          ctx.moveTo(u.bbox.left, y0)
+          ctx.lineTo(u.bbox.left + u.bbox.width, y0)
+          ctx.stroke()
+          ctx.restore()
+        }
+      },
+    ],
   },
   axes: [
     {
-      stroke: chartColors.text,
+      stroke: chartConfig.colors.text,
       grid: {
-        stroke: 'rgba(70, 130, 180, 0.15)',
+        stroke: chartConfig.colors.grid,
         width: 1,
       },
       ticks: {
-        stroke: 'rgba(70, 130, 180, 0.15)',
+        stroke: chartConfig.colors.grid,
         width: 1,
       },
-      font: `12px ${vars.font.body}`,
+      font: `${chartConfig.fontSize.axis} ${chartConfig.font.body}`,
       values: (_self, ticks) => ticks.map((t) => formatGameDate(t * 1000)),
+      space: 100, // Increase spacing between x-axis ticks
     },
     {
-      stroke: chartColors.text,
+      stroke: chartConfig.colors.text,
       grid: {
-        stroke: 'rgba(70, 130, 180, 0.15)',
+        stroke: chartConfig.colors.grid,
         width: 1,
       },
       ticks: {
-        stroke: 'rgba(70, 130, 180, 0.15)',
+        stroke: chartConfig.colors.grid,
         width: 1,
       },
-      font: `12px ${vars.font.body}`,
+      font: `${chartConfig.fontSize.axis} ${chartConfig.font.body}`,
+      size: 60, // Allocate more space for y-axis labels
     },
   ],
   series: [
