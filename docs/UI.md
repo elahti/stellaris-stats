@@ -7,18 +7,47 @@ React frontend for Stellaris statistics with real-time updates via GraphQL subsc
 Before implementing any UI changes:
 
 1. **Establish mutual understanding** with the user about page layout and components
-2. **Update component specs** in `docs/components/` to document the agreed design
+2. **Update HTML component specs** in `docs/components/` to document the agreed design
 3. **Get user approval** on the specs before writing implementation code
 
-The HTML components in `docs/components/` are the **source of truth**. Implementation must match them exactly. Never skip the design phase.
+### Component Library Requirements
+
+The HTML components in `docs/components/` are the **absolute source of truth** for all UI components:
+
+- **MUST update** component specs when designing new features or modifying existing ones
+- **MUST get user approval** on HTML component changes before implementation
+- Implementation code **MUST be a pixel-perfect match** of the HTML component specs
+- **NEVER** implement UI changes without first updating the corresponding HTML spec
 
 ## Implementation Verification
 
-After implementing UI changes, always verify visually:
+After implementing UI changes, verify both visually and functionally:
+
+### Visual Verification
 
 1. **Check first**: Dev server is usually already running at `http://localhost:5173`—don't start without checking
 2. **Verify with browser**: Use Playwright tools (`browser_navigate`, `browser_snapshot`) to confirm changes
-3. **Never assume**: Visual bugs are common—always verify implementation matches specs
+3. **Compare against specs**: Implementation MUST match HTML component specs pixel-perfectly
+4. **Never assume**: Visual bugs are common—always verify implementation matches specs
+
+### Functional Verification
+
+1. **Run E2E tests**: `npm run test:ci:e2e` — this is REQUIRED, not optional
+2. **Verify coverage**: Ensure all new/changed functionality has corresponding tests
+3. **Fix failures**: Address any test failures before considering work complete
+
+## E2E Testing Requirements
+
+E2E tests are **mandatory** for all UI work:
+
+- **MUST keep tests up-to-date** whenever working with UI features
+- **MUST verify test coverage** when creating or updating UI features
+- **MUST run E2E tests** after any UI changes before considering work complete
+- **MUST NOT skip tests** without explicit user approval for the specific case
+
+### When Tests Might Not Be Needed
+
+In rare corner cases (e.g., documentation-only changes, pure styling tweaks with no behavioral impact), tests may not be required. **ASK the user for instructions** rather than assuming tests can be skipped.
 
 ## Tech Stack
 
@@ -207,7 +236,9 @@ This serves as a design reference and enables validation of styling before imple
 - Types generated via `npm run ui:codegen`
 - Import generated document constants (e.g., `GetBudgetDocument`)
 
-## E2E Testing
+## E2E Testing Reference
+
+Technical details for writing and running E2E tests. See [E2E Testing Requirements](#e2e-testing-requirements) for mandatory workflow rules.
 
 End-to-end tests use Playwright to test the full application stack.
 
