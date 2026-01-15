@@ -225,7 +225,6 @@ export const TimeSeriesChart = ({
 
   return (
     <div className={styles.chartContainer} ref={outerContainerRef}>
-      <h3 className={styles.chartTitle}>{title}</h3>
       <div
         className={styles.chartWrapper}
         ref={containerRef}

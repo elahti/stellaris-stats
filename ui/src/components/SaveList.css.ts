@@ -17,15 +17,16 @@ export const saveListTitle = style({
 })
 
 export const saveItem = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: vars.space.xs,
-  padding: vars.space.md,
-  backgroundColor: vars.color.surface,
-  border: `1px solid ${vars.color.border}`,
-  borderRadius: vars.radius.sm,
-  cursor: 'pointer',
-  transition: 'all 0.2s ease',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'gap': vars.space.xs,
+  'padding': vars.space.md,
+  'backgroundColor': vars.color.surface,
+  'border': `1px solid ${vars.color.border}`,
+  'borderRadius': vars.radius.sm,
+  'cursor': 'pointer',
+  'transition': 'all 0.2s ease',
+  'textDecoration': 'none',
   ':hover': {
     backgroundColor: vars.color.surfaceHover,
     borderColor: vars.color.borderBright,
@@ -43,6 +44,7 @@ export const saveName = style({
   fontSize: '1.1rem',
   color: vars.color.text,
   margin: 0,
+  whiteSpace: 'nowrap',
 })
 
 export const saveFilename = style({
@@ -50,6 +52,7 @@ export const saveFilename = style({
   fontSize: '0.85rem',
   color: vars.color.textMuted,
   margin: 0,
+  whiteSpace: 'nowrap',
 })
 
 export const loadingText = style({

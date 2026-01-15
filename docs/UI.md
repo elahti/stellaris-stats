@@ -2,6 +2,24 @@
 
 React frontend for Stellaris statistics with real-time updates via GraphQL subscriptions.
 
+## Design-First Workflow
+
+Before implementing any UI changes:
+
+1. **Establish mutual understanding** with the user about page layout and components
+2. **Update component specs** in `docs/components/` to document the agreed design
+3. **Get user approval** on the specs before writing implementation code
+
+The HTML components in `docs/components/` are the **source of truth**. Implementation must match them exactly. Never skip the design phase.
+
+## Implementation Verification
+
+After implementing UI changes, always verify visually:
+
+1. **Check first**: Dev server is usually already running at `http://localhost:5173`—don't start without checking
+2. **Verify with browser**: Use Playwright tools (`browser_navigate`, `browser_snapshot`) to confirm changes
+3. **Never assume**: Visual bugs are common—always verify implementation matches specs
+
 ## Tech Stack
 
 - **React 19** + **Vite** + **TypeScript** (strict mode)
@@ -167,6 +185,21 @@ export const panel = style({
 - Use for real-time features only (parser notifications)
 - Initial data always fetched via query first
 - Subscription appends to existing data
+
+### Component Specifications
+
+When creating or modifying UI components, maintain corresponding specification files in `docs/components/`:
+
+- **`docs/components/index.html`** — Index page linking to all component specs
+- **`docs/components/<component-name>.html`** — Individual component specification
+
+Each component spec should include:
+
+- Visual preview of all states (default, hover, active, disabled, etc.)
+- Detailed specifications table (dimensions, colors, spacing, typography)
+- In-context preview showing the component within its layout
+
+This serves as a design reference and enables validation of styling before implementation. Keep specs in sync when changing component styles.
 
 ### GraphQL
 

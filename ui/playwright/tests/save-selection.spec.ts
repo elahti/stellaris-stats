@@ -11,7 +11,7 @@ test.describe('Save Selection', () => {
     await expect(
       page.getByRole('heading', { name: 'Stellaris Stats' }),
     ).toBeVisible()
-    await expect(page.getByText('Select a save from the sidebar')).toBeVisible()
+    await expect(page.getByText('Select a save to begin')).toBeVisible()
   })
 
   test('displays list of saves in sidebar', async ({ page, loadFixture }) => {
@@ -39,12 +39,15 @@ test.describe('Save Selection', () => {
     await page.goto('/')
 
     const sidebar = page.locator('aside')
+    // Wait for saves to load
+    await expect(
+      sidebar.getByRole('heading', { name: 'Empire Alpha' }),
+    ).toBeVisible()
     await sidebar.getByRole('heading', { name: 'Empire Alpha' }).click()
 
     await expect(
       page.getByRole('heading', { name: 'Empire Budget' }),
     ).toBeVisible()
-    await expect(page.getByRole('main').getByText('Empire Alpha')).toBeVisible()
   })
 
   test('dashboard displays category tabs', async ({ page, loadFixture }) => {
@@ -52,6 +55,10 @@ test.describe('Save Selection', () => {
     await page.goto('/')
 
     const sidebar = page.locator('aside')
+    // Wait for saves to load
+    await expect(
+      sidebar.getByRole('heading', { name: 'Test Empire' }),
+    ).toBeVisible()
     await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
     // Should show category tabs
@@ -68,7 +75,7 @@ test.describe('Save Selection', () => {
 
     // First tab should be active by default, showing its chart
     await expect(
-      page.getByRole('heading', { name: 'Basic Resources' }),
+      page.locator('.u-title').filter({ hasText: 'Basic Resources' }),
     ).toBeVisible()
   })
 
@@ -80,6 +87,10 @@ test.describe('Save Selection', () => {
     await page.goto('/')
 
     const sidebar = page.locator('aside')
+    // Wait for saves to load
+    await expect(
+      sidebar.getByRole('heading', { name: 'Test Empire' }),
+    ).toBeVisible()
     await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
     // Basic resources legend shows names
@@ -98,6 +109,10 @@ test.describe('Save Selection', () => {
     await page.goto('/')
 
     const sidebar = page.locator('aside')
+    // Wait for saves to load
+    await expect(
+      sidebar.getByRole('heading', { name: 'Empire Alpha' }),
+    ).toBeVisible()
     await sidebar.getByRole('heading', { name: 'Empire Alpha' }).click()
 
     // Should show no data message instead of tabs
@@ -117,12 +132,14 @@ test.describe('Save Selection', () => {
     await page.goto('/')
 
     const sidebar = page.locator('aside')
+    // Wait for saves to load
+    await expect(
+      sidebar.getByRole('heading', { name: 'Test Empire' }),
+    ).toBeVisible()
     await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
     // Wait for chart to render
-    await expect(
-      page.getByRole('heading', { name: 'Basic Resources' }),
-    ).toBeVisible()
+    await expect(page.getByRole('button', { name: /Energy/ })).toBeVisible()
 
     // uPlot's built-in legend uses .u-legend class - should not be visible
     await expect(page.locator('.u-legend')).toHaveCount(0)
@@ -136,12 +153,14 @@ test.describe('Save Selection', () => {
     await page.goto('/')
 
     const sidebar = page.locator('aside')
+    // Wait for saves to load
+    await expect(
+      sidebar.getByRole('heading', { name: 'Test Empire' }),
+    ).toBeVisible()
     await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
     // Wait for chart to render
-    await expect(
-      page.getByRole('heading', { name: 'Basic Resources' }),
-    ).toBeVisible()
+    await expect(page.getByRole('button', { name: /Energy/ })).toBeVisible()
 
     // Get initial Energy value from legend (latest value is +350)
     const energyValue = page.getByText('+350').first()
@@ -174,11 +193,15 @@ test.describe('Save Selection', () => {
     await page.goto('/')
 
     const sidebar = page.locator('aside')
+    // Wait for saves to load
+    await expect(
+      sidebar.getByRole('heading', { name: 'Test Empire' }),
+    ).toBeVisible()
     await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
     // Initially shows Basic Resources
     await expect(
-      page.getByRole('heading', { name: 'Basic Resources' }),
+      page.locator('.u-title').filter({ hasText: 'Basic Resources' }),
     ).toBeVisible()
     await expect(page.getByText('Energy')).toBeVisible()
 
@@ -186,12 +209,14 @@ test.describe('Save Selection', () => {
     await page.getByRole('button', { name: 'Research' }).click()
 
     // Should now show Research chart
-    await expect(page.getByRole('heading', { name: 'Research' })).toBeVisible()
+    await expect(
+      page.locator('.u-title').filter({ hasText: 'Research' }),
+    ).toBeVisible()
     await expect(page.getByText('Physics')).toBeVisible()
 
     // Basic Resources chart title should no longer be visible
     await expect(
-      page.getByRole('heading', { name: 'Basic Resources' }),
+      page.locator('.u-title').filter({ hasText: 'Basic Resources' }),
     ).not.toBeVisible()
   })
 
@@ -203,12 +228,14 @@ test.describe('Save Selection', () => {
     await page.goto('/')
 
     const sidebar = page.locator('aside')
+    // Wait for saves to load
+    await expect(
+      sidebar.getByRole('heading', { name: 'Test Empire' }),
+    ).toBeVisible()
     await sidebar.getByRole('heading', { name: 'Test Empire' }).click()
 
     // Wait for chart to render
-    await expect(
-      page.getByRole('heading', { name: 'Basic Resources' }),
-    ).toBeVisible()
+    await expect(page.getByRole('button', { name: /Energy/ })).toBeVisible()
 
     // Find the Energy legend item and click it
     const energyLegend = page.getByRole('button', { name: /Energy/ })

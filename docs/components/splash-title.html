@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component: Splash Title</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+    :root {
+      --bg-primary: #0a1628;
+      --bg-secondary: #0d1f35;
+      --text-primary: #e8f4f8;
+      --text-muted: #8ba4b4;
+      --accent: #4a90a4;
+      --border-color: rgba(70, 130, 180, 0.3);
+      --bg-card: #132337;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: var(--text-primary);
+      padding: 40px;
+    }
+
+    .component-title {
+      font-size: 24px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .component-description {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    .preview-container {
+      background: var(--bg-primary);
+      border-radius: 8px;
+      padding: 80px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    /* ============================================
+       SPLASH TITLE COMPONENT
+       ============================================ */
+
+    .splash-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 8px;
+      text-shadow: 0 0 40px rgba(74, 144, 164, 0.5);
+      text-align: center;
+    }
+
+    .splash-subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      margin-top: 16px;
+      text-transform: uppercase;
+    }
+
+    /* ============================================
+       VARIATIONS
+       ============================================ */
+
+    .variations {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .variation {
+      background: var(--bg-primary);
+      border-radius: 8px;
+      padding: 40px;
+    }
+
+    .variation-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .splash-title--small {
+      font-size: 48px;
+      letter-spacing: 6px;
+    }
+
+    .splash-title--medium {
+      font-size: 60px;
+      letter-spacing: 7px;
+    }
+
+    /* ============================================
+       SPECS
+       ============================================ */
+
+    .specs {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 600px;
+    }
+
+    .specs h3 {
+      color: var(--accent);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .specs-table th,
+    .specs-table td {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .specs-table th {
+      color: var(--text-muted);
+      font-weight: normal;
+      width: 140px;
+    }
+
+    .specs-table td {
+      font-family: 'SF Mono', Monaco, monospace;
+      color: var(--text-primary);
+    }
+
+    .color-swatch {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="component-title">Splash Title</h1>
+  <p class="component-description">
+    Large decorative title shown on the home screen when no save is selected.
+    Uses Orbitron font for a sci-fi aesthetic matching Stellaris.
+  </p>
+
+  <!-- Main preview -->
+  <div class="preview-container">
+    <h1 class="splash-title">Stellaris Stats</h1>
+    <p class="splash-subtitle">Select a save to begin</p>
+  </div>
+
+  <!-- Size variations -->
+  <div class="variations">
+    <div class="variation">
+      <div class="variation-label">Responsive: Medium (tablet)</div>
+      <h1 class="splash-title splash-title--medium">Stellaris Stats</h1>
+      <p class="splash-subtitle">Select a save to begin</p>
+    </div>
+
+    <div class="variation">
+      <div class="variation-label">Responsive: Small (mobile)</div>
+      <h1 class="splash-title splash-title--small">Stellaris Stats</h1>
+      <p class="splash-subtitle">Select a save to begin</p>
+    </div>
+  </div>
+
+  <!-- Specifications -->
+  <div class="specs">
+    <h3>Specifications</h3>
+    <table class="specs-table">
+      <tr>
+        <th>Font Family</th>
+        <td>Orbitron (Google Fonts)</td>
+      </tr>
+      <tr>
+        <th>Font Size</th>
+        <td>72px (desktop), 60px (tablet), 48px (mobile)</td>
+      </tr>
+      <tr>
+        <th>Font Weight</th>
+        <td>700</td>
+      </tr>
+      <tr>
+        <th>Letter Spacing</th>
+        <td>8px</td>
+      </tr>
+      <tr>
+        <th>Text Transform</th>
+        <td>uppercase</td>
+      </tr>
+      <tr>
+        <th>Color</th>
+        <td><span class="color-swatch" style="background: #4a90a4;"></span>#4a90a4</td>
+      </tr>
+      <tr>
+        <th>Text Shadow</th>
+        <td>0 0 40px rgba(74, 144, 164, 0.5)</td>
+      </tr>
+      <tr>
+        <th>Subtitle Font</th>
+        <td>System font stack</td>
+      </tr>
+      <tr>
+        <th>Subtitle Size</th>
+        <td>16px</td>
+      </tr>
+      <tr>
+        <th>Subtitle Color</th>
+        <td><span class="color-swatch" style="background: #8ba4b4;"></span>#8ba4b4</td>
+      </tr>
+      <tr>
+        <th>Subtitle Spacing</th>
+        <td>letter-spacing: 2px, margin-top: 16px</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
