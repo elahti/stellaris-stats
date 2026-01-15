@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import z from 'zod/v4'
 
 const ViteEnvConfig = z.object({
@@ -16,7 +17,14 @@ const envConfig = ViteEnvConfig.parse({
 const graphqlUrl = `http://localhost:${envConfig.graphqlServerPort}`
 
 export default defineConfig({
-  plugins: [react(), vanillaExtractPlugin()],
+  plugins: [
+    tanstackRouter({
+      target: 'react',
+      autoCodeSplitting: true,
+    }),
+    react(),
+    vanillaExtractPlugin(),
+  ],
   server: {
     port: envConfig.serverPort,
     host: true,
