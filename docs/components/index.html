@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stellaris Stats - Component Library</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600&family=Orbitron:wght@700&display=swap');
+
+    :root {
+      --bg-primary: #0a1628;
+      --bg-secondary: #0d1f35;
+      --bg-card: #132337;
+      --border-color: rgba(70, 130, 180, 0.3);
+      --text-primary: #e8f4f8;
+      --text-muted: #8ba4b4;
+      --accent: #4a90a4;
+      --tab-active: #1a3a52;
+      --tab-hover: #15303f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 36px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .header p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .components-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .component-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .component-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .component-preview {
+      background: var(--bg-secondary);
+      padding: 24px;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .component-info {
+      padding: 20px;
+    }
+
+    .component-info h2 {
+      font-size: 18px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .component-info p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .component-tag {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 8px;
+      background: var(--bg-secondary);
+      border-radius: 4px;
+      color: var(--accent);
+      margin-top: 12px;
+    }
+
+    /* ============================================
+       PREVIEW COMPONENTS (simplified versions)
+       ============================================ */
+
+    /* View Menu Item Preview */
+    .preview-view-menu-item {
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--text-primary);
+      background: var(--tab-active);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 160px;
+    }
+
+    .preview-view-menu-item svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+    }
+
+    /* Splash Title Preview */
+    .preview-splash-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px rgba(74, 144, 164, 0.5);
+    }
+
+    /* View Menu Sidebar Preview */
+    .preview-sidebar {
+      width: 140px;
+      background: var(--bg-primary);
+      border-right: 1px solid var(--border-color);
+      padding: 12px;
+    }
+
+    .preview-sidebar h3 {
+      font-size: 11px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .preview-sidebar-item {
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .preview-sidebar-item.active {
+      background: var(--tab-active);
+      color: var(--text-primary);
+    }
+
+    .preview-sidebar-item svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0.7;
+    }
+
+    /* Save Item Preview */
+    .preview-save-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 12px;
+      width: 200px;
+    }
+
+    .preview-save-name {
+      font-family: 'Jura', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .preview-save-filename {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Component Library</h1>
+    <p>UI components for Stellaris Stats - URL Routing Feature</p>
+  </header>
+
+  <div class="components-grid">
+    <!-- View Menu Item -->
+    <a href="view-menu-item.html" class="component-card">
+      <div class="component-preview">
+        <div class="preview-view-menu-item">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+          </svg>
+          Empire Budget
+        </div>
+      </div>
+      <div class="component-info">
+        <h2>View Menu Item</h2>
+        <p>Navigation item for selecting different views. Shows active, hover, and disabled states.</p>
+        <span class="component-tag">Navigation</span>
+      </div>
+    </a>
+
+    <!-- View Menu Sidebar -->
+    <a href="view-menu-sidebar.html" class="component-card">
+      <div class="component-preview">
+        <div class="preview-sidebar">
+          <h3>Views</h3>
+          <div class="preview-sidebar-item active">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+            </svg>
+            Empire Budget
+          </div>
+          <div class="preview-sidebar-item">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
+            </svg>
+            Fleet
+          </div>
+        </div>
+      </div>
+      <div class="component-info">
+        <h2>View Menu Sidebar</h2>
+        <p>Container sidebar for view navigation. Appears between save list and main content.</p>
+        <span class="component-tag">Layout</span>
+      </div>
+    </a>
+
+    <!-- Splash Title -->
+    <a href="splash-title.html" class="component-card">
+      <div class="component-preview">
+        <div class="preview-splash-title">Stellaris Stats</div>
+      </div>
+      <div class="component-info">
+        <h2>Splash Title</h2>
+        <p>Large decorative title for the home screen. Uses Orbitron font with glow effect.</p>
+        <span class="component-tag">Typography</span>
+      </div>
+    </a>
+
+    <!-- Save Item -->
+    <a href="save-item.html" class="component-card">
+      <div class="component-preview">
+        <div class="preview-save-item">
+          <div class="preview-save-name">United Nations of Earth</div>
+          <div class="preview-save-filename">unitednationsofearth_-15512622</div>
+        </div>
+      </div>
+      <div class="component-info">
+        <h2>Save Item</h2>
+        <p>Clickable card for game saves in sidebar. Single-line text, sidebar expands to fit.</p>
+        <span class="component-tag">Navigation</span>
+      </div>
+    </a>
+  </div>
+
+  <footer class="footer">
+    <p>
+      Part of <a href="../plans/2026-01-14-url-routing-design.md">URL Routing Design</a>
+    </p>
+  </footer>
+</body>
+</html>

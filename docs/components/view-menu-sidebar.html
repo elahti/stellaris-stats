@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component: View Menu Sidebar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a1628;
+      --bg-secondary: #0d1f35;
+      --bg-card: #132337;
+      --border-color: rgba(70, 130, 180, 0.3);
+      --text-primary: #e8f4f8;
+      --text-muted: #8ba4b4;
+      --accent: #4a90a4;
+      --tab-active: #1a3a52;
+      --tab-hover: #15303f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: var(--text-primary);
+      padding: 40px;
+    }
+
+    .component-title {
+      font-size: 24px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .component-description {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    .preview-row {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .preview-section {
+      flex: 0 0 auto;
+    }
+
+    .preview-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* ============================================
+       VIEW MENU SIDEBAR COMPONENT
+       ============================================ */
+
+    .view-menu-sidebar {
+      width: fit-content; /* Dynamic width - matches save sidebar behavior */
+      background: var(--bg-primary);
+      border-right: 1px solid var(--border-color);
+      padding: 24px; /* Matches save sidebar padding */
+      display: flex;
+      flex-direction: column;
+      min-height: 300px;
+    }
+
+    .view-menu-sidebar__header {
+      font-family: 'Orbitron', sans-serif; /* Matches save sidebar title */
+      color: var(--accent);
+      font-size: 1.5rem; /* Matches save sidebar title */
+      margin-bottom: 16px;
+      /* No text-transform - matches save sidebar */
+    }
+
+    .view-menu-sidebar__items {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Item styles (same as view-menu-item) */
+    .view-menu-item {
+      padding: 10px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Jura', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      white-space: nowrap; /* Keep text on single line */
+    }
+
+    .view-menu-item:hover {
+      background: var(--tab-hover);
+      color: var(--text-primary);
+    }
+
+    .view-menu-item.active {
+      background: var(--tab-active);
+      color: var(--text-primary);
+    }
+
+    .view-menu-item__icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    /* ============================================
+       CONTEXT PREVIEW
+       ============================================ */
+
+    .context-preview {
+      display: flex;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      overflow: hidden;
+      height: 400px;
+    }
+
+    .save-sidebar-mock {
+      width: fit-content;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      padding: 24px;
+    }
+
+    .save-sidebar-mock h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin: 0 0 16px 0;
+    }
+
+    .save-item-mock {
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .save-item-mock h3 {
+      font-family: 'Jura', sans-serif;
+      font-size: 1.1rem;
+      margin: 0 0 4px 0;
+      white-space: nowrap;
+    }
+
+    .save-item-mock p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .main-content-mock {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* ============================================
+       SPECS
+       ============================================ */
+
+    .specs {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 600px;
+    }
+
+    .specs h3 {
+      color: var(--accent);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .specs-table th,
+    .specs-table td {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .specs-table th {
+      color: var(--text-muted);
+      font-weight: normal;
+      width: 140px;
+    }
+
+    .specs-table td {
+      font-family: 'SF Mono', Monaco, monospace;
+      color: var(--text-primary);
+    }
+
+    .color-swatch {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="component-title">View Menu Sidebar</h1>
+  <p class="component-description">
+    Sidebar containing view navigation items. Appears between the save list and main content
+    when a save is selected. Contains links to different analysis views.
+  </p>
+
+  <!-- Isolated component preview -->
+  <div class="preview-row">
+    <div class="preview-section">
+      <div class="preview-label">Component (isolated)</div>
+      <div class="view-menu-sidebar">
+        <h2 class="view-menu-sidebar__header">Views</h2>
+        <div class="view-menu-sidebar__items">
+          <div class="view-menu-item active">
+            <svg class="view-menu-item__icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+            </svg>
+            Empire Budget
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- In-context preview -->
+  <div class="preview-label">In Context (with save sidebar and main area)</div>
+  <div class="context-preview">
+    <div class="save-sidebar-mock">
+      <h2>Saves</h2>
+      <div class="save-item-mock">
+        <h3>United Nations of Earth</h3>
+        <p>unitednationsofearth_-15512622</p>
+      </div>
+    </div>
+    <div class="view-menu-sidebar">
+      <h2 class="view-menu-sidebar__header">Views</h2>
+      <div class="view-menu-sidebar__items">
+        <div class="view-menu-item active">
+          <svg class="view-menu-item__icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+          </svg>
+          Empire Budget
+        </div>
+      </div>
+    </div>
+    <div class="main-content-mock">
+      [Main Content Area]
+    </div>
+  </div>
+
+  <!-- Specifications -->
+  <div class="specs" style="margin-top: 40px;">
+    <h3>Specifications</h3>
+    <table class="specs-table">
+      <tr>
+        <th>Width</th>
+        <td>fit-content (dynamic, matches save sidebar)</td>
+      </tr>
+      <tr>
+        <th>Background</th>
+        <td><span class="color-swatch" style="background: #0a1628;"></span>#0a1628 (bg-primary)</td>
+      </tr>
+      <tr>
+        <th>Border Right</th>
+        <td>1px solid rgba(70, 130, 180, 0.3)</td>
+      </tr>
+      <tr>
+        <th>Padding</th>
+        <td>24px (vars.space.lg, matches save sidebar)</td>
+      </tr>
+      <tr>
+        <th>Header Font</th>
+        <td>Orbitron, 1.5rem (matches save sidebar title)</td>
+      </tr>
+      <tr>
+        <th>Header Color</th>
+        <td><span class="color-swatch" style="background: #4a90a4;"></span>#4a90a4 (vars.color.primary)</td>
+      </tr>
+      <tr>
+        <th>Header Margin</th>
+        <td>margin-bottom: 16px</td>
+      </tr>
+      <tr>
+        <th>Item Gap</th>
+        <td>4px</td>
+      </tr>
+      <tr>
+        <th>Item White Space</th>
+        <td>nowrap (single line, no wrapping)</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
