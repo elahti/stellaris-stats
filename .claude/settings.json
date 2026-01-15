@@ -118,6 +118,7 @@
       "Skill(superpowers:subagent-driven-development)",
       "Skill(superpowers:writing-plans)",
       "WebFetch(domain:ai.pydantic.dev)",
+      "WebFetch(domain:claude.com)",
       "WebFetch(domain:cli.github.com)",
       "WebFetch(domain:docs.anthropic.com)",
       "WebFetch(domain:docs.astral.sh)",

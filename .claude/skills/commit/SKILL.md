@@ -1,7 +1,9 @@
 ---
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*), Bash(git commit --amend:*), Bash(git checkout:*), Bash(npm run graphql:codegen:*), Bash(npm run lint:typescript:*), Bash(npm run build:*), Bash(npm run test:ci:typescript:*), Bash(npm run typecheck:python:*), Bash(npm run lint:python:*), Bash(npm run format:python:*), Bash(npm run test:ci:python:*)
-description: Create one or more git commits (project)
-model: haiku
+name: commit
+description: Use when creating any git commit, when user asks to commit work, or after completing a task. Always invoke before running git commit.
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*), Bash(git commit --amend:*), Bash(git checkout:*), Bash(npm run graphql:codegen:*), Bash(npm run graphql:codegen:python:*), Bash(npm run lint:typescript:*), Bash(npm run build:*), Bash(npm run test:ci:typescript:*), Bash(npm run typecheck:python:*), Bash(npm run lint:python:*), Bash(npm run format:python:*), Bash(npm run test:ci:python:*)
+model: claude-haiku-4-5-20251001
+user-invocable: true
 ---
 
 # Git Commit Instructions
@@ -44,6 +46,7 @@ When changes span categories:
 5. Use `git status` between commits to track progress
 
 Example for a refactor + feature change:
+
 ```
 git add src/parser/utils.ts
 git commit -m "Extract parsing helpers into utils module"
@@ -54,6 +57,7 @@ git commit -m "Add support for parsing fleet compositions"
 ## Commit Message Rules
 
 Format:
+
 ```
 {task-type}: brief description of the big picture change
 
@@ -64,6 +68,7 @@ Format:
 Task types: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `build`
 
 Guidelines:
+
 - Focus on "why" and "what", not implementation details
 - First line should be concise (50 chars or less)
 - For complex changes, add bullet points after a blank line
@@ -81,6 +86,7 @@ Run these checks based on which files were changed:
 ### 1. GraphQL Schema Changes
 
 If `graphql/schema.graphql` was modified, run codegen first:
+
 ```
 npm run graphql:codegen
 npm run graphql:codegen:python
@@ -89,6 +95,7 @@ npm run graphql:codegen:python
 ### 2. TypeScript Changes
 
 If any `.ts` files were modified:
+
 ```
 npm run lint:typescript && npm run build && npm run test:ci:typescript
 ```
@@ -96,6 +103,7 @@ npm run lint:typescript && npm run build && npm run test:ci:typescript
 ### 3. Python Changes
 
 If any `.py` files in `agent/` were modified:
+
 ```
 npm run typecheck:python && npm run lint:python && npm run format:python && npm run test:ci:python
 ```
@@ -105,12 +113,14 @@ npm run typecheck:python && npm run lint:python && npm run format:python && npm 
 ## Amending Commits
 
 Use `git commit --amend` when ALL of these conditions are met:
+
 - The previous commit was created by you in the current session
 - The commit has NOT been pushed to remote (verify with `git status`)
 - The change is a small fixup to the previous commit (typo, missed file, formatting fix)
 - You are on a feature branch (never amend on main/master)
 
 Do NOT amend if:
+
 - The commit was made by another developer
 - The commit has been pushed to remote
 - The change is logically distinct (create a new commit instead)

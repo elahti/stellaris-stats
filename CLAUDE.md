@@ -130,7 +130,7 @@ After UI changes: `npm run ui:build`
 
 ## Git
 
-**ALWAYS invoke the `/commit` skill when committing code.** The skill handles commit format, quality checks, and workflow decisions.
+**ALWAYS invoke the `commit` skill when committing code.** The skill handles commit format, quality checks, and workflow decisions.
 
 Workflow:
 
