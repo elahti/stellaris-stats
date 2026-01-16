@@ -1,7 +1,7 @@
 ---
 name: ui-verify
 description: Use after completing UI work to verify code, tests, and component specs are in sync. Also use on-demand to audit UI consistency.
-allowed-tools: Bash(npm run test:ci:e2e:*), Bash(npm run ui:dev:*), Bash(lsof -i:*), Bash(curl -s http://localhost:*)
+allowed-tools: Bash(npm run test:ci:e2e:*), Bash(npm run ui:dev:*), Bash(lsof -i:*), Bash(curl -s http://localhost:*), Bash(npx serve:*)
 model: claude-opus-4-5-20251101
 user-invocable: true
 ---
@@ -71,27 +71,48 @@ Capture and summarize results:
 
 For each component that has BOTH a spec and implementation:
 
-1. **Check dev server**: Verify `localhost:5173` is running
+#### 3.1 Start Servers
+
+1. **Check UI dev server**: Verify `localhost:5173` is running
    ```bash
    lsof -i:5173
    ```
    If not running, ask user if they want to start it.
 
-2. **Open HTML spec**: Use `browser_navigate` to open the spec file:
+2. **Start component spec server**: Serve the HTML specs on port 3333
+   ```bash
+   npx serve docs/components -p 3333 --no-clipboard
    ```
-   file:///workspace/docs/components/<component-name>.html
+   Run this in background (`run_in_background: true`) so it keeps running during comparison.
+
+   Verify it's ready:
+   ```bash
+   curl -s http://localhost:3333/ | head -5
+   ```
+
+#### 3.2 Compare Each Component
+
+For each component with both spec and implementation:
+
+1. **Open HTML spec**: Use `browser_navigate` to:
+   ```
+   http://localhost:3333/<component-name>.html
    ```
    Take a `browser_snapshot` to capture the spec appearance.
 
-3. **Open production UI**: Navigate to `http://localhost:5173` and navigate to a view showing the component.
+2. **Open production UI**: Navigate to `http://localhost:5173` and navigate to a view showing the component.
    Take a `browser_snapshot` to capture the production appearance.
 
-4. **Compare visually**: Examine both snapshots and describe any differences:
+3. **Compare visually**: Examine both snapshots and describe any differences:
    - Color mismatches (compare CSS variable values)
    - Spacing/sizing differences
    - Typography mismatches (font family, size, weight)
    - Missing states (hover, selected, disabled)
    - Structural differences (missing elements, wrong hierarchy)
+
+#### 3.3 Cleanup
+
+After visual comparison is complete, stop the spec server using `KillShell` with the task ID from the background bash command.
 
 ### Phase 4: Report & Offer Fixes
 

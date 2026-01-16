@@ -82,6 +82,7 @@
       "Bash(npx graphql-codegen:*)",
       "Bash(npx playwright:*)",
       "Bash(npx prettier:*)",
+      "Bash(npx serve:*)",
       "Bash(npx tsc:*)",
       "Bash(npx vue-tsc:*)",
       "Bash(shellcheck:*)",
