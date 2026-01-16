@@ -1,7 +1,7 @@
 ---
 name: ui-verify
 description: Use after completing UI work to verify code, tests, and component specs are in sync. Also use on-demand to audit UI consistency.
-allowed-tools: Bash(npm run test:ci:e2e:*), Bash(npm run ui:dev:*), Bash(lsof -i:*), Bash(npx serve:*)
+allowed-tools: Bash(npm run test:ci:e2e:*), Bash(npm run ui:dev:*), Bash(npm run graphql-server:run:*), Bash(lsof -i:*), Bash(npx serve:*)
 model: claude-opus-4-5-20251101
 user-invocable: true
 ---
@@ -73,23 +73,33 @@ For each component that has BOTH a spec and implementation:
 
 #### 3.1 Start Servers
 
-1. **Check UI dev server**: Verify `localhost:5173` is running
+The UI requires two servers running: the Vite dev server (UI) and the GraphQL server (API).
+
+1. **Check GraphQL server** (port 4000):
+   ```bash
+   lsof -i:4000
+   ```
+   If not running, start it in background:
+   ```bash
+   npm run graphql-server:run
+   ```
+   Run with `run_in_background: true`. Wait a few seconds, then verify with `lsof -i:4000`.
+
+2. **Check UI dev server** (port 5173):
    ```bash
    lsof -i:5173
    ```
-   If not running, ask user if they want to start it.
+   If not running, start it in background:
+   ```bash
+   npm run ui:dev
+   ```
+   Run with `run_in_background: true`. Wait a few seconds, then verify with `lsof -i:5173`.
 
-2. **Start component spec server**: Serve the HTML specs on port 3333
+3. **Start component spec server** (port 3333):
    ```bash
    npx serve docs/components -p 3333 --no-clipboard
    ```
-   Run this in background (`run_in_background: true`) so it keeps running during comparison.
-
-   Verify it's ready:
-   ```bash
-   lsof -i:3333
-   ```
-   Wait a few seconds after starting the server before checking.
+   Run with `run_in_background: true`. Wait a few seconds, then verify with `lsof -i:3333`.
 
 #### 3.2 Compare Each Component
 
@@ -113,7 +123,9 @@ For each component with both spec and implementation:
 
 #### 3.3 Cleanup
 
-After visual comparison is complete, stop the spec server using `KillShell` with the task ID from the background bash command.
+After visual comparison is complete, stop any servers you started using `KillShell` with the task ID from the background bash command:
+- Stop the component spec server (port 3333) - always stop this one
+- Stop the GraphQL and UI dev servers only if YOU started them (not if they were already running)
 
 ### Phase 4: Report & Offer Fixes
 
