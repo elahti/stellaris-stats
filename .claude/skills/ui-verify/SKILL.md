@@ -153,6 +153,19 @@ For each issue, offer a specific fix using AskUserQuestion:
 | Visual mismatch | "Which should be the source of truth: (A) Update spec to match implementation, (B) Update implementation to match spec?" |
 | E2E test failure | "Investigate and fix failing tests?" |
 
+#### Implementing Fixes
+
+When the user accepts a fix, invoke the `superpowers:brainstorming` skill to design and implement the fix. This ensures:
+- Proper understanding of the fix scope
+- User validation of the approach before implementation
+- Quality implementation following project standards
+
+Example flow:
+1. User accepts "Create HTML spec from current implementation?"
+2. Invoke `Skill(superpowers:brainstorming)` with the fix context
+3. Follow brainstorming workflow to design the spec
+4. Implement after user approval
+
 ## Quick Check Mode
 
 If the user asks for a "quick check" or "fast verify":
