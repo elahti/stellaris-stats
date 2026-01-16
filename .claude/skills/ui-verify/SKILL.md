@@ -20,47 +20,54 @@ Verify that production UI code, E2E tests, and HTML component library are synchr
 
 Execute these phases in order. Report all findings, then offer fixes.
 
-### Phase 1: Gather State
+### Phase 1: Coverage Analysis (Subagent)
 
-Collect inventory of all UI artifacts:
+Launch an Explore subagent to analyze coverage. Use the Task tool with:
 
-1. **React Components**: Use Glob to list `ui/src/components/*.tsx`
-2. **Component Specs**: Use Glob to list `docs/components/*.html`
-3. **E2E Tests**: Use Glob to list `ui/playwright/tests/*.spec.ts`
+```
+subagent_type: Explore
+prompt: |
+  Analyze UI component coverage for the Stellaris Stats project.
 
-Build a table showing what exists:
+  Tasks:
+  1. List all React components in ui/src/components/*.tsx
+  2. List all HTML component specs in docs/components/*.html
+  3. List all E2E test files in ui/playwright/tests/*.spec.ts
+  4. Read docs/components/index.html to check which specs are linked
+  5. For each E2E test file, identify which components are tested
 
-| Component | Has Spec? | Has Tests? |
-|-----------|-----------|------------|
-| SaveList  | Yes/No    | Yes/No     |
-| ...       | ...       | ...        |
+  Build a coverage report with:
+  - Table of components showing: Component Name | Has Spec? | Has Tests?
+  - List of components missing specs
+  - List of components missing test coverage
+  - List of orphaned specs (spec exists but no component)
+  - List of specs not linked in index.html
 
-### Phase 2: Coverage Analysis
+  Component naming conventions:
+  - SaveList.tsx → save-item.html (component contains SaveItem elements)
+  - ViewMenu.tsx → view-menu-sidebar.html, view-menu-item.html
+  - SplashTitle.tsx → splash-title.html (direct 1:1)
 
-Identify gaps:
+  Return a structured markdown report.
+```
 
-1. **Components without specs**: React components in `ui/src/components/` that lack a corresponding HTML file in `docs/components/`
-2. **Components without tests**: Components not referenced in any E2E test file
-3. **Orphaned specs**: HTML specs in `docs/components/` without corresponding React components
-4. **Index completeness**: Check `docs/components/index.html` links to all spec files
+Wait for the subagent to complete and capture its coverage report.
 
-Read the component files and spec files to verify naming conventions align (e.g., `SaveList.tsx` → `save-list.html` or similar).
+### Phase 2: Run E2E Tests
 
-### Phase 3: Run E2E Tests
+Run E2E tests directly (not in subagent, to show progress):
 
-1. Run E2E tests:
-   ```bash
-   npm run test:ci:e2e
-   ```
+```bash
+npm run test:ci:e2e
+```
 
-2. Capture and summarize results:
-   - Total tests run
-   - Passed/failed count
-   - List of failed test names (if any)
+Capture and summarize results:
+- Total tests run
+- Passed/failed count
+- List of failed test names (if any)
+- Which components/features are affected by failures
 
-3. If tests fail, note which components/features are affected
-
-### Phase 4: Visual Comparison
+### Phase 3: Visual Comparison
 
 For each component that has BOTH a spec and implementation:
 
@@ -86,20 +93,22 @@ For each component that has BOTH a spec and implementation:
    - Missing states (hover, selected, disabled)
    - Structural differences (missing elements, wrong hierarchy)
 
-### Phase 5: Report & Offer Fixes
+### Phase 4: Report & Offer Fixes
 
-Generate a summary report:
+Compile all findings into a summary report:
 
 ```
 ## UI Verification Report
 
-### Coverage
+### Coverage (from subagent)
 - Components: X total
 - With specs: Y (Z%)
 - With tests: W (V%)
+- [Coverage table from subagent]
 
 ### E2E Tests
 - Status: PASSED / FAILED
+- Total: X tests
 - Failures: [list if any]
 
 ### Visual Consistency
@@ -125,16 +134,19 @@ For each issue, offer a specific fix using AskUserQuestion:
 
 ## Quick Check Mode
 
-If the user asks for a "quick check" or "fast verify", skip Phase 4 (visual comparison) and only run Phases 1-3 and 5.
+If the user asks for a "quick check" or "fast verify":
+- Run Phase 1 (subagent coverage analysis)
+- Run Phase 2 (E2E tests)
+- Skip Phase 3 (visual comparison)
+- Run Phase 4 (report & offer fixes)
 
-## Component Naming Conventions
+## Parallel Execution Option
 
-Map between file names:
+For faster verification, you can run Phase 1 (subagent) and Phase 2 (E2E tests) in parallel:
 
-| React Component | Spec File | Relationship |
-|-----------------|-----------|--------------|
-| `SaveList.tsx` | `save-item.html` | Component contains SaveItem elements |
-| `ViewMenu.tsx` | `view-menu-sidebar.html`, `view-menu-item.html` | Component uses both specs |
-| `SplashTitle.tsx` | `splash-title.html` | Direct 1:1 mapping |
+1. Launch the Explore subagent with `run_in_background: true`
+2. Start E2E tests immediately
+3. After E2E tests complete, check subagent results with TaskOutput
+4. Continue to Phase 3 with combined results
 
-When checking coverage, account for these relationships—a component may use multiple specs or a spec may document a sub-component.
+Use this when the user wants faster results and doesn't need to see coverage analysis progress.
