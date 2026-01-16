@@ -1,7 +1,7 @@
 ---
 name: ui-verify
 description: Use after completing UI work to verify code, tests, and component specs are in sync. Also use on-demand to audit UI consistency.
-allowed-tools: Bash(npm run test:ci:e2e:*), Bash(npm run ui:dev:*), Bash(lsof -i:*), Bash(curl -s http://localhost:*), Bash(npx serve:*)
+allowed-tools: Bash(npm run test:ci:e2e:*), Bash(npm run ui:dev:*), Bash(lsof -i:*), Bash(npx serve:*)
 model: claude-opus-4-5-20251101
 user-invocable: true
 ---
@@ -87,8 +87,9 @@ For each component that has BOTH a spec and implementation:
 
    Verify it's ready:
    ```bash
-   curl -s http://localhost:3333/ | head -5
+   lsof -i:3333
    ```
+   Wait a few seconds after starting the server before checking.
 
 #### 3.2 Compare Each Component
 
