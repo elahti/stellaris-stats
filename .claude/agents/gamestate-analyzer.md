@@ -2,7 +2,7 @@
 name: gamestate-analyzer
 description: Explore and analyze Stellaris gamestate JSON files. Extract saves, understand empire data, budgets, fleets, planets, and more.
 tools: Bash, Read, Grep, Glob, Edit, mcp__python-executor__run_python_code
-model: opus
+model: claude-opus-4-5-20251101
 color: purple
 ---
 
@@ -125,17 +125,17 @@ jq '<query>' /workspace/gamestate-json-data/<save>/<date>/<file>.json
 
 Key fields in each `country.json[id]` entry:
 
-| Field                       | Type   | Description                                          |
-| --------------------------- | ------ | ---------------------------------------------------- |
-| `name`                      | object | Empire name (see Name Handling section)              |
-| `capital`                   | number | Planet ID of capital world                           |
-| `ownedPlanets`              | array  | Core planets directly owned by the empire            |
-| `controlledPlanets`         | array  | ALL controlled planets (includes sectors, vassals)   |
-| `relationsManager.relation` | array  | Diplomatic relations with other empires              |
-| `techStatus`                | object | Research state and completed technologies            |
-| `budget`                    | object | Economic data (see Budget section)                   |
-| `fleets`                    | array  | Fleet IDs owned by empire                            |
-| `ownedLeaders`              | array  | Leader IDs belonging to empire                       |
+| Field                       | Type   | Description                                        |
+| --------------------------- | ------ | -------------------------------------------------- |
+| `name`                      | object | Empire name (see Name Handling section)            |
+| `capital`                   | number | Planet ID of capital world                         |
+| `ownedPlanets`              | array  | Core planets directly owned by the empire          |
+| `controlledPlanets`         | array  | ALL controlled planets (includes sectors, vassals) |
+| `relationsManager.relation` | array  | Diplomatic relations with other empires            |
+| `techStatus`                | object | Research state and completed technologies          |
+| `budget`                    | object | Economic data (see Budget section)                 |
+| `fleets`                    | array  | Fleet IDs owned by empire                          |
+| `ownedLeaders`              | array  | Leader IDs belonging to empire                     |
 
 **Note**: `ownedPlanets` and `controlledPlanets` are different! A large empire may have 22 owned planets but 350+ controlled planets (including sector-managed colonies).
 
@@ -162,10 +162,10 @@ Each planet in `planets.json.planet[id]` has a `coordinate` field:
 }
 ```
 
-| Field    | Description                                         |
-| -------- | --------------------------------------------------- |
+| Field    | Description                                             |
+| -------- | ------------------------------------------------------- |
 | `x`, `y` | Galactic coordinates (useful for distance calculations) |
-| `origin` | System ID (references `galacticObject.json`)        |
+| `origin` | System ID (references `galacticObject.json`)            |
 
 ### Fleets & Ships
 
@@ -211,19 +211,19 @@ Empire-to-empire relations are stored in `country.json` at `.<countryId>.relatio
 
 Each relation object contains:
 
-| Field              | Type    | Description                                       |
-| ------------------ | ------- | ------------------------------------------------- |
-| `country`          | number  | Target country ID                                 |
-| `relationCurrent`  | number  | Current opinion (can be very negative, e.g. -1103)|
-| `relationLastMonth`| number  | Opinion from previous month                       |
-| `trust`            | number  | Trust level                                       |
-| `threat`           | number  | Perceived threat level                            |
-| `hostile`          | boolean | Currently hostile (at war)                        |
-| `borderRange`      | number  | Border proximity (lower = closer neighbors)       |
-| `contact`          | boolean | Has made contact                                  |
-| `communications`   | boolean | Has established communications                    |
-| `killedShips`      | number  | Ships killed in combat (if any)                   |
-| `sharedRivals`     | number  | Number of shared rival empires                    |
+| Field               | Type    | Description                                        |
+| ------------------- | ------- | -------------------------------------------------- |
+| `country`           | number  | Target country ID                                  |
+| `relationCurrent`   | number  | Current opinion (can be very negative, e.g. -1103) |
+| `relationLastMonth` | number  | Opinion from previous month                        |
+| `trust`             | number  | Trust level                                        |
+| `threat`            | number  | Perceived threat level                             |
+| `hostile`           | boolean | Currently hostile (at war)                         |
+| `borderRange`       | number  | Border proximity (lower = closer neighbors)        |
+| `contact`           | boolean | Has made contact                                   |
+| `communications`    | boolean | Has established communications                     |
+| `killedShips`       | number  | Ships killed in combat (if any)                    |
+| `sharedRivals`      | number  | Number of shared rival empires                     |
 
 ### Buildings & Infrastructure
 
@@ -353,21 +353,21 @@ Budget data is in `country.json` at path `.<countryId>.budget.currentMonth`.
 
 ## Key Relationships
 
-| From                      | Path                                | To                        | Description          |
-| ------------------------- | ----------------------------------- | ------------------------- | -------------------- |
-| `player.json`             | `[0].country`                       | `country.json[id]`        | Player's empire      |
-| `country.json[id]`        | `.ownedPlanets[]`                   | `planets.json.planet[id]` | Empire's planets     |
-| `country.json[id]`        | `.controlledPlanets[]`              | `planets.json.planet[id]` | All controlled planets |
-| `country.json[id]`        | `.ownedLeaders[]`                   | `leaders.json[id]`        | Empire's leaders     |
-| `country.json[id]`        | `.capital`                          | `planets.json.planet[id]` | Capital planet       |
-| `country.json[id]`        | `.fleets[]`                         | `fleet.json[id]`          | Empire's fleets      |
-| `country.json[id]`        | `.relationsManager.relation[].value.country` | `country.json[id]` | Diplomatic relations |
-| `fleet.json[id]`          | `.ships[]`                          | `ships.json[id]`          | Fleet's ships        |
-| `galacticObject.json[id]` | `.planet[]`                         | `planets.json.planet[id]` | System's planets     |
-| `planets.json.planet[id]` | `.controller`                       | `country.json[id]`        | Planet controller    |
-| `planets.json.planet[id]` | `.coordinate.origin`                | `galacticObject.json[id]` | Planet's star system |
-| `leaders.json[id]`        | `.country`                          | `country.json[id]`        | Leader's empire      |
-| `pop.json[id]`            | `.species`                          | `speciesDb.json[id]`      | Pop's species        |
+| From                      | Path                                         | To                        | Description            |
+| ------------------------- | -------------------------------------------- | ------------------------- | ---------------------- |
+| `player.json`             | `[0].country`                                | `country.json[id]`        | Player's empire        |
+| `country.json[id]`        | `.ownedPlanets[]`                            | `planets.json.planet[id]` | Empire's planets       |
+| `country.json[id]`        | `.controlledPlanets[]`                       | `planets.json.planet[id]` | All controlled planets |
+| `country.json[id]`        | `.ownedLeaders[]`                            | `leaders.json[id]`        | Empire's leaders       |
+| `country.json[id]`        | `.capital`                                   | `planets.json.planet[id]` | Capital planet         |
+| `country.json[id]`        | `.fleets[]`                                  | `fleet.json[id]`          | Empire's fleets        |
+| `country.json[id]`        | `.relationsManager.relation[].value.country` | `country.json[id]`        | Diplomatic relations   |
+| `fleet.json[id]`          | `.ships[]`                                   | `ships.json[id]`          | Fleet's ships          |
+| `galacticObject.json[id]` | `.planet[]`                                  | `planets.json.planet[id]` | System's planets       |
+| `planets.json.planet[id]` | `.controller`                                | `country.json[id]`        | Planet controller      |
+| `planets.json.planet[id]` | `.coordinate.origin`                         | `galacticObject.json[id]` | Planet's star system   |
+| `leaders.json[id]`        | `.country`                                   | `country.json[id]`        | Leader's empire        |
+| `pop.json[id]`            | `.species`                                   | `speciesDb.json[id]`      | Pop's species          |
 
 ---
 
@@ -460,6 +460,7 @@ jq '.planet."<planetId>".coordinate' /workspace/gamestate-json-data/<save>/<date
 ### Find Closest Neighbors (Complex Analysis)
 
 Finding neighbors by planet proximity requires combining data from multiple files. Write a Python script to `/tmp/` that:
+
 1. Loads `country.json` to get all empires and their `ownedPlanets`
 2. Loads `planets.json` to get planet coordinates
 3. Calculates minimum distances between each empire's planets
@@ -482,27 +483,29 @@ See Tips section for guidance on writing complex analysis scripts.
 5. **Name fields**: Names use two formats:
 
    **Simple format:**
+
    ```json
-   {"key": "NAME_Unity"}
+   { "key": "NAME_Unity" }
    ```
 
    **Template format** (common for AI empires):
+
    ```json
    {
      "key": "%ADJECTIVE%",
      "variables": [
-       {"key": "adjective", "value": {"key": "SPEC_Vurxac"}},
-       {"key": 1, "value": {"key": "Progenitors"}}
+       { "key": "adjective", "value": { "key": "SPEC_Vurxac" } },
+       { "key": 1, "value": { "key": "Progenitors" } }
      ]
    }
    ```
 
    **Common prefixes to strip for display names:**
-   | Type    | Prefixes                                                                                                    |
+   | Type | Prefixes |
    | ------- | ----------------------------------------------------------------------------------------------------------- |
-   | Empire  | `EMPIRE_DESIGN_`, `NAME_`, `SPEC_`                                                                          |
-   | Planet  | `MAM1_PLANET_`, `MAM2_PLANET_`, `REP1_PLANET_`, `REP2_PLANET_`, `AVI3_PLANET_`, `ART1_PLANET_`, `NEW_COLONY_NAME_`, `HUMAN1_PLANET_`, `PLANET_NAME_`, `NAME_` |
-   | Species | `SPEC_`                                                                                                     |
+   | Empire | `EMPIRE_DESIGN_`, `NAME_`, `SPEC_` |
+   | Planet | `MAM1_PLANET_`, `MAM2_PLANET_`, `REP1_PLANET_`, `REP2_PLANET_`, `AVI3_PLANET_`, `ART1_PLANET_`, `NEW_COLONY_NAME_`, `HUMAN1_PLANET_`, `PLANET_NAME_`, `NAME_` |
+   | Species | `SPEC_` |
 
 6. **Null handling**: Use `// 0` or `// null` in jq to handle missing fields gracefully.
 

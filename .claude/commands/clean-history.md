@@ -1,7 +1,7 @@
 ---
 allowed-tools: Bash(git status:*), Bash(git log:*), Bash(git diff:*), Bash(git show:*), Bash(git branch:*), Bash(git merge-base:*), Bash(git reset:*), Bash(git add:*), Bash(git commit:*), Bash(git rev-parse:*)
 description: Clean up feature branch commit history
-model: sonnet
+model: claude-sonnet-4-5-20250929
 ---
 
 # Clean History Command
@@ -24,6 +24,7 @@ git rev-parse --abbrev-ref HEAD  # Get current branch name
 ```
 
 **Abort if:**
+
 - Working tree is dirty → "Commit or stash your changes first, then run /clean-history again"
 - On main/master/develop → "You're on a base branch. Switch to a feature branch first"
 
@@ -32,6 +33,7 @@ git rev-parse --abbrev-ref HEAD  # Get current branch name
 If `$ARGUMENTS` is provided, use that as the base branch.
 
 Otherwise, auto-detect:
+
 1. Check common base branches: `main`, `master`, `develop`
 2. For each, check if it exists and if current branch has commits ahead of it
 3. If multiple match or none match, ask user to specify
@@ -56,6 +58,7 @@ git rev-parse --abbrev-ref --symbolic-full-name @{upstream} 2>/dev/null
 ```
 
 If branch has upstream tracking, warn:
+
 > "This branch has been pushed to remote. Cleaning history will require a force push (`git push --force-with-lease`). Continue?"
 
 Wait for user confirmation before proceeding.
@@ -71,6 +74,7 @@ git show <sha>                          # Full diff
 ```
 
 Analyze and group commits by:
+
 - **File patterns**: test files together, config files together, source files by module
 - **Semantic similarity**: commits touching the same feature/component
 - **Message hints**: "wip", "fix", "oops", "typo" → likely should merge into related work
@@ -148,6 +152,7 @@ git diff backup/<branch>-<timestamp>..HEAD
 ```
 
 **If diff is NOT empty:**
+
 1. Show the diff to user
 2. Abort and restore: `git reset --hard backup/<branch>-<timestamp>`
 3. Report what went wrong
@@ -170,6 +175,7 @@ Diff verification: PASSED (no code changes)
 ```
 
 If branch was pushed, remind:
+
 > "Remember to force push: git push --force-with-lease"
 
 Ask: "Delete backup branch? (Recommended to keep until you've verified everything works)"
@@ -187,6 +193,7 @@ Tell the user the original state has been restored.
 ## Commit Message Guidelines
 
 When suggesting commit messages for groups:
+
 - Use conventional commit format: `type: description`
 - Types: `feat`, `fix`, `refactor`, `test`, `docs`, `build`, `style`
 - Focus on the "what" and "why", not implementation details
